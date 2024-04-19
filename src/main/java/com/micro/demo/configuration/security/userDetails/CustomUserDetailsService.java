@@ -20,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario user = this.userRepository.buscarPorCorreo(email);
+        Usuario user = this.userRepository.findByCorreo(email);
 
         List<Usuario> userEntity = userRepository.findAllById(Collections.singleton(user.getId()));
 

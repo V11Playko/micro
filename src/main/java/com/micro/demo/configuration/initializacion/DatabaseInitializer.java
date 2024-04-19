@@ -35,7 +35,7 @@ public class DatabaseInitializer {
     }
 
     private void createRoleIfNotExists(String name, String description) {
-        Role role = roleRepository.buscarPorNombre(name);
+        Role role = roleRepository.findByNombre(name);
         if (role == null) {
             role = new Role();
             role.setNombre(name);
@@ -45,7 +45,7 @@ public class DatabaseInitializer {
     }
 
     private void initializeAdminUser() {
-        if (userRepository.buscarPorCorreo("admin@gmail.com") == null) {
+        if (userRepository.findByCorreo("admin@gmail.com") == null) {
             Usuario admin = new Usuario();
             admin.setNombre("Admin");
             admin.setApellido("AdminSurname");
@@ -53,7 +53,7 @@ public class DatabaseInitializer {
             admin.setCorreo("admin@gmail.com");
             admin.setContraseña(passwordEncoder.encodePassword("admin"));
 
-            Role adminRole = roleRepository.buscarPorNombre("ROLE_ADMIN");
+            Role adminRole = roleRepository.findByNombre("ROLE_ADMIN");
             admin.setRole(adminRole);
 
             userRepository.save(admin);
