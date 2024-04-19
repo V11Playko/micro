@@ -28,8 +28,8 @@ public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "El campo 'nombre' es obligatorio")
@@ -42,6 +42,7 @@ public class Usuario implements Serializable {
 
     @Pattern(regexp = "^\\+?57\\s(3[0-2]|7[0-1])\\d{8}$", message = "El campo 'phoneNumber' debe ser un número de teléfono válido. Introduzca el formato +57 3...")
     @NotBlank(message = "El campo 'numeroCelular' es obligatorio")
+    @Column(unique = true)
     private String numeroCelular;
 
     @NotBlank(message = "El campo 'correo' es obligatorio")
@@ -52,7 +53,6 @@ public class Usuario implements Serializable {
     @NotBlank(message = "El campo 'contraseña' es obligatorio")
     private String contraseña;
 
-    @NotNull(message = "El campo 'rol' es obligatorio")
     @ManyToOne
     @JoinColumn(name = "id_role")
     private Role role;

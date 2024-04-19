@@ -11,11 +11,11 @@ import lombok.Setter;
 @Setter
 public class LoginRequestDto {
 
-    @NotBlank(message = "El email no debe estar en blanco")
-    @Email(message = "El campo 'email' debe ser una dirección de correo electrónico válida. Ingrese el formato nombre@ejemplo.com")
+    @NotBlank(message = "El correo no debe estar en blanco")
+    @Email(message = "El campo 'correo' debe ser una dirección de correo electrónico válida. Ingrese el formato nombre@ejemplo.com")
     private String correo;
 
-    @NotBlank(message = "La password no puede ser nula")
-    @Size(min = 4, max = 255, message = "La password debe tener entre 4 y 255 caracteres")
+    @NotBlank(message = "La contraseña no puede ser nula")
+    @Size(min = 4, max = 255, message = "La contraseña debe tener entre 4 y 255 caracteres")
     private String contraseña;
 }
