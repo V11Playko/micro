@@ -44,10 +44,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/v1/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/v1/admin/director/**").hasRole("DIRECTOR")
                         .requestMatchers("/api/v1/admin/docente/**").hasRole("DOCENTE")
                         .requestMatchers("/api/v1/admin/visitante/**").hasRole("VISITANTE")
+                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin().disable()
