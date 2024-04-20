@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserPageRequestDto {
+public class PageRequestDto {
     @Positive
     private int pagina;
     @Positive

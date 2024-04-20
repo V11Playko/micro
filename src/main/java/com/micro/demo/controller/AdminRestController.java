@@ -1,9 +1,10 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
-import com.micro.demo.controller.dto.UserPageRequestDto;
+import com.micro.demo.controller.dto.PageRequestDto;
+import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
-import com.micro.demo.repository.IRoleRepository;
+import com.micro.demo.service.IProgramaAcademicoService;
 import com.micro.demo.service.IUsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,7 +12,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,17 +32,25 @@ import java.util.Map;
 @RequestMapping("/api/v1/admin")
 public class AdminRestController {
     private final IUsuarioService usuarioService;
+    private final IProgramaAcademicoService programaAcademicoService;
 
-    public AdminRestController(IUsuarioService usuarioService) {
+    public AdminRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService) {
         this.usuarioService = usuarioService;
+        this.programaAcademicoService = programaAcademicoService;
     }
+
+    /**
+     *
+     * USUARIOS
+     *
+     * **/
     @Operation(summary = "Get all users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Users list returned", content = @Content),
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
     @GetMapping("/allUsers")
-    public ResponseEntity<List<Usuario>> getAllUsers(@Valid @RequestBody UserPageRequestDto pageRequestDto){
+    public ResponseEntity<List<Usuario>> getAllUsers(@Valid @RequestBody PageRequestDto pageRequestDto){
         return ResponseEntity.ok(usuarioService.getAllUsers(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -98,5 +106,32 @@ public class AdminRestController {
             usuarioService.deleteUser(id);
             return ResponseEntity.status(HttpStatus.OK)
                     .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_DELETED_MESSAGE));
+    }
+
+    /**
+     *
+     * PROGRAMA ACADEMICO
+     *
+     * **/
+
+    @Operation(summary = "Get all programas academicos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Programas list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
+    })
+    @GetMapping("/allProgramasAcademicos")
+    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(programaAcademicoService.getAll(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Get programa academico por nombre")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Programa returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
+    })
+    @GetMapping("/{nombre}")
+    public ResponseEntity<ProgramaAcademico> getProgramaByNombre(@PathVariable String nombre) {
+        ProgramaAcademico programa = programaAcademicoService.getProgramaByNombre(nombre);
+        return ResponseEntity.ok(programa);
     }
 }

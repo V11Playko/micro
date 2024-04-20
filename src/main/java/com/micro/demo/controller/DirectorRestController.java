@@ -1,9 +1,11 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
-import com.micro.demo.controller.dto.UserPageRequestDto;
+import com.micro.demo.controller.dto.PageRequestDto;
+import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Unidad;
 import com.micro.demo.entities.Usuario;
+import com.micro.demo.service.IProgramaAcademicoService;
 import com.micro.demo.service.IUnidadService;
 import com.micro.demo.service.IUsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
@@ -34,11 +35,19 @@ public class DirectorRestController {
 
     private final IUsuarioService usuarioService;
     private final IUnidadService unidadService;
+    private final IProgramaAcademicoService programaAcademicoService;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
+        this.programaAcademicoService = programaAcademicoService;
     }
+
+    /**
+     *
+     * USUARIOS
+     *
+     * **/
 
     @Operation(summary = "Get all users")
     @ApiResponses(value = {
@@ -46,7 +55,7 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
     @GetMapping("/allUsers")
-    public ResponseEntity<List<Usuario>> getAllUsers(@Valid @RequestBody UserPageRequestDto pageRequestDto){
+    public ResponseEntity<List<Usuario>> getAllUsers(@Valid @RequestBody PageRequestDto pageRequestDto){
         return ResponseEntity.ok(usuarioService.getAllUsers(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -93,7 +102,11 @@ public class DirectorRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_DELETED_MESSAGE));
     }
 
-
+    /**
+     *
+     * UNIDADES
+     *
+     * **/
 
     @Operation(summary = "Get all unidades")
     @ApiResponses(value = {
@@ -152,5 +165,21 @@ public class DirectorRestController {
         unidadService.deleteUnidad(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
+    /**
+     *
+     * PROGRAMA ACADEMICO
+     *
+     * **/
+
+    @Operation(summary = "Get all programas academicos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Programas list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
+    })
+    @GetMapping("/allProgramasAcademicos")
+    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(programaAcademicoService.getAll(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 }
