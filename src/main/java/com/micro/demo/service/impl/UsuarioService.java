@@ -42,8 +42,17 @@ public class UsuarioService implements IUsuarioService {
             throw new IllegalArgumentException("El número de página debe ser mayor o igual a 1.");
         }
 
+        String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
+        Usuario usuarioAutenticado = getUserByCorreo(correoUsuarioAutenticado);
+
         Pageable pageable = PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending());
-        Page<Usuario> page = usuarioRepository.findAll(pageable);
+        Page<Usuario> page;
+
+        if (usuarioAutenticado != null && usuarioAutenticado.getRole().getNombre().equals("ROLE_DIRECTOR")) {
+            page = usuarioRepository.findByRoleNombre("ROLE_DOCENTE", pageable);
+        } else {
+            page = usuarioRepository.findAll(pageable);
+        }
 
         if (page.isEmpty()) {
             throw new NoDataFoundException();
@@ -76,8 +85,16 @@ public class UsuarioService implements IUsuarioService {
     public void updateUser(Long id, Usuario usuarioActualizado) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
         Usuario usuarioExistente = usuarioRepository.findById(id).orElseThrow(NoDataFoundException::new);
+        Usuario usuarioAutenticado = getUserByCorreo(correoUsuarioAutenticado);
 
-        if (usuarioExistente != null && (correoUsuarioAutenticado != null && (correoUsuarioAutenticado.equals("admin@gmail.com") || correoUsuarioAutenticado.equals(usuarioActualizado.getCorreo())))) {
+        boolean isAdminOrOwnUser = (correoUsuarioAutenticado != null &&
+                (correoUsuarioAutenticado.equals("admin@gmail.com") ||
+                        correoUsuarioAutenticado.equals(usuarioExistente.getCorreo())));
+
+        boolean isDirectorUpdatingDocente = (usuarioAutenticado.getRole().getNombre().equals("ROLE_DIRECTOR") &&
+                usuarioExistente.getRole().getNombre().equals("ROLE_DOCENTE"));
+
+        if (isAdminOrOwnUser || isDirectorUpdatingDocente) {
             usuarioExistente.setNombre(usuarioActualizado.getNombre());
             usuarioExistente.setApellido(usuarioActualizado.getApellido());
             usuarioExistente.setNumeroCelular(usuarioActualizado.getNumeroCelular());
@@ -90,19 +107,31 @@ public class UsuarioService implements IUsuarioService {
         }
     }
 
+
     @Override
     public void deleteUser(Long id) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
-        if (correoUsuarioAutenticado != null || correoUsuarioAutenticado.equals("admin@gmail.com")) {
-            Usuario usuarioExistente = usuarioRepository.findById(id).orElseThrow(NoDataFoundException::new);
-            if (usuarioExistente != null || usuarioExistente.getCorreo().equals(correoUsuarioAutenticado)) {
-                usuarioRepository.deleteById(id);
-            } else {
-                throw new UnauthorizedException();
-            }
-        } else {
-            throw new NotFoundUserUnauthorized();
+        Usuario usuarioAutenticado = getUserByCorreo(correoUsuarioAutenticado);
+
+        if (usuarioAutenticado.getRole().getNombre().equals("ROLE_ADMIN")) {
+            usuarioRepository.deleteById(id);
+            return;
         }
+
+        if (usuarioAutenticado.getId().equals(id)) {
+            usuarioRepository.deleteById(id);
+            return;
+        }
+
+        if (usuarioAutenticado.getRole().getNombre().equals("ROLE_DIRECTOR")) {
+            Usuario usuarioAEliminar = usuarioRepository.findById(id)
+                    .orElseThrow(NoDataFoundException::new);
+            if (usuarioAEliminar.getRole().getNombre().equals("ROLE_DOCENTE")) {
+                usuarioRepository.deleteById(id);
+                return;
+            }
+        }
+        throw new UnauthorizedException();
     }
 
     private String getCorreoUsuarioAutenticado() {

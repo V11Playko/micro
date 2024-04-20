@@ -44,9 +44,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/v1/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/v1/admin/director/**").hasRole("DIRECTOR")
-                        .requestMatchers("/api/v1/admin/docente/**").hasRole("DOCENTE")
-                        .requestMatchers("/api/v1/admin/visitante/**").hasRole("VISITANTE")
+                        .requestMatchers("/api/v1/admin/director/**").hasAnyRole("DIRECTOR", "ADMIN")
+                        .requestMatchers("/api/v1/admin/docente/**").hasAnyRole("DOCENTE", "ADMIN")
+                        .requestMatchers("/api/v1/admin/visitante/**").hasAnyRole("VISITANTE", "ADMIN")
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -54,7 +54,6 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler);
-
 
 
         http.authenticationProvider(authenticationProvider());
