@@ -30,7 +30,7 @@ public class UnidadResultado implements Serializable {
     private String criterioDesempeno;
     private String instrumentoEvaluacion;
     private String tipoEvidencia;
-    private String estatus;
+    private boolean estatus;
 
     @ManyToOne
     @JoinColumn(name = "unidad_id")

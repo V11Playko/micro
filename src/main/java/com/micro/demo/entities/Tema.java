@@ -28,7 +28,7 @@ public class Tema implements Serializable {
     private Long id;
     private String nombre;
     private String descripcion;
-    private String estatus;
+    private boolean estatus;
     @ManyToOne
     @JoinColumn(name = "unidad_id")
     private Unidad unidad;
