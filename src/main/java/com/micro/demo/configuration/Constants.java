@@ -21,4 +21,7 @@ public class Constants {
     public static final String USER_NOT_FOUND_UNAUTHORIZED_MESSAGE = "No se encontró un usuario autenticado.";
     public static final String USER_ALREADY_EXISTS_MESSAGE = "Este correo ya esta en uso.";
     public static final String ROLE_NOT_FOUND_MESSAGE = "Este role no existe.";
+    public static final String CREATED_MESSAGE = "Creado satisfactoriamente.";
+    public static final String UPDATED_MESSAGE = "Actualizado satisfactoriamente.";
+    public static final String DELETED_MESSAGE = "Eliminado satisfactoriamente.";
 }
