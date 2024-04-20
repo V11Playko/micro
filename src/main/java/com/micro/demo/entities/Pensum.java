@@ -40,5 +40,5 @@ public class Pensum implements Serializable {
     private ProgramaAcademico programaAcademico;
 
     @OneToMany(mappedBy = "pensum")
-    private List<Asignatura> asignaturas;
+    private List<AsignaturaPensum> asignaturaPensum;
 }
