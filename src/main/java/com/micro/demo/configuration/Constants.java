@@ -24,4 +24,10 @@ public class Constants {
     public static final String CREATED_MESSAGE = "Creado satisfactoriamente.";
     public static final String UPDATED_MESSAGE = "Actualizado satisfactoriamente.";
     public static final String DELETED_MESSAGE = "Eliminado satisfactoriamente.";
+    public static final String PAGINA_ILEGAL_MESSAGE = "El número de página debe ser mayor o igual a 1.";
+    public static final String PROGRAMA_NOT_FOUND_MESSAGE = "El programa academico no existe.";
+    public static final String DIRECTOR_NOT_FOUND_MESSAGE = "El director no existe.";
+    public static final String DIRECTOR_ALREADY_ASSIGN_MESSAGE = "El usuario ya es director de otro programa académico.";
+    public static final String DURACION_INVALIDA_MESSAGE = "La duracion del periodo de modificacion no se puedo modificar";
+    public static final String PERIODO_MODIFICACION_INVALIDO_MESSAGE = "El periodo de modificacion no se pudo modificar.";
 }
