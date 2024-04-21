@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"correo\": \"gabriel@gmail.com\",\r\n  \"contraseña\": \"Mejia\"\r\n}",
+							"raw": "{\r\n  \"correo\": \"juan@gmail.com\",\r\n  \"contraseña\": \"Vega\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -968,6 +968,175 @@
 										"admin",
 										"director",
 										"updatePeriodoModificacion"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage Pensum",
+					"item": [
+						{
+							"name": "All Pensum",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/allPensums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"allPensums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Pensum",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFuQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNjcwOTc2LCJleHAiOjE3MzUyNzA5NzZ9.wjTLTmdJ9ymgBVy45DyxfP_3c288UkLgm2mLj8_uv4KbYhSKLGBy2Jq-rocUE-y4YfqIljETUJWCRy3LtITGvQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"creditosTotales\": 132,\r\n  \"fechaInicio\": \"2024-04-22\",\r\n  \"fechaFinal\": \"2024-05-11\",\r\n  \"estatus\": true,\r\n  \"asignaturaPensum\": [\r\n    {\r\n      \"id\": 1\r\n    },\r\n    {\r\n      \"id\": 2\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/savePensum",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"savePensum"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Pensum",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"creditosTotales\": 50,\r\n    \"fechaInicio\": \"2024-04-24\",\r\n    \"fechaFinal\": \"2024-04-28\",\r\n    \"estatus\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/updatePensum/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"updatePensum",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Pensum",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/deletePensum/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"deletePensum",
+										"2"
 									]
 								}
 							},
