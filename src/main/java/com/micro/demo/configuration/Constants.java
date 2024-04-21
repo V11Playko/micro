@@ -30,4 +30,5 @@ public class Constants {
     public static final String DIRECTOR_ALREADY_ASSIGN_MESSAGE = "El usuario ya es director de otro programa académico.";
     public static final String DURACION_INVALIDA_MESSAGE = "La duracion del periodo de modificacion no se puedo modificar";
     public static final String PERIODO_MODIFICACION_INVALIDO_MESSAGE = "El periodo de modificacion no se pudo modificar.";
+    public static final String PROGRAMA_EXISTENTE_MESSAGE = "El programa académico ya existe";
 }

@@ -7,6 +7,7 @@ import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.NotFoundUserUnauthorized;
 import com.micro.demo.service.exceptions.PeriodoModificacionInvalidoException;
+import com.micro.demo.service.exceptions.ProgramaAcademicoExistenteException;
 import com.micro.demo.service.exceptions.ProgramaNotFoundException;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
@@ -32,6 +33,7 @@ import static com.micro.demo.configuration.Constants.DURACION_INVALIDA_MESSAGE;
 import static com.micro.demo.configuration.Constants.NO_DATA_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.PAGINA_ILEGAL_MESSAGE;
 import static com.micro.demo.configuration.Constants.PERIODO_MODIFICACION_INVALIDO_MESSAGE;
+import static com.micro.demo.configuration.Constants.PROGRAMA_EXISTENTE_MESSAGE;
 import static com.micro.demo.configuration.Constants.PROGRAMA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.RESPONSE_MESSAGE_KEY;
 import static com.micro.demo.configuration.Constants.ROLE_NOT_FOUND_MESSAGE;
@@ -156,5 +158,12 @@ public class ControllerAdvisor {
             PeriodoModificacionInvalidoException periodoModificacionInvalidoException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PERIODO_MODIFICACION_INVALIDO_MESSAGE));
+    }
+
+    @ExceptionHandler(ProgramaAcademicoExistenteException.class)
+    public ResponseEntity<Map<String, String>> programaAcademicoExistenteException(
+            ProgramaAcademicoExistenteException programaAcademicoExistenteException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PROGRAMA_EXISTENTE_MESSAGE));
     }
 }
