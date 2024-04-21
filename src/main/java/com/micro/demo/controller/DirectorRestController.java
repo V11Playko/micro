@@ -1,7 +1,10 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.controller.dto.AssignDirectorRequestDto;
 import com.micro.demo.controller.dto.PageRequestDto;
+import com.micro.demo.controller.dto.UpdatePeriodoModificacionRequestDto;
+import com.micro.demo.controller.dto.UpdatePuedeDescargarPdfRequestDto;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Unidad;
 import com.micro.demo.entities.Usuario;
@@ -143,7 +146,7 @@ public class DirectorRestController {
 
     @Operation(summary = "Updated unidad",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Unidad update",
+                    @ApiResponse(responseCode = "200", description = "Unidad update",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "409", description = "Unidad already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
@@ -156,7 +159,7 @@ public class DirectorRestController {
 
     @Operation(summary = "Deleted unidad",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Unidad deleted",
+                    @ApiResponse(responseCode = "200", description = "Unidad deleted",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "404", description = "Unidad not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
@@ -181,5 +184,35 @@ public class DirectorRestController {
     @GetMapping("/allProgramasAcademicos")
     public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(@Valid @RequestBody PageRequestDto pageRequestDto){
         return ResponseEntity.ok(programaAcademicoService.getAll(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Update periodo de modificacion",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Periodo de modificacion actualizado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Periodo de modificacion already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/updatePeriodoModificacion")
+    public ResponseEntity<Map<String, String>> updatePeriodoModificacion(@Valid @RequestBody UpdatePeriodoModificacionRequestDto updatePeriodoModificacionRequestDto) {
+        programaAcademicoService.updatePeriodoModificacion(
+                updatePeriodoModificacionRequestDto.getNombrePrograma(),
+                updatePeriodoModificacionRequestDto.getFechaInicioModificacion(),
+                updatePeriodoModificacionRequestDto.getDuracionModificacion()
+        );
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Update puedeDescargarPdf",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Update puedeDescargarPdf",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Atributte PuedeDescargarPdf already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/updatePuedeDescargarPdf")
+    public ResponseEntity<Map<String, String>> updatePuedeDescargarPdf(@Valid @RequestBody UpdatePuedeDescargarPdfRequestDto updatePuedeDescargarPdfRequestDto) {
+        programaAcademicoService.updatePuedeDescargarPdf(updatePuedeDescargarPdfRequestDto.getNombrePrograma(), updatePuedeDescargarPdfRequestDto.isPuedeDescargarPdf());
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
     }
 }

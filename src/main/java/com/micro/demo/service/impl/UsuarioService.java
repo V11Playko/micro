@@ -7,6 +7,7 @@ import com.micro.demo.repository.IRoleRepository;
 import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IAuthPasswordEncoderPort;
 import com.micro.demo.service.IUsuarioService;
+import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.NotFoundUserUnauthorized;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
@@ -39,7 +40,7 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public List<Usuario> getAllUsers(int pagina, int elementosXpagina) {
         if (pagina < 1) {
-            throw new IllegalArgumentException("El número de página debe ser mayor o igual a 1.");
+            throw new IlegalPaginaException();
         }
 
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
@@ -63,7 +64,9 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public Usuario getUserByCorreo(String correo) {
-        return usuarioRepository.findByCorreo(correo);
+        Usuario usuario = usuarioRepository.findByCorreo(correo);
+        if (usuario == null) throw new NoDataFoundException();
+        return usuario;
     }
 
     @Override

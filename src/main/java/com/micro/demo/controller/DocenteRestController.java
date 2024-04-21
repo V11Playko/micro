@@ -87,4 +87,15 @@ public class DocenteRestController {
     public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(@Valid @RequestBody PageRequestDto pageRequestDto){
         return ResponseEntity.ok(programaAcademicoService.getAll(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
+
+    @Operation(summary = "Get programa academico por nombre")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Programa returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
+    })
+    @GetMapping("/{nombre}")
+    public ResponseEntity<ProgramaAcademico> getProgramaByNombre(@PathVariable String nombre) {
+        ProgramaAcademico programa = programaAcademicoService.getProgramaByNombre(nombre);
+        return ResponseEntity.ok(programa);
+    }
 }

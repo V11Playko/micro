@@ -1,37 +1,68 @@
 package com.micro.demo.controller;
 
+import com.micro.demo.configuration.Constants;
 import com.micro.demo.controller.dto.PageRequestDto;
 import com.micro.demo.entities.ProgramaAcademico;
+import com.micro.demo.entities.Usuario;
 import com.micro.demo.service.IProgramaAcademicoService;
+import com.micro.demo.service.IUsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/admin/visitante")
 public class VisitanteRestController {
+    private final IUsuarioService usuarioService;
     private final IProgramaAcademicoService programaAcademicoService;
 
-    public VisitanteRestController(IProgramaAcademicoService programaAcademicoService) {
+    public VisitanteRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService) {
+        this.usuarioService = usuarioService;
         this.programaAcademicoService = programaAcademicoService;
     }
+
+
+    /**
+     *
+     * USUARIOS
+     *
+     * **/
+    @Operation(summary = "Add a new user",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "User created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "User already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error"))),
+                    @ApiResponse(responseCode = "403", description = "Role not allowed for user creation",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/saveVisitante")
+    public ResponseEntity<Map<String, String>> saveDirector(@Valid @RequestBody Usuario user) {
+        usuarioService.saveUser(user, "ROLE_VISITANTE");
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
+    }
+
 
     /**
      *
      * PROGRAMA ACADEMICO
      *
      * **/
-
     @Operation(summary = "Get all programas academicos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Programas list returned", content = @Content),

@@ -1,6 +1,7 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.controller.dto.AssignDirectorRequestDto;
 import com.micro.demo.controller.dto.PageRequestDto;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
@@ -82,7 +83,7 @@ public class AdminRestController {
 
     @Operation(summary = "Updated user",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "User update",
+                    @ApiResponse(responseCode = "200", description = "User update",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "409", description = "User already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error"))),
@@ -97,7 +98,7 @@ public class AdminRestController {
 
     @Operation(summary = "Deleted user",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "User deleted",
+                    @ApiResponse(responseCode = "200", description = "User deleted",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "404", description = "User not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
@@ -133,5 +134,44 @@ public class AdminRestController {
     public ResponseEntity<ProgramaAcademico> getProgramaByNombre(@PathVariable String nombre) {
         ProgramaAcademico programa = programaAcademicoService.getProgramaByNombre(nombre);
         return ResponseEntity.ok(programa);
+    }
+
+    @Operation(summary = "Add a new programa academico",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Programa created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Programa already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/saveProgramaAcademico")
+    public ResponseEntity<Map<String, String>> saveProgramaAcademico(@Valid @RequestBody ProgramaAcademico programaAcademico) {
+        programaAcademicoService.saveProgramaAcademico(programaAcademico);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    @Operation(summary = "Assign Director",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Assign Director",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Director already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/assignDirector")
+    public ResponseEntity<Map<String, String>> assignDirector(@Valid @RequestBody AssignDirectorRequestDto assignDirectorRequestDto) {
+        programaAcademicoService.assignDirector(assignDirectorRequestDto.getCorreoDirector(), assignDirectorRequestDto.getNombrePrograma());
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Deleted programa academico",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Programa deleted",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Programa not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/deleteProgramaAcademico/{id}")
+    public ResponseEntity<Map<String, String>> deleteProgramaAcademico(@PathVariable Long id) {
+        programaAcademicoService.deleteProgramaAcademico(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
     }
 }

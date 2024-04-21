@@ -29,11 +29,10 @@ public class ProgramaAcademico implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private String correoDirector;
     private Boolean puedeDescargarPdf;
     private LocalDate fechaInicioModificacion;
     private Integer duracionModificacion;
     @OneToOne
-    @JoinColumn(referencedColumnName = "correo")
+    @JoinColumn(name = "correo_director", referencedColumnName = "correo")
     private Usuario director;
 }
