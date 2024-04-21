@@ -8,10 +8,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Future;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -31,7 +33,11 @@ public class Pensum implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer creditosTotales;
+    @Future
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaInicio;
+    @Future
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaFinal;
     private boolean estatus;
 

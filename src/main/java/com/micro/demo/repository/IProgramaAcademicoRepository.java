@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface IProgramaAcademicoRepository extends JpaRepository<ProgramaAcademico, Long> {
     ProgramaAcademico findByNombre(String nombre);
     ProgramaAcademico findByDirector(Usuario director);
+    ProgramaAcademico findByDirectorCorreo(String correo);
 }

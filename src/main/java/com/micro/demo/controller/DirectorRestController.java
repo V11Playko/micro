@@ -1,13 +1,14 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
-import com.micro.demo.controller.dto.AssignDirectorRequestDto;
 import com.micro.demo.controller.dto.PageRequestDto;
 import com.micro.demo.controller.dto.UpdatePeriodoModificacionRequestDto;
 import com.micro.demo.controller.dto.UpdatePuedeDescargarPdfRequestDto;
+import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Unidad;
 import com.micro.demo.entities.Usuario;
+import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.IProgramaAcademicoService;
 import com.micro.demo.service.IUnidadService;
 import com.micro.demo.service.IUsuarioService;
@@ -39,11 +40,13 @@ public class DirectorRestController {
     private final IUsuarioService usuarioService;
     private final IUnidadService unidadService;
     private final IProgramaAcademicoService programaAcademicoService;
+    private final IPensumService pensumService;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
+        this.pensumService = pensumService;
     }
 
     /**
@@ -214,5 +217,60 @@ public class DirectorRestController {
         programaAcademicoService.updatePuedeDescargarPdf(updatePuedeDescargarPdfRequestDto.getNombrePrograma(), updatePuedeDescargarPdfRequestDto.isPuedeDescargarPdf());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+
+    /**
+     *
+     * PENSUM
+     *
+     * **/
+    @Operation(summary = "Get all pensums")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Pensums list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
+    })
+    @GetMapping("/allPensums")
+    public ResponseEntity<List<Pensum>> getAllPensums(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(pensumService.getAllPensum(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Add a new pensum",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Pensum created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Pensum already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/savePensum")
+    public ResponseEntity<Map<String, String>> savePensum(@Valid @RequestBody Pensum pensum) {
+        pensumService.savePensum(pensum);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    @Operation(summary = "Updated pensum",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Pensum update",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Pensum already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/updatePensum/{id}")
+    public ResponseEntity<Map<String, String>> updatePensum(@PathVariable Long id, @RequestBody Pensum pensum) {
+        pensumService.updatePensum(id,pensum);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Deleted pensum",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Pensum deleted",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Pensum not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/deletePensum/{id}")
+    public ResponseEntity<Map<String, String>> deletePensum(@PathVariable Long id) {
+        pensumService.deletePensum(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
     }
 }

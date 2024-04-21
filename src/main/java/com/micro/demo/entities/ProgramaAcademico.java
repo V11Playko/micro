@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ public class ProgramaAcademico implements Serializable {
     private Long id;
     private String nombre;
     private Boolean puedeDescargarPdf;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaInicioModificacion;
     private Integer duracionModificacion;
     @OneToOne
