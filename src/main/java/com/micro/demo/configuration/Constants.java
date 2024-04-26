@@ -31,4 +31,12 @@ public class Constants {
     public static final String DURACION_INVALIDA_MESSAGE = "La duracion del periodo de modificacion no se puedo modificar";
     public static final String PERIODO_MODIFICACION_INVALIDO_MESSAGE = "El periodo de modificacion no se pudo modificar.";
     public static final String PROGRAMA_EXISTENTE_MESSAGE = "El programa académico ya existe";
+    public static final String DOCENTE_NOT_FOUND_MESSAGE= "El docente no existe";
+    public static final String ALL_ASIGNATURAS_ASSIGNS_MESSAGE= "Algunas asignaturas ya han sido asignadas a este pensum.";
+    public static final String ASIGNATURA_NOT_FOUND_MESSAGE= "Asignatura no existe.";
+    public static final String PENSUM_NOT_FOUND_MESSAGE= "Pensum no existe.";
+    public static final String ALL_DOCENTES_ASSIGNS_MESSAGE= "Todos los docentes ya han sido asignadas a esta asignatura.";
+    public static final String DOCENTE_NOT_ASSIGN_MESSAGE= "El docente no esta asignado a esta asignatura.";
+    public static final String AREA_FORMACION_NOT_FOUND_MESSAGE= "Esa area de formacion no existe.";
+    public static final String PRE_REQUISITO_NOT_FOUND_MESSAGE= "Ese pre-requisito no existe.";
 }

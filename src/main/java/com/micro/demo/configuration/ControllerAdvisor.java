@@ -1,12 +1,24 @@
 package com.micro.demo.configuration;
 
+import com.micro.demo.service.exceptions.AllAsignaturasAssignsException;
+import com.micro.demo.service.exceptions.AllDocentesAssignsException;
+import com.micro.demo.service.exceptions.AreaFormacionNotFound;
+import com.micro.demo.service.exceptions.AsignaturaNotFound;
+import com.micro.demo.service.exceptions.AsignaturaNotFoundByIdException;
+import com.micro.demo.service.exceptions.AsignaturaNotFoundExceptionInPensum;
 import com.micro.demo.service.exceptions.DirectorAlreadyAssignedException;
 import com.micro.demo.service.exceptions.DirectorNotFoundException;
+import com.micro.demo.service.exceptions.DocenteNotAssignException;
+import com.micro.demo.service.exceptions.DocenteNotFound;
+import com.micro.demo.service.exceptions.DocenteNotFoundCorreoException;
 import com.micro.demo.service.exceptions.DuracionModificacionInvalidaException;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.NotFoundUserUnauthorized;
+import com.micro.demo.service.exceptions.PensumNotFoundByIdException;
+import com.micro.demo.service.exceptions.PensumNotFoundException;
 import com.micro.demo.service.exceptions.PeriodoModificacionInvalidoException;
+import com.micro.demo.service.exceptions.PreRequisitoNotFound;
 import com.micro.demo.service.exceptions.ProgramaAcademicoExistenteException;
 import com.micro.demo.service.exceptions.ProgramaNotFoundException;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
@@ -27,12 +39,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static com.micro.demo.configuration.Constants.ALL_ASIGNATURAS_ASSIGNS_MESSAGE;
+import static com.micro.demo.configuration.Constants.ALL_DOCENTES_ASSIGNS_MESSAGE;
+import static com.micro.demo.configuration.Constants.AREA_FORMACION_NOT_FOUND_MESSAGE;
+import static com.micro.demo.configuration.Constants.ASIGNATURA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DIRECTOR_ALREADY_ASSIGN_MESSAGE;
 import static com.micro.demo.configuration.Constants.DIRECTOR_NOT_FOUND_MESSAGE;
+import static com.micro.demo.configuration.Constants.DOCENTE_NOT_ASSIGN_MESSAGE;
+import static com.micro.demo.configuration.Constants.DOCENTE_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DURACION_INVALIDA_MESSAGE;
 import static com.micro.demo.configuration.Constants.NO_DATA_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.PAGINA_ILEGAL_MESSAGE;
+import static com.micro.demo.configuration.Constants.PENSUM_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.PERIODO_MODIFICACION_INVALIDO_MESSAGE;
+import static com.micro.demo.configuration.Constants.PRE_REQUISITO_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.PROGRAMA_EXISTENTE_MESSAGE;
 import static com.micro.demo.configuration.Constants.PROGRAMA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.RESPONSE_MESSAGE_KEY;
@@ -165,5 +185,93 @@ public class ControllerAdvisor {
             ProgramaAcademicoExistenteException programaAcademicoExistenteException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PROGRAMA_EXISTENTE_MESSAGE));
+    }
+
+    @ExceptionHandler(DocenteNotFound.class)
+    public ResponseEntity<Map<String, String>> docenteNotFound(
+            DocenteNotFound docenteNotFound) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, DOCENTE_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(DocenteNotFoundCorreoException.class)
+    public ResponseEntity<Map<String, String>> handleDocenteNotFoundCorreo
+            (DocenteNotFoundCorreoException exception) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(PensumNotFoundByIdException.class)
+    public ResponseEntity<Map<String, String>> handlePensumNotFoundById
+            (PensumNotFoundByIdException exception) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(AsignaturaNotFoundExceptionInPensum.class)
+    public ResponseEntity<Map<String, String>> handleAsignaturaNotFoundExceptionInPensum
+            (AsignaturaNotFoundExceptionInPensum exception) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(AsignaturaNotFoundByIdException.class)
+    public ResponseEntity<Map<String, String>> handleAsignaturaNotFoundByIdException
+            (AsignaturaNotFoundByIdException exception) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(PensumNotFoundException.class)
+    public ResponseEntity<Map<String, String>> pensumNotFoundException(
+            PensumNotFoundException pensumNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PENSUM_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(AsignaturaNotFound.class)
+    public ResponseEntity<Map<String, String>> asignaturaNotFound(
+            AsignaturaNotFound asignaturaNotFound) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ASIGNATURA_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(AllAsignaturasAssignsException.class)
+    public ResponseEntity<Map<String, String>> allAsignaturasAssignsException(
+            AllAsignaturasAssignsException allAsignaturasAssignsException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ALL_ASIGNATURAS_ASSIGNS_MESSAGE));
+    }
+
+    @ExceptionHandler(AllDocentesAssignsException.class)
+    public ResponseEntity<Map<String, String>> allDocentesAssignsException(
+            AllDocentesAssignsException allDocentesAssignsException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ALL_DOCENTES_ASSIGNS_MESSAGE));
+    }
+
+    @ExceptionHandler(DocenteNotAssignException.class)
+    public ResponseEntity<Map<String, String>> docenteNotAssignException(
+            DocenteNotAssignException docenteNotAssignException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, DOCENTE_NOT_ASSIGN_MESSAGE));
+    }
+
+    @ExceptionHandler(AreaFormacionNotFound.class)
+    public ResponseEntity<Map<String, String>> areaFormacionNotFound(
+            AreaFormacionNotFound areaFormacionNotFound) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, AREA_FORMACION_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(PreRequisitoNotFound.class)
+    public ResponseEntity<Map<String, String>> preRequisitoNotFound(
+            PreRequisitoNotFound preRequisitoNotFound) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PRE_REQUISITO_NOT_FOUND_MESSAGE));
     }
 }
