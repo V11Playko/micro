@@ -1,5 +1,6 @@
 package com.micro.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,10 +29,12 @@ public class AsignaturaPensum implements Serializable {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "asignatura_id")
     private Asignatura asignatura;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "pensum_id")
     private Pensum pensum;
 }

@@ -45,6 +45,17 @@ public class Asignatura implements Serializable {
     private String tipoCredito;
     private String tipoCurso;
 
+    @ManyToOne
+    @JoinColumn(name = "area_formacion_id")
+    private AreaFormacion areaFormacion;
+
+    @ManyToOne
+    @JoinColumn(name = "pre_requisito_id")
+    private PreRequisito preRequisito;
+
     @OneToMany(mappedBy = "asignatura")
     private List<AsignaturaPensum> asignaturaPensum;
+
+    @OneToMany(mappedBy = "asignatura")
+    private List<AsignaturaDocente> asignaturaDocentes;
 }

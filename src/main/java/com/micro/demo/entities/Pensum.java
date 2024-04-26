@@ -33,7 +33,6 @@ public class Pensum implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer creditosTotales;
-    @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaInicio;
     @Future
