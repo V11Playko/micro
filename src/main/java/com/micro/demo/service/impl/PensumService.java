@@ -1,13 +1,22 @@
 package com.micro.demo.service.impl;
 
 import com.micro.demo.configuration.security.userDetails.CustomUserDetails;
+import com.micro.demo.entities.Asignatura;
+import com.micro.demo.entities.AsignaturaPensum;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.ProgramaAcademico;
+import com.micro.demo.repository.IAsignaturaPensumRepository;
+import com.micro.demo.repository.IAsignaturaRepository;
 import com.micro.demo.repository.IPensumRepository;
 import com.micro.demo.repository.IProgramaAcademicoRepository;
 import com.micro.demo.service.IPensumService;
+import com.micro.demo.service.exceptions.AllAsignaturasAssignsException;
+import com.micro.demo.service.exceptions.AsignaturaNotFound;
+import com.micro.demo.service.exceptions.AsignaturaNotFoundExceptionInPensum;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
+import com.micro.demo.service.exceptions.PensumNotFoundByIdException;
+import com.micro.demo.service.exceptions.PensumNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -17,6 +26,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,10 +35,14 @@ import java.util.List;
 public class PensumService implements IPensumService {
     private final IPensumRepository pensumRepository;
     private final IProgramaAcademicoRepository programaAcademicoRepository;
+    private final IAsignaturaRepository asignaturaRepository;
+    private final IAsignaturaPensumRepository asignaturaPensumRepository;
 
-    public PensumService(IPensumRepository pensumRepository, IProgramaAcademicoRepository programaAcademicoRepository) {
+    public PensumService(IPensumRepository pensumRepository, IProgramaAcademicoRepository programaAcademicoRepository, IAsignaturaRepository asignaturaRepository, IAsignaturaPensumRepository asignaturaPensumRepository) {
         this.pensumRepository = pensumRepository;
         this.programaAcademicoRepository = programaAcademicoRepository;
+        this.asignaturaRepository = asignaturaRepository;
+        this.asignaturaPensumRepository = asignaturaPensumRepository;
     }
 
     @Override
@@ -48,7 +63,6 @@ public class PensumService implements IPensumService {
 
     @Override
     public void savePensum(Pensum pensum) {
-
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
         ProgramaAcademico programaAcademico = programaAcademicoRepository.findByDirectorCorreo(correoUsuarioAutenticado);
 
@@ -56,7 +70,7 @@ public class PensumService implements IPensumService {
             throw new UnauthorizedException();
         }
 
-
+        pensum.setFechaInicio(LocalDate.now());
         pensum.setProgramaAcademico(programaAcademico);
         pensumRepository.save(pensum);
     }
@@ -75,6 +89,51 @@ public class PensumService implements IPensumService {
     }
 
     @Override
+    public void assignAsignaturas(Long pensumId, List<Long> asignaturasId) {
+        Pensum pensum = pensumRepository.findById(pensumId)
+                .orElseThrow(PensumNotFoundException::new);
+
+        // Obtener las asignaturas por sus IDs
+        List<Asignatura> asignaturas = asignaturaRepository.findAllById(asignaturasId);
+
+        // Verificar si todas las asignaturas existen
+        if (asignaturas.size() != asignaturasId.size()) {
+            throw new AsignaturaNotFound();
+        }
+
+        // Verificar si las asignaturas ya están asignadas al pensum
+        List<AsignaturaPensum> asignaturasYaAsignadas = asignaturaPensumRepository.findByPensumIdAndAsignaturaIdIn(pensumId, asignaturasId);
+        if (!asignaturasYaAsignadas.isEmpty()) {
+            throw new AllAsignaturasAssignsException();
+        }
+
+        // Crear las relaciones entre el pensum y las asignaturas
+        List<AsignaturaPensum> asignaturaPensums = new ArrayList<>();
+        for (Asignatura asignatura : asignaturas) {
+            AsignaturaPensum asignaturaPensum = new AsignaturaPensum();
+            asignaturaPensum.setAsignatura(asignatura);
+            asignaturaPensum.setPensum(pensum);
+            asignaturaPensums.add(asignaturaPensum);
+        }
+
+        // Guardar las relaciones en la base de datos
+        asignaturaPensumRepository.saveAll(asignaturaPensums);
+    }
+
+    @Override
+    public void removeAsignaturaFromPensum(Long pensumId, Long asignaturaId) {
+        pensumRepository.findById(pensumId)
+                .orElseThrow(() -> new PensumNotFoundByIdException(pensumId));
+
+        // Verificar si la asignatura existe en el pensum
+        AsignaturaPensum asignaturaPensum = asignaturaPensumRepository.findByPensumIdAndAsignaturaId(pensumId, asignaturaId)
+                .orElseThrow(() -> new AsignaturaNotFoundExceptionInPensum(asignaturaId, pensumId));
+
+        // Eliminar la relación entre la asignatura y el pensum
+        asignaturaPensumRepository.delete(asignaturaPensum);
+    }
+
+    @Override
     public void deletePensum(Long id) {
         Pensum pensum = pensumRepository.findById(id)
                 .orElseThrow(NoDataFoundException::new);
@@ -83,6 +142,9 @@ public class PensumService implements IPensumService {
         if (!pensum.getProgramaAcademico().getDirector().getCorreo().equals(correoUsuarioAutenticado)){
             throw new UnauthorizedException();
         }
+
+        List<AsignaturaPensum> asignaturaPensums = pensum.getAsignaturaPensum();
+        asignaturaPensumRepository.deleteAll(asignaturaPensums);
 
         pensumRepository.deleteById(pensum.getId());
     }
