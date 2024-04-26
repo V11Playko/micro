@@ -58,19 +58,6 @@ public class DocenteRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_UPDATED_MESSAGE));
     }
 
-    @Operation(summary = "Deleted user",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "User deleted",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "404", description = "User not found",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable Long id) {
-        usuarioService.deleteUser(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_DELETED_MESSAGE));
-    }
-
 
     /**
      *

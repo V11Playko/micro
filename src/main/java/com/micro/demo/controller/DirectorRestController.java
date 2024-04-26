@@ -1,13 +1,19 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.controller.dto.AssignAsignaturasRequestDto;
+import com.micro.demo.controller.dto.AssignDocentesRequestDTO;
 import com.micro.demo.controller.dto.PageRequestDto;
+import com.micro.demo.controller.dto.RemoveAsignaturaRequestDto;
+import com.micro.demo.controller.dto.RemoveDocenteRequestDto;
 import com.micro.demo.controller.dto.UpdatePeriodoModificacionRequestDto;
 import com.micro.demo.controller.dto.UpdatePuedeDescargarPdfRequestDto;
+import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Unidad;
 import com.micro.demo.entities.Usuario;
+import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.IProgramaAcademicoService;
 import com.micro.demo.service.IUnidadService;
@@ -41,12 +47,14 @@ public class DirectorRestController {
     private final IUnidadService unidadService;
     private final IProgramaAcademicoService programaAcademicoService;
     private final IPensumService pensumService;
+    private final IAsignaturaService asignaturaService;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
         this.pensumService = pensumService;
+        this.asignaturaService = asignaturaService;
     }
 
     /**
@@ -261,6 +269,32 @@ public class DirectorRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
     }
 
+    @Operation(summary = "Assign asignaturas",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Asignaturas update",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Asignatura already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/assignAsignatura")
+    public ResponseEntity<Map<String, String>> assignAsignaturas(@Valid @RequestBody AssignAsignaturasRequestDto asignaturasRequestDto) {
+        pensumService.assignAsignaturas(asignaturasRequestDto.getPensumId(), asignaturasRequestDto.getAsignaturasId());
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Asignatura removed",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Asignatura removed",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Asignatura not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/removeAsignaturaFromPensum")
+    public ResponseEntity<Map<String, String>> removeAsignaturaFromPensum(@Valid @RequestBody RemoveAsignaturaRequestDto removeAsignaturaRequestDto) {
+        pensumService.removeAsignaturaFromPensum(removeAsignaturaRequestDto.getPensumId(), removeAsignaturaRequestDto.getAsignaturaId());
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
     @Operation(summary = "Deleted pensum",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Pensum deleted",
@@ -270,6 +304,87 @@ public class DirectorRestController {
     @DeleteMapping("/deletePensum/{id}")
     public ResponseEntity<Map<String, String>> deletePensum(@PathVariable Long id) {
         pensumService.deletePensum(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
+
+    /**
+     *
+     * ASIGNATURA
+     *
+     * **/
+    @Operation(summary = "Get all asignaturas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Asignaturas list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Asignatura already exists", content = @Content)
+    })
+    @GetMapping("/allAsignaturas")
+    public ResponseEntity<List<Asignatura>> getAllAsignaturas(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(asignaturaService.getAllAsignatura(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Add a new Asignatura",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Asignatura created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Asignatura already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/saveAsignatura")
+    public ResponseEntity<Map<String, String>> savePensum(@Valid @RequestBody Asignatura asignatura) {
+        asignaturaService.saveAsignatura(asignatura);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    @Operation(summary = "Updated asignatura",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Asignatura update",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Asignatura already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/updateAsignatura/{id}")
+    public ResponseEntity<Map<String, String>> updateAsignatura(@PathVariable Long id, @RequestBody Asignatura asignatura) {
+        asignaturaService.updateAsignatura(id,asignatura);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Assign Docentes",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Docentes updated",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Docente already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/assignDocentes")
+    public ResponseEntity<Map<String, String>> assignDocentes(@Valid @RequestBody AssignDocentesRequestDTO assignDocentesRequestDTO) {
+        asignaturaService.assignDocentes(assignDocentesRequestDTO.getAsignaturaId(), assignDocentesRequestDTO.getCorreoDocentes());
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Docente removed",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Docente removed",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Docente not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/removeDocentesFromAsignatura")
+    public ResponseEntity<Map<String, String>> removeDocentesFromAsignatura(@Valid @RequestBody RemoveDocenteRequestDto removeDocenteRequestDto) {
+        asignaturaService.removeDocente(removeDocenteRequestDto.getAsignaturaId(), removeDocenteRequestDto.getCorreoDocente());
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
+    @Operation(summary = "Deleted asignatura",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Asignatura deleted",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Asignatura not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/deleteAsignatura/{id}")
+    public ResponseEntity<Map<String, String>> deleteAsignatura(@PathVariable Long id) {
+        asignaturaService.deleteAsignatura(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
     }
