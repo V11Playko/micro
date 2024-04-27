@@ -3,6 +3,7 @@ package com.micro.demo.controller;
 import com.micro.demo.configuration.Constants;
 import com.micro.demo.controller.dto.AssignAsignaturasRequestDto;
 import com.micro.demo.controller.dto.AssignDocentesRequestDTO;
+import com.micro.demo.controller.dto.AssignTemasRequestDto;
 import com.micro.demo.controller.dto.PageRequestDto;
 import com.micro.demo.controller.dto.RemoveAsignaturaRequestDto;
 import com.micro.demo.controller.dto.RemoveDocenteRequestDto;
@@ -13,6 +14,7 @@ import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.PreRequisito;
 import com.micro.demo.entities.ProgramaAcademico;
+import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.service.IAreaFormacionService;
@@ -20,6 +22,7 @@ import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.IPreRequisitoService;
 import com.micro.demo.service.IProgramaAcademicoService;
+import com.micro.demo.service.ITemaService;
 import com.micro.demo.service.IUnidadService;
 import com.micro.demo.service.IUsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,8 +57,9 @@ public class DirectorRestController {
     private final IAsignaturaService asignaturaService;
     private final IAreaFormacionService areaFormacionService;
     private final IPreRequisitoService preRequisitoService;
+    private final ITemaService temaService;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
@@ -63,6 +67,7 @@ public class DirectorRestController {
         this.asignaturaService = asignaturaService;
         this.areaFormacionService = areaFormacionService;
         this.preRequisitoService = preRequisitoService;
+        this.temaService = temaService;
     }
 
     /**
@@ -124,70 +129,6 @@ public class DirectorRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_DELETED_MESSAGE));
     }
 
-    /**
-     *
-     * UNIDADES
-     *
-     * **/
-
-    @Operation(summary = "Get all unidades")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Unidades list returned", content = @Content),
-            @ApiResponse(responseCode = "409", description = "Unidad already exists", content = @Content)
-    })
-    @GetMapping("/allUnidades")
-    public ResponseEntity<List<Unidad>> getAllUnidades(@Valid @RequestBody PageRequestDto pageRequestDto){
-        return ResponseEntity.ok(unidadService.getAllUnidad(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
-    }
-
-    @Operation(summary = "Obtener unidad por id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Unidad encontrada", content = @Content(mediaType = "application/json")),
-            @ApiResponse(responseCode = "404", description = "Unidad no encontrada")
-    })
-    @GetMapping("/getUnidad/{id}")
-    public ResponseEntity<Unidad> getUnidad(@PathVariable Long id) {
-        return new ResponseEntity<>(unidadService.getUnidad(id), HttpStatus.OK);
-    }
-
-    @Operation(summary = "Add a new unidad",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Unidad created",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "409", description = "Unidad already exists",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @PostMapping("/saveUnidad")
-    public ResponseEntity<Map<String, String>> saveUnidad(@Valid @RequestBody Unidad unidad) {
-        unidadService.saveUnidad(unidad);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
-    }
-
-    @Operation(summary = "Updated unidad",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "Unidad update",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "409", description = "Unidad already exists",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @PutMapping("/updateUnidad/{id}")
-    public ResponseEntity<Map<String, String>> updateUnidad(@PathVariable Long id, @RequestBody Unidad unidad) {
-        unidadService.updateUnidad(id,unidad);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
-    }
-
-    @Operation(summary = "Deleted unidad",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "Unidad deleted",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "404", description = "Unidad not found",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @DeleteMapping("/deleteUnidad/{id}")
-    public ResponseEntity<Map<String, String>> deleteUnidad(@PathVariable Long id) {
-        unidadService.deleteUnidad(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
-    }
 
     /**
      *
@@ -475,6 +416,139 @@ public class DirectorRestController {
     @DeleteMapping("/deletePreRequisito/{id}")
     public ResponseEntity<Map<String, String>> deletePreRequisito(@PathVariable Long id) {
         preRequisitoService.deletePrerequisito(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
+
+    /**
+     *
+     * UNIDADES
+     *
+     * **/
+    @Operation(summary = "Get all unidades")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Unidades list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Unidad already exists", content = @Content)
+    })
+    @GetMapping("/allUnidades")
+    public ResponseEntity<List<Unidad>> getAllUnidades(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(unidadService.getAllUnidad(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Obtener unidad por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Unidad encontrada", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Unidad no encontrada")
+    })
+    @GetMapping("/getUnidad/{id}")
+    public ResponseEntity<Unidad> getUnidad(@PathVariable Long id) {
+        return new ResponseEntity<>(unidadService.getUnidad(id), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Add a new unidad",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Unidad created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Unidad already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/saveUnidad")
+    public ResponseEntity<Map<String, String>> saveUnidad(@Valid @RequestBody Unidad unidad) {
+        unidadService.saveUnidad(unidad);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    @Operation(summary = "Updated unidad",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Unidad update",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Unidad already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/updateUnidad/{id}")
+    public ResponseEntity<Map<String, String>> updateUnidad(@PathVariable Long id, @RequestBody Unidad unidad) {
+        unidadService.updateUnidad(id,unidad);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Deleted unidad",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Unidad deleted",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Unidad not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/deleteUnidad/{id}")
+    public ResponseEntity<Map<String, String>> deleteUnidad(@PathVariable Long id) {
+        unidadService.deleteUnidad(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
+
+    /**
+     *
+     * TEMAS
+     *
+     * **/
+    @Operation(summary = "Get all temas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Temas list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Tema already exists", content = @Content)
+    })
+    @GetMapping("/allTemas")
+    public ResponseEntity<List<Tema>> getAllTemas(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(temaService.getAllTemas(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Add a new Tema",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Tema created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Tema already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/saveTema")
+    public ResponseEntity<Map<String, String>> saveTema(@Valid @RequestBody Tema tema) {
+        temaService.saveTema(tema);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    @Operation(summary = "Updated Tema",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Tema update",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Tema already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/updateTema/{id}")
+    public ResponseEntity<Map<String, String>> updateTema(@PathVariable Long id, @RequestBody Tema tema) {
+        temaService.updateTema(id,tema);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Assign Temas to Unidad",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Temas updated",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Temas already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/assignTemasToUnidad")
+    public ResponseEntity<Map<String, String>> assignTemasToUnidad(@Valid @RequestBody AssignTemasRequestDto assignTemasRequestDto) {
+        temaService.assignTemasToUnidad(assignTemasRequestDto.getUnidadId(), assignTemasRequestDto.getTemaIds());
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Deleted Tema",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Tema deleted",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Tema not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/deleteTema/{id}")
+    public ResponseEntity<Map<String, String>> deleteTema(@PathVariable Long id) {
+        temaService.deleteTema(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
     }

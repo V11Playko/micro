@@ -11,6 +11,7 @@ import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.TemasNotFoundException;
+import com.micro.demo.service.exceptions.UnidadNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,15 +62,6 @@ public class UnidadService implements IUnidadService {
             Asignatura asignatura = asignaturaRepository.findByCodigo(unidad.getAsignatura().getCodigo());
             if (asignatura == null) throw new AsignaturaNotFound();
             unidad.setAsignatura(asignatura);
-        }
-
-        if (unidad.getTemas() != null && !unidad.getTemas().isEmpty()) {
-            List<Long> temaIds = unidad.getTemas().stream()
-                    .map(Tema::getId)
-                    .collect(Collectors.toList());
-            List<Tema> temas = temaRepository.findAllById(temaIds);
-            if (temas.isEmpty()) throw new TemasNotFoundException();
-            unidad.setTemas(temas);
         }
 
         unidadRepository.save(unidad);
