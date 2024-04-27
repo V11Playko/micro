@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IAsignaturaRepository extends JpaRepository<Asignatura, Long> {
+    Asignatura findByCodigo(Integer codigo);
 }

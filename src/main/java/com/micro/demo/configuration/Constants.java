@@ -39,4 +39,5 @@ public class Constants {
     public static final String DOCENTE_NOT_ASSIGN_MESSAGE= "El docente no esta asignado a esta asignatura.";
     public static final String AREA_FORMACION_NOT_FOUND_MESSAGE= "Esa area de formacion no existe.";
     public static final String PRE_REQUISITO_NOT_FOUND_MESSAGE= "Ese pre-requisito no existe.";
+    public static final String TEMAS_NOT_FOUND_MESSAGE= "Los temas no existen.";
 }

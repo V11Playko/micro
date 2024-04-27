@@ -136,8 +136,8 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Unidad already exists", content = @Content)
     })
     @GetMapping("/allUnidades")
-    public ResponseEntity<List<Unidad>> getAllUnidades(){
-        return ResponseEntity.ok(unidadService.getAllUnidad());
+    public ResponseEntity<List<Unidad>> getAllUnidades(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(unidadService.getAllUnidad(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
     @Operation(summary = "Obtener unidad por id")

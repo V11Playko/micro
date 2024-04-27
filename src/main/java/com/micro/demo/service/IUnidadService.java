@@ -6,7 +6,7 @@ import javax.lang.model.type.UnionType;
 import java.util.List;
 
 public interface IUnidadService {
-    List<Unidad> getAllUnidad();
+    List<Unidad> getAllUnidad(int pagina, int elementosXpagina);
     Unidad getUnidad(Long id);
     void saveUnidad(Unidad unidad);
     void updateUnidad(Long id, Unidad unidad);

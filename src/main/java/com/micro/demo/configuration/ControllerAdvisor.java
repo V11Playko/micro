@@ -22,6 +22,7 @@ import com.micro.demo.service.exceptions.PreRequisitoNotFound;
 import com.micro.demo.service.exceptions.ProgramaAcademicoExistenteException;
 import com.micro.demo.service.exceptions.ProgramaNotFoundException;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
+import com.micro.demo.service.exceptions.TemasNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import com.micro.demo.service.exceptions.UserAlreadyExistsException;
 import jakarta.validation.ConstraintViolation;
@@ -57,6 +58,7 @@ import static com.micro.demo.configuration.Constants.PROGRAMA_EXISTENTE_MESSAGE;
 import static com.micro.demo.configuration.Constants.PROGRAMA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.RESPONSE_MESSAGE_KEY;
 import static com.micro.demo.configuration.Constants.ROLE_NOT_FOUND_MESSAGE;
+import static com.micro.demo.configuration.Constants.TEMAS_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.UNAUTHORIZED_MESSAGE;
 import static com.micro.demo.configuration.Constants.USER_ALREADY_EXISTS_MESSAGE;
 import static com.micro.demo.configuration.Constants.USER_NOT_FOUND_UNAUTHORIZED_MESSAGE;
@@ -273,5 +275,12 @@ public class ControllerAdvisor {
             PreRequisitoNotFound preRequisitoNotFound) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PRE_REQUISITO_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(TemasNotFoundException.class)
+    public ResponseEntity<Map<String, String>> temasNotFoundException(
+            TemasNotFoundException temasNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, TEMAS_NOT_FOUND_MESSAGE));
     }
 }
