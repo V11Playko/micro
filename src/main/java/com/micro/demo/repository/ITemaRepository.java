@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ITemaRepository extends JpaRepository<Tema,Long> {
-    List<Tema> findAllByIdInAndEstatusIsTrue(List<Long> ids);
+    List<Tema> findAllByIdIn(List<Long> ids);
 }

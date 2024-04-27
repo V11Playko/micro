@@ -7,6 +7,7 @@ import com.micro.demo.repository.IUnidadRepository;
 import com.micro.demo.service.ITemaService;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
+import com.micro.demo.service.exceptions.TemaNoAssignException;
 import com.micro.demo.service.exceptions.UnidadNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -63,16 +64,18 @@ public class TemaService implements ITemaService {
 
     @Override
     public void assignTemasToUnidad(Long unidadId, List<Long> temaIds) {
-        // Buscar la unidad por su ID
         Unidad unidad = unidadRepository.findById(unidadId)
                 .orElseThrow(UnidadNotFoundException::new);
 
         // Obtener los temas por sus IDs y asignarles la unidad
-        List<Tema> temas = temaRepository.findAllByIdInAndEstatusIsTrue(temaIds);
-        temas.forEach(tema -> {
+        List<Tema> temas = temaRepository.findAllByIdIn(temaIds);
+        for (Tema tema : temas) {
+            if (!tema.isEstatus()) {
+                throw new TemaNoAssignException(tema.getId());
+            }
             tema.setUnidad(unidad);
             temaRepository.save(tema);
-        });
+        }
     }
 
 

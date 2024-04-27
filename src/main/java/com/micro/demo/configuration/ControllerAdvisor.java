@@ -22,6 +22,7 @@ import com.micro.demo.service.exceptions.PreRequisitoNotFound;
 import com.micro.demo.service.exceptions.ProgramaAcademicoExistenteException;
 import com.micro.demo.service.exceptions.ProgramaNotFoundException;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
+import com.micro.demo.service.exceptions.TemaNoAssignException;
 import com.micro.demo.service.exceptions.TemasNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import com.micro.demo.service.exceptions.UnidadNotFoundException;
@@ -291,5 +292,13 @@ public class ControllerAdvisor {
             UnidadNotFoundException unidadNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, UNIDAD_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(TemaNoAssignException.class)
+    public ResponseEntity<Map<String, String>> handleTemaNoAssignException
+            (TemaNoAssignException exception) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 }
