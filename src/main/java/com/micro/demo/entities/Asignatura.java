@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,10 +46,12 @@ public class Asignatura implements Serializable {
     private String tipoCredito;
     private String tipoCurso;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "area_formacion_id")
     private AreaFormacion areaFormacion;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "pre_requisito_id")
     private PreRequisito preRequisito;
