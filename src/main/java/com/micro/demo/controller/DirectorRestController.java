@@ -8,13 +8,17 @@ import com.micro.demo.controller.dto.RemoveAsignaturaRequestDto;
 import com.micro.demo.controller.dto.RemoveDocenteRequestDto;
 import com.micro.demo.controller.dto.UpdatePeriodoModificacionRequestDto;
 import com.micro.demo.controller.dto.UpdatePuedeDescargarPdfRequestDto;
+import com.micro.demo.entities.AreaFormacion;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.Pensum;
+import com.micro.demo.entities.PreRequisito;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Unidad;
 import com.micro.demo.entities.Usuario;
+import com.micro.demo.service.IAreaFormacionService;
 import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.IPensumService;
+import com.micro.demo.service.IPreRequisitoService;
 import com.micro.demo.service.IProgramaAcademicoService;
 import com.micro.demo.service.IUnidadService;
 import com.micro.demo.service.IUsuarioService;
@@ -48,13 +52,17 @@ public class DirectorRestController {
     private final IProgramaAcademicoService programaAcademicoService;
     private final IPensumService pensumService;
     private final IAsignaturaService asignaturaService;
+    private final IAreaFormacionService areaFormacionService;
+    private final IPreRequisitoService preRequisitoService;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
         this.pensumService = pensumService;
         this.asignaturaService = asignaturaService;
+        this.areaFormacionService = areaFormacionService;
+        this.preRequisitoService = preRequisitoService;
     }
 
     /**
@@ -189,7 +197,7 @@ public class DirectorRestController {
 
     @Operation(summary = "Get all programas academicos")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Programas list returned", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Programas list returned", content = @Content),
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
@@ -235,7 +243,7 @@ public class DirectorRestController {
      * **/
     @Operation(summary = "Get all pensums")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Pensums list returned", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Pensums list returned", content = @Content),
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensums")
@@ -271,7 +279,7 @@ public class DirectorRestController {
 
     @Operation(summary = "Assign asignaturas",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Asignaturas update",
+                    @ApiResponse(responseCode = "200", description = "Asignaturas update",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "409", description = "Asignatura already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
@@ -284,7 +292,7 @@ public class DirectorRestController {
 
     @Operation(summary = "Asignatura removed",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Asignatura removed",
+                    @ApiResponse(responseCode = "200", description = "Asignatura removed",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "404", description = "Asignatura not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
@@ -316,7 +324,7 @@ public class DirectorRestController {
      * **/
     @Operation(summary = "Get all asignaturas")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Asignaturas list returned", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Asignaturas list returned", content = @Content),
             @ApiResponse(responseCode = "409", description = "Asignatura already exists", content = @Content)
     })
     @GetMapping("/allAsignaturas")
@@ -331,7 +339,7 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Asignatura already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveAsignatura")
-    public ResponseEntity<Map<String, String>> savePensum(@Valid @RequestBody Asignatura asignatura) {
+    public ResponseEntity<Map<String, String>> saveAsignatura(@Valid @RequestBody Asignatura asignatura) {
         asignaturaService.saveAsignatura(asignatura);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -339,7 +347,7 @@ public class DirectorRestController {
 
     @Operation(summary = "Updated asignatura",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Asignatura update",
+                    @ApiResponse(responseCode = "200", description = "Asignatura update",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "409", description = "Asignatura already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
@@ -352,7 +360,7 @@ public class DirectorRestController {
 
     @Operation(summary = "Assign Docentes",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Docentes updated",
+                    @ApiResponse(responseCode = "200", description = "Docentes updated",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "409", description = "Docente already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
@@ -365,7 +373,7 @@ public class DirectorRestController {
 
     @Operation(summary = "Docente removed",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Docente removed",
+                    @ApiResponse(responseCode = "200", description = "Docente removed",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "404", description = "Docente not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
@@ -385,6 +393,88 @@ public class DirectorRestController {
     @DeleteMapping("/deleteAsignatura/{id}")
     public ResponseEntity<Map<String, String>> deleteAsignatura(@PathVariable Long id) {
         asignaturaService.deleteAsignatura(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
+
+    /**
+     *
+     * AREA FORMACION
+     *
+     * **/
+    @Operation(summary = "Get all areas de formacion")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Areas de formacion list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Areas de formacion already exists", content = @Content)
+    })
+    @GetMapping("/allAreasFormacion")
+    public ResponseEntity<List<AreaFormacion>> getAllAreas(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(areaFormacionService.getAllAreaFormacion(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Add a new Area de formacion",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Area de formacion created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Area de formacion already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/saveAreaFormacion")
+    public ResponseEntity<Map<String, String>> saveAreaFormacion(@Valid @RequestBody AreaFormacion areaFormacion) {
+        areaFormacionService.saveAreaFormacion(areaFormacion);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+    @Operation(summary = "Deleted area de formacion",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Area de formacion deleted",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Area de formacion not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/deleteAreaFormacion/{id}")
+    public ResponseEntity<Map<String, String>> deleteAreaFormacion(@PathVariable Long id) {
+        areaFormacionService.deleteAreaFormacion(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
+
+    /**
+     *
+     * PRE REQUISITO
+     *
+     * **/
+    @Operation(summary = "Get all pre-requisitos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "PreRequisitos list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "PreRequisitos already exists", content = @Content)
+    })
+    @GetMapping("/allPreRequisitos")
+    public ResponseEntity<List<PreRequisito>> getAllPreRequisitos(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(preRequisitoService.getAllPreRequisito(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Add a new PreRequisito",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "PreRequisito created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "PreRequisito already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/savePreRequisito")
+    public ResponseEntity<Map<String, String>> savePreRequisito(@Valid @RequestBody PreRequisito preRequisito) {
+        preRequisitoService.savePreRequisito(preRequisito);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+    @Operation(summary = "Deleted PreRequisito",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "PreRequisito deleted",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "PreRequisito not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/deletePreRequisito/{id}")
+    public ResponseEntity<Map<String, String>> deletePreRequisito(@PathVariable Long id) {
+        preRequisitoService.deletePrerequisito(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
     }
