@@ -40,4 +40,5 @@ public class Constants {
     public static final String AREA_FORMACION_NOT_FOUND_MESSAGE= "Esa area de formacion no existe.";
     public static final String PRE_REQUISITO_NOT_FOUND_MESSAGE= "Ese pre-requisito no existe.";
     public static final String TEMAS_NOT_FOUND_MESSAGE= "Los temas no existen.";
+    public static final String UNIDAD_NOT_FOUND_MESSAGE= "La unidad no existe.";
 }
