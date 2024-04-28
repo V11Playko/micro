@@ -16,6 +16,7 @@ import com.micro.demo.entities.PreRequisito;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
+import com.micro.demo.entities.UnidadResultado;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.service.IAreaFormacionService;
 import com.micro.demo.service.IAsignaturaService;
@@ -23,6 +24,7 @@ import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.IPreRequisitoService;
 import com.micro.demo.service.IProgramaAcademicoService;
 import com.micro.demo.service.ITemaService;
+import com.micro.demo.service.IUnidadResultadoService;
 import com.micro.demo.service.IUnidadService;
 import com.micro.demo.service.IUsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,8 +60,9 @@ public class DirectorRestController {
     private final IAreaFormacionService areaFormacionService;
     private final IPreRequisitoService preRequisitoService;
     private final ITemaService temaService;
+    private final IUnidadResultadoService unidadResultadoService;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
@@ -68,6 +71,7 @@ public class DirectorRestController {
         this.areaFormacionService = areaFormacionService;
         this.preRequisitoService = preRequisitoService;
         this.temaService = temaService;
+        this.unidadResultadoService = unidadResultadoService;
     }
 
     /**
@@ -552,4 +556,60 @@ public class DirectorRestController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
     }
+
+
+    /**
+     *
+     * UNIDAD RESULTADO
+     *
+     * **/
+    @Operation(summary = "Get all resultados de unidades")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Resultados de unidades list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Resultados de unidades already exists", content = @Content)
+    })
+    @GetMapping("/allUnidadResultados")
+    public ResponseEntity<List<UnidadResultado>> getAllUnidadResultados(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(unidadResultadoService.getAllUnidadResultados(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Add a new resultado de unidad",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Resultado de unidad created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Resultado de unidad already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/saveUnidadResultado")
+    public ResponseEntity<Map<String, String>> saveUnidadResultado(@Valid @RequestBody UnidadResultado unidadResultado) {
+        unidadResultadoService.saveUnidadResultado(unidadResultado);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    @Operation(summary = "Updated Unidad Resultado",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Unidad Resultado update",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Unidad Resultado already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/updateUnidadResultado/{id}")
+    public ResponseEntity<Map<String, String>> updateUnidadResultado(@PathVariable Long id, @RequestBody UnidadResultado unidadResultado) {
+        unidadResultadoService.updateUnidadResultado(id,unidadResultado);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Deleted Unidad Resultado",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Unidad Resultado deleted",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Unidad Resultado not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/deleteUnidadResultado/{id}")
+    public ResponseEntity<Map<String, String>> deleteUnidadResultado(@PathVariable Long id) {
+        unidadResultadoService.deleteUnidadResultado(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
 }
