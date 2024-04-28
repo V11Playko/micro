@@ -1,5 +1,6 @@
 package com.micro.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,10 +29,12 @@ public class AsociacionCompetenciaResultado implements Serializable {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "resultado_aprendizaje_id")
     private ResultadoAprendizaje resultadoAprendizaje;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "competencia_id")
     private Competencia competencia;
 }

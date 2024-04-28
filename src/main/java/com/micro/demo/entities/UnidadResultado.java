@@ -1,5 +1,6 @@
 package com.micro.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,6 +35,7 @@ public class UnidadResultado implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "unidad_id")
+    @JsonIgnore
     private Unidad unidad;
 
     @ManyToOne

@@ -1,5 +1,6 @@
 package com.micro.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -56,9 +57,11 @@ public class Asignatura implements Serializable {
     @JoinColumn(name = "pre_requisito_id")
     private PreRequisito preRequisito;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "asignatura")
     private List<AsignaturaPensum> asignaturaPensum;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "asignatura")
     private List<AsignaturaDocente> asignaturaDocentes;
 }
