@@ -31,5 +31,5 @@ public class Competencia implements Serializable {
     private boolean estatus;
 
     @OneToMany(mappedBy = "competencia")
-    private List<AsociacionCompetenciaResultado> asociaciones;
+    private List<CompetenciaResultado> resultados;
 }

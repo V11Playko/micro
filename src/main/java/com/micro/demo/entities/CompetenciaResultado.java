@@ -16,7 +16,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "asociacionCompetenciaResultado")
+@Table(name = "competenciaResultado")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

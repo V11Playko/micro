@@ -2,6 +2,7 @@ package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
 import com.micro.demo.controller.dto.AssignAsignaturasRequestDto;
+import com.micro.demo.controller.dto.AssignCompetenciaRequestDto;
 import com.micro.demo.controller.dto.AssignDocentesRequestDTO;
 import com.micro.demo.controller.dto.AssignTemasRequestDto;
 import com.micro.demo.controller.dto.PageRequestDto;
@@ -713,6 +714,19 @@ public class DirectorRestController {
     @PutMapping("/updateCompetencia/{id}")
     public ResponseEntity<Map<String, String>> updateCompetencia(@PathVariable Long id, @RequestBody Competencia competencia) {
         competenciaService.updateCompetencia(id,competencia);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Assign Competencias to ResultadoAprendizaje",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "CompetenciaResultado updated",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "CompetenciaResultado already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/assignCompetencias")
+    public ResponseEntity<Map<String, String>> assignCompetenciasToResultadoAprendizaje(@Valid @RequestBody AssignCompetenciaRequestDto assignCompetenciaRequestDto) {
+        resultadoAprendizajeService.assignCompetencia(assignCompetenciaRequestDto.getResultadoAprendizajeId(), assignCompetenciaRequestDto.getCompetenciaIds());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
     }

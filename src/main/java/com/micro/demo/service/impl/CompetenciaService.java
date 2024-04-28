@@ -4,6 +4,7 @@ import com.micro.demo.entities.Competencia;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.repository.ICompetenciaRepository;
 import com.micro.demo.service.ICompetenciaService;
+import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import jakarta.transaction.Transactional;
@@ -60,7 +61,7 @@ public class CompetenciaService implements ICompetenciaService {
     @Override
     public void deleteCompetencia(Long id) {
         competenciaRepository.findById(id)
-                .orElseThrow(NoDataFoundException::new);
+                .orElseThrow(CompetenciaNotFoundException::new);
 
         competenciaRepository.deleteById(id);
     }

@@ -1,12 +1,17 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.entities.Competencia;
+import com.micro.demo.entities.CompetenciaResultado;
 import com.micro.demo.entities.ResultadoAprendizaje;
-import com.micro.demo.entities.Tema;
-import com.micro.demo.entities.UnidadResultado;
+import com.micro.demo.repository.ICompetenciaRepository;
+import com.micro.demo.repository.ICompetenciaResultadoRepository;
 import com.micro.demo.repository.IResultadoAprendizajeRepository;
 import com.micro.demo.service.IResultadoAprendizajeService;
+import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
+import com.micro.demo.service.exceptions.FakeEstatusNotAllowed;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
+import com.micro.demo.service.exceptions.ResultadoAprendizajeNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,9 +24,13 @@ import java.util.List;
 @Transactional
 public class ResultadoAprendizajeService implements IResultadoAprendizajeService {
     private final IResultadoAprendizajeRepository resultadoAprendizajeRepository;
+    private final ICompetenciaRepository competenciaRepository;
+    private final ICompetenciaResultadoRepository competenciaResultadoRepository;
 
-    public ResultadoAprendizajeService(IResultadoAprendizajeRepository resultadoAprendizajeRepository) {
+    public ResultadoAprendizajeService(IResultadoAprendizajeRepository resultadoAprendizajeRepository, ICompetenciaRepository competenciaRepository, ICompetenciaResultadoRepository competenciaResultadoRepository) {
         this.resultadoAprendizajeRepository = resultadoAprendizajeRepository;
+        this.competenciaRepository = competenciaRepository;
+        this.competenciaResultadoRepository = competenciaResultadoRepository;
     }
 
     @Override
@@ -59,9 +68,32 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
     }
 
     @Override
+    public void assignCompetencia(Long resultadoAprendizajeId, List<Long> competenciaIds) {
+        ResultadoAprendizaje resultadoAprendizaje = resultadoAprendizajeRepository.findById(resultadoAprendizajeId)
+                .orElseThrow(ResultadoAprendizajeNotFoundException::new);
+
+        for (Long competenciaId : competenciaIds) {
+            Competencia competencia = competenciaRepository.findById(competenciaId)
+                    .orElseThrow(CompetenciaNotFoundException::new);
+
+            if (!resultadoAprendizaje.isEstatus() || !competencia.isEstatus()) {
+                throw new FakeEstatusNotAllowed();
+            }
+
+            CompetenciaResultado asociacion = new CompetenciaResultado();
+            asociacion.setResultadoAprendizaje(resultadoAprendizaje);
+            asociacion.setCompetencia(competencia);
+
+            competenciaResultadoRepository.save(asociacion);
+        }
+
+        resultadoAprendizajeRepository.save(resultadoAprendizaje);
+    }
+
+    @Override
     public void deleteResultado(Long id) {
         resultadoAprendizajeRepository.findById(id)
-                .orElseThrow(NoDataFoundException::new);
+                .orElseThrow(ResultadoAprendizajeNotFoundException::new);
 
         resultadoAprendizajeRepository.deleteById(id);
     }
