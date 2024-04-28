@@ -11,6 +11,7 @@ import com.micro.demo.controller.dto.UpdatePeriodoModificacionRequestDto;
 import com.micro.demo.controller.dto.UpdatePuedeDescargarPdfRequestDto;
 import com.micro.demo.entities.AreaFormacion;
 import com.micro.demo.entities.Asignatura;
+import com.micro.demo.entities.Competencia;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.PreRequisito;
 import com.micro.demo.entities.ProgramaAcademico;
@@ -21,6 +22,7 @@ import com.micro.demo.entities.UnidadResultado;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.service.IAreaFormacionService;
 import com.micro.demo.service.IAsignaturaService;
+import com.micro.demo.service.ICompetenciaService;
 import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.IPreRequisitoService;
 import com.micro.demo.service.IProgramaAcademicoService;
@@ -64,8 +66,9 @@ public class DirectorRestController {
     private final ITemaService temaService;
     private final IUnidadResultadoService unidadResultadoService;
     private final IResultadoAprendizajeService resultadoAprendizajeService;
+    private final ICompetenciaService competenciaService;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService, IResultadoAprendizajeService resultadoAprendizajeService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService, IResultadoAprendizajeService resultadoAprendizajeService, ICompetenciaService competenciaService) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
@@ -76,6 +79,7 @@ public class DirectorRestController {
         this.temaService = temaService;
         this.unidadResultadoService = unidadResultadoService;
         this.resultadoAprendizajeService = resultadoAprendizajeService;
+        this.competenciaService = competenciaService;
     }
 
     /**
@@ -667,6 +671,61 @@ public class DirectorRestController {
     @DeleteMapping("/deleteResultadoAprendizaje/{id}")
     public ResponseEntity<Map<String, String>> deleteResultadoAprendizaje(@PathVariable Long id) {
         resultadoAprendizajeService.deleteResultado(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
+
+    /**
+     *
+     * COMPETENCIAS
+     *
+     * **/
+    @Operation(summary = "Get all Competencias")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Competencias list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Competencia already exists", content = @Content)
+    })
+    @GetMapping("/allCompetencias")
+    public ResponseEntity<List<Competencia>> getAllCompetencias(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(competenciaService.getAllCompetencias(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Add a new Competencia",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Competencia created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Competencia already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/saveCompetencia")
+    public ResponseEntity<Map<String, String>> saveCompetencia(@Valid @RequestBody Competencia competencia) {
+        competenciaService.saveCompetencia(competencia);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    @Operation(summary = "Updated Competencia",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Competencia update",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Competencia already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/updateCompetencia/{id}")
+    public ResponseEntity<Map<String, String>> updateCompetencia(@PathVariable Long id, @RequestBody Competencia competencia) {
+        competenciaService.updateCompetencia(id,competencia);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Deleted Competencia",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Competencia deleted",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Competencia not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/deleteCompetencia/{id}")
+    public ResponseEntity<Map<String, String>> deleteCompetencia(@PathVariable Long id) {
+        competenciaService.deleteCompetencia(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
     }
