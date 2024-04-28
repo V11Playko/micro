@@ -6,12 +6,14 @@ import com.micro.demo.service.exceptions.AreaFormacionNotFound;
 import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundByIdException;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundExceptionInPensum;
+import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
 import com.micro.demo.service.exceptions.DirectorAlreadyAssignedException;
 import com.micro.demo.service.exceptions.DirectorNotFoundException;
 import com.micro.demo.service.exceptions.DocenteNotAssignException;
 import com.micro.demo.service.exceptions.DocenteNotFound;
 import com.micro.demo.service.exceptions.DocenteNotFoundCorreoException;
 import com.micro.demo.service.exceptions.DuracionModificacionInvalidaException;
+import com.micro.demo.service.exceptions.FakeEstatusNotAllowed;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.NotFoundUserUnauthorized;
@@ -21,6 +23,7 @@ import com.micro.demo.service.exceptions.PeriodoModificacionInvalidoException;
 import com.micro.demo.service.exceptions.PreRequisitoNotFound;
 import com.micro.demo.service.exceptions.ProgramaAcademicoExistenteException;
 import com.micro.demo.service.exceptions.ProgramaNotFoundException;
+import com.micro.demo.service.exceptions.ResultadoAprendizajeNotFoundException;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
 import com.micro.demo.service.exceptions.TemaNoAssignException;
 import com.micro.demo.service.exceptions.TemasNotFoundException;
@@ -46,11 +49,13 @@ import static com.micro.demo.configuration.Constants.ALL_ASIGNATURAS_ASSIGNS_MES
 import static com.micro.demo.configuration.Constants.ALL_DOCENTES_ASSIGNS_MESSAGE;
 import static com.micro.demo.configuration.Constants.AREA_FORMACION_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.ASIGNATURA_NOT_FOUND_MESSAGE;
+import static com.micro.demo.configuration.Constants.COMPETENCIA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DIRECTOR_ALREADY_ASSIGN_MESSAGE;
 import static com.micro.demo.configuration.Constants.DIRECTOR_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DOCENTE_NOT_ASSIGN_MESSAGE;
 import static com.micro.demo.configuration.Constants.DOCENTE_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DURACION_INVALIDA_MESSAGE;
+import static com.micro.demo.configuration.Constants.FAKE_ESTATUS_NOT_ALLOWED;
 import static com.micro.demo.configuration.Constants.NO_DATA_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.PAGINA_ILEGAL_MESSAGE;
 import static com.micro.demo.configuration.Constants.PENSUM_NOT_FOUND_MESSAGE;
@@ -59,6 +64,7 @@ import static com.micro.demo.configuration.Constants.PRE_REQUISITO_NOT_FOUND_MES
 import static com.micro.demo.configuration.Constants.PROGRAMA_EXISTENTE_MESSAGE;
 import static com.micro.demo.configuration.Constants.PROGRAMA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.RESPONSE_MESSAGE_KEY;
+import static com.micro.demo.configuration.Constants.RESULTADO_APRENDIZAJE_NOT_FOUND;
 import static com.micro.demo.configuration.Constants.ROLE_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.TEMAS_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.UNAUTHORIZED_MESSAGE;
@@ -300,5 +306,26 @@ public class ControllerAdvisor {
         Map<String, String> response = new HashMap<>();
         response.put("message", exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(ResultadoAprendizajeNotFoundException.class)
+    public ResponseEntity<Map<String, String>> resultadoAprendizajeNotFoundException(
+            ResultadoAprendizajeNotFoundException resultadoAprendizajeNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, RESULTADO_APRENDIZAJE_NOT_FOUND));
+    }
+
+    @ExceptionHandler(CompetenciaNotFoundException.class)
+    public ResponseEntity<Map<String, String>> competenciaNotFoundException(
+            CompetenciaNotFoundException competenciaNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, COMPETENCIA_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(FakeEstatusNotAllowed.class)
+    public ResponseEntity<Map<String, String>> fakeEstatusNotAllowed(
+            FakeEstatusNotAllowed fakeEstatusNotAllowed) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, FAKE_ESTATUS_NOT_ALLOWED));
     }
 }

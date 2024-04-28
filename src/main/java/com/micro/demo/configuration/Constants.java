@@ -41,4 +41,7 @@ public class Constants {
     public static final String PRE_REQUISITO_NOT_FOUND_MESSAGE= "Ese pre-requisito no existe.";
     public static final String TEMAS_NOT_FOUND_MESSAGE= "Los temas no existen.";
     public static final String UNIDAD_NOT_FOUND_MESSAGE= "La unidad no existe.";
+    public static final String RESULTADO_APRENDIZAJE_NOT_FOUND= "El resultado de aprendizaje no existe.";
+    public static final String COMPETENCIA_NOT_FOUND_MESSAGE= "La competencia no existe";
+    public static final String FAKE_ESTATUS_NOT_ALLOWED= "No se pudo asignar, ya que resultado de aprendizaje o competencia tienen estatus falso.";
 }
