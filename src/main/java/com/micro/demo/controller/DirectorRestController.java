@@ -14,6 +14,7 @@ import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.PreRequisito;
 import com.micro.demo.entities.ProgramaAcademico;
+import com.micro.demo.entities.ResultadoAprendizaje;
 import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
 import com.micro.demo.entities.UnidadResultado;
@@ -23,6 +24,7 @@ import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.IPreRequisitoService;
 import com.micro.demo.service.IProgramaAcademicoService;
+import com.micro.demo.service.IResultadoAprendizajeService;
 import com.micro.demo.service.ITemaService;
 import com.micro.demo.service.IUnidadResultadoService;
 import com.micro.demo.service.IUnidadService;
@@ -61,8 +63,9 @@ public class DirectorRestController {
     private final IPreRequisitoService preRequisitoService;
     private final ITemaService temaService;
     private final IUnidadResultadoService unidadResultadoService;
+    private final IResultadoAprendizajeService resultadoAprendizajeService;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService, IResultadoAprendizajeService resultadoAprendizajeService) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
@@ -72,6 +75,7 @@ public class DirectorRestController {
         this.preRequisitoService = preRequisitoService;
         this.temaService = temaService;
         this.unidadResultadoService = unidadResultadoService;
+        this.resultadoAprendizajeService = resultadoAprendizajeService;
     }
 
     /**
@@ -612,4 +616,58 @@ public class DirectorRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
     }
 
+
+    /**
+     *
+     * RESULTADOS DE APRENDIZAJE
+     *
+     * **/
+    @Operation(summary = "Get all resultados de aprendizaje")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Resultados de aprendizaje list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Resultados de aprendizaje already exists", content = @Content)
+    })
+    @GetMapping("/allResultadosAprendizaje")
+    public ResponseEntity<List<ResultadoAprendizaje>> getAllResultadosAprendizaje(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(resultadoAprendizajeService.getAllResultado(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Add a new resultados de aprendizaje",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Resultado de aprendizaje created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Resultado de aprendizaje already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/saveResultadoAprendizaje")
+    public ResponseEntity<Map<String, String>> saveResultadosAprendizaje(@Valid @RequestBody ResultadoAprendizaje resultadoAprendizaje) {
+        resultadoAprendizajeService.saveResultado(resultadoAprendizaje);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    @Operation(summary = "Updated resultado de aprendizaje",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Resultado aprendizaje update",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Resultado aprendizaje already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PutMapping("/updateResultadoAprendizaje/{id}")
+    public ResponseEntity<Map<String, String>> updateResultadoAprendizaje(@PathVariable Long id, @RequestBody ResultadoAprendizaje resultadoAprendizaje) {
+        resultadoAprendizajeService.updateResultado(id,resultadoAprendizaje);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
+    }
+
+    @Operation(summary = "Deleted resultado de aprendizaje",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Resultado aprendizaje deleted",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Resultado aprendizaje not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @DeleteMapping("/deleteResultadoAprendizaje/{id}")
+    public ResponseEntity<Map<String, String>> deleteResultadoAprendizaje(@PathVariable Long id) {
+        resultadoAprendizajeService.deleteResultado(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
 }
