@@ -4,6 +4,7 @@ import com.micro.demo.configuration.Constants;
 import com.micro.demo.controller.dto.PageRequestDto;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
+import com.micro.demo.service.IPdfService;
 import com.micro.demo.service.IProgramaAcademicoService;
 import com.micro.demo.service.IUsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,14 +15,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +34,13 @@ public class DocenteRestController {
 
     private final IUsuarioService usuarioService;
     private final IProgramaAcademicoService programaAcademicoService;
+    private final IPdfService pdfService;
 
-    public DocenteRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService) {
+
+    public DocenteRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService, IPdfService pdfService) {
         this.usuarioService = usuarioService;
         this.programaAcademicoService = programaAcademicoService;
+        this.pdfService = pdfService;
     }
 
     /**
@@ -84,5 +89,24 @@ public class DocenteRestController {
     public ResponseEntity<ProgramaAcademico> getProgramaByNombre(@PathVariable String nombre) {
         ProgramaAcademico programa = programaAcademicoService.getProgramaByNombre(nombre);
         return ResponseEntity.ok(programa);
+    }
+
+
+    /**
+     *
+     * PDF
+     *
+     * **/
+    @Operation(summary = "Generate PDF",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "PDF Generated",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Pdf not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/generatePdf/{pensumId}")
+    public ResponseEntity<Map<String, String>> generatePdf(@PathVariable Long pensumId) throws IOException {
+        pdfService.generatePdf(pensumId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
 }

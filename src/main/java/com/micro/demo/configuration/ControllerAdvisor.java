@@ -17,6 +17,7 @@ import com.micro.demo.service.exceptions.FakeEstatusNotAllowed;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.NotFoundUserUnauthorized;
+import com.micro.demo.service.exceptions.PdfDownloadNotAllowedException;
 import com.micro.demo.service.exceptions.PensumNotActiveException;
 import com.micro.demo.service.exceptions.PensumNotFoundByIdException;
 import com.micro.demo.service.exceptions.PensumNotFoundException;
@@ -60,6 +61,7 @@ import static com.micro.demo.configuration.Constants.ESTATUS_FAKE_PENSUM_MESSAGE
 import static com.micro.demo.configuration.Constants.FAKE_ESTATUS_NOT_ALLOWED;
 import static com.micro.demo.configuration.Constants.NO_DATA_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.PAGINA_ILEGAL_MESSAGE;
+import static com.micro.demo.configuration.Constants.PDF_DOWNLOAD_NOT_ALLOWED_MESSAGE;
 import static com.micro.demo.configuration.Constants.PENSUM_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.PERIODO_MODIFICACION_INVALIDO_MESSAGE;
 import static com.micro.demo.configuration.Constants.PRE_REQUISITO_NOT_FOUND_MESSAGE;
@@ -336,5 +338,12 @@ public class ControllerAdvisor {
             PensumNotActiveException pensumNotActiveException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ESTATUS_FAKE_PENSUM_MESSAGE));
+    }
+
+    @ExceptionHandler(PdfDownloadNotAllowedException.class)
+    public ResponseEntity<Map<String, String>> pdfDownloadNotAllowedException(
+            PdfDownloadNotAllowedException pdfDownloadNotAllowedException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PDF_DOWNLOAD_NOT_ALLOWED_MESSAGE));
     }
 }

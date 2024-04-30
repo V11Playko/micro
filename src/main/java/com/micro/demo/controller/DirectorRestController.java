@@ -24,6 +24,7 @@ import com.micro.demo.entities.Usuario;
 import com.micro.demo.service.IAreaFormacionService;
 import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.ICompetenciaService;
+import com.micro.demo.service.IPdfService;
 import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.IPreRequisitoService;
 import com.micro.demo.service.IProgramaAcademicoService;
@@ -49,6 +50,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -68,8 +70,9 @@ public class DirectorRestController {
     private final IUnidadResultadoService unidadResultadoService;
     private final IResultadoAprendizajeService resultadoAprendizajeService;
     private final ICompetenciaService competenciaService;
+    private final IPdfService pdfService;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService, IResultadoAprendizajeService resultadoAprendizajeService, ICompetenciaService competenciaService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService, IResultadoAprendizajeService resultadoAprendizajeService, ICompetenciaService competenciaService, IPdfService pdfService) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
@@ -81,6 +84,7 @@ public class DirectorRestController {
         this.unidadResultadoService = unidadResultadoService;
         this.resultadoAprendizajeService = resultadoAprendizajeService;
         this.competenciaService = competenciaService;
+        this.pdfService = pdfService;
     }
 
     /**
@@ -755,5 +759,24 @@ public class DirectorRestController {
         competenciaService.deleteCompetencia(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
+    }
+
+
+    /**
+     *
+     * PDF
+     *
+     * **/
+    @Operation(summary = "Generate PDF",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "PDF Generated",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Pdf not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/generatePdf/{pensumId}")
+    public ResponseEntity<Map<String, String>> generatePdf(@PathVariable Long pensumId) throws IOException {
+        pdfService.generatePdf(pensumId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
 }
