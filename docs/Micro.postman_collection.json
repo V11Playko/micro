@@ -276,7 +276,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Juan\",\r\n    \"apellido\": \"Vega\",\r\n    \"numeroCelular\": \"+57 3134647850\",\r\n    \"correo\": \"juan@gmail.com\",\r\n    \"contraseña\": \"Vega\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Maria\",\r\n    \"apellido\": \"Ortiz\",\r\n    \"numeroCelular\": \"+57 3134674455\",\r\n    \"correo\": \"maria@gmail.com\",\r\n    \"contraseña\": \"Ortiz\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -317,7 +317,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Heinner\",\r\n    \"apellido\": \"sdaadsa\",\r\n    \"numeroCelular\": \"+57 3134644512\",\r\n    \"correo\": \"heinnervega20@gmail.com\",\r\n    \"contraseña\": \"Vega\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Juan\",\r\n    \"apellido\": \"Garcia\",\r\n    \"numeroCelular\": \"+57 3134675315\",\r\n    \"correo\": \"juan@gmail.com\",\r\n    \"contraseña\": \"Garcia\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -325,7 +325,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/update/12",
+									"raw": "http://localhost:8091/api/v1/admin/update/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -336,7 +336,7 @@
 										"v1",
 										"admin",
 										"update",
-										"12"
+										"3"
 									]
 								}
 							},
@@ -440,7 +440,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/Ingenieria de sistemas",
+									"raw": "http://localhost:8091/api/v1/admin/Ingenieria de Sistemas",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -450,7 +450,7 @@
 										"api",
 										"v1",
 										"admin",
-										"Ingenieria de sistemas"
+										"Ingenieria de Sistemas"
 									]
 								}
 							},
@@ -473,7 +473,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Psicologia\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Ingenieria de Sistemas\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -514,7 +514,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"correoDirector\": \"juan@gmail.com\",\r\n  \"nombrePrograma\": \"Ingenieria Quimica\"\r\n}",
+									"raw": "{\r\n  \"correoDirector\": \"sad@gmail.com\",\r\n  \"nombrePrograma\": \"Ingenieria de Sistemas\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -675,7 +675,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Karla\",\r\n    \"apellido\": \"Suarez\",\r\n    \"numeroCelular\": \"+57 3136534963\",\r\n    \"correo\": \"karla@gmail.com\",\r\n    \"contraseña\": \"Suarez\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Darwin\",\r\n    \"apellido\": \"Martinez\",\r\n    \"numeroCelular\": \"+57 3134644252\",\r\n    \"correo\": \"darwin@gmail.com\",\r\n    \"contraseña\": \"Martinez\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -717,7 +717,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Heinner\",\r\n    \"apellido\": \"Vega\",\r\n    \"numeroCelular\": \"+57 3134647020\",\r\n    \"correo\": \"heinnervega20@gmail.com\",\r\n    \"contraseña\": \"Vega\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Darwin\",\r\n    \"apellido\": \"Martinez\",\r\n    \"numeroCelular\": \"+57 3134644252\",\r\n    \"correo\": \"darwin01@gmail.com\",\r\n    \"contraseña\": \"Martinez\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -725,7 +725,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updateUser/12",
+									"raw": "http://localhost:8091/api/v1/admin/director/updateUser/8",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -737,7 +737,7 @@
 										"admin",
 										"director",
 										"updateUser",
-										"12"
+										"8"
 									]
 								}
 							},
@@ -844,7 +844,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombrePrograma\": \"Ingenieria de sistemas\",\r\n  \"puedeDescargarPdf\": true\r\n}",
+									"raw": "{\r\n  \"nombrePrograma\": \"Ingenieria de Sistemas\",\r\n  \"puedeDescargarPdf\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -886,7 +886,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombrePrograma\": \"Ingenieria de sistemas\",\r\n  \"fechaInicioModificacion\": \"2024-04-18\",\r\n  \"duracionModificacion\": 1\r\n}",
+									"raw": "{\r\n  \"nombrePrograma\": \"Ingenieria de Sistemas\",\r\n  \"fechaInicioModificacion\": \"2024-04-18\",\r\n  \"duracionModificacion\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -978,7 +978,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"creditosTotales\": 112,\r\n  \"fechaInicio\": \"2024-04-23\",\r\n  \"fechaFinal\": \"2024-05-28\",\r\n  \"estatus\": true\r\n}",
+									"raw": "{\r\n  \"creditosTotales\": 132,\r\n  \"fechaInicio\": \"2024-04-23\",\r\n  \"fechaFinal\": \"2024-06-01\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1020,7 +1020,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"creditosTotales\": 50,\r\n    \"fechaInicio\": \"2024-04-24\",\r\n    \"fechaFinal\": \"2024-04-28\",\r\n    \"estatus\": true\r\n}",
+									"raw": "{\r\n  \"creditosTotales\": 110,\r\n  \"fechaInicio\": \"2024-04-23\",\r\n  \"fechaFinal\": \"2024-06-01\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1028,7 +1028,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updatePensum/7",
+									"raw": "http://localhost:8091/api/v1/admin/director/updatePensum/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1040,7 +1040,7 @@
 										"admin",
 										"director",
 										"updatePensum",
-										"7"
+										"3"
 									]
 								}
 							},
@@ -1063,7 +1063,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"pensumId\": 7,\r\n  \"asignaturasId\": [\r\n    1, 3\r\n  ]\r\n}",
+									"raw": "{\r\n  \"pensumId\": 1,\r\n  \"asignaturasId\": [\r\n    1, 2, 5\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1105,7 +1105,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"pensumId\": 5,\r\n  \"asignaturaId\": 3\r\n}",
+									"raw": "{\r\n  \"pensumId\": 1,\r\n  \"asignaturaId\": 5\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1159,6 +1159,40 @@
 										"director",
 										"deletePensum",
 										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Duplicate Pensum",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/duplicatePensum/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"duplicatePensum",
+										"1"
 									]
 								}
 							},
@@ -1231,7 +1265,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"programas\",\r\n    \"codigo\": 1155789,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"areaFormacion\": {\r\n        \"id\": 1\r\n    },\r\n    \"preRequisito\": {\r\n        \"id\": 2\r\n    },\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Algoritmos de Ordenamiento I\",\r\n    \"codigo\": 1155971,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"areaFormacion\": {\r\n        \"id\": 1\r\n    },\r\n    \"preRequisito\": {\r\n        \"id\": 1\r\n    },\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1273,7 +1307,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Programacion orientada a objetos\",\r\n    \"codigo\": 1155999,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 4,\r\n    \"had\": \"10\",\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Programacion II\",\r\n    \"codigo\": 1155999,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1316,7 +1350,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"asignaturaId\": 3,\r\n  \"correoDocentes\": [\r\n    \"yoli@gmail.com\",\r\n    \"karla@gmail.com\"\r\n  ]\r\n}",
+									"raw": "{\r\n  \"asignaturaId\": 1,\r\n  \"correoDocentes\": [\r\n    \"emilio@gmail.com\",\r\n    \"karla@gmail.com\"\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1358,7 +1392,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"asignaturaId\": 3,\r\n  \"correoDocente\": \"yoli@gmail.com\"\r\n}",
+									"raw": "{\r\n  \"asignaturaId\": 1,\r\n  \"correoDocente\": \"karla@gmail.com\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1484,7 +1518,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"Interpretacion\"\r\n}",
+									"raw": "{\r\n  \"nombre\": \"Fisica\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1610,7 +1644,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n        \"credito\": \"SI APLICA\",\r\n        \"codigoAsignatura\": 1155999\r\n}",
+									"raw": "{\r\n        \"credito\": \"SI APLICA\",\r\n        \"codigoAsignatura\": 1155922\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1676,6 +1710,9 @@
 					"item": [
 						{
 							"name": "All Unidades",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1689,6 +1726,15 @@
 								},
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "http://localhost:8091/api/v1/admin/director/allUnidades",
 									"protocol": "http",
@@ -1758,7 +1804,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"had\": \"2\",\r\n  \"hti\": \"3\",\r\n  \"nombre\": \"Unidad chevere\",\r\n  \"asignatura\": {\r\n    \"codigo\": 1155789\r\n  }\r\n}",
+									"raw": "{\r\n  \"had\": \"2\",\r\n  \"hti\": \"3\",\r\n  \"nombre\": \"Unidad\",\r\n  \"asignatura\": {\r\n    \"codigo\": 1155994\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1843,7 +1889,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"unidadId\": 5,\r\n    \"temaIds\": [3]\r\n}",
+									"raw": "{\r\n    \"unidadId\": 2,\r\n    \"temaIds\": [4]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1969,7 +2015,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"Super tema 2.0\",\r\n  \"descripcion\": \"Tema\",\r\n  \"estatus\": false\r\n}",
+									"raw": "{\r\n  \"nombre\": \"tema\",\r\n  \"descripcion\": \"Tema\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2011,7 +2057,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"Raro\",\r\n  \"descripcion\": \"Tema Raro\",\r\n  \"estatus\": false\r\n}",
+									"raw": "{\r\n  \"nombre\": \"Super tema 2.0\",\r\n  \"descripcion\": \"Tema\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2019,7 +2065,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updateTema/2",
+									"raw": "http://localhost:8091/api/v1/admin/director/updateTema/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2031,7 +2077,7 @@
 										"admin",
 										"director",
 										"updateTema",
-										"2"
+										"1"
 									]
 								}
 							},
@@ -2307,7 +2353,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"string\",\r\n  \"descripcion\": \"string\",\r\n  \"estatus\": true\r\n}",
+									"raw": "{\r\n  \"nombre\": \"Re\",\r\n  \"descripcion\": \"aja\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2392,7 +2438,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"resultadoAprendizajeId\": 1,\r\n  \"competenciaIds\": [\r\n    2, 5\r\n  ]\r\n}",
+									"raw": "{\r\n  \"resultadoAprendizajeId\": 1,\r\n  \"competenciaIds\": [\r\n    1,2\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2518,7 +2564,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"string\",\r\n  \"descripcion\": \"Super\",\r\n  \"estatus\": true\r\n}",
+									"raw": "{\r\n  \"nombre\": \"melo\",\r\n  \"descripcion\": \"aja\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
