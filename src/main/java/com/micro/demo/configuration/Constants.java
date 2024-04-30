@@ -44,4 +44,5 @@ public class Constants {
     public static final String RESULTADO_APRENDIZAJE_NOT_FOUND= "El resultado de aprendizaje no existe.";
     public static final String COMPETENCIA_NOT_FOUND_MESSAGE= "La competencia no existe";
     public static final String FAKE_ESTATUS_NOT_ALLOWED= "No se pudo asignar, ya que resultado de aprendizaje o competencia tienen estatus falso.";
+    public static final String ESTATUS_FAKE_PENSUM_MESSAGE= "El estatus del pensum es false.";
 }

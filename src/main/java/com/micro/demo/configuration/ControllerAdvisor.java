@@ -17,6 +17,7 @@ import com.micro.demo.service.exceptions.FakeEstatusNotAllowed;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.NotFoundUserUnauthorized;
+import com.micro.demo.service.exceptions.PensumNotActiveException;
 import com.micro.demo.service.exceptions.PensumNotFoundByIdException;
 import com.micro.demo.service.exceptions.PensumNotFoundException;
 import com.micro.demo.service.exceptions.PeriodoModificacionInvalidoException;
@@ -55,6 +56,7 @@ import static com.micro.demo.configuration.Constants.DIRECTOR_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DOCENTE_NOT_ASSIGN_MESSAGE;
 import static com.micro.demo.configuration.Constants.DOCENTE_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DURACION_INVALIDA_MESSAGE;
+import static com.micro.demo.configuration.Constants.ESTATUS_FAKE_PENSUM_MESSAGE;
 import static com.micro.demo.configuration.Constants.FAKE_ESTATUS_NOT_ALLOWED;
 import static com.micro.demo.configuration.Constants.NO_DATA_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.PAGINA_ILEGAL_MESSAGE;
@@ -327,5 +329,12 @@ public class ControllerAdvisor {
             FakeEstatusNotAllowed fakeEstatusNotAllowed) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, FAKE_ESTATUS_NOT_ALLOWED));
+    }
+
+    @ExceptionHandler(PensumNotActiveException.class)
+    public ResponseEntity<Map<String, String>> pensumNotActiveException(
+            PensumNotActiveException pensumNotActiveException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ESTATUS_FAKE_PENSUM_MESSAGE));
     }
 }
