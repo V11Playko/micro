@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"correo\": \"heinnervega20@gmail.com\",\r\n  \"contraseña\": \"Vega\"\r\n}",
+							"raw": "{\r\n  \"correo\": \"karla@gmail.com\",\r\n  \"contraseña\": \"Suarez\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -566,6 +566,44 @@
 										"admin",
 										"deleteProgramaAcademico",
 										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage Pensum",
+					"item": [
+						{
+							"name": "Generate PDF",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/generatePdf/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"generatePdf",
+										"1"
 									]
 								}
 							},
@@ -1192,6 +1230,40 @@
 										"admin",
 										"director",
 										"duplicatePensum",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Generate PDF",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/generatePdf/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"generatePdf",
 										"1"
 									]
 								}
@@ -2767,7 +2839,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5b2xpQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRE9DRU5URSJdLCJpYXQiOjE3MTM1NzQ3OTEsImV4cCI6MTczNTE3NDc5MX0.oDfIUSQNlh3m40i338cd380c3p_MvnfOCQvXGyGdJ2-IKNEj5gvIyiqg7pOjWnxoqpLujNahw1GbbX--ne9BqQ",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYXJsYUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE0NTA0NDgzLCJleHAiOjE3MzYxMDQ0ODN9.iL4aKDFviY4mWBK0gvspWNqH0absZ3WwDObehO4cbt-2P7PjnPcxrflIsa8A0dFtuFQPEGc30l0AH1ojhP4vpA",
 											"type": "string"
 										}
 									]
@@ -2776,7 +2848,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 2,\r\n  \"elementosXpagina\": 3\r\n}",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 3\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2809,7 +2881,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5b2xpQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRE9DRU5URSJdLCJpYXQiOjE3MTM1NzQ3OTEsImV4cCI6MTczNTE3NDc5MX0.oDfIUSQNlh3m40i338cd380c3p_MvnfOCQvXGyGdJ2-IKNEj5gvIyiqg7pOjWnxoqpLujNahw1GbbX--ne9BqQ",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYXJsYUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE0NTA0NDgzLCJleHAiOjE3MzYxMDQ0ODN9.iL4aKDFviY4mWBK0gvspWNqH0absZ3WwDObehO4cbt-2P7PjnPcxrflIsa8A0dFtuFQPEGc30l0AH1ojhP4vpA",
 											"type": "string"
 										}
 									]
@@ -2817,7 +2889,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/docente/Ingenieria de sistemas",
+									"raw": "http://localhost:8091/api/v1/admin/docente/Ingenieria de Sistemas",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2828,7 +2900,46 @@
 										"v1",
 										"admin",
 										"docente",
-										"Ingenieria de sistemas"
+										"Ingenieria de Sistemas"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage Pensum",
+					"item": [
+						{
+							"name": "Generate PDF",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYXJsYUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE0NTA0NDgzLCJleHAiOjE3MzYxMDQ0ODN9.iL4aKDFviY4mWBK0gvspWNqH0absZ3WwDObehO4cbt-2P7PjnPcxrflIsa8A0dFtuFQPEGc30l0AH1ojhP4vpA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/docente/generatePdf/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"docente",
+										"generatePdf",
+										"1"
 									]
 								}
 							},
@@ -2957,6 +3068,45 @@
 										"admin",
 										"visitante",
 										"Ingenieria de sistemas"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage Pensum",
+					"item": [
+						{
+							"name": "Generate PDF",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnYWJyaWVsQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfVklTSVRBTlRFIl0sImlhdCI6MTcxMzY2MDU2MywiZXhwIjoxNzM1MjYwNTYzfQ.614I87P_D1sFwULGNWJJ0Kji1clUJZ4AxBSccBJCA5sYbW2sZ2Zh3TvJJg2RIav563RGpddnbtEIOs8kGdtxlA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/visitante/generatePdf/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"visitante",
+										"generatePdf",
+										"1"
 									]
 								}
 							},
