@@ -1,5 +1,6 @@
 package com.micro.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,6 +34,7 @@ public class Unidad implements Serializable {
     private String nombre;
 
     @OneToMany(mappedBy = "unidad")
+    @JsonIgnore
     private List<Tema> temas;
 
     @ManyToOne

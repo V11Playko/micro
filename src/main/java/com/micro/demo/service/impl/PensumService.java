@@ -15,6 +15,7 @@ import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundExceptionInPensum;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
+import com.micro.demo.service.exceptions.PensumNotActiveException;
 import com.micro.demo.service.exceptions.PensumNotFoundByIdException;
 import com.micro.demo.service.exceptions.PensumNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
@@ -81,7 +82,7 @@ public class PensumService implements IPensumService {
                 .orElseThrow(NoDataFoundException::new);
 
         existingPensum.setCreditosTotales(pensum.getCreditosTotales());
-        existingPensum.setFechaInicio(pensum.getFechaInicio());
+        existingPensum.setFechaInicio(LocalDate.now());
         existingPensum.setFechaFinal(pensum.getFechaFinal());
         existingPensum.setEstatus(pensum.isEstatus());
 
@@ -92,6 +93,10 @@ public class PensumService implements IPensumService {
     public void assignAsignaturas(Long pensumId, List<Long> asignaturasId) {
         Pensum pensum = pensumRepository.findById(pensumId)
                 .orElseThrow(PensumNotFoundException::new);
+
+        if (!pensum.isEstatus()) {
+            throw new PensumNotActiveException();
+        }
 
         // Obtener las asignaturas por sus IDs
         List<Asignatura> asignaturas = asignaturaRepository.findAllById(asignaturasId);

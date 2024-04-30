@@ -93,6 +93,8 @@ public class AsignaturaService implements IAsignaturaService {
         existingAsignatura.setSemestre(asignatura.getSemestre());
         existingAsignatura.setTipoCredito(asignatura.getTipoCredito());
         existingAsignatura.setTipoCurso(asignatura.getTipoCurso());
+        existingAsignatura.setAsignaturaPredecesora(asignatura.getAsignaturaPredecesora());
+        existingAsignatura.setAsignaturaSucesora(asignatura.getAsignaturaSucesora());
 
         asignaturaRepository.save(existingAsignatura);
     }

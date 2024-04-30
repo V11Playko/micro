@@ -35,7 +35,6 @@ public class UnidadResultado implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "unidad_id")
-    @JsonIgnore
     private Unidad unidad;
 
     @ManyToOne
