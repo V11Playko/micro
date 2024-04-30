@@ -11,4 +11,5 @@ public interface IPensumService {
     void assignAsignaturas(Long pensumId, List<Long> asignaturasId);
     void removeAsignaturaFromPensum(Long pensumId, Long asignaturaId);
     void deletePensum(Long id);
+    void duplicatePensum(Long pensumId);
 }

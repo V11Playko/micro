@@ -270,6 +270,19 @@ public class DirectorRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
     }
 
+    @Operation(summary = "Duplicate Pensum",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Pensum Duplicate",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Pensum not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/duplicatePensum/{id}")
+    public ResponseEntity<Map<String, String>> duplicatePensum(@PathVariable Long id) {
+        pensumService.duplicatePensum(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
 
     /**
      *

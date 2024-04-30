@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface IAsignaturaPensumRepository extends JpaRepository<AsignaturaPensum, Long> {
     List<AsignaturaPensum> findByPensumIdAndAsignaturaIdIn(Long pensumId, List<Long> asignaturaIds);
     Optional<AsignaturaPensum> findByPensumIdAndAsignaturaId(Long pensumId, Long asignaturaId);
+    List<AsignaturaPensum> findByPensumId(Long pensumId);
 }

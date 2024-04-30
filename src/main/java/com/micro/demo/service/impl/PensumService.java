@@ -154,6 +154,31 @@ public class PensumService implements IPensumService {
         pensumRepository.deleteById(pensum.getId());
     }
 
+    @Override
+    public void duplicatePensum(Long pensumId) {
+        Pensum originalPensum = pensumRepository.findById(pensumId)
+                .orElseThrow(PensumNotFoundException::new);
+
+        Pensum nuevoPensum = new Pensum();
+        nuevoPensum.setCreditosTotales(originalPensum.getCreditosTotales());
+        nuevoPensum.setFechaInicio(originalPensum.getFechaInicio());
+        nuevoPensum.setFechaFinal(originalPensum.getFechaFinal());
+        nuevoPensum.setEstatus(originalPensum.isEstatus());
+        nuevoPensum.setProgramaAcademico(originalPensum.getProgramaAcademico());
+
+        Pensum savedPensum = pensumRepository.save(nuevoPensum);
+
+        // Copiar las asignaturas asociadas al pensum original
+        List<AsignaturaPensum> asignaturasPensumOriginales = asignaturaPensumRepository.findByPensumId(pensumId);
+        for (AsignaturaPensum ap : asignaturasPensumOriginales) {
+            AsignaturaPensum nuevaAsignaturaPensum = new AsignaturaPensum();
+            nuevaAsignaturaPensum.setAsignatura(ap.getAsignatura());
+            nuevaAsignaturaPensum.setPensum(savedPensum);
+
+            asignaturaPensumRepository.save(nuevaAsignaturaPensum);
+        }
+    }
+
 
     private String getCorreoUsuarioAutenticado() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
