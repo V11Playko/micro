@@ -20,7 +20,12 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.stereotype.Service;
 
 import java.awt.Color;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -43,194 +48,231 @@ public class PdfService implements IPdfService {
 
     @Override
     public void generatePdf(Long pensumId) throws IOException {
+        // Obtener el pensum por su ID
         Pensum pensum = pensumRepository.findById(pensumId)
                 .orElseThrow(() -> new PensumNotFoundByIdException(pensumId));
 
+        // Obtener el programa académico asociado al pensum
         ProgramaAcademico programaAcademico = pensum.getProgramaAcademico();
 
+        // Verificar si el programa académico permite descargar PDFs
         if (!programaAcademico.getPuedeDescargarPdf()) {
             throw new PdfDownloadNotAllowedException();
         }
 
+        // Generar el nombre del archivo PDF
         String fileName = generateFileName(pensum);
 
+        // Define la ubicación de la carpeta de descargas
+        String downloadFolder = System.getProperty("user.home") + File.separator + "Downloads";
+
+        // Verifica si el archivo ya existe y ajusta el nombre si es necesario
+        File file = new File(downloadFolder, fileName);
+        int count = 1;
+        while (file.exists()) {
+            fileName = generateFileNameWithIndex(pensum, count++);
+            file = new File(downloadFolder, fileName);
+        }
+
+        // Url de la imagen
+        String imageUrl = "https://drive.google.com/uc?export=download&id=1Uuy59Dv8rFOyK2uZ-WD9aetSrHe-4P7Q";
+
+
+        // Iniciar la creación del documento PDF
         try (PDDocument document = new PDDocument()) {
-            PDPage page = new PDPage();
-            document.addPage(page);
+            // Obtener la lista de asignaturas asociadas al pensum
+            List<AsignaturaPensum> asignaturaPensums = asignaturaPensumRepository.findByPensumId(pensumId);
 
-            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                // Obtener los nombres de todas las asignaturas asociadas al pensum
-                List<AsignaturaPensum> asignaturaPensums = asignaturaPensumRepository.findByPensumId(pensumId);
+            // Definir márgenes y otras configuraciones visuales
+            float margin = 50;
+            float marginTop = 50;
+            float tableMargin = 5f;
 
-                // Definir el tamaño de la tabla y las celdas
-                float margin = 50;
-                float marginTop = 50;
-                float yStart = page.getMediaBox().getHeight() - margin - marginTop;
-                float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
-                float cellHeight = 32f;
-                float tableMargin = 5f;
+            // Abrir conexión y obtener la entrada de la URL
+            URL url = new URL(imageUrl);
+            URLConnection connection = url.openConnection();
+            connection.connect();
+            InputStream inputStream = connection.getInputStream();
 
-                // Crear un objeto PDImageXObject desde el archivo de imagen
-                PDImageXObject image = PDImageXObject.createFromFile("C:\\Users\\heinn\\Documents\\personalProjects\\micro\\docs\\images\\logo.png", document);
+            // Convertir el InputStream en un array de bytes
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                baos.write(buffer, 0, bytesRead);
+            }
+            byte[] imageData = baos.toByteArray();
 
-                // Especificar la posición y el tamaño de la imagen
-                float imageX = 50;
-                float imageY = page.getMediaBox().getHeight() - 60; // Posición vertical de la imagen
-                float imageWidth = 100; // Ancho de la imagen
-                float imageHeight = 50; // Alto de la imagen
+            // Cargar la imagen desde el array de bytes
+            PDImageXObject image = PDImageXObject.createFromByteArray(document, imageData, "image");
 
-                // Dibujar la imagen en la página
-                contentStream.drawImage(image, imageX, imageY, imageWidth, imageHeight);
 
-                // Escribir el título "Universidad Francisco de Paula Santander"
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-                contentStream.newLineAtOffset(imageX + imageWidth + margin - 40, imageY + imageHeight - 22); // Alinea el texto según necesites
-                contentStream.showText("Universidad Francisco de Paula Santander");
-                contentStream.endText(); // Finaliza la secuencia de texto
+            // Iterar sobre las asignaturas en grupos de máximo 15 por página
+            for (List<AsignaturaPensum> pageAsignaturas : partitionList(asignaturaPensums, 15)) {
+                // Crear una nueva página en el PDF
+                PDPage page = new PDPage();
+                document.addPage(page);
 
-                // Escribir el subtítulo "Pensum" debajo del título
-                contentStream.beginText(); // Iniciar una nueva secuencia de texto
-                contentStream.setFont(PDType1Font.HELVETICA, 10);
-                contentStream.newLineAtOffset(imageX + imageWidth + margin - 40, imageY + imageHeight -33); // Espacio entre el título y el subtítulo
-                contentStream.showText("Pensum");
-                contentStream.endText(); // Finalizar la secuencia de texto
+                // Iniciar el flujo de contenido para esta página
+                try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                    // Configurar la posición inicial y dimensiones del logo
+                    float yStart = page.getMediaBox().getHeight() - margin - marginTop;
+                    float imageX = 50;
+                    float imageY = page.getMediaBox().getHeight() - 60;
+                    float imageWidth = 100;
+                    float imageHeight = 50;
 
-                LocalDate localDate = LocalDate.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                String formattedLocalDate = localDate.format(formatter);
+                    // Dibujar el logo en la página
+                    contentStream.drawImage(image, imageX, imageY, imageWidth, imageHeight);
 
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA, 10);
-                contentStream.newLineAtOffset(imageX + imageWidth + margin + 260, imageY + imageHeight -70);
-                contentStream.showText("Generado: "+ LocalDate.now().format(DateTimeFormatter.ofPattern(formattedLocalDate)));
-                contentStream.endText();
-
-                // Dibujar una línea horizontal debajo de la imagen
-                float horizontalLineY = imageY - imageHeight + 40; // Posición vertical de la línea
-                float horizontalLineX1 = imageX - 5; // Margen a la izquierda
-                float horizontalLineX2 = imageX + imageWidth + margin + 365; // Margen a la derecha
-                contentStream.moveTo(horizontalLineX1, horizontalLineY); // Mover a la posición inicial de la línea
-                contentStream.lineTo(horizontalLineX2, horizontalLineY); // Dibujar la línea horizontal
-                contentStream.stroke();
-
-                // CUADRO CUADRICULADO - Definir el número de columnas y su ancho
-                float[] columnWidths = {50, 80, 30, 30, 30, 30, 60, 30, 30, 30, 80};
-                float tableHeight = cellHeight * 2 + tableMargin;
-                float yPosition = yStart;
-
-                // Dibujar las líneas horizontales y verticales de la tabla
-                contentStream.setLineWidth(0.5f);
-                float xEnd = margin + tableWidth;
-                float yEnd = yStart - tableHeight;
-                float nextX = margin;
-
-                // Dibujar las líneas verticales
-                for (int i = 0; i < columnWidths.length; i++) {
-                    contentStream.moveTo(nextX, yStart);
-                    contentStream.lineTo(nextX, yEnd - cellHeight * (asignaturaPensums.size() -1)); // Ajustado para que termine antes de la última línea horizontal
-                    contentStream.stroke();
-                    nextX += columnWidths[i];
-                }
-
-                // Dibujar una línea horizontal encima de los títulos
-                contentStream.moveTo(margin, yStart);
-                contentStream.lineTo(xEnd, yStart);
-                contentStream.stroke();
-
-                // Ajustar yEnd para que llegue hasta la última línea horizontal
-                yEnd -= (asignaturaPensums.size() + 1) * cellHeight;
-
-                // Dibujar las líneas horizontales
-                for (int i = 0; i < asignaturaPensums.size() + 1; i++) {
-                    float y = yStart - (tableHeight / 2) - (i * cellHeight);
-                    contentStream.moveTo(margin, y);
-                    contentStream.lineTo(xEnd, y);
-                    contentStream.stroke();
-                }
-
-                // Dibujar la última línea vertical proporcional al número de filas
-                float lastVerticalLineYStart = yStart - (tableHeight / 2) - ((asignaturaPensums.size()) * cellHeight);
-                contentStream.moveTo(xEnd, yStart);
-                contentStream.lineTo(xEnd, lastVerticalLineYStart);
-                contentStream.stroke();
-
-                // Escribir los encabezados de las columnas
-                float nextXHeader = margin;
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8); // Fuente Helvetica Bold para los encabezados
-                contentStream.setNonStrokingColor(Color.BLACK);
-                contentStream.setLeading(15f);
-                yStart -= 15; // Ajustar la posición hacia abajo
-                for (int i = 0; i < columnWidths.length; i++) {
-                    float columnWidth = columnWidths[i];
-                    float textX = nextXHeader + 5; // Alineación a la izquierda con un pequeño margen
-                    if (i == 0) {
-                        textX -= -2; // Ajuste adicional hacia la izquierda para el primer encabezado
-                    } else if (i == 1) {
-                        textX -= -18;
-                    } else if (i == 5) {
-                        textX -= -1;
-                    } else if (i == 6) {
-                        textX -= -12;
-                    } else if (i == 7) {
-                        textX -= 0;
-                    } else {
-                        textX = nextXHeader + (columnWidth / 2) - 5; // Alinear en el centro de la columna
-                    }
+                    // Escribir el nombre de la universidad
                     contentStream.beginText();
-                    contentStream.setFont(PDType1Font.HELVETICA_BOLD, 11); // Cambiar la fuente a Helvetica Bold
-                    contentStream.newLineAtOffset(textX, yStart);
-                    contentStream.showText(getHeaderTitle(i));
+                    contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                    contentStream.newLineAtOffset(imageX + imageWidth + margin - 40, imageY + imageHeight - 22);
+                    contentStream.showText("Universidad Francisco de Paula Santander");
                     contentStream.endText();
-                    nextXHeader += columnWidth;
-                }
 
-                for (AsignaturaPensum asignaturaPensum : asignaturaPensums) {
-                    Integer codigoAsignatura = asignaturaPensum.getAsignatura().getCodigo();
-                    String asignaturaNombre = asignaturaPensum.getAsignatura().getNombre();
-                    String htiAsignatura = asignaturaPensum.getAsignatura().getHti();
+                    // Escribir el subtítulo "Pensum"
+                    contentStream.beginText();
+                    contentStream.setFont(PDType1Font.HELVETICA, 10);
+                    contentStream.newLineAtOffset(imageX + imageWidth + margin - 40, imageY + imageHeight - 33);
+                    contentStream.showText("Pensum");
+                    contentStream.endText();
 
-// Escribir la fila de datos
-                    float nextXData = margin;
-                    float lineHeight = 18f; // Altura de línea para separar las filas
-                    String[] rowData = {codigoAsignatura.toString(), asignaturaNombre, htiAsignatura};
-                    float maxCellHeight = Math.max(cellHeight, lineHeight); // Ajuste para la altura máxima de la celda
-                    for (int i = 0; i < rowData.length; i++) { // Iterar sobre el tamaño correcto de rowData
-                        float columnWidth = columnWidths[i];
-                        float textX = margin + 5; // Alineación a la izquierda
-                        if (i == 0) {
-                            textX = margin + (columnWidth / 2) - 20; // Alineación centrada para la primera columna
-                        } else {
-                            textX = nextXData + 5; // Alineación a la izquierda para las demás columnas
-                        }
-                        String rowDataText = rowData[i];
-                        // Separar el texto en líneas para ajustarlo dentro del ancho de la celda
-                        List<String> lines = splitTextToFitWidth(rowDataText, contentStream, columnWidth - 10); // 10 es un margen
-                        float cellYStart = yStart; // Guardar la posición inicial de la celda
-                        for (String line : lines) {
-                            if (cellYStart - maxCellHeight < 0) { // Comprobar si hay espacio suficiente en la página
-                                // Agregar nueva página si no hay suficiente espacio
-                                document.addPage(new PDPage());
-                                // Reiniciar las coordenadas para comenzar desde la parte superior de la nueva página
-                                yStart = page.getMediaBox().getHeight() - margin - marginTop;
-                                cellYStart = yStart;
-                                contentStream.close(); // Cerrar el contentStream actual
-                                page = new PDPage(); // Crear una nueva página
-                                document.addPage(page); // Agregar la nueva página al documento
-                            }
-                            contentStream.beginText();
-                            contentStream.setFont(PDType1Font.HELVETICA, 9); // Establecer la fuente para el texto de la información
-                            contentStream.newLineAtOffset(textX, cellYStart - lineHeight - 10); // Escribir la línea en la posición actual
-                            contentStream.showText(line); // Mostrar la línea de texto
-                            contentStream.endText();
-                            cellYStart -= lineHeight; // Mover a la siguiente línea dentro de la celda
-                        }
-                        nextXData += columnWidth;
+                    // Escribir la fecha de generación del PDF
+                    LocalDate localDate = LocalDate.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    String formattedLocalDate = localDate.format(formatter);
+                    contentStream.beginText();
+                    contentStream.setFont(PDType1Font.HELVETICA, 10);
+                    contentStream.newLineAtOffset(imageX + imageWidth + margin + 260, imageY + imageHeight - 70);
+                    contentStream.showText("Generado: " + LocalDate.now().format(DateTimeFormatter.ofPattern(formattedLocalDate)));
+                    contentStream.endText();
+
+                    // Dibujar una línea horizontal debajo del logo
+                    float horizontalLineY = imageY - imageHeight + 40;
+                    float horizontalLineX1 = imageX - 5;
+                    float horizontalLineX2 = imageX + imageWidth + margin + 365;
+                    contentStream.moveTo(horizontalLineX1, horizontalLineY);
+                    contentStream.lineTo(horizontalLineX2, horizontalLineY);
+                    contentStream.stroke();
+
+                    // Definir anchos de columna y calcular dimensiones de la tabla
+                    float[] columnWidths = {50, 80, 30, 30, 30, 30, 60, 30, 30, 30, 80};
+                    float cellHeight = 40f;
+                    float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
+                    float xEnd = margin + tableWidth;
+                    float yEnd = yStart - (cellHeight * 2 + tableMargin);
+                    float nextX = margin;
+
+                    // Dibujar las líneas verticales de la tabla
+                    for (int i = 0; i < columnWidths.length; i++) {
+                        contentStream.moveTo(nextX, yStart);
+                        contentStream.lineTo(nextX, yEnd - 39.5f * (pageAsignaturas.size() - 1));
+                        contentStream.stroke();
+                        nextX += columnWidths[i];
                     }
-                    yStart -= maxCellHeight;  // Espacio entre filas
+
+                    // Dibujar una línea horizontal encima de los títulos de columna
+                    contentStream.moveTo(margin, yStart);
+                    contentStream.lineTo(xEnd, yStart);
+                    contentStream.stroke();
+
+                    // Dibujar las líneas horizontales de la tabla
+                    for (int i = 0; i < pageAsignaturas.size() + 1; i++) {
+                        float y = yStart - (cellHeight) - (i * cellHeight);
+                        contentStream.moveTo(margin, y);
+                        contentStream.lineTo(xEnd, y);
+                        contentStream.stroke();
+                    }
+
+                    // Dibujar la última línea vertical proporcional al número de filas
+                    float lastVerticalLineYStart = yStart - (cellHeight / 2 + tableMargin + 16) - (pageAsignaturas.size() * cellHeight);
+                    contentStream.moveTo(xEnd, yStart);
+                    contentStream.lineTo(xEnd, lastVerticalLineYStart);
+                    contentStream.stroke();
+
+                    // Escribir los encabezados de las columnas
+                    float nextXHeader = margin;
+                    contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
+                    contentStream.setNonStrokingColor(Color.BLACK);
+                    contentStream.setLeading(15f);
+                    yStart -= 25;
+
+                    for (int i = 0; i < columnWidths.length; i++) {
+                        float columnWidth = columnWidths[i];
+                        float textX = nextXHeader + 5;
+                        if (i == 0) {
+                            textX -= -2;
+                        } else if (i == 1) {
+                            textX -= -18;
+                        } else if (i == 5) {
+                            textX -= -1;
+                        } else if (i == 6) {
+                            textX -= -12;
+                        } else if (i == 7) {
+                            textX -= 0;
+                        } else {
+                            textX = nextXHeader + (columnWidth / 2) - 5;
+                        }
+                        contentStream.beginText();
+                        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 11);
+                        contentStream.newLineAtOffset(textX, yStart);
+                        contentStream.showText(getHeaderTitle(i));
+                        contentStream.endText();
+                        nextXHeader += columnWidth;
+                    }
+
+                    // Escribir los datos de las asignaturas en la tabla
+                    for (AsignaturaPensum asignaturaPensum : pageAsignaturas) {
+                        Integer codigoAsignatura = asignaturaPensum.getAsignatura().getCodigo();
+                        String asignaturaNombre = asignaturaPensum.getAsignatura().getNombre();
+                        String htiAsignatura = asignaturaPensum.getAsignatura().getHti();
+
+                        float nextXData = margin;
+                        float lineHeight = 18f;
+                        String[] rowData = {codigoAsignatura.toString(), asignaturaNombre, htiAsignatura};
+                        float maxCellHeight = Math.max(cellHeight, lineHeight);
+
+                        for (int i = 0; i < rowData.length; i++) {
+                            float columnWidth = columnWidths[i];
+                            float textX = margin + 5;
+                            if (i == 0) {
+                                textX = margin + (columnWidth / 2) - 20;
+                            } else {
+                                textX = nextXData + 5;
+                            }
+                            String rowDataText = rowData[i];
+                            List<String> lines = splitTextToFitWidth(rowDataText, contentStream, columnWidth - 10);
+                            float cellYStart = yStart;
+                            for (String line : lines) {
+                                if (cellYStart - maxCellHeight < 0) {
+                                    // Agregar una nueva página si no hay suficiente espacio en la actual
+                                    document.addPage(new PDPage());
+                                    yStart = page.getMediaBox().getHeight() - margin - marginTop;
+                                    cellYStart = yStart;
+                                    contentStream.close();
+                                    page = new PDPage();
+                                    document.addPage(page);
+                                }
+                                contentStream.beginText();
+                                contentStream.setFont(PDType1Font.HELVETICA, 9);
+                                contentStream.newLineAtOffset(textX, cellYStart - lineHeight - 10);
+                                contentStream.showText(line);
+                                contentStream.endText();
+                                cellYStart -= lineHeight;
+                            }
+                            nextXData += columnWidth;
+                        }
+                        yStart -= maxCellHeight; // Espacio entre filas
+                    }
                 }
             }
-            document.save(fileName);
+            // Concatena el nombre del archivo al directorio de descargas
+            String filePath = downloadFolder + File.separator + fileName;
+
+            // Guarda el documento en la ubicación especificada
+            document.save(filePath);
         }
     }
 
@@ -249,11 +291,11 @@ public class PdfService implements IPdfService {
             case 1:
                 return "Nombre";
             case 2:
-                return "Ht";
+                return "Hti";
             case 3:
                 return "Hp";
             case 4:
-                return "Hti";
+                return "Ht";
             case 5:
                 return "Cre";
             case 6:
@@ -305,6 +347,13 @@ public class PdfService implements IPdfService {
         String pensumNumero = String.valueOf(pensum.getId());
         String fechaInicio = formatDate(pensum.getFechaInicio());
         return programaAcademicoNombre + "_Pensum" + pensumNumero + "_" + fechaInicio + ".pdf";
+    }
+
+    private String generateFileNameWithIndex(Pensum pensum, int index) {
+        String programaAcademicoNombre = pensum.getProgramaAcademico().getNombre();
+        String pensumNumero = String.valueOf(pensum.getId());
+        String fechaInicio = formatDate(pensum.getFechaInicio());
+        return programaAcademicoNombre + "_Pensum" + pensumNumero + "_" + fechaInicio + "_" + index + ".pdf";
     }
 
     private String formatDate(LocalDate date) {
