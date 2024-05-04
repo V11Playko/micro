@@ -46,4 +46,8 @@ public class Constants {
     public static final String FAKE_ESTATUS_NOT_ALLOWED= "No se pudo asignar, ya que resultado de aprendizaje o competencia tienen estatus falso.";
     public static final String ESTATUS_FAKE_PENSUM_MESSAGE= "El estatus del pensum es false.";
     public static final String PDF_DOWNLOAD_NOT_ALLOWED_MESSAGE= "El programa académico actualmente deshabilito la descarga de PDFs.";
+    public static final String ASIGNATURA_ALREADY_FOR_ADD= "La asignatura propuesta ya esta lista para ser agregada.";
+    public static final String ASIGNATURA_ALREADY_IN_PENSUM= "Esta asignatura ya esta asociada con el pensum.";
+    public static final String ASIGNATURA_ALREADY_REMOVED= "Esta asignatura ya esta lista para ser removida.";
+    public static final String ATRIBUTOS_NOT_FOUND_MESSAGE= "Los atributos modificados no existen.";
 }

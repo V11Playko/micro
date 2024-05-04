@@ -3,9 +3,13 @@ package com.micro.demo.configuration;
 import com.micro.demo.service.exceptions.AllAsignaturasAssignsException;
 import com.micro.demo.service.exceptions.AllDocentesAssignsException;
 import com.micro.demo.service.exceptions.AreaFormacionNotFound;
+import com.micro.demo.service.exceptions.AsignaturaAlreadyForAdd;
+import com.micro.demo.service.exceptions.AsignaturaAlreadyInPensum;
+import com.micro.demo.service.exceptions.AsignaturaAlreadyRemoved;
 import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundByIdException;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundExceptionInPensum;
+import com.micro.demo.service.exceptions.AtributosNotFound;
 import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
 import com.micro.demo.service.exceptions.DirectorAlreadyAssignedException;
 import com.micro.demo.service.exceptions.DirectorNotFoundException;
@@ -50,7 +54,11 @@ import java.util.Set;
 import static com.micro.demo.configuration.Constants.ALL_ASIGNATURAS_ASSIGNS_MESSAGE;
 import static com.micro.demo.configuration.Constants.ALL_DOCENTES_ASSIGNS_MESSAGE;
 import static com.micro.demo.configuration.Constants.AREA_FORMACION_NOT_FOUND_MESSAGE;
+import static com.micro.demo.configuration.Constants.ASIGNATURA_ALREADY_FOR_ADD;
+import static com.micro.demo.configuration.Constants.ASIGNATURA_ALREADY_IN_PENSUM;
+import static com.micro.demo.configuration.Constants.ASIGNATURA_ALREADY_REMOVED;
 import static com.micro.demo.configuration.Constants.ASIGNATURA_NOT_FOUND_MESSAGE;
+import static com.micro.demo.configuration.Constants.ATRIBUTOS_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.COMPETENCIA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DIRECTOR_ALREADY_ASSIGN_MESSAGE;
 import static com.micro.demo.configuration.Constants.DIRECTOR_NOT_FOUND_MESSAGE;
@@ -345,5 +353,33 @@ public class ControllerAdvisor {
             PdfDownloadNotAllowedException pdfDownloadNotAllowedException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, PDF_DOWNLOAD_NOT_ALLOWED_MESSAGE));
+    }
+
+    @ExceptionHandler(AsignaturaAlreadyForAdd.class)
+    public ResponseEntity<Map<String, String>> asignaturaAlreadyAddedToPensum(
+            AsignaturaAlreadyForAdd asignaturaAlreadyForAdd) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ASIGNATURA_ALREADY_FOR_ADD));
+    }
+
+    @ExceptionHandler(AsignaturaAlreadyInPensum.class)
+    public ResponseEntity<Map<String, String>> asignaturaAlreadyInPensum(
+            AsignaturaAlreadyInPensum asignaturaAlreadyInPensum) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ASIGNATURA_ALREADY_IN_PENSUM));
+    }
+
+    @ExceptionHandler(AsignaturaAlreadyRemoved.class)
+    public ResponseEntity<Map<String, String>> asignaturaAlreadyRemoved(
+            AsignaturaAlreadyRemoved asignaturaAlreadyRemoved) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ASIGNATURA_ALREADY_REMOVED));
+    }
+
+    @ExceptionHandler(AtributosNotFound.class)
+    public ResponseEntity<Map<String, String>> atributosNotFound(
+            AtributosNotFound atributosNotFound) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ATRIBUTOS_NOT_FOUND_MESSAGE));
     }
 }
