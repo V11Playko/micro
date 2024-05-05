@@ -10,6 +10,7 @@ import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundByIdException;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundExceptionInPensum;
 import com.micro.demo.service.exceptions.AtributosNotFound;
+import com.micro.demo.service.exceptions.CambiosAceptadosNotFoundException;
 import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
 import com.micro.demo.service.exceptions.DirectorAlreadyAssignedException;
 import com.micro.demo.service.exceptions.DirectorNotFoundException;
@@ -19,6 +20,8 @@ import com.micro.demo.service.exceptions.DocenteNotFoundCorreoException;
 import com.micro.demo.service.exceptions.DuracionModificacionInvalidaException;
 import com.micro.demo.service.exceptions.FakeEstatusNotAllowed;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
+import com.micro.demo.service.exceptions.ModificationPeriodDisabled;
+import com.micro.demo.service.exceptions.ModificationPeriodWorking;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.NotFoundUserUnauthorized;
 import com.micro.demo.service.exceptions.PdfDownloadNotAllowedException;
@@ -53,6 +56,7 @@ import java.util.Set;
 
 import static com.micro.demo.configuration.Constants.ALL_ASIGNATURAS_ASSIGNS_MESSAGE;
 import static com.micro.demo.configuration.Constants.ALL_DOCENTES_ASSIGNS_MESSAGE;
+import static com.micro.demo.configuration.Constants.APPLIED_CHANGES_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.AREA_FORMACION_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.ASIGNATURA_ALREADY_FOR_ADD;
 import static com.micro.demo.configuration.Constants.ASIGNATURA_ALREADY_IN_PENSUM;
@@ -67,6 +71,8 @@ import static com.micro.demo.configuration.Constants.DOCENTE_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DURACION_INVALIDA_MESSAGE;
 import static com.micro.demo.configuration.Constants.ESTATUS_FAKE_PENSUM_MESSAGE;
 import static com.micro.demo.configuration.Constants.FAKE_ESTATUS_NOT_ALLOWED;
+import static com.micro.demo.configuration.Constants.MODIFICATION_PERIOD_DISABLED;
+import static com.micro.demo.configuration.Constants.MODIFICATION_PERIOD_WORKING;
 import static com.micro.demo.configuration.Constants.NO_DATA_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.PAGINA_ILEGAL_MESSAGE;
 import static com.micro.demo.configuration.Constants.PDF_DOWNLOAD_NOT_ALLOWED_MESSAGE;
@@ -381,5 +387,26 @@ public class ControllerAdvisor {
             AtributosNotFound atributosNotFound) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ATRIBUTOS_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(ModificationPeriodDisabled.class)
+    public ResponseEntity<Map<String, String>> modificationPeriodDisabled(
+            ModificationPeriodDisabled modificationPeriodDisabled) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, MODIFICATION_PERIOD_DISABLED));
+    }
+
+    @ExceptionHandler(CambiosAceptadosNotFoundException.class)
+    public ResponseEntity<Map<String, String>> cambiosAceptadosNotFoundException(
+            CambiosAceptadosNotFoundException cambiosAceptadosNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, APPLIED_CHANGES_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(ModificationPeriodWorking.class)
+    public ResponseEntity<Map<String, String>> modificationPeriodWorking(
+            ModificationPeriodWorking modificationPeriodWorking) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, MODIFICATION_PERIOD_WORKING));
     }
 }

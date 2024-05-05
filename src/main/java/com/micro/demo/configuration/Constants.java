@@ -50,4 +50,8 @@ public class Constants {
     public static final String ASIGNATURA_ALREADY_IN_PENSUM= "Esta asignatura ya esta asociada con el pensum.";
     public static final String ASIGNATURA_ALREADY_REMOVED= "Esta asignatura ya esta lista para ser removida.";
     public static final String ATRIBUTOS_NOT_FOUND_MESSAGE= "Los atributos modificados no existen.";
+    public static final String MODIFICATION_PERIOD_DISABLED= "El periodo de modificacion esta deshabilitado.";
+    public static final String APPLIED_CHANGES_MESSAGE= "Cambios aplicados satisfactoriamente.";
+    public static final String APPLIED_CHANGES_NOT_FOUND_MESSAGE= "No existen cambios aceptados que tengan ese codigo.";
+    public static final String MODIFICATION_PERIOD_WORKING= "El periodo de modificacion todavia esta en funcionamiento.";
 }
