@@ -161,7 +161,7 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
     }
 
     // @Scheduled(cron = "0 * * * * *") // Se ejecuta cada minuto
-    @Scheduled(cron = "0 0 0 * * *") // Se ejecuta todos los días a la medianoche
+    @Scheduled(cron = "0 * * * * *") // Se ejecuta todos los días a la medianoche
     public void verificarPeriodosDeModificacion() {
         List<ProgramaAcademico> programas = programaAcademicoRepository.findAll();
         LocalDate fechaActual = LocalDate.now();

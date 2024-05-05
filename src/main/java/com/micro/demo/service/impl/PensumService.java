@@ -131,8 +131,9 @@ public class PensumService implements IPensumService {
                 .orElseThrow(() -> new PensumNotFoundByIdException(pensumId));
 
         // Verificar si la asignatura existe en el pensum
-        AsignaturaPensum asignaturaPensum = asignaturaPensumRepository.findByPensumIdAndAsignaturaId(pensumId, asignaturaId)
-                .orElseThrow(() -> new AsignaturaNotFoundExceptionInPensum(asignaturaId, pensumId));
+        AsignaturaPensum asignaturaPensum = asignaturaPensumRepository.findByPensumIdAndAsignaturaId(pensumId, asignaturaId);
+
+        if (asignaturaPensum == null) throw new AsignaturaNotFoundExceptionInPensum(asignaturaId, pensumId);
 
         // Eliminar la relación entre la asignatura y el pensum
         asignaturaPensumRepository.delete(asignaturaPensum);
