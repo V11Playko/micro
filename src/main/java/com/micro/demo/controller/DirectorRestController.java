@@ -1,6 +1,7 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.controller.dto.AprobarRechazarCambiosRequestDto;
 import com.micro.demo.controller.dto.AssignAsignaturasRequestDto;
 import com.micro.demo.controller.dto.AssignCompetenciaRequestDto;
 import com.micro.demo.controller.dto.AssignDocentesRequestDTO;
@@ -13,6 +14,7 @@ import com.micro.demo.controller.dto.UpdatePuedeDescargarPdfRequestDto;
 import com.micro.demo.entities.AreaFormacion;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.Competencia;
+import com.micro.demo.entities.HistoryMovement;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.PreRequisito;
 import com.micro.demo.entities.ProgramaAcademico;
@@ -24,6 +26,7 @@ import com.micro.demo.entities.Usuario;
 import com.micro.demo.service.IAreaFormacionService;
 import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.ICompetenciaService;
+import com.micro.demo.service.IHistoryMovementService;
 import com.micro.demo.service.IPdfService;
 import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.IPreRequisitoService;
@@ -48,6 +51,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -71,8 +75,9 @@ public class DirectorRestController {
     private final IResultadoAprendizajeService resultadoAprendizajeService;
     private final ICompetenciaService competenciaService;
     private final IPdfService pdfService;
+    private final IHistoryMovementService historyMovementService;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService, IResultadoAprendizajeService resultadoAprendizajeService, ICompetenciaService competenciaService, IPdfService pdfService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService, IResultadoAprendizajeService resultadoAprendizajeService, ICompetenciaService competenciaService, IPdfService pdfService, IHistoryMovementService historyMovementService) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
@@ -85,6 +90,7 @@ public class DirectorRestController {
         this.resultadoAprendizajeService = resultadoAprendizajeService;
         this.competenciaService = competenciaService;
         this.pdfService = pdfService;
+        this.historyMovementService = historyMovementService;
     }
 
     /**
@@ -778,5 +784,47 @@ public class DirectorRestController {
         pdfService.generatePdf(pensumId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+
+    /**
+     *
+     * HISTORY MOVEMENT
+     *
+     * **/
+    @Operation(summary = "Get all history movement")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Movements list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Movement already exists", content = @Content)
+    })
+    @GetMapping("/allHistoryMovement")
+    public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(historyMovementService.getAllMovements(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Aprobar o Rechazar cambios propuestos por los docentes",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Cambios aprobados o rechazados",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Cambios already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/aprobarRechazarCambios")
+    public ResponseEntity<Map<String, String>> aprobarRechazarCambios(@Valid @RequestBody AprobarRechazarCambiosRequestDto aprobarRechazarCambiosRequestDto) {
+        historyMovementService.aprobarRechazarCambiosDespuesPeriodoModificacion(aprobarRechazarCambiosRequestDto.isAceptarCambios(), aprobarRechazarCambiosRequestDto.getCodigo());
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.APPLIED_CHANGES_MESSAGE));
+    }
+
+    @Operation(summary = "Aplicar cambios propuestos",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Cambios propuestos aplicados",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Cambios already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/aplicarCambiosPropuestos")
+    public ResponseEntity<Map<String, String>> aplicarCambiosPropuestos(@RequestParam Integer codigo) {
+        historyMovementService.aplicarCambiosPropuestos(codigo);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.APPLIED_CHANGES_MESSAGE));
     }
 }

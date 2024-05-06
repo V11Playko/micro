@@ -2,8 +2,10 @@ package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
 import com.micro.demo.controller.dto.PageRequestDto;
+import com.micro.demo.entities.HistoryMovement;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
+import com.micro.demo.service.IHistoryMovementService;
 import com.micro.demo.service.IPdfService;
 import com.micro.demo.service.IProgramaAcademicoService;
 import com.micro.demo.service.IUsuarioService;
@@ -35,12 +37,14 @@ public class DocenteRestController {
     private final IUsuarioService usuarioService;
     private final IProgramaAcademicoService programaAcademicoService;
     private final IPdfService pdfService;
+    private final IHistoryMovementService historyMovementService;
 
 
-    public DocenteRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService, IPdfService pdfService) {
+    public DocenteRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService, IPdfService pdfService, IHistoryMovementService historyMovementService) {
         this.usuarioService = usuarioService;
         this.programaAcademicoService = programaAcademicoService;
         this.pdfService = pdfService;
+        this.historyMovementService = historyMovementService;
     }
 
     /**
@@ -106,6 +110,61 @@ public class DocenteRestController {
     @PostMapping("/generatePdf/{pensumId}")
     public ResponseEntity<Map<String, String>> generatePdf(@PathVariable Long pensumId) throws IOException {
         pdfService.generatePdf(pensumId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+
+    /**
+     *
+     * HISTORY MOVEMENT
+     *
+     * **/
+    @Operation(summary = "Get all history movement")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Movements list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Movement already exists", content = @Content)
+    })
+    @GetMapping("/allHistoryMovement")
+    public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(historyMovementService.getAllMovements(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
+    @Operation(summary = "Agregar asignatura, va al historial de movimiento",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Asignatura agregada",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Asignatura not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/agregarAsignatura")
+    public ResponseEntity<Map<String, String>> agregarAsignatura(@RequestBody HistoryMovement historyMovement) {
+        historyMovementService.agregarAsignatura(historyMovement);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    @Operation(summary = "Remover asignatura, va al historial de movimiento",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Asignatura removida",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Asignatura not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/removerAsignatura")
+    public ResponseEntity<Map<String, String>> removerAsignatura(@RequestBody HistoryMovement historyMovement) {
+        historyMovementService.removerAsignatura(historyMovement);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    @Operation(summary = "Actualizar asignatura, va al historial de movimiento",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Asignatura actualizada",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "Asignatura not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
+    @PostMapping("/actualizarAsignatura")
+    public ResponseEntity<Map<String, String>> actualizarAsignatura(@RequestBody HistoryMovement historyMovement) {
+        historyMovementService.actualizarAsignatura(historyMovement);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
