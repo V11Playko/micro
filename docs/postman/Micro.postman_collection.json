@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"correo\": \"karla@gmail.com\",\r\n  \"contraseña\": \"Suarez\"\r\n}",
+							"raw": "{\r\n  \"correo\": \"emilio@gmail.com\",\r\n  \"contraseña\": \"Jerez\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1101,7 +1101,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"pensumId\": 1,\r\n  \"asignaturasId\": [\r\n    1, 2, 5\r\n  ]\r\n}",
+									"raw": "{\r\n  \"pensumId\": 5,\r\n  \"asignaturasId\": [\r\n    5\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1218,7 +1218,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/duplicatePensum/1",
+									"raw": "http://localhost:8091/api/v1/admin/director/duplicatePensum/4",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1230,7 +1230,7 @@
 										"admin",
 										"director",
 										"duplicatePensum",
-										"1"
+										"4"
 									]
 								}
 							},
@@ -1337,7 +1337,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Algoritmos de Ordenamiento I\",\r\n    \"codigo\": 1155971,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"areaFormacion\": {\r\n        \"id\": 1\r\n    },\r\n    \"preRequisito\": {\r\n        \"id\": 1\r\n    },\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Algoritmos de Ordenamiento II\",\r\n    \"codigo\": 1155909,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"areaFormacion\": {\r\n        \"id\": 1\r\n    },\r\n    \"preRequisito\": {\r\n        \"id\": 1\r\n    },\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1379,7 +1379,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Programacion II\",\r\n    \"codigo\": 1155999,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Fisica II\",\r\n    \"codigo\": 1157555,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2739,6 +2739,137 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Manage HistoryMovement",
+					"item": [
+						{
+							"name": "All History Movements",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/allHistoryMovement",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"allHistoryMovement"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Aprobar o Rechazar cambios",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"aceptarCambios\": true,\r\n    \"codigo\": 98011\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/aprobarRechazarCambios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"aprobarRechazarCambios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Aplicar Cambios",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/aplicarCambiosPropuestos?codigo=98011",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"aplicarCambiosPropuestos"
+									],
+									"query": [
+										{
+											"key": "codigo",
+											"value": "98011"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			],
 			"auth": {
@@ -2940,6 +3071,182 @@
 										"docente",
 										"generatePdf",
 										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage HistoryMovement",
+					"item": [
+						{
+							"name": "All History Movements",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYXJsYUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE0NTA0NDgzLCJleHAiOjE3MzYxMDQ0ODN9.iL4aKDFviY4mWBK0gvspWNqH0absZ3WwDObehO4cbt-2P7PjnPcxrflIsa8A0dFtuFQPEGc30l0AH1ojhP4vpA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 2,\r\n  \"elementosXpagina\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/docente/allHistoryMovement",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"docente",
+										"allHistoryMovement"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar asignatura en historymovement",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWlsaW9AZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9ET0NFTlRFIl0sImlhdCI6MTcxNTAwNjc3OCwiZXhwIjoxNzM2NjA2Nzc4fQ.VpObhqy0VRdNdeZHNsnW0v9WMvf8r8af1oSC4gzSQd45zUaqbTOIPabcAEwcL98rgj5G9jnzgeyfZYAgHB5UAA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 10\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 3\r\n    },\r\n    \"codigo\": 11980\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/docente/agregarAsignatura",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"docente",
+										"agregarAsignatura"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remover asignatura en historymovement",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWlsaW9AZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9ET0NFTlRFIl0sImlhdCI6MTcxNTAwNjc3OCwiZXhwIjoxNzM2NjA2Nzc4fQ.VpObhqy0VRdNdeZHNsnW0v9WMvf8r8af1oSC4gzSQd45zUaqbTOIPabcAEwcL98rgj5G9jnzgeyfZYAgHB5UAA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 11\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 3\r\n    },\r\n    \"codigo\": 11980\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/docente/removerAsignatura",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"docente",
+										"removerAsignatura"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Actualizar asignatura en historymovement",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWlsaW9AZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9ET0NFTlRFIl0sImlhdCI6MTcxNTAwNjc3OCwiZXhwIjoxNzM2NjA2Nzc4fQ.VpObhqy0VRdNdeZHNsnW0v9WMvf8r8af1oSC4gzSQd45zUaqbTOIPabcAEwcL98rgj5G9jnzgeyfZYAgHB5UAA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 10\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 3\r\n    },\r\n    \"atributosModificados\": {\r\n        \"nombre\": \"Nuevo nombre de la asignatura\",\r\n        \"codigo\": 1144924,\r\n        \"accFormacionInv\": \"Nueva formación investigativa\",\r\n        \"bibliografia\": \"Nueva bibliografía\",\r\n        \"creditos\": 6,\r\n        \"had\": \"Nueva had\",\r\n        \"hti\": \"Nueva hti\",\r\n        \"hadhti\": \"Nueva hadhti\",\r\n        \"justificacion\": \"Nueva justificación\",\r\n        \"metodologia\": \"Nueva metodología\",\r\n        \"objetivo\": \"Nuevo objetivo\",\r\n        \"semestre\": \"Nuevo semestre\",\r\n        \"tipoCredito\": \"Nuevo tipo de crédito\",\r\n        \"tipoCurso\": \"Nuevo tipo de curso\",\r\n        \"asignaturaSucesora\": \"Nueva asignatura sucesora\",\r\n        \"asignaturaPredecesora\": \"Nueva asignatura predecesora\"\r\n    },\r\n    \"codigo\": 11980\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/docente/actualizarAsignatura",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"docente",
+										"actualizarAsignatura"
 									]
 								}
 							},
