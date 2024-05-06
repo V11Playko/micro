@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface IHistoryMovementRepository extends JpaRepository<HistoryMovement, Long> {
-    boolean existsByAsignaturaAfectadaAndAsignaturaAgregadaTrue(Asignatura asignatura);
-    boolean existsByAsignaturaAfectadaAndAsignaturaRemovidaTrue(Asignatura asignatura);
+    boolean existsByAsignaturaAfectadaAndAsignaturaAgregadaTrueAndCambiosAceptadosNull(Asignatura asignatura);
+    boolean existsByAsignaturaAfectadaAndAsignaturaRemovidaTrueAndCambiosAceptadosNull(Asignatura asignatura);
     List<HistoryMovement> findByCambiosAceptadosIsNullAndCodigo(Integer codigo);
     List<HistoryMovement> findByCambiosAceptadosTrueAndCodigo(Integer codigo);
 

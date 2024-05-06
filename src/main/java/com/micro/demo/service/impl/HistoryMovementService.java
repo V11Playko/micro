@@ -101,8 +101,8 @@ public class HistoryMovementService implements IHistoryMovementService {
             throw new AsignaturaAlreadyInPensum();
         }
 
-        // Verificar si la asignatura ya está agregada en el historial
-        if (historyMovementRepository.existsByAsignaturaAfectadaAndAsignaturaAgregadaTrue(asignatura)) {
+        // Verificar si la asignatura ya está agregada en el historial y si cambiosAceptados es true o null
+        if (historyMovementRepository.existsByAsignaturaAfectadaAndAsignaturaAgregadaTrueAndCambiosAceptadosNull(asignatura)) {
             throw new AsignaturaAlreadyForAdd();
         }
 
@@ -138,7 +138,7 @@ public class HistoryMovementService implements IHistoryMovementService {
         }
 
         // Verificar si la asignatura ya está removida en el historial
-        if (historyMovementRepository.existsByAsignaturaAfectadaAndAsignaturaRemovidaTrue(asignatura)) {
+        if (historyMovementRepository.existsByAsignaturaAfectadaAndAsignaturaRemovidaTrueAndCambiosAceptadosNull(asignatura)) {
             throw new AsignaturaAlreadyRemoved();
         }
 
