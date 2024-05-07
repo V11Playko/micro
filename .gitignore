@@ -10,6 +10,8 @@
 build
 HELP.md
 
+email.properties
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
