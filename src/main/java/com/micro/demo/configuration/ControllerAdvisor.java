@@ -20,6 +20,7 @@ import com.micro.demo.service.exceptions.DocenteNotFoundCorreoException;
 import com.micro.demo.service.exceptions.DuracionModificacionInvalidaException;
 import com.micro.demo.service.exceptions.FakeEstatusNotAllowed;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
+import com.micro.demo.service.exceptions.MessageNotSendException;
 import com.micro.demo.service.exceptions.ModificationPeriodDisabled;
 import com.micro.demo.service.exceptions.ModificationPeriodWorking;
 import com.micro.demo.service.exceptions.NoDataFoundException;
@@ -71,6 +72,7 @@ import static com.micro.demo.configuration.Constants.DOCENTE_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DURACION_INVALIDA_MESSAGE;
 import static com.micro.demo.configuration.Constants.ESTATUS_FAKE_PENSUM_MESSAGE;
 import static com.micro.demo.configuration.Constants.FAKE_ESTATUS_NOT_ALLOWED;
+import static com.micro.demo.configuration.Constants.MESSAGE_NOT_SEND;
 import static com.micro.demo.configuration.Constants.MODIFICATION_PERIOD_DISABLED;
 import static com.micro.demo.configuration.Constants.MODIFICATION_PERIOD_WORKING;
 import static com.micro.demo.configuration.Constants.NO_DATA_FOUND_MESSAGE;
@@ -409,4 +411,13 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, MODIFICATION_PERIOD_WORKING));
     }
+
+    @ExceptionHandler(MessageNotSendException.class)
+    public ResponseEntity<Map<String, String>> handleMessageNotSendException(
+            MessageNotSendException messageNotSendException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, MESSAGE_NOT_SEND));
+    }
+
+
 }
