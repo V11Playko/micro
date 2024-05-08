@@ -4,6 +4,7 @@ import com.micro.demo.entities.Email;
 import com.micro.demo.service.IEmailService;
 import com.micro.demo.service.exceptions.MessageNotSendException;
 import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.transaction.Transactional;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -25,7 +26,7 @@ public class EmailService implements IEmailService {
     }
 
     @Override
-    public void sendMail(Email email) throws MessagingException {
+    public void sendMail(Email email) {
         try{
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -33,7 +34,7 @@ public class EmailService implements IEmailService {
             helper.setTo(email.getDestinatario());
             helper.setSubject(email.getAsunto());
 
-            // Procesar la plantilla Thymeleaf}
+            // Procesar la plantilla Thymeleaf
 
             Context context = new Context();
             context.setVariable("message", email.getMensaje());

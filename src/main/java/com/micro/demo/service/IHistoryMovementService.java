@@ -9,6 +9,6 @@ public interface IHistoryMovementService {
     void agregarAsignatura(HistoryMovement historyMovement);
     void removerAsignatura(HistoryMovement historyMovement);
     void actualizarAsignatura(HistoryMovement historyMovement);
-    void aprobarRechazarCambiosDespuesPeriodoModificacion(boolean aceptarCambios, Integer codigo);
+    void aprobarRechazarCambiosDespuesPeriodoModificacion(boolean aceptarCambios, Integer codigo, String reasonMessage);
     void aplicarCambiosPropuestos(Integer codigo);
 }
