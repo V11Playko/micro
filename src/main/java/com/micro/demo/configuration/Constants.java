@@ -55,4 +55,13 @@ public class Constants {
     public static final String APPLIED_CHANGES_NOT_FOUND_MESSAGE= "No existen cambios aceptados que tengan ese codigo.";
     public static final String MODIFICATION_PERIOD_WORKING= "El periodo de modificacion todavia esta en funcionamiento.";
     public static final String MESSAGE_NOT_SEND = "El mensaje no se pudo enviar correctamente.";
+
+
+
+    public static final String SUBJECT_EDITED_ASIGNATURA = "Se ha modificado una asignatura durante el periodo de modificacion.";
+    public static final String SUBJECT_APPROVE_OR_REJECT_CAMBIOS = "El director ha aprobado/rechazado los cambios propuestos.";
+    public static final String MESSAGE_ADDED_ASIGNATURA = "El usuario %s ha agregado la asignatura %s en el periodo de modificacion.";
+    public static final String MESSAGE_REMOVED_ASIGNATURA = "El usuario %s ha removido la asignatura %s en el periodo de modificacion.";
+    public static final String MESSAGE_EDITED_ASIGNATURA = "El usuario %s ha editado la asignatura %s en el periodo de modificacion.";
+
 }
