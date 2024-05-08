@@ -16,4 +16,6 @@ public class AprobarRechazarCambiosRequestDto {
     private boolean aceptarCambios;
     @NotNull
     private Integer codigo;
+    @NotNull
+    private String reasonMessage;
 }

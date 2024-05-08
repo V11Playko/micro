@@ -810,7 +810,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/aprobarRechazarCambios")
     public ResponseEntity<Map<String, String>> aprobarRechazarCambios(@Valid @RequestBody AprobarRechazarCambiosRequestDto aprobarRechazarCambiosRequestDto) {
-        historyMovementService.aprobarRechazarCambiosDespuesPeriodoModificacion(aprobarRechazarCambiosRequestDto.isAceptarCambios(), aprobarRechazarCambiosRequestDto.getCodigo());
+        historyMovementService.aprobarRechazarCambiosDespuesPeriodoModificacion(aprobarRechazarCambiosRequestDto.isAceptarCambios(), aprobarRechazarCambiosRequestDto.getCodigo(), aprobarRechazarCambiosRequestDto.getReasonMessage());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.APPLIED_CHANGES_MESSAGE));
     }
