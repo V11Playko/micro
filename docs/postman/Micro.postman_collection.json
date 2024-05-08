@@ -608,6 +608,51 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Pensums No Modificados durante un año Copy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 2,\r\n  \"elementosXpagina\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/allPensumsNoModificadosDuranteUnAño",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"allPensumsNoModificadosDuranteUnAño"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
@@ -994,6 +1039,51 @@
 										"admin",
 										"director",
 										"allPensums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pensums No Modificados durante un año",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/v1/admin/director/allPensumsNoModificadosDuranteUnAño",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"allPensumsNoModificadosDuranteUnAño"
 									]
 								}
 							},
@@ -2805,7 +2895,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"aceptarCambios\": true,\r\n    \"codigo\": 98011\r\n}",
+									"raw": "{\r\n    \"aceptarCambios\": true,\r\n    \"codigo\": 111599,\r\n    \"reasonMessage\": \"Super bueno los cambios propuestos, felicitaciones Docentes.\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2846,7 +2936,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/aplicarCambiosPropuestos?codigo=98011",
+									"raw": "http://localhost:8091/api/v1/admin/director/aplicarCambiosPropuestos?codigo=111599",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2862,7 +2952,7 @@
 									"query": [
 										{
 											"key": "codigo",
-											"value": "98011"
+											"value": "111599"
 										}
 									]
 								}
@@ -3143,7 +3233,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 19\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 5\r\n    },\r\n    \"codigo\": 11562\r\n}",
+									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 24\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 9\r\n    },\r\n    \"codigo\": 963852\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3227,7 +3317,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 22\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 5\r\n    },\r\n    \"atributosModificados\": {\r\n        \"nombre\": \"Nuevo nombre de la asignatura\",\r\n        \"codigo\": 1144994,\r\n        \"accFormacionInv\": \"Nueva formación investigativa\",\r\n        \"bibliografia\": \"Nueva bibliografía\",\r\n        \"creditos\": 6,\r\n        \"had\": \"Nueva had\",\r\n        \"hti\": \"Nueva hti\",\r\n        \"hadhti\": \"Nueva hadhti\",\r\n        \"justificacion\": \"Nueva justificación\",\r\n        \"metodologia\": \"Nueva metodología\",\r\n        \"objetivo\": \"Nuevo objetivo\",\r\n        \"semestre\": \"Nuevo semestre\",\r\n        \"tipoCredito\": \"Nuevo tipo de crédito\",\r\n        \"tipoCurso\": \"Nuevo tipo de curso\",\r\n        \"asignaturaSucesora\": \"Nueva asignatura sucesora\",\r\n        \"asignaturaPredecesora\": \"Nueva asignatura predecesora\"\r\n    },\r\n    \"codigo\": 11562\r\n}",
+									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 25\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 9\r\n    },\r\n    \"atributosModificados\": {\r\n        \"nombre\": \"Prueba 3\",\r\n        \"codigo\": 1155909,\r\n        \"accFormacionInv\": \"Nueva formación investigativa\",\r\n        \"bibliografia\": \"Bibliografia\",\r\n        \"creditos\": 6,\r\n        \"had\": \"Nueva had\",\r\n        \"hti\": \"Nueva hti\",\r\n        \"hadhti\": \"Nueva hadhti\",\r\n        \"justificacion\": \"Nueva justificación\",\r\n        \"metodologia\": \"Nueva metodología\",\r\n        \"objetivo\": \"Nuevo objetivo\",\r\n        \"semestre\": \"Nuevo semestre\",\r\n        \"tipoCredito\": \"Nuevo tipo de crédito\",\r\n        \"tipoCurso\": \"Nuevo tipo de curso\",\r\n        \"asignaturaSucesora\": \"Nueva asignatura sucesora\",\r\n        \"asignaturaPredecesora\": \"Nueva asignatura predecesora\"\r\n    },\r\n    \"codigo\": 111599\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
