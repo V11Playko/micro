@@ -1,7 +1,6 @@
 package com.micro.demo.service.impl;
 
 import com.micro.demo.entities.AreaFormacion;
-import com.micro.demo.entities.Asignatura;
 import com.micro.demo.repository.IAreaFormacionRepository;
 import com.micro.demo.service.IAreaFormacionService;
 import com.micro.demo.service.exceptions.AreaFormacionNotFound;

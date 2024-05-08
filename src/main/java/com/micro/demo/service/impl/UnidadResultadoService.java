@@ -1,6 +1,5 @@
 package com.micro.demo.service.impl;
 
-import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.UnidadResultado;
 import com.micro.demo.repository.IUnidadResultadoRepository;
 import com.micro.demo.service.IUnidadResultadoService;

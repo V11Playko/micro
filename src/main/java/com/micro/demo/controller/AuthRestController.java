@@ -2,7 +2,6 @@ package com.micro.demo.controller;
 
 import com.micro.demo.configuration.security.dto.JwtTokenResponseDto;
 import com.micro.demo.configuration.security.dto.LoginRequestDto;
-import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IAuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

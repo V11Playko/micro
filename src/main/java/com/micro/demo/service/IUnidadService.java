@@ -2,7 +2,6 @@ package com.micro.demo.service;
 
 import com.micro.demo.entities.Unidad;
 
-import javax.lang.model.type.UnionType;
 import java.util.List;
 
 public interface IUnidadService {

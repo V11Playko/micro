@@ -88,13 +88,13 @@ public class PensumService implements IPensumService {
                 .findByFechaMovimientoAfter(fechaLimite)
                 .stream()
                 .map(historyMovement -> historyMovement.getPensum().getId())
-                .collect(Collectors.toList());
+                .toList();
 
         // Filtrar los pensums que no han sido modificados por el cuerpo docente durante más de dos semestres
         List<Pensum> pensumsNoModificados = paginaPensums.getContent()
                 .stream()
                 .filter(pensum -> !pensumsModificados.contains(pensum.getId()))
-                .collect(Collectors.toList());
+                .toList();
 
         return pensumsNoModificados;
     }

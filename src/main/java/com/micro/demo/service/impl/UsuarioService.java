@@ -9,7 +9,6 @@ import com.micro.demo.service.IAuthPasswordEncoderPort;
 import com.micro.demo.service.IUsuarioService;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
-import com.micro.demo.service.exceptions.NotFoundUserUnauthorized;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import com.micro.demo.service.exceptions.UserAlreadyExistsException;

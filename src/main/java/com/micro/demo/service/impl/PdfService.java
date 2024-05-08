@@ -35,15 +35,11 @@ import java.util.List;
 @Transactional
 public class PdfService implements IPdfService {
     private final IPensumRepository pensumRepository;
-    private final IAsignaturaRepository asignaturaRepository;
     private final IAsignaturaPensumRepository asignaturaPensumRepository;
-    private final IProgramaAcademicoRepository programaAcademicoRepository;
 
-    public PdfService(IPensumRepository pensumRepository, IAsignaturaRepository asignaturaRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IProgramaAcademicoRepository programaAcademicoRepository) {
+    public PdfService(IPensumRepository pensumRepository, IAsignaturaPensumRepository asignaturaPensumRepository) {
         this.pensumRepository = pensumRepository;
-        this.asignaturaRepository = asignaturaRepository;
         this.asignaturaPensumRepository = asignaturaPensumRepository;
-        this.programaAcademicoRepository = programaAcademicoRepository;
     }
 
     @Override

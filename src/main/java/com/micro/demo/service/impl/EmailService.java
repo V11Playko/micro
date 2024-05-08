@@ -3,8 +3,6 @@ package com.micro.demo.service.impl;
 import com.micro.demo.entities.Email;
 import com.micro.demo.service.IEmailService;
 import com.micro.demo.service.exceptions.MessageNotSendException;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.transaction.Transactional;
 import org.springframework.mail.javamail.JavaMailSender;

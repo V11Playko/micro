@@ -1,7 +1,6 @@
 package com.micro.demo.service.impl;
 
 import com.micro.demo.entities.Competencia;
-import com.micro.demo.entities.Pensum;
 import com.micro.demo.repository.ICompetenciaRepository;
 import com.micro.demo.service.ICompetenciaService;
 import com.micro.demo.service.exceptions.CompetenciaNotFoundException;

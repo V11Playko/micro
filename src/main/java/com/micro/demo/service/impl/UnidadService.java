@@ -1,17 +1,13 @@
 package com.micro.demo.service.impl;
 
 import com.micro.demo.entities.Asignatura;
-import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
 import com.micro.demo.repository.IAsignaturaRepository;
-import com.micro.demo.repository.ITemaRepository;
 import com.micro.demo.repository.IUnidadRepository;
 import com.micro.demo.service.IUnidadService;
 import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
-import com.micro.demo.service.exceptions.TemasNotFoundException;
-import com.micro.demo.service.exceptions.UnidadNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,19 +16,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class UnidadService implements IUnidadService {
     private final IUnidadRepository unidadRepository;
     private final IAsignaturaRepository asignaturaRepository;
-    private final ITemaRepository temaRepository;
 
-    public UnidadService(IUnidadRepository unidadRepository, IAsignaturaRepository asignaturaRepository, ITemaRepository temaRepository) {
+    public UnidadService(IUnidadRepository unidadRepository, IAsignaturaRepository asignaturaRepository) {
         this.unidadRepository = unidadRepository;
         this.asignaturaRepository = asignaturaRepository;
-        this.temaRepository = temaRepository;
     }
 
     @Override

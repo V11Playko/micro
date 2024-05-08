@@ -1,6 +1,5 @@
 package com.micro.demo.service.impl;
 
-import com.micro.demo.entities.AreaFormacion;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.AsignaturaDocente;
 import com.micro.demo.entities.AsignaturaPensum;

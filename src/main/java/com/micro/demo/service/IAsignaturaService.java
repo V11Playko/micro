@@ -1,7 +1,6 @@
 package com.micro.demo.service;
 
 import com.micro.demo.entities.Asignatura;
-import com.micro.demo.entities.Pensum;
 
 import java.util.List;
 
