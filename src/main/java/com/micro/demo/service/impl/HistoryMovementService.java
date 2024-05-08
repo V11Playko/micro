@@ -353,9 +353,61 @@ public class HistoryMovementService implements IHistoryMovementService {
         }
 
         for (HistoryMovement cambio : cambiosActualizarAsignaturas) {
-            Asignatura asignatura = asignaturaRepository.findById(cambio.getAsignaturaAfectada().getId()).orElseThrow(AsignaturaNotFound::new);
+            Asignatura asignaturaAfectada = asignaturaRepository.findById(cambio.getAsignaturaAfectada().getId()).orElseThrow(AsignaturaNotFound::new);
+            Map<String, String> atributosModificados = cambio.getAtributosModificados();
 
-            asignaturaService.updateAsignatura(asignatura.getId(), asignatura);
+            // Actualizar los atributos de la asignatura afectada según los cambios propuestos
+            if (atributosModificados.containsKey("nombre")) {
+                asignaturaAfectada.setNombre(atributosModificados.get("nombre"));
+            }
+            if (atributosModificados.containsKey("codigo")) {
+                asignaturaAfectada.setCodigo(Integer.parseInt(atributosModificados.get("codigo")));
+            }
+            if (atributosModificados.containsKey("accFormacionInv")) {
+                asignaturaAfectada.setAccFormacionInv(atributosModificados.get("accFormacionInv"));
+            }
+            if (atributosModificados.containsKey("bibliografia")) {
+                asignaturaAfectada.setBibliografia(atributosModificados.get("bibliografia"));
+            }
+            if (atributosModificados.containsKey("creditos")) {
+                asignaturaAfectada.setCreditos(Integer.parseInt(atributosModificados.get("creditos")));
+            }
+            if (atributosModificados.containsKey("had")) {
+                asignaturaAfectada.setHad(atributosModificados.get("had"));
+            }
+            if (atributosModificados.containsKey("hti")) {
+                asignaturaAfectada.setHti(atributosModificados.get("hti"));
+            }
+            if (atributosModificados.containsKey("hadhti")) {
+                asignaturaAfectada.setHadhti(atributosModificados.get("hadhti"));
+            }
+            if (atributosModificados.containsKey("justificacion")) {
+                asignaturaAfectada.setJustificacion(atributosModificados.get("justificacion"));
+            }
+            if (atributosModificados.containsKey("metodologia")) {
+                asignaturaAfectada.setMetodologia(atributosModificados.get("metodologia"));
+            }
+            if (atributosModificados.containsKey("objetivo")) {
+                asignaturaAfectada.setObjetivo(atributosModificados.get("objetivo"));
+            }
+            if (atributosModificados.containsKey("semestre")) {
+                asignaturaAfectada.setSemestre(atributosModificados.get("semestre"));
+            }
+            if (atributosModificados.containsKey("tipoCredito")) {
+                asignaturaAfectada.setTipoCredito(atributosModificados.get("tipoCredito"));
+            }
+            if (atributosModificados.containsKey("tipoCurso")) {
+                asignaturaAfectada.setTipoCurso(atributosModificados.get("tipoCurso"));
+            }
+            if (atributosModificados.containsKey("asignaturaSucesora")) {
+                asignaturaAfectada.setAsignaturaSucesora(atributosModificados.get("asignaturaSucesora"));
+            }
+            if (atributosModificados.containsKey("asignaturaPredecesora")) {
+                asignaturaAfectada.setAsignaturaPredecesora(atributosModificados.get("asignaturaPredecesora"));
+            }
+
+            // Guardar los cambios en la asignatura afectada
+            asignaturaRepository.save(asignaturaAfectada);
         }
     }
 
