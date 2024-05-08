@@ -215,6 +215,16 @@ public class DirectorRestController {
         return ResponseEntity.ok(pensumService.getAllPensum(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
+    @Operation(summary = "Get all pensums no modificados durante un año")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pensums list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
+    })
+    @GetMapping("/allPensumsNoModificadosDuranteUnAño")
+    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteUnAño(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    }
+
     @Operation(summary = "Add a new pensum",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Pensum created",

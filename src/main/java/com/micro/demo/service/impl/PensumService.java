@@ -7,6 +7,7 @@ import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.repository.IAsignaturaPensumRepository;
 import com.micro.demo.repository.IAsignaturaRepository;
+import com.micro.demo.repository.IHistoryMovementRepository;
 import com.micro.demo.repository.IPensumRepository;
 import com.micro.demo.repository.IProgramaAcademicoRepository;
 import com.micro.demo.service.IPensumService;
@@ -28,8 +29,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -38,12 +42,14 @@ public class PensumService implements IPensumService {
     private final IProgramaAcademicoRepository programaAcademicoRepository;
     private final IAsignaturaRepository asignaturaRepository;
     private final IAsignaturaPensumRepository asignaturaPensumRepository;
+    private final IHistoryMovementRepository historyMovementRepository;
 
-    public PensumService(IPensumRepository pensumRepository, IProgramaAcademicoRepository programaAcademicoRepository, IAsignaturaRepository asignaturaRepository, IAsignaturaPensumRepository asignaturaPensumRepository) {
+    public PensumService(IPensumRepository pensumRepository, IProgramaAcademicoRepository programaAcademicoRepository, IAsignaturaRepository asignaturaRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IHistoryMovementRepository historyMovementRepository) {
         this.pensumRepository = pensumRepository;
         this.programaAcademicoRepository = programaAcademicoRepository;
         this.asignaturaRepository = asignaturaRepository;
         this.asignaturaPensumRepository = asignaturaPensumRepository;
+        this.historyMovementRepository = historyMovementRepository;
     }
 
     @Override
@@ -60,6 +66,37 @@ public class PensumService implements IPensumService {
         }
 
         return paginaPensums.getContent();
+    }
+
+    @Override
+    public List<Pensum> getPensumsNoModificadosDuranteUnAño(int pagina, int elementosXpagina) {
+        if (pagina < 1) {
+            throw new IlegalPaginaException();
+        }
+
+        Page<Pensum> paginaPensums = pensumRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina));
+
+        if (paginaPensums.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+
+        // Obtener la fecha de hace un año
+        LocalDateTime fechaLimite = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
+
+        // Obtener todos los pensums que han sido modificados en el último año
+        List<Long> pensumsModificados = historyMovementRepository
+                .findByFechaMovimientoAfter(fechaLimite)
+                .stream()
+                .map(historyMovement -> historyMovement.getPensum().getId())
+                .collect(Collectors.toList());
+
+        // Filtrar los pensums que no han sido modificados por el cuerpo docente durante más de dos semestres
+        List<Pensum> pensumsNoModificados = paginaPensums.getContent()
+                .stream()
+                .filter(pensum -> !pensumsModificados.contains(pensum.getId()))
+                .collect(Collectors.toList());
+
+        return pensumsNoModificados;
     }
 
     @Override

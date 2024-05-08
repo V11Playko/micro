@@ -3,9 +3,11 @@ package com.micro.demo.controller;
 import com.micro.demo.configuration.Constants;
 import com.micro.demo.controller.dto.AssignDirectorRequestDto;
 import com.micro.demo.controller.dto.PageRequestDto;
+import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.service.IPdfService;
+import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.IProgramaAcademicoService;
 import com.micro.demo.service.IUsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,11 +39,13 @@ public class AdminRestController {
     private final IUsuarioService usuarioService;
     private final IProgramaAcademicoService programaAcademicoService;
     private final IPdfService pdfService;
+    private final IPensumService pensumService;
 
-    public AdminRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService, IPdfService pdfService) {
+    public AdminRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService, IPdfService pdfService, IPensumService pensumService) {
         this.usuarioService = usuarioService;
         this.programaAcademicoService = programaAcademicoService;
         this.pdfService = pdfService;
+        this.pensumService = pensumService;
     }
 
     /**
@@ -196,5 +200,21 @@ public class AdminRestController {
         pdfService.generatePdf(pensumId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+    }
+
+    /**
+     *
+     *
+     * PENSUM
+     *
+     **/
+    @Operation(summary = "Get all pensums no modificados durante un año")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pensums list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
+    })
+    @GetMapping("/allPensumsNoModificadosDuranteUnAño")
+    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteUnAño(@Valid @RequestBody PageRequestDto pageRequestDto){
+        return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 }

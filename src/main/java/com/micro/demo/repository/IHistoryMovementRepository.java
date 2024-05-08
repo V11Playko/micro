@@ -5,6 +5,7 @@ import com.micro.demo.entities.HistoryMovement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,5 +16,6 @@ public interface IHistoryMovementRepository extends JpaRepository<HistoryMovemen
     List<HistoryMovement> findByCambiosAceptadosIsNullAndCodigo(Integer codigo);
     List<HistoryMovement> findByCambiosAceptadosTrueAndCodigo(Integer codigo);
     List<HistoryMovement> findByPensumIdAndCambiosAceptadosIsTrue(Long pensumId);
+    List<HistoryMovement> findByFechaMovimientoAfter(LocalDateTime fecha);
 
 }
