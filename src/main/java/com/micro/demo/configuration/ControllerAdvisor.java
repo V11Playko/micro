@@ -37,6 +37,7 @@ import com.micro.demo.service.exceptions.ResultadoAprendizajeNotFoundException;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
 import com.micro.demo.service.exceptions.TemaNoAssignException;
 import com.micro.demo.service.exceptions.TemasNotFoundException;
+import com.micro.demo.service.exceptions.TipoCursoIncorrectoException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import com.micro.demo.service.exceptions.UnidadNotFoundException;
 import com.micro.demo.service.exceptions.UserAlreadyExistsException;
@@ -87,6 +88,7 @@ import static com.micro.demo.configuration.Constants.RESPONSE_MESSAGE_KEY;
 import static com.micro.demo.configuration.Constants.RESULTADO_APRENDIZAJE_NOT_FOUND;
 import static com.micro.demo.configuration.Constants.ROLE_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.TEMAS_NOT_FOUND_MESSAGE;
+import static com.micro.demo.configuration.Constants.TIPO_CURSO_BAD_MESSAGE;
 import static com.micro.demo.configuration.Constants.UNAUTHORIZED_MESSAGE;
 import static com.micro.demo.configuration.Constants.UNIDAD_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.USER_ALREADY_EXISTS_MESSAGE;
@@ -419,5 +421,10 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, MESSAGE_NOT_SEND));
     }
 
-
+    @ExceptionHandler(TipoCursoIncorrectoException.class)
+    public ResponseEntity<Map<String, String>> tipoCursoIncorrectoException(
+            TipoCursoIncorrectoException tipoCursoIncorrectoException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, TIPO_CURSO_BAD_MESSAGE));
+    }
 }

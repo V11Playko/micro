@@ -55,6 +55,7 @@ public class Constants {
     public static final String APPLIED_CHANGES_NOT_FOUND_MESSAGE= "No existen cambios aceptados que tengan ese codigo.";
     public static final String MODIFICATION_PERIOD_WORKING= "El periodo de modificacion todavia esta en funcionamiento.";
     public static final String MESSAGE_NOT_SEND = "El mensaje no se pudo enviar correctamente.";
+    public static final String TIPO_CURSO_BAD_MESSAGE = "El tipo de curso no coincide con el nombre de la asignatura.";
 
 
 
