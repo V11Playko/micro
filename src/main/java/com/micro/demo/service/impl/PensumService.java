@@ -12,9 +12,11 @@ import com.micro.demo.repository.IPensumRepository;
 import com.micro.demo.repository.IProgramaAcademicoRepository;
 import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.exceptions.AllAsignaturasAssignsException;
+import com.micro.demo.service.exceptions.AsignaturaAlreadyRemoved;
 import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundExceptionInPensum;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
+import com.micro.demo.service.exceptions.ModificationPeriodDisabled;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.PensumNotActiveException;
 import com.micro.demo.service.exceptions.PensumNotFoundByIdException;
@@ -52,6 +54,15 @@ public class PensumService implements IPensumService {
         this.historyMovementRepository = historyMovementRepository;
     }
 
+    /**
+     * Obtiene los pensums mediante la paginacion
+     *
+     * @param pagina numero de pagina.
+     * @param elementosXpagina elementos que habran en cada pagina.
+     * @return Lista de pensums.
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1.
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<Pensum> getAllPensum(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -68,6 +79,16 @@ public class PensumService implements IPensumService {
         return paginaPensums.getContent();
     }
 
+    /**
+     * Obtiene los pensums que no han sido modificados durante un año mediante la paginacion
+     *
+     * @param pagina numero de pagina.
+     * @param elementosXpagina elementos que habran en cada pagina.
+     * @return Lista de competencias.
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1.
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @return Lista de pensums no modificados durante un año
+     */
     @Override
     public List<Pensum> getPensumsNoModificadosDuranteUnAño(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -99,6 +120,12 @@ public class PensumService implements IPensumService {
         return pensumsNoModificados;
     }
 
+    /**
+     * Guardar un pensum
+     *
+     * @param pensum - Informacion del pensum.
+     * @throws UnauthorizedException - Se lanza si el correo no es el del director asociado al programa academico.
+     * */
     @Override
     public void savePensum(Pensum pensum) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
@@ -113,10 +140,17 @@ public class PensumService implements IPensumService {
         pensumRepository.save(pensum);
     }
 
+    /**
+     * Actualizar un pensum
+     *
+     * @param id - Identificador unico del pensum a actualizar.
+     * @param pensum - Informacion del pensum.
+     * @throws PensumNotFoundException - Se lanza si el pensum indicado no se encuentra.
+     * */
     @Override
     public void updatePensum(Long id, Pensum pensum) {
         Pensum existingPensum = pensumRepository.findById(id)
-                .orElseThrow(NoDataFoundException::new);
+                .orElseThrow(PensumNotFoundException::new);
 
         existingPensum.setCreditosTotales(pensum.getCreditosTotales());
         existingPensum.setFechaInicio(LocalDate.now());
@@ -126,6 +160,16 @@ public class PensumService implements IPensumService {
         pensumRepository.save(existingPensum);
     }
 
+    /**
+     * Asignar asignaturas a un pensum
+     *
+     * @param pensumId - Identificador unico del pensum.
+     * @param asignaturasId - Lista de identificadores unicos de las asignaturas que se asignaran al pensum.
+     * @throws PensumNotFoundException - Se lanza si el pensum indicado no se encuentra.
+     * @throws PensumNotActiveException - Se lanza si el pensum no esta activo.
+     * @throws AsignaturaNotFound - Se lanza si la asignatura indicada no se encuentra.
+     * @throws AllAsignaturasAssignsException - Se lanza si todas las asignaturas ya han sido asignadas al pensum.
+     * */
     @Override
     public void assignAsignaturas(Long pensumId, List<Long> asignaturasId) {
         Pensum pensum = pensumRepository.findById(pensumId)
@@ -162,6 +206,14 @@ public class PensumService implements IPensumService {
         asignaturaPensumRepository.saveAll(asignaturaPensums);
     }
 
+    /**
+     * Remover una asignatura de un pensum.
+     *
+     * @param pensumId - Identificador unico del pensum.
+     * @param asignaturaId - Identificador unico de la asignatura.
+     * @throws PensumNotFoundByIdException - Se lanza si el pensum no se encuentra.
+     * @throws AsignaturaNotFoundExceptionInPensum - Se lanza si la asignatura no existe en el pensum.
+     * */
     @Override
     public void removeAsignaturaFromPensum(Long pensumId, Long asignaturaId) {
         pensumRepository.findById(pensumId)
@@ -176,10 +228,16 @@ public class PensumService implements IPensumService {
         asignaturaPensumRepository.delete(asignaturaPensum);
     }
 
+    /**
+     * Elimina un pensum por su identificador unico.
+     *
+     * @param id - Identificador único del pensum a eliminar.
+     * @throws PensumNotFoundException - Se lanza si no se encuentra el pensum con el ID especificado.
+     */
     @Override
     public void deletePensum(Long id) {
         Pensum pensum = pensumRepository.findById(id)
-                .orElseThrow(NoDataFoundException::new);
+                .orElseThrow(PensumNotFoundException::new);
 
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
         if (!pensum.getProgramaAcademico().getDirector().getCorreo().equals(correoUsuarioAutenticado)){
@@ -192,6 +250,12 @@ public class PensumService implements IPensumService {
         pensumRepository.deleteById(pensum.getId());
     }
 
+    /**
+     * Duplicar un pensum
+     *
+     * @param pensumId - Identificador único de el pensum que se va a duplicar
+     * @throws PensumNotFoundException - Se lanza si no se encuentra el pensum con el ID especificado.
+     */
     @Override
     public void duplicatePensum(Long pensumId) {
         Pensum originalPensum = pensumRepository.findById(pensumId)

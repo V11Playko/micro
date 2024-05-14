@@ -33,6 +33,15 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
         this.competenciaResultadoRepository = competenciaResultadoRepository;
     }
 
+    /**
+     * Obtiene los resultados de aprendizaje mediante la paginacion
+     *
+     * @param pagina numero de pagina
+     * @param elementosXpagina elementos que habran en cada pagina
+     * @return Lista de los resultados de aprendizaje.
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<ResultadoAprendizaje> getAllResultado(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -50,15 +59,27 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
         return paginaResultados.getContent();
     }
 
+    /**
+     * Guardar un resultado de aprendizaje
+     *
+     * @param resultadoAprendizaje - Informacion del resultado de aprendizaje
+     * */
     @Override
     public void saveResultado(ResultadoAprendizaje resultadoAprendizaje) {
         resultadoAprendizajeRepository.save(resultadoAprendizaje);
     }
 
+    /**
+     * Actualizar un resultado de aprendizaje
+     *
+     * @param id - Identificador unico del resultado de aprendizaje a actualizar.
+     * @param resultadoAprendizaje - Informacion del resultado de aprendizaje.
+     * @throws ResultadoAprendizajeNotFoundException - Se lanza si el resultado de aprendizaje no se encuentra.
+     * */
     @Override
     public void updateResultado(Long id,ResultadoAprendizaje resultadoAprendizaje) {
         ResultadoAprendizaje existingResultado = resultadoAprendizajeRepository
-                .findById(id).orElseThrow(NoDataFoundException::new);
+                .findById(id).orElseThrow(ResultadoAprendizajeNotFoundException::new);
 
         existingResultado.setNombre(resultadoAprendizaje.getNombre());
         existingResultado.setDescripcion(resultadoAprendizaje.getDescripcion());
@@ -67,6 +88,16 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
         resultadoAprendizajeRepository.save(existingResultado);
     }
 
+
+    /**
+     * Asignar competencia al resultado de aprendizaje
+     *
+     * @param resultadoAprendizajeId - Identificador unico del resultado de aprendizaje
+     * @param competenciaIds  - Lista de Identificadores unicos de competencias
+     * @throws ResultadoAprendizajeNotFoundException - Se lanza si el resultado de aprendizaje no se encuentra.
+     * @throws CompetenciaNotFoundException - Se lanza si no se encuentra la competencia con el ID especificado.
+     * @throws FakeEstatusNotAllowed - Se lanza si el resultado de aprendizaje o la competencia tienen estatus false.
+     * */
     @Override
     public void assignCompetencia(Long resultadoAprendizajeId, List<Long> competenciaIds) {
         ResultadoAprendizaje resultadoAprendizaje = resultadoAprendizajeRepository.findById(resultadoAprendizajeId)
@@ -90,6 +121,12 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
         resultadoAprendizajeRepository.save(resultadoAprendizaje);
     }
 
+    /**
+     * Elimina un resultado de aprendizaje por su identificador único.
+     *
+     * @param id - Identificador único de un resultado de aprendizaje a eliminar.
+     * @throws ResultadoAprendizajeNotFoundException - Se lanza si no se encuentra un resultado de aprendizaje con el ID especificado.
+     */
     @Override
     public void deleteResultado(Long id) {
         resultadoAprendizajeRepository.findById(id)

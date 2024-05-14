@@ -51,6 +51,15 @@ public class AsignaturaService implements IAsignaturaService {
         this.preRequisitoRepository = preRequisitoRepository;
     }
 
+    /**
+     * Obtiene las asignaturas mediante la paginacion
+     *
+     * @param pagina numero de pagina
+     * @param elementosXpagina elementos que habran en cada pagina
+     * @return Lista de asignaturas
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<Asignatura> getAllAsignatura(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -67,6 +76,14 @@ public class AsignaturaService implements IAsignaturaService {
         return paginaAsignaturas.getContent();
     }
 
+    /**
+     * Guardar una asignatura
+     *
+     * @param asignatura - Informacion del area de formacion
+     * @throws AreaFormacionNotFound - Se lanza si no se encuentra el area de formacion.
+     * @throws PreRequisitoNotFound - Se lanza si no se encuentra el pre-requisito.
+     * @throws TipoCursoIncorrectoException - Se lanza si el tipo de curso es incorrecto con respecto al nombre de la asignatura.
+     * */
     @Override
     public void saveAsignatura(Asignatura asignatura) {
         areaFormacionRepository.findById
@@ -104,10 +121,17 @@ public class AsignaturaService implements IAsignaturaService {
         asignaturaRepository.save(asignatura);
     }
 
+    /**
+     * Actualiza la información de una asignatura.
+     *
+     * @param id - Identificador unico de la asignatura a actualizar.
+     * @param asignatura - Información actualizada de la asignatura.
+     * @throws AsignaturaNotFoundByIdException - Se lanza si no se encuentra la asignatura con el ID especificado.
+     */
     @Override
     public void updateAsignatura(Long id, Asignatura asignatura) {
         Asignatura existingAsignatura = asignaturaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No se encontró la asignatura con el ID: " + id));
+                .orElseThrow(() -> new AsignaturaNotFoundByIdException(id));
 
         existingAsignatura.setNombre(asignatura.getNombre());
         existingAsignatura.setCodigo(asignatura.getCodigo());
@@ -129,6 +153,16 @@ public class AsignaturaService implements IAsignaturaService {
         asignaturaRepository.save(existingAsignatura);
     }
 
+    /**
+     * Asignar un docente a una asignatura.
+     *
+     * @param asignaturaId - Identificador unico de la asignatura.
+     * @param correoDocentes - Correo de los docentes que se asignaran a la asignatura.
+     * @throws AsignaturaNotFoundByIdException - Se lanza si no se encuentra la asignatura con el ID especificado.
+     * @throws DocenteNotFound - Se lanza si el docente no se encuentra.
+     * @throws DocenteNotFoundCorreoException - Se lanza si los usuarios no son docentes.
+     * @throws AllDocentesAssignsException - Se lanza si los docentes ya han sido asignados a esa asignatura.
+     */
     @Override
     public void assignDocentes(Long asignaturaId, List<String> correoDocentes) {
         Asignatura asignatura = asignaturaRepository.findById(asignaturaId)
@@ -176,6 +210,15 @@ public class AsignaturaService implements IAsignaturaService {
         asignaturaDocenteRepository.saveAll(asignaturasDocentes);
     }
 
+    /**
+     * Remover un docente de una asignatura.
+     *
+     * @param asignaturaId - Identificador unico de la asignatura.
+     * @param correoDocente - Correo de el docente que se removera.
+     * @throws AsignaturaNotFoundByIdException - Se lanza si no se encuentra la asignatura con el ID especificado.
+     * @throws DocenteNotFoundCorreoException - Se lanza si el docente no se encuentra mediante el correo indicado.
+     * @throws DocenteNotAssignException - Se lanza si el docente no esta asignado a la asignatura de la cual se le quiere remover.
+     */
     @Override
     public void removeDocente(Long asignaturaId, String correoDocente) {
         Asignatura asignatura = asignaturaRepository.findById(asignaturaId)
@@ -195,6 +238,12 @@ public class AsignaturaService implements IAsignaturaService {
         asignaturaDocenteRepository.delete(asignaturaDocente);
     }
 
+    /**
+     * Elimina una asignatura por su identificador único.
+     *
+     * @param id - Identificador único de la asignatura a eliminar
+     * @throws AsignaturaNotFoundByIdException - Se lanza si no se encuentra la asignatura con el ID especificado.
+     */
     @Override
     public void deleteAsignatura(Long id) {
         Asignatura asignatura = asignaturaRepository.findById(id)
@@ -212,7 +261,10 @@ public class AsignaturaService implements IAsignaturaService {
     }
 
 
-    // Método genérico para verificar si el nombre de la asignatura pertenece a un enum dado
+    /**
+     *
+     * Método genérico para verificar si el nombre de la asignatura pertenece a un enum dado
+     * */
     private <T extends Enum<T>> boolean esAsignatura(String nombreAsignatura, Class<T> enumType) {
         for (T asignatura : enumType.getEnumConstants()) {
             if (asignatura.name().equals(nombreAsignatura)) {

@@ -24,6 +24,15 @@ public class CompetenciaService implements ICompetenciaService {
         this.competenciaRepository = competenciaRepository;
     }
 
+    /**
+     * Obtiene las competencias mediante la paginacion
+     *
+     * @param pagina numero de pagina.
+     * @param elementosXpagina elementos que habran en cada pagina.
+     * @return Lista de competencias.
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1.
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<Competencia> getAllCompetencias(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -40,15 +49,27 @@ public class CompetenciaService implements ICompetenciaService {
         return paginaCompetencias.getContent();
     }
 
+    /**
+     * Guardar una competencia
+     *
+     * @param competencia - Informacion de la competencia.
+     * */
     @Override
     public void saveCompetencia(Competencia competencia) {
         competenciaRepository.save(competencia);
     }
 
+    /**
+     * Actualizar una competencia
+     *
+     * @param id - Identificador unico de la competencia a actualizar.
+     * @param competencia - Informacion de la competencia.
+     * @throws CompetenciaNotFoundException - Se lanza si no se encuentra la competencia con el ID especificado.
+     * */
     @Override
     public void updateCompetencia(Long id, Competencia competencia) {
         Competencia competenciaExistente = competenciaRepository.findById(id)
-                .orElseThrow(NoDataFoundException::new);
+                .orElseThrow(CompetenciaNotFoundException::new);
 
         competenciaExistente.setNombre(competencia.getNombre());
         competenciaExistente.setDescripcion(competencia.getDescripcion());
@@ -57,6 +78,12 @@ public class CompetenciaService implements ICompetenciaService {
         competenciaRepository.save(competenciaExistente);
     }
 
+    /**
+     * Elimina una competencia por su identificador único.
+     *
+     * @param id - Identificador único de la competencia a eliminar.
+     * @throws CompetenciaNotFoundException - Se lanza si no se encuentra la competencia con el ID especificado.
+     */
     @Override
     public void deleteCompetencia(Long id) {
         competenciaRepository.findById(id)

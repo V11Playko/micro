@@ -68,7 +68,15 @@ public class HistoryMovementService implements IHistoryMovementService {
         this.emailService = emailService;
     }
 
-
+    /**
+     * Obtiene las historias de movimiento mediante la paginacion
+     *
+     * @param pagina numero de pagina.
+     * @param elementosXpagina elementos que habran en cada pagina.
+     * @return Lista de las historias de movimiento.
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1.
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<HistoryMovement> getAllMovements(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -85,6 +93,17 @@ public class HistoryMovementService implements IHistoryMovementService {
         return paginaMovements.getContent();
     }
 
+    /**
+     * Agregar una asignatura al historial de movimiento.
+     *
+     * @param historyMovement - Informacion del historial de movimiento.
+     * @throws AsignaturaNotFound - Se lanza si la asignatura indicada no se encuentra.
+     * @throws PensumNotFoundException - Se lanza si el pensum indicado no se encuentra.
+     * @throws ModificationPeriodDisabled - Se lanza si el periodo de modificacion esta deshabilitado.
+     * @throws AsignaturaAlreadyInPensum - Se lanza si la asignatura ya esta relacionada con el pensum.
+     * @throws AsignaturaAlreadyForAdd - Se lanza si la asignatura ya esta agregada en el historial y sus cambios aceptados son true o null.
+     *
+     * */
     @Override
     public void agregarAsignatura(HistoryMovement historyMovement) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
@@ -97,20 +116,10 @@ public class HistoryMovementService implements IHistoryMovementService {
             throw new ModificationPeriodDisabled();
         }
 
-        if (asignatura == null) {
-            throw new AsignaturaNotFound();
-        }
-
-        if (pensum == null) {
-            throw new PensumNotFoundException();
-        }
-
-        // Verificar si la asignatura ya esta relacionada con el pensum
         if (asignaturaPensumRepository.existsByAsignaturaAndPensum(asignatura, pensum)) {
             throw new AsignaturaAlreadyInPensum();
         }
 
-        // Verificar si la asignatura ya está agregada en el historial y si cambiosAceptados es true o null
         if (historyMovementRepository.existsByAsignaturaAfectadaAndAsignaturaAgregadaTrueAndCambiosAceptadosNull(asignatura)) {
             throw new AsignaturaAlreadyForAdd();
         }
@@ -140,6 +149,15 @@ public class HistoryMovementService implements IHistoryMovementService {
         historyMovementRepository.save(historyMovement);
     }
 
+    /**
+     * Remover una asignatura al historial de movimiento.
+     *
+     * @param historyMovement - Informacion del historial de movimiento.
+     * @throws AsignaturaNotFound - Se lanza si la asignatura indicada no se encuentra.
+     * @throws PensumNotFoundException - Se lanza si el pensum indicado no se encuentra.
+     * @throws ModificationPeriodDisabled - Se lanza si el periodo de modificacion esta deshabilitado.
+     * @throws AsignaturaAlreadyRemoved - Se lanza si la asignatura ya esta lista para ser removida en el historial.
+     * */
     @Override
     public void removerAsignatura(HistoryMovement historyMovement) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
@@ -150,14 +168,6 @@ public class HistoryMovementService implements IHistoryMovementService {
         if (pensum.getProgramaAcademico().getFechaInicioModificacion() == null ||
                 pensum.getProgramaAcademico().getDuracionModificacion() == null) {
             throw new ModificationPeriodDisabled();
-        }
-
-        if (asignatura == null) {
-            throw new AsignaturaNotFound();
-        }
-
-        if (pensum == null) {
-            throw new PensumNotFoundException();
         }
 
         // Verificar si la asignatura ya está removida en el historial
@@ -191,6 +201,15 @@ public class HistoryMovementService implements IHistoryMovementService {
         historyMovementRepository.save(historyMovement);
     }
 
+    /**
+     * Agregar una asignatura al historial de movimiento.
+     *
+     * @param historyMovement - Informacion del historial de movimiento.
+     * @throws AsignaturaNotFound - Se lanza si la asignatura indicada no se encuentra.
+     * @throws PensumNotFoundException - Se lanza si el pensum indicado no se encuentra.
+     * @throws ModificationPeriodDisabled - Se lanza si el periodo de modificacion esta deshabilitado.
+     * @throws AtributosNotFound - Se lanza si los atributos a modificar son nulos.
+     * */
     @Override
     public void actualizarAsignatura(HistoryMovement historyMovement) {
         Map<String, String> atributosModificados = historyMovement.getAtributosModificados();
@@ -287,6 +306,15 @@ public class HistoryMovementService implements IHistoryMovementService {
         historyMovementRepository.save(historyMovement);
     }
 
+    /**
+     * Aprobar o rechazar cambios propuestos despues del periodo de modificacion.
+     *
+     * @param aceptarCambios - Se aprueban los cambios o no.
+     * @param codigo - Codigo de los registros a los cuales se les aceptaran los cambios o no.
+     * @param reasonMessage - Mensaje del director sobre el por que sobre su decision de aprobar o rechazar los cambios.
+     * @throws PensumNotFoundException - Se lanza si el pensum indicado no se encuentra.
+     * @throws ModificationPeriodWorking - Se lanza si el periodo de modificacion todavia esta vigente,
+     * */
     @Override
     public void aprobarRechazarCambiosDespuesPeriodoModificacion(boolean aceptarCambios, Integer codigo, String reasonMessage) {
         LocalDate fechaActual = LocalDate.now();
@@ -313,6 +341,13 @@ public class HistoryMovementService implements IHistoryMovementService {
         }
     }
 
+    /**
+     * Aplicar los cambios propuestos
+     *
+     * @param codigo - Codigo de los registros a los cuales se les aplicaran los cambios.
+     * @throws CambiosAceptadosNotFoundException - Se lanza si no hay registros con el codigo previamente elegido.
+     * @throws AsignaturaNotFound - Se lanza si la asignatura indicada no se encuentra.
+     * */
     @Override
     public void aplicarCambiosPropuestos(Integer codigo) {
         List<HistoryMovement> cambiosPropuestos = historyMovementRepository.findByCambiosAceptadosTrueAndCodigo(codigo);
