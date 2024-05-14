@@ -23,6 +23,12 @@ public class EmailService implements IEmailService {
         this.templateEngine = templateEngine;
     }
 
+    /**
+     * Enviar un correo
+     *
+     * @param email - Informacion que contiene el correo.
+     * @throws MessageNotSendException - Se lanza si ocurre un error durante el envio del correo.
+     * */
     @Override
     public void sendMail(Email email) {
         try{

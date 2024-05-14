@@ -23,6 +23,15 @@ public class UnidadResultadoService implements IUnidadResultadoService {
         this.unidadResultadoRepository = unidadResultadoRepository;
     }
 
+    /**
+     * Obtiene las unidades de resultados mediante la paginacion
+     *
+     * @param pagina numero de pagina
+     * @param elementosXpagina elementos que habran en cada pagina
+     * @return Lista de unidades de resultados.
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<UnidadResultado> getAllUnidadResultados(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -40,11 +49,23 @@ public class UnidadResultadoService implements IUnidadResultadoService {
         return paginaUnidad.getContent();
     }
 
+    /**
+     * Guardar unidad de resultado
+     *
+     * @param unidadResultado - Informacion de una unidad resultado
+     * */
     @Override
     public void saveUnidadResultado(UnidadResultado unidadResultado) {
         unidadResultadoRepository.save(unidadResultado);
     }
 
+    /**
+     * Actualizar una unidad de resultado
+     *
+     * @param id - Identificador unico de una unidad resultado a actualizar.
+     * @param unidadResultado - Informacion de una unidad de resultado.
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos.
+     * */
     @Override
     public void updateUnidadResultado(Long id, UnidadResultado unidadResultado) {
         UnidadResultado existingUnidad = unidadResultadoRepository.findById(id)
@@ -59,6 +80,12 @@ public class UnidadResultadoService implements IUnidadResultadoService {
         unidadResultadoRepository.save(existingUnidad);
     }
 
+    /**
+     * Elimina una unidad de resultado por su identificador único.
+     *
+     * @param id - Identificador único de una unidad de resultado a eliminar
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos.
+     */
     @Override
     public void deleteUnidadResultado(Long id) {
         unidadResultadoRepository.findById(id)

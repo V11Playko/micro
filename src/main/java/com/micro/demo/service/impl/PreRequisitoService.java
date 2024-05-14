@@ -23,6 +23,15 @@ public class PreRequisitoService implements IPreRequisitoService {
         this.preRequisitoRepository = preRequisitoRepository;
     }
 
+    /**
+     * Obtiene los pre-requisitos mediante la paginacion
+     *
+     * @param pagina numero de pagina
+     * @param elementosXpagina elementos que habran en cada pagina
+     * @return Lista de los pre-requisitos.
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<PreRequisito> getAllPreRequisito(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -39,11 +48,22 @@ public class PreRequisitoService implements IPreRequisitoService {
         return paginaRequisitos.getContent();
     }
 
+    /**
+     * Guardar un pre-requisito.
+     *
+     * @param preRequisito - Informacion de el pre-requisito.
+     * */
     @Override
     public void savePreRequisito(PreRequisito preRequisito) {
         preRequisitoRepository.save(preRequisito);
     }
 
+    /**
+     * Elimina un pre-requisito por su identificador único.
+     *
+     * @param id - Identificador único del pre-requisito a eliminar
+     * @throws PreRequisitoNotFound - Se lanza si no se encuentra el pre-requisito con el ID especificado
+     */
     @Override
     public void deletePrerequisito(Long id) {
         preRequisitoRepository.findById(id)

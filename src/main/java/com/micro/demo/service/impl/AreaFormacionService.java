@@ -23,6 +23,15 @@ public class AreaFormacionService implements IAreaFormacionService {
         this.areaFormacionRepository = areaFormacionRepository;
     }
 
+    /**
+     * Obtiene las Areas de formacion mediante la paginacion
+     *
+     * @param pagina - numero de pagina
+     * @param elementosXpagina - elementos que habran en cada pagina
+     * @return Lista de areas de formacion
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<AreaFormacion> getAllAreaFormacion(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -39,11 +48,23 @@ public class AreaFormacionService implements IAreaFormacionService {
         return paginaAreas.getContent();
     }
 
+    /**
+     * Guardar un area de formacion
+     *
+     * @param areaFormacion - Informacion del area de formacion
+     * */
     @Override
     public void saveAreaFormacion(AreaFormacion areaFormacion) {
         areaFormacionRepository.save(areaFormacion);
     }
 
+
+    /**
+     * Elimina un area de formacion por su identificador único.
+     *
+     * @param id - Identificador único del area de formacion a eliminar
+     * @throws AreaFormacionNotFound - Se lanza si no se encuentra el area de formacion con el ID especificado
+     */
     @Override
     public void deleteAreaFormacion(Long id) {
         areaFormacionRepository.findById(id)

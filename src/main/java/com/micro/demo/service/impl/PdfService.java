@@ -42,6 +42,13 @@ public class PdfService implements IPdfService {
         this.asignaturaPensumRepository = asignaturaPensumRepository;
     }
 
+    /**
+     * Generar un PDF
+     *
+     * @param pensumId - Identificador unico del pensum sobre el que se hara el PDF.
+     * @throws PensumNotFoundByIdException - Se lanza si no se encuentra el pensum por su identificador unico.
+     * @throws PdfDownloadNotAllowedException - Se lanza si el programa academico al que esta asociado el pensum no permite la descarga de PDF por ahora.
+     * */
     @Override
     public void generatePdf(Long pensumId) throws IOException {
         // Obtener el pensum por su ID
@@ -280,6 +287,9 @@ public class PdfService implements IPdfService {
         return partitions;
     }
 
+    /**
+     * Titulos que estan en el encabezado
+     * */
     private String getHeaderTitle(int index) {
         switch (index) {
             case 0:

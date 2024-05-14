@@ -6,6 +6,7 @@ import com.micro.demo.entities.Usuario;
 import com.micro.demo.repository.IProgramaAcademicoRepository;
 import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IProgramaAcademicoService;
+import com.micro.demo.service.exceptions.AreaFormacionNotFound;
 import com.micro.demo.service.exceptions.DirectorAlreadyAssignedException;
 import com.micro.demo.service.exceptions.DirectorNotFoundException;
 import com.micro.demo.service.exceptions.DuracionModificacionInvalidaException;
@@ -38,6 +39,15 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
         this.programaAcademicoRepository = programaAcademicoRepository;
     }
 
+    /**
+     * Obtiene los programas academicos mediante la paginacion
+     *
+     * @param pagina numero de pagina
+     * @param elementosXpagina elementos que habran en cada pagina
+     * @return Lista de los programas academicos.
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<ProgramaAcademico> getAll(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -54,6 +64,13 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
         return paginaProgramas.getContent();
     }
 
+    /**
+     * Obtiene un programa academico por su nombre
+     *
+     * @param nombre - Nombre del programa academico
+     * @return Lista de areas de formacion
+     * @throws ProgramaNotFoundException - Se lanza si el programa academico no se encuentra.
+     */
     @Override
     public ProgramaAcademico getProgramaByNombre(String nombre) {
         ProgramaAcademico programa = programaAcademicoRepository.findByNombre(nombre);
@@ -61,6 +78,12 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
         return programa;
     }
 
+    /**
+     * Guardar un programa academico
+     *
+     * @param programaAcademico - Informacion del programa academico
+     * @throws ProgramaAcademicoExistenteException - Se lanza si ya existe un programa academico con el mismo nombre.
+     * */
     @Override
     public void saveProgramaAcademico(ProgramaAcademico programaAcademico) {
         ProgramaAcademico existingPrograma = programaAcademicoRepository.findByNombre(programaAcademico.getNombre());
@@ -76,6 +99,15 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
         programaAcademicoRepository.save(programaAcademico);
     }
 
+    /**
+     * Asignar un director al programa academico
+     *
+     * @param correoDirector - Correo de el director al que se asignara el programa academico.
+     * @param nombrePrograma - Nombre del programa.
+     * @throws ProgramaNotFoundException - Se lanza si no se encuentra el programa academico.
+     * @throws DirectorNotFoundException - Se lanza si el correo seleccionado no es de un usuario director.
+     * @throws DirectorAlreadyAssignedException - Se lanza si el correo ya ha sido asignado a un programa academico actualmente.
+     * */
     @Override
     public void assignDirector(String correoDirector, String nombrePrograma) {
         ProgramaAcademico programa = programaAcademicoRepository.findByNombre(nombrePrograma);
@@ -98,11 +130,15 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
     }
 
     /**
+     *  Actualizar el periodo de modificacion
      *
-     * Por si no lo entiendes :
-     * - Verificar si el usuario autenticado es el director del programa.
-     * - El periodo de modificación ya está en curso, solo agregamos más días.
-     * - Establecemos los valores proporcionados como inicio del periodo de modificación.
+     * @param nombrePrograma - Nombre del programa
+     * @param fechaInicioModificacion - Fecha de inicio
+     * @param duracionModificacion - Duracion del periodo de modificacion.
+     * @throws ProgramaNotFoundException - Se lanza si no se encuentra el programa academico.
+     * @throws UnauthorizedException - Se lanza si no eres el director del programa academico.
+     * @throws DuracionModificacionInvalidaException - Se lanza si la duracion es menor a 1.
+     * @throws PeriodoModificacionInvalidoException - Se lanza si el periodo de modificacion no es valido.
      **/
     @Override
     public void updatePeriodoModificacion(String nombrePrograma, LocalDate fechaInicioModificacion, Integer duracionModificacion) {
@@ -136,6 +172,14 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
         programaAcademicoRepository.save(programa);
     }
 
+    /**
+     *  Habilitar o deshabilitar la descarga de PDFS
+     *
+     * @param nombrePrograma - Nombre del programa academico.
+     * @param puedeDescargarPdf - Se habilita o deshabilita la descarga de PDFS.
+     * @throws ProgramaNotFoundException - Se lanza si no se encuentra el programa academico.
+     * @throws UnauthorizedException - Se lanza si no eres el director del programa academico.
+     **/
     @Override
     public void updatePuedeDescargarPdf(String nombrePrograma, boolean puedeDescargarPdf) {
         ProgramaAcademico programa = programaAcademicoRepository.findByNombre(nombrePrograma);
@@ -152,6 +196,12 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
         programaAcademicoRepository.save(programa);
     }
 
+    /**
+     * Elimina un programa academico por su identificador único.
+     *
+     * @param id - Identificador único del programa academico a eliminar
+     * @throws ProgramaNotFoundException - Se lanza si no se encuentra el programa academico con el ID especificado
+     */
     @Override
     public void deleteProgramaAcademico(Long id) {
         ProgramaAcademico programaAcademico =
@@ -160,6 +210,10 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
         programaAcademicoRepository.deleteById(programaAcademico.getId());
     }
 
+    /**
+     * Metodo que se ejecuta todos los días a medianoche para saber si algun
+     * programa academico ya ha cumplido su periodo de modificacion.
+     **/
     // @Scheduled(cron = "0 * * * * *") // Se ejecuta cada minuto
     @Scheduled(cron = "0 0 0 * * *") // Se ejecuta todos los días a la medianoche
     public void verificarPeriodosDeModificacion() {
@@ -171,6 +225,10 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
         }
     }
 
+    /**
+     * Se ejecuta si se ha cumplido la duracion del periodo de modificacion
+     * de un programa academico y setea los valores en null.
+     **/
     private void actualizarPeriodoDeModificacion(ProgramaAcademico programa, LocalDate fechaActual) {
         LocalDate fechaInicioModificacion = programa.getFechaInicioModificacion();
         Integer duracionModificacion = programa.getDuracionModificacion();

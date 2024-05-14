@@ -28,6 +28,15 @@ public class UnidadService implements IUnidadService {
         this.asignaturaRepository = asignaturaRepository;
     }
 
+    /**
+     * Obtiene las unidades mediante la paginacion
+     *
+     * @param pagina numero de pagina
+     * @param elementosXpagina elementos que habran en cada pagina
+     * @return Lista de unidades
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<Unidad> getAllUnidad(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -43,12 +52,23 @@ public class UnidadService implements IUnidadService {
 
         return paginaUnidades.getContent();
     }
-
+    /**
+     * Obtiene una unidad por su identificador unico
+     *
+     * @param id - Identificador unico de la unidad
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public Unidad getUnidad(Long id) {
         return unidadRepository.findById(id).orElseThrow(NoDataFoundException::new);
     }
 
+    /**
+     * Guardar una unidad
+     *
+     * @param unidad - Informacion de la unidad
+     * @throws AsignaturaNotFound - Se lanza si no existe una asignatura con el codigo previamente dicho.
+     * */
     @Override
     public void saveUnidad(Unidad unidad) {
         if (unidad.getAsignatura() != null && unidad.getAsignatura().getCodigo() != null) {
@@ -60,6 +80,13 @@ public class UnidadService implements IUnidadService {
         unidadRepository.save(unidad);
     }
 
+    /**
+     * Actualizar una unidad
+     *
+     * @param id - Identificador unico de la unidad
+     * @param unidad - Informacion de la unidad
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos.
+     **/
     @Override
     public void updateUnidad(Long id, Unidad unidad) {
         Optional<Unidad> optionalUnidad = unidadRepository.findById(id);
@@ -75,6 +102,12 @@ public class UnidadService implements IUnidadService {
         } else throw new NoDataFoundException();
     }
 
+    /**
+     * Elimina una unidad por su identificador único.
+     *
+     * @param id - Identificador único de la unidad a eliminar
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos.
+     */
     @Override
     public void deleteUnidad(Long id) {
         unidadRepository.findById(id)

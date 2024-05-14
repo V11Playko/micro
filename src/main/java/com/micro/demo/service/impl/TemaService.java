@@ -28,6 +28,15 @@ public class TemaService implements ITemaService {
         this.unidadRepository = unidadRepository;
     }
 
+    /**
+     * Obtiene los temas mediante la paginacion
+     *
+     * @param pagina numero de pagina
+     * @param elementosXpagina elementos que habran en cada pagina
+     * @return Lista de temas.
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<Tema> getAllTemas(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -45,11 +54,23 @@ public class TemaService implements ITemaService {
         return paginaTemas.getContent();
     }
 
+    /**
+     * Guardar un tema
+     *
+     * @param tema - Informacion del tema.
+     * */
     @Override
     public void saveTema(Tema tema) {
         temaRepository.save(tema);
     }
 
+    /**
+     * Actualizar un tema
+     *
+     * @param id - Identificador unico del tema a actualizar
+     * @param tema - Informacion del tema.
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos.
+     * */
     @Override
     public void updateTema(Long id, Tema tema) {
         Tema existingTema = temaRepository.findById(id)
@@ -62,6 +83,14 @@ public class TemaService implements ITemaService {
         temaRepository.save(existingTema);
     }
 
+    /**
+     * Asignar temas a una unidad
+     *
+     * @param unidadId - Identificador unico de una unidad
+     * @param temaIds - Lista de identificadores unicos de temas
+     * @throws UnidadNotFoundException - Se lanza si una unidad no se encuentra.
+     * @throws TemaNoAssignException - Se lanza si el tema no pudo asignarse porque su estatus es falso.
+     **/
     @Override
     public void assignTemasToUnidad(Long unidadId, List<Long> temaIds) {
         Unidad unidad = unidadRepository.findById(unidadId)
@@ -78,7 +107,12 @@ public class TemaService implements ITemaService {
         }
     }
 
-
+    /**
+     * Elimina un tema por su identificador único.
+     *
+     * @param id - Identificador único del tema a eliminar
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos.
+     */
     @Override
     public void deleteTema(Long id) {
         temaRepository.findById(id)

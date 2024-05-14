@@ -36,6 +36,15 @@ public class UsuarioService implements IUsuarioService {
         this.passwordEncoderPort = passwordEncoderPort;
     }
 
+    /**
+     * Obtiene los usuarios mediante paginacion, el director solo podra ver usuarios docentes.
+     *
+     * @param pagina numero de pagina
+     * @param elementosXpagina elementos que habran en cada pagina
+     * @return Lista de usuarios.
+     * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
+     * @throws NoDataFoundException - Si no se encuentra datos.
+     */
     @Override
     public List<Usuario> getAllUsers(int pagina, int elementosXpagina) {
         if (pagina < 1) {
@@ -61,6 +70,12 @@ public class UsuarioService implements IUsuarioService {
         return page.getContent();
     }
 
+    /**
+     * Obtener un usuario por su correo
+     *
+     * @param correo - Correo del usuario
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos.
+     **/
     @Override
     public Usuario getUserByCorreo(String correo) {
         Usuario usuario = usuarioRepository.findByCorreo(correo);
@@ -68,6 +83,14 @@ public class UsuarioService implements IUsuarioService {
         return usuario;
     }
 
+    /**
+     * Guardar un usuario
+     *
+     * @param usuario - Informacion del usuario.
+     * @param roleName - Nombre del role que se le asignara al usuario
+     * @throws UserAlreadyExistsException - Se lanza si ya existe un usuario con ese correo.
+     * @throws RoleNotFoundException - Se lanza si no se encuentra el Role que pusiste en el parametro roleName
+     * */
     @Override
     public void saveUser(Usuario usuario, String roleName) {
         String correo = usuario.getCorreo();
@@ -83,6 +106,13 @@ public class UsuarioService implements IUsuarioService {
         usuarioRepository.save(usuario);
     }
 
+    /**
+     * Actualizar un usuario
+     *
+     * @param id - Identificador unico del usuario a actualizar.
+     * @param usuarioActualizado - Informacion del usuario.
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos.
+     **/
     @Override
     public void updateUser(Long id, Usuario usuarioActualizado) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
@@ -110,6 +140,14 @@ public class UsuarioService implements IUsuarioService {
     }
 
 
+    /**
+     * Elimina un usuario por su identificador único,
+     * el director solo podra eliminar docentes.
+     *
+     * @param id - Identificador único del usuario a eliminar
+     * @throws NoDataFoundException - Se lanza si no se encuentran datos.
+     * @throws UnauthorizedException - Se lanza si no tiene permisos para acceder a este recurso.
+     */
     @Override
     public void deleteUser(Long id) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
