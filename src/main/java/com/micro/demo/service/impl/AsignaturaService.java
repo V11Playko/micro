@@ -4,6 +4,9 @@ import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.AsignaturaDocente;
 import com.micro.demo.entities.AsignaturaPensum;
 import com.micro.demo.entities.Usuario;
+import com.micro.demo.entities.enums.AsignaturaObligatoria;
+import com.micro.demo.entities.enums.ElectivaProfesional;
+import com.micro.demo.entities.enums.ElectivaSociohumanistica;
 import com.micro.demo.repository.IAreaFormacionRepository;
 import com.micro.demo.repository.IAsignaturaDocenteRepository;
 import com.micro.demo.repository.IAsignaturaPensumRepository;
@@ -20,6 +23,7 @@ import com.micro.demo.service.exceptions.DocenteNotFoundCorreoException;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.PreRequisitoNotFound;
+import com.micro.demo.service.exceptions.TipoCursoIncorrectoException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -69,6 +73,33 @@ public class AsignaturaService implements IAsignaturaService {
                 (asignatura.getAreaFormacion().getId()).orElseThrow(AreaFormacionNotFound::new);
         preRequisitoRepository.findById
                 (asignatura.getPreRequisito().getId()).orElseThrow(PreRequisitoNotFound::new);
+
+        String nombreAsignatura = asignatura.getNombre();
+        String tipoCurso = asignatura.getTipoCurso();
+
+        if (nombreAsignatura != null && tipoCurso != null) {
+            switch (tipoCurso) {
+                case "OBLIGATORIA":
+                    if (!esAsignaturaObligatoria(nombreAsignatura)) {
+                        throw new TipoCursoIncorrectoException();
+                    }
+                    break;
+                case "ELECTIVA_PROFESIONAL":
+                    if (!esElectivaProfesional(nombreAsignatura)) {
+                        throw new TipoCursoIncorrectoException();
+                    }
+                    break;
+                case "ELECTIVA_SOCIOHUMANISTICA":
+                    if (!esElectivaSociohumanistica(nombreAsignatura)) {
+                        throw new TipoCursoIncorrectoException();
+                    }
+                    break;
+                default:
+                    throw new TipoCursoIncorrectoException();
+            }
+        } else {
+            throw new TipoCursoIncorrectoException();
+        }
 
         asignaturaRepository.save(asignatura);
     }
@@ -178,5 +209,28 @@ public class AsignaturaService implements IAsignaturaService {
 
         // Eliminar la asignatura
         asignaturaRepository.delete(asignatura);
+    }
+
+
+    // Método genérico para verificar si el nombre de la asignatura pertenece a un enum dado
+    private <T extends Enum<T>> boolean esAsignatura(String nombreAsignatura, Class<T> enumType) {
+        for (T asignatura : enumType.getEnumConstants()) {
+            if (asignatura.name().equals(nombreAsignatura)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean esAsignaturaObligatoria(String nombreAsignatura) {
+        return esAsignatura(nombreAsignatura, AsignaturaObligatoria.class);
+    }
+
+    private boolean esElectivaProfesional(String nombreAsignatura) {
+        return esAsignatura(nombreAsignatura, ElectivaProfesional.class);
+    }
+
+    private boolean esElectivaSociohumanistica(String nombreAsignatura) {
+        return esAsignatura(nombreAsignatura, ElectivaSociohumanistica.class);
     }
 }
