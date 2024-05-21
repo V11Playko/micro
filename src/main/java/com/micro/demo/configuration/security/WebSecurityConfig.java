@@ -1,5 +1,5 @@
 package com.micro.demo.configuration.security;
-
+/*
 import com.micro.demo.configuration.security.jwt.AuthEntryPointJwt;
 import com.micro.demo.configuration.security.jwt.JwtAuthorizationFilter;
 import com.micro.demo.configuration.security.jwt.JwtUtils;
@@ -94,3 +94,4 @@ public class WebSecurityConfig {
         return authProvider;
     }
 }
+*/

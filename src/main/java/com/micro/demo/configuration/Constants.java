@@ -43,7 +43,7 @@ public class Constants {
     public static final String UNIDAD_NOT_FOUND_MESSAGE= "La unidad no existe.";
     public static final String RESULTADO_APRENDIZAJE_NOT_FOUND= "El resultado de aprendizaje no existe.";
     public static final String COMPETENCIA_NOT_FOUND_MESSAGE= "La competencia no existe";
-    public static final String FAKE_ESTATUS_NOT_ALLOWED= "No se pudo asignar, ya que resultado de aprendizaje o competencia tienen estatus falso.";
+    public static final String FAKE_ESTATUS_NOT_ALLOWED= "No se pudo asignar, ya que el resultado de aprendizaje o competencia tienen estatus falso.";
     public static final String ESTATUS_FAKE_PENSUM_MESSAGE= "El estatus del pensum es false.";
     public static final String PDF_DOWNLOAD_NOT_ALLOWED_MESSAGE= "El programa académico actualmente deshabilito la descarga de PDFs.";
     public static final String ASIGNATURA_ALREADY_FOR_ADD= "La asignatura propuesta ya esta lista para ser agregada.";
