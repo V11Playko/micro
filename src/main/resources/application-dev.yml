@@ -16,16 +16,26 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   security:
     oauth2:
+      client:
+        registration:
+          google:
+            client-id: 177239891830-qjkhdrr3i2gocf399hn4atvh9k27jos8.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+            authorization-grant-type: authorization_code
+            client-name: Google
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
       resourceserver:
         opaque-token:
-          accessTokenUri: https://www.googleapis.com/oauth2/v4/token
           introspection-uri: https://www.googleapis.com/
           clientId: 177239891830-qjkhdrr3i2gocf399hn4atvh9k27jos8.apps.googleusercontent.com
           clientSecret: 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
-          #redirect-uri: http://localhost:8091/oauth2/callback/google
-          #scope:
-          #  - email
-          #  - profile
 jwt:
   secret: ${KEYSECRET_SECURITY:eyTJhbGcdiOiJIUzUxMiIsInR5cCI6IkpaXVCJ9.eyJzdWIiOiIxMjM0NTY3sdODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.nZU_gPcMXkWpkCUpJceSxS7lSickF0tTImHhAR949Z-Nt69LgW8G6lid-mqd9B579tYM8C4FN2jdhR2VRMsjtA}
   expiration: ${EXPIRE_DAYS_SECURITY:21600000}
