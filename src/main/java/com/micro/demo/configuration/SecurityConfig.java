@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .exceptionHandling(customizer -> customizer.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/", "/auth/**", "/public/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/", "/auth/**", "/public/**", "/swagger-ui/**", "/v3/api-docs/**", "/api/v1/admin/visitante/saveVisitante").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(c -> c.opaqueToken(Customizer.withDefaults()));

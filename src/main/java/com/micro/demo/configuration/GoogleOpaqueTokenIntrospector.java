@@ -28,6 +28,7 @@ public class GoogleOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("sub", userInfo.sub());
         attributes.put("name", userInfo.name());
+        attributes.put("email", userInfo.email());
         return new OAuth2IntrospectionAuthenticatedPrincipal(userInfo.name(), attributes, null);
     }
 }
