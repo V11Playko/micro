@@ -6,6 +6,10 @@ public class Constants {
         throw new IllegalStateException("Utility class");
     }
 
+    /**
+     * Mensajes de Swagger
+     */
+
     public static final String SWAGGER_TITLE_MESSAGE = "User API";
     public static final String SWAGGER_DESCRIPTION_MESSAGE = "User microservice";
     public static final String SWAGGER_VERSION_MESSAGE = "1.0.0";
@@ -13,6 +17,10 @@ public class Constants {
     public static final String SWAGGER_LICENSE_URL_MESSAGE = "http://springdoc.org";
     public static final String SWAGGER_TERMS_OF_SERVICE_MESSAGE = "http://swagger.io/terms/";
     public static final String RESPONSE_MESSAGE_KEY = "Mensaje";
+
+    /**
+     * Mensajes de excepciones
+     */
     public static final String USER_CREATED_MESSAGE = "Usuario creado satisfactoriamente.";
     public static final String USER_UPDATED_MESSAGE = "Usuario actualizado satisfactoriamente.";
     public static final String USER_DELETED_MESSAGE = "Usuario eliminado satisfactoriamente.";
@@ -56,13 +64,15 @@ public class Constants {
     public static final String MODIFICATION_PERIOD_WORKING= "El periodo de modificacion todavia esta en funcionamiento.";
     public static final String MESSAGE_NOT_SEND = "El mensaje no se pudo enviar correctamente.";
     public static final String TIPO_CURSO_BAD_MESSAGE = "El tipo de curso no coincide con el nombre de la asignatura.";
+    public static final String USER_NOT_FOUND_MESSAGE = "Este usuario no existe.";
 
 
-
+    /**
+     * Mensajes para correos
+     */
     public static final String SUBJECT_EDITED_ASIGNATURA = "Se ha modificado una asignatura durante el periodo de modificacion.";
     public static final String SUBJECT_APPROVE_OR_REJECT_CAMBIOS = "El director ha aprobado/rechazado los cambios propuestos.";
     public static final String MESSAGE_ADDED_ASIGNATURA = "El usuario %s ha agregado la asignatura %s en el periodo de modificacion.";
     public static final String MESSAGE_REMOVED_ASIGNATURA = "El usuario %s ha removido la asignatura %s en el periodo de modificacion.";
     public static final String MESSAGE_EDITED_ASIGNATURA = "El usuario %s ha editado la asignatura %s en el periodo de modificacion.";
-
 }

@@ -41,6 +41,7 @@ import com.micro.demo.service.exceptions.TipoCursoIncorrectoException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import com.micro.demo.service.exceptions.UnidadNotFoundException;
 import com.micro.demo.service.exceptions.UserAlreadyExistsException;
+import com.micro.demo.service.exceptions.UserNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -92,6 +93,7 @@ import static com.micro.demo.configuration.Constants.TIPO_CURSO_BAD_MESSAGE;
 import static com.micro.demo.configuration.Constants.UNAUTHORIZED_MESSAGE;
 import static com.micro.demo.configuration.Constants.UNIDAD_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.USER_ALREADY_EXISTS_MESSAGE;
+import static com.micro.demo.configuration.Constants.USER_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.USER_NOT_FOUND_UNAUTHORIZED_MESSAGE;
 
 @ControllerAdvice
@@ -426,5 +428,12 @@ public class ControllerAdvisor {
             TipoCursoIncorrectoException tipoCursoIncorrectoException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, TIPO_CURSO_BAD_MESSAGE));
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Map<String, String>> userNotFoundException(
+            UserNotFoundException userNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, USER_NOT_FOUND_MESSAGE));
     }
 }
