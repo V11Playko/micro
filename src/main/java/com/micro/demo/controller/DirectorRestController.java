@@ -23,6 +23,7 @@ import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
 import com.micro.demo.entities.UnidadResultado;
 import com.micro.demo.entities.Usuario;
+import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IAreaFormacionService;
 import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.ICompetenciaService;
@@ -36,6 +37,7 @@ import com.micro.demo.service.ITemaService;
 import com.micro.demo.service.IUnidadResultadoService;
 import com.micro.demo.service.IUnidadService;
 import com.micro.demo.service.IUsuarioService;
+import com.micro.demo.service.exceptions.UnauthorizedException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -44,6 +46,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +60,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -76,8 +82,9 @@ public class DirectorRestController {
     private final ICompetenciaService competenciaService;
     private final IPdfService pdfService;
     private final IHistoryMovementService historyMovementService;
+    private final IUsuarioRepository usuarioRepository;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService, IResultadoAprendizajeService resultadoAprendizajeService, ICompetenciaService competenciaService, IPdfService pdfService, IHistoryMovementService historyMovementService) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService, IResultadoAprendizajeService resultadoAprendizajeService, ICompetenciaService competenciaService, IPdfService pdfService, IHistoryMovementService historyMovementService, IUsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
@@ -91,6 +98,36 @@ public class DirectorRestController {
         this.competenciaService = competenciaService;
         this.pdfService = pdfService;
         this.historyMovementService = historyMovementService;
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    private String getCorreoUsuarioAutenticado() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof BearerTokenAuthentication) {
+            BearerTokenAuthentication bearerTokenAuthentication = (BearerTokenAuthentication) authentication;
+            return (String) bearerTokenAuthentication.getTokenAttributes().get("email");
+        }
+        return null;
+    }
+
+    private boolean isUserInAnyRole(String email, List<String> roles) {
+        Usuario usuario = usuarioRepository.findByCorreo(email);
+        if (usuario == null) {
+            return false;
+        }
+        for (String role : roles) {
+            if (usuario.getRole().getNombre().contains(role)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void checkUserRole(List<String> requiredRoles) {
+        String email = getCorreoUsuarioAutenticado();
+        if (email == null || !isUserInAnyRole(email, requiredRoles)) {
+            throw new UnauthorizedException();
+        }
     }
 
     /**
@@ -119,6 +156,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveDocente")
     public ResponseEntity<Map<String, String>> saveDocente(@Valid @RequestBody Usuario user) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         usuarioService.saveUser(user, "ROLE_DOCENTE");
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
@@ -134,6 +172,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateUser/{id}")
     public ResponseEntity<Map<String, String>> updateUser(@PathVariable Long id, @RequestBody Usuario usuarioActualizado) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         usuarioService.updateUser(id,usuarioActualizado);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_UPDATED_MESSAGE));
@@ -147,6 +186,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<Map<String, String>> deleteUser(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         usuarioService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_DELETED_MESSAGE));
@@ -166,6 +206,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allProgramasAcademicos")
     public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(programaAcademicoService.getAll(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -177,6 +218,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updatePeriodoModificacion")
     public ResponseEntity<Map<String, String>> updatePeriodoModificacion(@Valid @RequestBody UpdatePeriodoModificacionRequestDto updatePeriodoModificacionRequestDto) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         programaAcademicoService.updatePeriodoModificacion(
                 updatePeriodoModificacionRequestDto.getNombrePrograma(),
                 updatePeriodoModificacionRequestDto.getFechaInicioModificacion(),
@@ -194,6 +236,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updatePuedeDescargarPdf")
     public ResponseEntity<Map<String, String>> updatePuedeDescargarPdf(@Valid @RequestBody UpdatePuedeDescargarPdfRequestDto updatePuedeDescargarPdfRequestDto) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         programaAcademicoService.updatePuedeDescargarPdf(updatePuedeDescargarPdfRequestDto.getNombrePrograma(), updatePuedeDescargarPdfRequestDto.isPuedeDescargarPdf());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -212,6 +255,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allPensums")
     public ResponseEntity<List<Pensum>> getAllPensums(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(pensumService.getAllPensum(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -222,6 +266,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allPensumsNoModificadosDuranteUnAño")
     public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteUnAño(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -233,6 +278,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/savePensum")
     public ResponseEntity<Map<String, String>> savePensum(@Valid @RequestBody Pensum pensum) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         pensumService.savePensum(pensum);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -246,6 +292,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updatePensum/{id}")
     public ResponseEntity<Map<String, String>> updatePensum(@PathVariable Long id, @RequestBody Pensum pensum) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         pensumService.updatePensum(id,pensum);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -259,6 +306,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/assignAsignatura")
     public ResponseEntity<Map<String, String>> assignAsignaturas(@Valid @RequestBody AssignAsignaturasRequestDto asignaturasRequestDto) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         pensumService.assignAsignaturas(asignaturasRequestDto.getPensumId(), asignaturasRequestDto.getAsignaturasId());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -272,6 +320,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/removeAsignaturaFromPensum")
     public ResponseEntity<Map<String, String>> removeAsignaturaFromPensum(@Valid @RequestBody RemoveAsignaturaRequestDto removeAsignaturaRequestDto) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         pensumService.removeAsignaturaFromPensum(removeAsignaturaRequestDto.getPensumId(), removeAsignaturaRequestDto.getAsignaturaId());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -285,6 +334,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/deletePensum/{id}")
     public ResponseEntity<Map<String, String>> deletePensum(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         pensumService.deletePensum(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -298,6 +348,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/duplicatePensum/{id}")
     public ResponseEntity<Map<String, String>> duplicatePensum(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         pensumService.duplicatePensum(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -316,6 +367,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allAsignaturas")
     public ResponseEntity<List<Asignatura>> getAllAsignaturas(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(asignaturaService.getAllAsignatura(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -327,6 +379,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveAsignatura")
     public ResponseEntity<Map<String, String>> saveAsignatura(@Valid @RequestBody Asignatura asignatura) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         asignaturaService.saveAsignatura(asignatura);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -340,6 +393,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateAsignatura/{id}")
     public ResponseEntity<Map<String, String>> updateAsignatura(@PathVariable Long id, @RequestBody Asignatura asignatura) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         asignaturaService.updateAsignatura(id,asignatura);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -353,6 +407,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/assignDocentes")
     public ResponseEntity<Map<String, String>> assignDocentes(@Valid @RequestBody AssignDocentesRequestDTO assignDocentesRequestDTO) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         asignaturaService.assignDocentes(assignDocentesRequestDTO.getAsignaturaId(), assignDocentesRequestDTO.getCorreoDocentes());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -366,6 +421,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/removeDocentesFromAsignatura")
     public ResponseEntity<Map<String, String>> removeDocentesFromAsignatura(@Valid @RequestBody RemoveDocenteRequestDto removeDocenteRequestDto) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         asignaturaService.removeDocente(removeDocenteRequestDto.getAsignaturaId(), removeDocenteRequestDto.getCorreoDocente());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -379,6 +435,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/deleteAsignatura/{id}")
     public ResponseEntity<Map<String, String>> deleteAsignatura(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         asignaturaService.deleteAsignatura(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -397,6 +454,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allAreasFormacion")
     public ResponseEntity<List<AreaFormacion>> getAllAreas(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(areaFormacionService.getAllAreaFormacion(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -408,6 +466,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveAreaFormacion")
     public ResponseEntity<Map<String, String>> saveAreaFormacion(@Valid @RequestBody AreaFormacion areaFormacion) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         areaFormacionService.saveAreaFormacion(areaFormacion);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -420,6 +479,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/deleteAreaFormacion/{id}")
     public ResponseEntity<Map<String, String>> deleteAreaFormacion(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         areaFormacionService.deleteAreaFormacion(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -438,6 +498,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allPreRequisitos")
     public ResponseEntity<List<PreRequisito>> getAllPreRequisitos(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(preRequisitoService.getAllPreRequisito(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -449,6 +510,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/savePreRequisito")
     public ResponseEntity<Map<String, String>> savePreRequisito(@Valid @RequestBody PreRequisito preRequisito) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         preRequisitoService.savePreRequisito(preRequisito);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -461,6 +523,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/deletePreRequisito/{id}")
     public ResponseEntity<Map<String, String>> deletePreRequisito(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         preRequisitoService.deletePrerequisito(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -479,6 +542,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allUnidades")
     public ResponseEntity<List<Unidad>> getAllUnidades(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(unidadService.getAllUnidad(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -489,6 +553,7 @@ public class DirectorRestController {
     })
     @GetMapping("/getUnidad/{id}")
     public ResponseEntity<Unidad> getUnidad(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return new ResponseEntity<>(unidadService.getUnidad(id), HttpStatus.OK);
     }
 
@@ -500,6 +565,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveUnidad")
     public ResponseEntity<Map<String, String>> saveUnidad(@Valid @RequestBody Unidad unidad) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         unidadService.saveUnidad(unidad);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -513,6 +579,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateUnidad/{id}")
     public ResponseEntity<Map<String, String>> updateUnidad(@PathVariable Long id, @RequestBody Unidad unidad) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         unidadService.updateUnidad(id,unidad);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -526,6 +593,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/deleteUnidad/{id}")
     public ResponseEntity<Map<String, String>> deleteUnidad(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         unidadService.deleteUnidad(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -544,6 +612,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allTemas")
     public ResponseEntity<List<Tema>> getAllTemas(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(temaService.getAllTemas(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -555,6 +624,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveTema")
     public ResponseEntity<Map<String, String>> saveTema(@Valid @RequestBody Tema tema) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         temaService.saveTema(tema);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -568,6 +638,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateTema/{id}")
     public ResponseEntity<Map<String, String>> updateTema(@PathVariable Long id, @RequestBody Tema tema) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         temaService.updateTema(id,tema);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -581,6 +652,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/assignTemasToUnidad")
     public ResponseEntity<Map<String, String>> assignTemasToUnidad(@Valid @RequestBody AssignTemasRequestDto assignTemasRequestDto) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         temaService.assignTemasToUnidad(assignTemasRequestDto.getUnidadId(), assignTemasRequestDto.getTemaIds());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -594,6 +666,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/deleteTema/{id}")
     public ResponseEntity<Map<String, String>> deleteTema(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         temaService.deleteTema(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -612,6 +685,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allUnidadResultados")
     public ResponseEntity<List<UnidadResultado>> getAllUnidadResultados(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(unidadResultadoService.getAllUnidadResultados(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -623,6 +697,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveUnidadResultado")
     public ResponseEntity<Map<String, String>> saveUnidadResultado(@Valid @RequestBody UnidadResultado unidadResultado) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         unidadResultadoService.saveUnidadResultado(unidadResultado);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -636,6 +711,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateUnidadResultado/{id}")
     public ResponseEntity<Map<String, String>> updateUnidadResultado(@PathVariable Long id, @RequestBody UnidadResultado unidadResultado) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         unidadResultadoService.updateUnidadResultado(id,unidadResultado);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -649,6 +725,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/deleteUnidadResultado/{id}")
     public ResponseEntity<Map<String, String>> deleteUnidadResultado(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         unidadResultadoService.deleteUnidadResultado(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -667,6 +744,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allResultadosAprendizaje")
     public ResponseEntity<List<ResultadoAprendizaje>> getAllResultadosAprendizaje(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(resultadoAprendizajeService.getAllResultado(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -678,6 +756,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveResultadoAprendizaje")
     public ResponseEntity<Map<String, String>> saveResultadosAprendizaje(@Valid @RequestBody ResultadoAprendizaje resultadoAprendizaje) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         resultadoAprendizajeService.saveResultado(resultadoAprendizaje);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -691,6 +770,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateResultadoAprendizaje/{id}")
     public ResponseEntity<Map<String, String>> updateResultadoAprendizaje(@PathVariable Long id, @RequestBody ResultadoAprendizaje resultadoAprendizaje) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         resultadoAprendizajeService.updateResultado(id,resultadoAprendizaje);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -704,6 +784,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/deleteResultadoAprendizaje/{id}")
     public ResponseEntity<Map<String, String>> deleteResultadoAprendizaje(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         resultadoAprendizajeService.deleteResultado(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -722,6 +803,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allCompetencias")
     public ResponseEntity<List<Competencia>> getAllCompetencias(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(competenciaService.getAllCompetencias(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -733,6 +815,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveCompetencia")
     public ResponseEntity<Map<String, String>> saveCompetencia(@Valid @RequestBody Competencia competencia) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         competenciaService.saveCompetencia(competencia);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -746,6 +829,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateCompetencia/{id}")
     public ResponseEntity<Map<String, String>> updateCompetencia(@PathVariable Long id, @RequestBody Competencia competencia) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         competenciaService.updateCompetencia(id,competencia);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -759,6 +843,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/assignCompetencias")
     public ResponseEntity<Map<String, String>> assignCompetenciasToResultadoAprendizaje(@Valid @RequestBody AssignCompetenciaRequestDto assignCompetenciaRequestDto) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         resultadoAprendizajeService.assignCompetencia(assignCompetenciaRequestDto.getResultadoAprendizajeId(), assignCompetenciaRequestDto.getCompetenciaIds());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
@@ -772,6 +857,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("/deleteCompetencia/{id}")
     public ResponseEntity<Map<String, String>> deleteCompetencia(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         competenciaService.deleteCompetencia(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
@@ -791,6 +877,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/generatePdf/{pensumId}")
     public ResponseEntity<Map<String, String>> generatePdf(@PathVariable Long pensumId) throws IOException {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         pdfService.generatePdf(pensumId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
@@ -809,6 +896,7 @@ public class DirectorRestController {
     })
     @GetMapping("/allHistoryMovement")
     public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(@Valid @RequestBody PageRequestDto pageRequestDto){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(historyMovementService.getAllMovements(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }
 
@@ -820,6 +908,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/aprobarRechazarCambios")
     public ResponseEntity<Map<String, String>> aprobarRechazarCambios(@Valid @RequestBody AprobarRechazarCambiosRequestDto aprobarRechazarCambiosRequestDto) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         historyMovementService.aprobarRechazarCambiosDespuesPeriodoModificacion(aprobarRechazarCambiosRequestDto.isAceptarCambios(), aprobarRechazarCambiosRequestDto.getCodigo(), aprobarRechazarCambiosRequestDto.getReasonMessage());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.APPLIED_CHANGES_MESSAGE));
@@ -833,6 +922,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/aplicarCambiosPropuestos")
     public ResponseEntity<Map<String, String>> aplicarCambiosPropuestos(@RequestParam Integer codigo) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         historyMovementService.aplicarCambiosPropuestos(codigo);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.APPLIED_CHANGES_MESSAGE));
