@@ -45,12 +45,12 @@ public class DatabaseInitializer {
     }
 
     private void initializeAdminUser() {
-        if (userRepository.findByCorreo("admin@gmail.com") == null) {
+        if (userRepository.findByCorreo("edu.ufps10@gmail.com") == null) {
             Usuario admin = new Usuario();
             admin.setNombre("Admin");
             admin.setApellido("AdminSurname");
             admin.setNumeroCelular("+57 3136824595");
-            admin.setCorreo("admin@gmail.com");
+            admin.setCorreo("edu.ufps10@gmail.com");
             admin.setContraseña(passwordEncoder.encodePassword("admin"));
 
             Role adminRole = roleRepository.findByNombre("ROLE_ADMIN");

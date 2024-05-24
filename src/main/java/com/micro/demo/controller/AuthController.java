@@ -1,5 +1,10 @@
 package com.micro.demo.controller;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
@@ -7,7 +12,8 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.micro.demo.controller.dto.TokenDto;
 import com.micro.demo.controller.dto.UrlDto;
-import lombok.RequiredArgsConstructor;
+import com.micro.demo.entities.Usuario;
+import com.micro.demo.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Map;
 
 @RestController
-@RequiredArgsConstructor
 public class AuthController {
 
     @Value("${spring.security.oauth2.resourceserver.opaque-token.clientId}")
@@ -28,6 +35,18 @@ public class AuthController {
 
     @Value("${spring.security.oauth2.resourceserver.opaque-token.clientSecret}")
     private String clientSecret;
+
+
+    private final IUsuarioRepository usuarioRepository;
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
+    @Value("${jwt.expiration}")
+    private int jwtExpirationMinutes;
+
+    public AuthController(IUsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
 
     @GetMapping("/auth/url")
@@ -45,9 +64,9 @@ public class AuthController {
     @GetMapping("/auth/callback")
     public ResponseEntity<TokenDto> callback(@RequestParam("code") String code) throws URISyntaxException {
 
-        GoogleTokenResponse token;
+        GoogleTokenResponse tokenResponse;
         try {
-              token = new GoogleAuthorizationCodeTokenRequest(
+            tokenResponse = new GoogleAuthorizationCodeTokenRequest(
                     new NetHttpTransport(), new GsonFactory(),
                     clientId,
                     clientSecret,
@@ -58,7 +77,53 @@ public class AuthController {
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        System.out.println(token.getIdToken());
-        return ResponseEntity.ok(new TokenDto(token.toString()));
+
+        String idTokenString = tokenResponse.getIdToken();
+        DecodedJWT decodedIdToken = JWT.decode(idTokenString);
+
+        String email = decodedIdToken.getClaim("email").asString();
+
+        if (email == null || !usuarioRepository.existsByCorreo(email)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        Usuario usuario = usuarioRepository.findByCorreo(email);
+
+        // Crear un nuevo token con el tiempo de expiración extendido
+        Date extendedExpirationTime = new Date(System.currentTimeMillis() + (long) jwtExpirationMinutes * 60 * 1000);
+
+        JWTCreator.Builder tokenBuilder = JWT.create()
+                .withExpiresAt(extendedExpirationTime);
+
+        // Añadir todas las reclamaciones del token original
+        Map<String, Claim> claims = decodedIdToken.getClaims();
+        for (Map.Entry<String, Claim> entry : claims.entrySet()) {
+            String key = entry.getKey();
+            Claim claim = entry.getValue();
+            if (claim.asString() != null) {
+                tokenBuilder.withClaim(key, claim.asString());
+            } else if (claim.asBoolean() != null) {
+                tokenBuilder.withClaim(key, claim.asBoolean());
+            } else if (claim.asInt() != null) {
+                tokenBuilder.withClaim(key, claim.asInt());
+            } else if (claim.asLong() != null) {
+                tokenBuilder.withClaim(key, claim.asLong());
+            } else if (claim.asDate() != null) {
+                tokenBuilder.withClaim(key, claim.asDate());
+            }
+            // Añadir otros tipos de reclamaciones según sea necesario
+        }
+
+        // Añadir roles específicos del usuario
+        tokenBuilder.withClaim("roles", usuario.getRole().getNombre());
+        tokenBuilder.withClaim("access_token", tokenResponse.getAccessToken());
+        tokenBuilder.withClaim("exp", extendedExpirationTime);
+
+        String extendedToken = tokenBuilder.sign(Algorithm.HMAC256(jwtSecret));
+
+        System.out.println(tokenResponse.getAccessToken());
+        System.out.println(extendedToken);
+
+        return ResponseEntity.ok(new TokenDto(tokenResponse.getAccessToken()));
     }
+
 }
