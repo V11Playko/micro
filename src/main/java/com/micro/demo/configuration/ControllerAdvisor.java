@@ -11,6 +11,7 @@ import com.micro.demo.service.exceptions.AsignaturaNotFoundByIdException;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundExceptionInPensum;
 import com.micro.demo.service.exceptions.AtributosNotFound;
 import com.micro.demo.service.exceptions.CambiosAceptadosNotFoundException;
+import com.micro.demo.service.exceptions.CodigoNotFound;
 import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
 import com.micro.demo.service.exceptions.DirectorAlreadyAssignedException;
 import com.micro.demo.service.exceptions.DirectorNotFoundException;
@@ -66,6 +67,7 @@ import static com.micro.demo.configuration.Constants.ASIGNATURA_ALREADY_IN_PENSU
 import static com.micro.demo.configuration.Constants.ASIGNATURA_ALREADY_REMOVED;
 import static com.micro.demo.configuration.Constants.ASIGNATURA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.ATRIBUTOS_NOT_FOUND_MESSAGE;
+import static com.micro.demo.configuration.Constants.CODIGO_NOT_FOUND;
 import static com.micro.demo.configuration.Constants.COMPETENCIA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DIRECTOR_ALREADY_ASSIGN_MESSAGE;
 import static com.micro.demo.configuration.Constants.DIRECTOR_NOT_FOUND_MESSAGE;
@@ -435,5 +437,12 @@ public class ControllerAdvisor {
             UserNotFoundException userNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, USER_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(CodigoNotFound.class)
+    public ResponseEntity<Map<String, String>> codigoNotFound(
+            CodigoNotFound codigoNotFound) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, CODIGO_NOT_FOUND));
     }
 }

@@ -20,6 +20,7 @@ import com.micro.demo.service.exceptions.AsignaturaAlreadyRemoved;
 import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.AtributosNotFound;
 import com.micro.demo.service.exceptions.CambiosAceptadosNotFoundException;
+import com.micro.demo.service.exceptions.CodigoNotFound;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.ModificationPeriodDisabled;
 import com.micro.demo.service.exceptions.ModificationPeriodWorking;
@@ -321,6 +322,10 @@ public class HistoryMovementService implements IHistoryMovementService {
         LocalDate fechaActual = LocalDate.now();
 
         List<HistoryMovement> cambiosPropuestos = historyMovementRepository.findByCambiosAceptadosIsNullAndCodigo(codigo);
+
+        if (cambiosPropuestos.isEmpty()) {
+            throw new CodigoNotFound();
+        }
 
         for (HistoryMovement cambio : cambiosPropuestos) {
             Pensum pensum = pensumRepository.findById(cambio.getPensum().getId()).orElseThrow(PensumNotFoundException::new);

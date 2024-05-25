@@ -65,6 +65,7 @@ public class Constants {
     public static final String MESSAGE_NOT_SEND = "El mensaje no se pudo enviar correctamente.";
     public static final String TIPO_CURSO_BAD_MESSAGE = "El tipo de curso no coincide con el nombre de la asignatura.";
     public static final String USER_NOT_FOUND_MESSAGE = "Este usuario no existe.";
+    public static final String CODIGO_NOT_FOUND = "No existen movimientos con ese codigo.";
 
 
     /**
