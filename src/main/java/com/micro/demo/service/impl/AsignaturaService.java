@@ -86,10 +86,8 @@ public class AsignaturaService implements IAsignaturaService {
      * */
     @Override
     public void saveAsignatura(Asignatura asignatura) {
-        areaFormacionRepository.findById
-                (asignatura.getAreaFormacion().getId()).orElseThrow(AreaFormacionNotFound::new);
-        preRequisitoRepository.findById
-                (asignatura.getPreRequisito().getId()).orElseThrow(PreRequisitoNotFound::new);
+        areaFormacionRepository.findById(asignatura.getAreaFormacion().getId()).orElseThrow(AreaFormacionNotFound::new);
+        preRequisitoRepository.findById(asignatura.getPreRequisito().getId()).orElseThrow(PreRequisitoNotFound::new);
 
         String nombreAsignatura = asignatura.getNombre();
         String tipoCurso = asignatura.getTipoCurso();
@@ -101,12 +99,12 @@ public class AsignaturaService implements IAsignaturaService {
                         throw new TipoCursoIncorrectoException();
                     }
                     break;
-                case "ELECTIVA_PROFESIONAL":
+                case "ELECTIVA PROFESIONAL":
                     if (!esElectivaProfesional(nombreAsignatura)) {
                         throw new TipoCursoIncorrectoException();
                     }
                     break;
-                case "ELECTIVA_SOCIOHUMANISTICA":
+                case "ELECTIVA SOCIOHUMANISTICA":
                     if (!esElectivaSociohumanistica(nombreAsignatura)) {
                         throw new TipoCursoIncorrectoException();
                     }
@@ -267,8 +265,21 @@ public class AsignaturaService implements IAsignaturaService {
      * */
     private <T extends Enum<T>> boolean esAsignatura(String nombreAsignatura, Class<T> enumType) {
         for (T asignatura : enumType.getEnumConstants()) {
-            if (asignatura.name().equals(nombreAsignatura)) {
-                return true;
+            if (asignatura instanceof AsignaturaObligatoria) {
+                AsignaturaObligatoria obligatoria = (AsignaturaObligatoria) asignatura;
+                if (obligatoria.getNombre().equalsIgnoreCase(nombreAsignatura)) {
+                    return true;
+                }
+            } else if (asignatura instanceof ElectivaProfesional) {
+                ElectivaProfesional electiva = (ElectivaProfesional) asignatura;
+                if (electiva.getNombre().equalsIgnoreCase(nombreAsignatura)) {
+                    return true;
+                }
+            } else if (asignatura instanceof ElectivaSociohumanistica) {
+                ElectivaSociohumanistica sociohumanistica = (ElectivaSociohumanistica) asignatura;
+                if (sociohumanistica.getNombre().equalsIgnoreCase(nombreAsignatura)) {
+                    return true;
+                }
             }
         }
         return false;

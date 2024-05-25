@@ -14,7 +14,7 @@ public interface IHistoryMovementRepository extends JpaRepository<HistoryMovemen
     boolean existsByAsignaturaAfectadaAndAsignaturaRemovidaTrueAndCambiosAceptadosNull(Asignatura asignatura);
     List<HistoryMovement> findByCambiosAceptadosIsNullAndCodigo(Integer codigo);
     List<HistoryMovement> findByCambiosAceptadosTrueAndCodigo(Integer codigo);
-    List<HistoryMovement> findByPensumIdAndCambiosAceptadosIsTrue(Long pensumId);
     List<HistoryMovement> findByFechaMovimientoAfter(LocalDateTime fecha);
+    HistoryMovement findByCodigo(Integer codigo);
 
 }

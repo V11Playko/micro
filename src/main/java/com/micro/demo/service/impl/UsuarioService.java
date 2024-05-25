@@ -121,7 +121,7 @@ public class UsuarioService implements IUsuarioService {
         Usuario usuarioAutenticado = getUserByCorreo(correoUsuarioAutenticado);
 
         boolean isAdminOrOwnUser = (correoUsuarioAutenticado != null &&
-                (correoUsuarioAutenticado.equals("admin@gmail.com") ||
+                (correoUsuarioAutenticado.equals("edu.ufps10@gmail.com") ||
                         correoUsuarioAutenticado.equals(usuarioExistente.getCorreo())));
 
         boolean isDirectorUpdatingDocente = (usuarioAutenticado.getRole().getNombre().equals("ROLE_DIRECTOR") &&
@@ -153,6 +153,8 @@ public class UsuarioService implements IUsuarioService {
     public void deleteUser(Long id) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
         Usuario usuarioAutenticado = getUserByCorreo(correoUsuarioAutenticado);
+
+        usuarioRepository.findById(id).orElseThrow(NoDataFoundException::new);
 
         if (usuarioAutenticado.getRole().getNombre().equals("ROLE_ADMIN")) {
             usuarioRepository.deleteById(id);
