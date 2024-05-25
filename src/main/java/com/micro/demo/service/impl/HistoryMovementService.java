@@ -1,6 +1,5 @@
 package com.micro.demo.service.impl;
 
-import com.micro.demo.configuration.security.userDetails.CustomUserDetails;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.Email;
 import com.micro.demo.entities.HistoryMovement;
@@ -9,8 +8,6 @@ import com.micro.demo.repository.IAsignaturaPensumRepository;
 import com.micro.demo.repository.IAsignaturaRepository;
 import com.micro.demo.repository.IHistoryMovementRepository;
 import com.micro.demo.repository.IPensumRepository;
-import com.micro.demo.repository.IProgramaAcademicoRepository;
-import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.IEmailService;
 import com.micro.demo.service.IHistoryMovementService;
 import com.micro.demo.service.IPensumService;
@@ -52,23 +49,20 @@ import static com.micro.demo.configuration.Constants.SUBJECT_EDITED_ASIGNATURA;
 public class HistoryMovementService implements IHistoryMovementService {
     private final IHistoryMovementRepository historyMovementRepository;
     private final IAsignaturaPensumRepository asignaturaPensumRepository;
-    private final IProgramaAcademicoRepository programaAcademicoRepository;
     private final IAsignaturaRepository asignaturaRepository;
     private final IPensumRepository pensumRepository;
-    private final IAsignaturaService asignaturaService;
     private final IPensumService pensumService;
     private final IEmailService emailService;
 
-    public HistoryMovementService(IHistoryMovementRepository historyMovementRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IProgramaAcademicoRepository programaAcademicoRepository, IAsignaturaRepository asignaturaRepository, IPensumRepository pensumRepository, IAsignaturaService asignaturaService, IPensumService pensumService, IEmailService emailService) {
+    public HistoryMovementService(IHistoryMovementRepository historyMovementRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IAsignaturaRepository asignaturaRepository, IPensumRepository pensumRepository, IPensumService pensumService, IEmailService emailService) {
         this.historyMovementRepository = historyMovementRepository;
         this.asignaturaPensumRepository = asignaturaPensumRepository;
-        this.programaAcademicoRepository = programaAcademicoRepository;
         this.asignaturaRepository = asignaturaRepository;
         this.pensumRepository = pensumRepository;
-        this.asignaturaService = asignaturaService;
         this.pensumService = pensumService;
         this.emailService = emailService;
     }
+
 
     /**
      * Obtiene las historias de movimiento mediante la paginacion

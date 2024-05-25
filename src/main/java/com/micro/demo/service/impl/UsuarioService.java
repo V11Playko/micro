@@ -1,6 +1,5 @@
 package com.micro.demo.service.impl;
 
-import com.micro.demo.configuration.security.userDetails.CustomUserDetails;
 import com.micro.demo.entities.Role;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.repository.IRoleRepository;

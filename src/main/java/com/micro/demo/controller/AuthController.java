@@ -74,7 +74,6 @@ public class AuthController {
                     "http://localhost:4200"
             ).execute();
         } catch (IOException e) {
-            System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 

@@ -5,7 +5,6 @@ import com.micro.demo.entities.Usuario;
 import com.micro.demo.repository.IProgramaAcademicoRepository;
 import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IProgramaAcademicoService;
-import com.micro.demo.service.exceptions.AreaFormacionNotFound;
 import com.micro.demo.service.exceptions.DirectorAlreadyAssignedException;
 import com.micro.demo.service.exceptions.DirectorNotFoundException;
 import com.micro.demo.service.exceptions.DuracionModificacionInvalidaException;
@@ -15,8 +14,6 @@ import com.micro.demo.service.exceptions.PeriodoModificacionInvalidoException;
 import com.micro.demo.service.exceptions.ProgramaAcademicoExistenteException;
 import com.micro.demo.service.exceptions.ProgramaNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.SignedJWT;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,7 +24,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
 

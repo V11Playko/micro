@@ -265,7 +265,7 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensumsNoModificadosDuranteUnAño")
-    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteUnAño(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteDosSemestres(@Valid @RequestBody PageRequestDto pageRequestDto){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
     }

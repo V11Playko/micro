@@ -1,6 +1,5 @@
 package com.micro.demo.configuration.security;
 
-import com.micro.demo.configuration.security.GoogleOpaqueTokenIntrospector;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

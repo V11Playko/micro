@@ -1,6 +1,5 @@
 package com.micro.demo.entities.enums;
 
-import jakarta.persistence.EnumType;
 
 public enum AsignaturaObligatoria {
     CALCULO_DIFFERENCIAL("1155101", "CALCULO DIFERENCIAL"),
