@@ -1,4 +1,4 @@
-package com.micro.demo.configuration;
+package com.micro.demo.configuration.security;
 
 import com.micro.demo.controller.dto.UserInfo;
 import lombok.RequiredArgsConstructor;
