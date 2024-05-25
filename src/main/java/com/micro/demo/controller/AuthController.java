@@ -116,12 +116,14 @@ public class AuthController {
         // Añadir roles específicos del usuario
         tokenBuilder.withClaim("roles", usuario.getRole().getNombre());
         tokenBuilder.withClaim("access_token", tokenResponse.getAccessToken());
-        tokenBuilder.withClaim("exp", extendedExpirationTime);
 
         String extendedToken = tokenBuilder.sign(Algorithm.HMAC256(jwtSecret));
 
+        // Configurar el tokenResponse con el nuevo token y tiempo de expiración extendido
+        tokenResponse.setIdToken(extendedToken);
+        tokenResponse.setExpiresInSeconds(extendedExpirationTime.getTime());
+
         System.out.println(tokenResponse.getAccessToken());
-        System.out.println(extendedToken);
 
         return ResponseEntity.ok(new TokenDto(tokenResponse.getAccessToken()));
     }
