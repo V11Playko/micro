@@ -7,42 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Auth",
-			"item": [
-				{
-					"name": "Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"correo\": \"playko98003@gmail.com\",\r\n  \"contraseña\": \"Galarga\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8091/api/v1/auth/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8091",
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Admin",
 			"item": [
 				{
@@ -59,7 +23,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -76,12 +40,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/allUsers",
+									"raw": "http://localhost:8080/api/v1/admin/allUsers",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -100,7 +64,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -108,12 +72,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/getUser?correo=emilio@gmail.com",
+									"raw": "http://localhost:8080/api/v1/admin/getUser?correo=heinnervega20@gmail.com",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -123,7 +87,7 @@
 									"query": [
 										{
 											"key": "correo",
-											"value": "emilio@gmail.com"
+											"value": "heinnervega20@gmail.com"
 										}
 									]
 								}
@@ -138,7 +102,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -147,7 +111,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Maria\",\r\n    \"apellido\": \"Ortiz\",\r\n    \"numeroCelular\": \"+57 3134674455\",\r\n    \"correo\": \"maria@gmail.com\",\r\n    \"contraseña\": \"Ortiz\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Juana\",\r\n    \"apellido\": \"Ortiz\",\r\n    \"numeroCelular\": \"+57 3134674399\",\r\n    \"correo\": \"juana@gmail.com\",\r\n    \"contraseña\": \"Ortiz\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -155,12 +119,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/saveDirector",
+									"raw": "http://localhost:8080/api/v1/admin/saveDirector",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -179,7 +143,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -188,7 +152,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Juan\",\r\n    \"apellido\": \"Garcia\",\r\n    \"numeroCelular\": \"+57 3134675315\",\r\n    \"correo\": \"juan@gmail.com\",\r\n    \"contraseña\": \"Garcia\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Juana\",\r\n    \"apellido\": \"Garcia\",\r\n    \"numeroCelular\": \"+57 3134675315\",\r\n    \"correo\": \"juana@gmail.com\",\r\n    \"contraseña\": \"Garcia\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -196,18 +160,18 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/update/3",
+									"raw": "http://localhost:8080/api/v1/admin/update/7",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"update",
-										"3"
+										"7"
 									]
 								}
 							},
@@ -221,7 +185,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -229,12 +193,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/delete/7",
+									"raw": "http://localhost:8080/api/v1/admin/delete/7",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -262,7 +226,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -279,12 +243,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/allProgramasAcademicos",
+									"raw": "http://localhost:8080/api/v1/admin/allProgramasAcademicos",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -303,7 +267,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -311,12 +275,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/Ingenieria de Sistemas",
+									"raw": "http://localhost:8080/api/v1/admin/Ingenieria de Sistemas",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -335,7 +299,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -344,7 +308,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Ingenieria de Sistemas\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Psicologia\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -352,12 +316,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/saveProgramaAcademico",
+									"raw": "http://localhost:8080/api/v1/admin/saveProgramaAcademico",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -376,7 +340,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -385,7 +349,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"correoDirector\": \"sad@gmail.com\",\r\n  \"nombrePrograma\": \"Ingenieria de Sistemas\"\r\n}",
+									"raw": "{\r\n  \"correoDirector\": \"\",\r\n  \"nombrePrograma\": \"Ingenieria Quimica\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -393,12 +357,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/assignDirector",
+									"raw": "http://localhost:8080/api/v1/admin/assignDirector",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -417,7 +381,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -425,12 +389,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/deleteProgramaAcademico/4",
+									"raw": "http://localhost:8080/api/v1/admin/deleteProgramaAcademico/4",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -455,7 +419,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -463,12 +427,12 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/generatePdf/1",
+									"raw": "http://localhost:8080/api/v1/admin/generatePdf/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -491,7 +455,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTcxMzU0NTg2OCwiZXhwIjoxNzM1MTQ1ODY4fQ.FgrvVHBnj7yeCfRz953aYliE0OWdCf9_K75AEgcOOMoPc7BJU4WJtjZ10bO5PzBigyZGE0rwfr6UyZb2hKKXAQ",
+											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
 											"type": "string"
 										}
 									]
@@ -508,12 +472,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allPensumsNoModificadosDuranteUnAño",
+									"raw": "http://localhost:8080/api/v1/admin/director/allPensumsNoModificadosDuranteUnAño",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -578,7 +542,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -595,12 +559,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allUsers",
+									"raw": "http://localhost:8080/api/v1/admin/director/allUsers",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -620,7 +584,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -629,7 +593,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Coscu\",\r\n    \"apellido\": \"Villa\",\r\n    \"numeroCelular\": \"+57 3134647824\",\r\n    \"correo\": \"playko98002@gmail.com\",\r\n    \"contraseña\": \"Villa\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Coscu\",\r\n    \"apellido\": \"Villa\",\r\n    \"numeroCelular\": \"+57 3134647824\",\r\n    \"correo\": \"juanco@gmail.com\",\r\n    \"contraseña\": \"Villa\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -637,12 +601,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/saveDocente",
+									"raw": "http://localhost:8080/api/v1/admin/director/saveDocente",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -662,7 +626,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -671,7 +635,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Darwin\",\r\n    \"apellido\": \"Martinez\",\r\n    \"numeroCelular\": \"+57 3134644252\",\r\n    \"correo\": \"darwin01@gmail.com\",\r\n    \"contraseña\": \"Martinez\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Juanco\",\r\n    \"apellido\": \"Martinez\",\r\n    \"numeroCelular\": \"+57 3133244252\",\r\n    \"correo\": \"juanco@gmail.com\",\r\n    \"contraseña\": \"Martinez\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -679,12 +643,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updateUser/8",
+									"raw": "http://localhost:8080/api/v1/admin/director/updateUser/8",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -705,7 +669,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -713,19 +677,19 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/deleteUser/2",
+									"raw": "http://localhost:8080/api/v1/admin/director/deleteUser/8",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
 										"deleteUser",
-										"2"
+										"8"
 									]
 								}
 							},
@@ -747,7 +711,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzE0MTY2OTM0LCJleHAiOjE3MzU3NjY5MzR9.tmNHI2lB_DpD0bMl-b9N-VYy5z-GmB6lCeun_r5iJJLUdvCugroe9vUjfVhTejLfSnQJQEcIWLMnYhuyfQTCNA",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -764,12 +728,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allProgramasAcademicos",
+									"raw": "http://localhost:8080/api/v1/admin/director/allProgramasAcademicos",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -789,7 +753,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -806,12 +770,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updatePuedeDescargarPdf",
+									"raw": "http://localhost:8080/api/v1/admin/director/updatePuedeDescargarPdf",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -831,7 +795,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -848,637 +812,18 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updatePeriodoModificacion",
+									"raw": "http://localhost:8080/api/v1/admin/director/updatePeriodoModificacion",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
 										"updatePeriodoModificacion"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Manage Pensum",
-					"item": [
-						{
-							"name": "All Pensum",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allPensums",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"allPensums"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Pensums No Modificados durante un año",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allPensumsNoModificadosDuranteUnAño",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"allPensumsNoModificadosDuranteUnAño"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Save Pensum",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"creditosTotales\": 132,\r\n  \"fechaInicio\": \"2024-04-23\",\r\n  \"fechaFinal\": \"2024-06-01\",\r\n  \"estatus\": true\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/savePensum",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"savePensum"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update Pensum",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"creditosTotales\": 110,\r\n  \"fechaInicio\": \"2024-04-23\",\r\n  \"fechaFinal\": \"2024-06-01\",\r\n  \"estatus\": true\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updatePensum/3",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"updatePensum",
-										"3"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign Asignaturas",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pensumId\": 5,\r\n  \"asignaturasId\": [\r\n    5\r\n  ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/assignAsignatura",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"assignAsignatura"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Remove Asignatura",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pensumId\": 1,\r\n  \"asignaturaId\": 5\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/removeAsignaturaFromPensum",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"removeAsignaturaFromPensum"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Pensum",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/deletePensum/6",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"deletePensum",
-										"6"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Duplicate Pensum",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/duplicatePensum/4",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"duplicatePensum",
-										"4"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Generate PDF",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/generatePdf/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"generatePdf",
-										"1"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Manage Asignatura",
-					"item": [
-						{
-							"name": "All Asignaturas",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allAsignaturas",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"allAsignaturas"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Save Asignatura",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Algoritmos de Ordenamiento II\",\r\n    \"codigo\": 1155909,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"areaFormacion\": {\r\n        \"id\": 1\r\n    },\r\n    \"preRequisito\": {\r\n        \"id\": 1\r\n    },\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/saveAsignatura",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"saveAsignatura"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update Asignatura",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Fisica II\",\r\n    \"codigo\": 1157555,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updateAsignatura/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"updateAsignatura",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign Docentes",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"asignaturaId\": 1,\r\n  \"correoDocentes\": [\r\n    \"emilio@gmail.com\",\r\n    \"karla@gmail.com\"\r\n  ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/assignDocentes",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"assignDocentes"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Remove Docente from asignatura",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"asignaturaId\": 1,\r\n  \"correoDocente\": \"karla@gmail.com\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/removeDocentesFromAsignatura",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"removeDocentesFromAsignatura"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Asignatura",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/deleteAsignatura/3",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"deleteAsignatura",
-										"3"
 									]
 								}
 							},
@@ -1500,7 +845,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1517,12 +862,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allAreasFormacion",
+									"raw": "http://localhost:8080/api/v1/admin/director/allAreasFormacion",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1542,7 +887,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1559,12 +904,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/saveAreaFormacion",
+									"raw": "http://localhost:8080/api/v1/admin/director/saveAreaFormacion",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1584,7 +929,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1592,12 +937,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/deleteAreaFormacion/4",
+									"raw": "http://localhost:8080/api/v1/admin/director/deleteAreaFormacion/4",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1626,7 +971,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1643,12 +988,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allPreRequisitos",
+									"raw": "http://localhost:8080/api/v1/admin/director/allPreRequisitos",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1668,7 +1013,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1685,12 +1030,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/savePreRequisito",
+									"raw": "http://localhost:8080/api/v1/admin/director/savePreRequisito",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1710,7 +1055,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1718,12 +1063,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/deletePreRequisito/3",
+									"raw": "http://localhost:8080/api/v1/admin/director/deletePreRequisito/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1739,10 +1084,10 @@
 					]
 				},
 				{
-					"name": "Manage Unidad",
+					"name": "Manage Asignatura",
 					"item": [
 						{
-							"name": "All Unidades",
+							"name": "All Asignaturas",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -1752,7 +1097,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1769,66 +1114,32 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allUnidades",
+									"raw": "http://localhost:8080/api/v1/admin/director/allAsignaturas",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"allUnidades"
+										"allAsignaturas"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Unidad",
+							"name": "Save Asignatura",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/getUnidad/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8091",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"getUnidad",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Save Unidad",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1837,7 +1148,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"had\": \"2\",\r\n  \"hti\": \"3\",\r\n  \"nombre\": \"Unidad\",\r\n  \"asignatura\": {\r\n    \"codigo\": 1155994\r\n  }\r\n}",
+									"raw": "{\r\n    \"nombre\": \"PROBABILIDAD Y ESTADISTICA\",\r\n    \"codigo\": 1155473,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"areaFormacion\": {\r\n        \"id\": 1\r\n    },\r\n    \"preRequisito\": {\r\n        \"id\": 1\r\n    },\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"OBLIGATORIA\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1845,32 +1156,32 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/saveUnidad",
+									"raw": "http://localhost:8080/api/v1/admin/director/saveAsignatura",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"saveUnidad"
+										"saveAsignatura"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Updated Unidad",
+							"name": "Update Asignatura",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1879,7 +1190,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"had\": \"string\",\r\n    \"hti\": \"string\",\r\n    \"nombre\": \"string\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Fisica II\",\r\n    \"codigo\": 1157555,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"Teorico/Practico\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1887,18 +1198,18 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updateUnidad/1",
+									"raw": "http://localhost:8080/api/v1/admin/director/updateAsignatura/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"updateUnidad",
+										"updateAsignatura",
 										"1"
 									]
 								}
@@ -1906,14 +1217,14 @@
 							"response": []
 						},
 						{
-							"name": "Assign Temas To Unidad",
+							"name": "Assign Docentes",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1922,7 +1233,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"unidadId\": 2,\r\n    \"temaIds\": [4]\r\n}",
+									"raw": "{\r\n  \"asignaturaId\": 1,\r\n  \"correoDocentes\": [\r\n    \"playko98001@gmail.com\"\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1930,32 +1241,74 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/assignTemasToUnidad",
+									"raw": "http://localhost:8080/api/v1/admin/director/assignDocentes",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"assignTemasToUnidad"
+										"assignDocentes"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Delete Unidad",
+							"name": "Remove Docente from asignatura",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"asignaturaId\": 1,\r\n  \"correoDocente\": \"playko98001@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/removeDocentesFromAsignatura",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"removeDocentesFromAsignatura"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Asignatura",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -1963,19 +1316,385 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/deleteUnidad/4",
+									"raw": "http://localhost:8080/api/v1/admin/director/deleteAsignatura/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"deleteUnidad",
-										"4"
+										"deleteAsignatura",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage Pensum",
+					"item": [
+						{
+							"name": "All Pensum",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/allPensums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"allPensums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pensums No Modificados durante un año",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/allPensumsNoModificadosDuranteUnAño",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"allPensumsNoModificadosDuranteUnAño"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Pensum",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"creditosTotales\": 132,\r\n  \"fechaInicio\": \"2024-01-23\",\r\n  \"fechaFinal\": \"2024-10-11\",\r\n  \"estatus\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/savePensum",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"savePensum"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Pensum",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"creditosTotales\": 110,\r\n  \"fechaInicio\": \"2024-04-23\",\r\n  \"fechaFinal\": \"2024-06-01\",\r\n  \"estatus\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/updatePensum/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"updatePensum",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign Asignaturas",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pensumId\": 3,\r\n  \"asignaturasId\": [\r\n    6,7,8\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/assignAsignatura",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"assignAsignatura"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Asignatura",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pensumId\": 1,\r\n  \"asignaturaId\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/removeAsignaturaFromPensum",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"removeAsignaturaFromPensum"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Pensum",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/deletePensum/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"deletePensum",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Duplicate Pensum",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/duplicatePensum/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"duplicatePensum",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Generate PDF",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/generatePdf/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"generatePdf",
+										"3"
 									]
 								}
 							},
@@ -1997,7 +1716,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2014,12 +1733,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allTemas",
+									"raw": "http://localhost:8080/api/v1/admin/director/allTemas",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2039,7 +1758,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2048,7 +1767,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"tema\",\r\n  \"descripcion\": \"Tema\",\r\n  \"estatus\": true\r\n}",
+									"raw": "{\r\n  \"nombre\": \"tema 3\",\r\n  \"descripcion\": \"Tema 3\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2056,12 +1775,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/saveTema",
+									"raw": "http://localhost:8080/api/v1/admin/director/saveTema",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2081,7 +1800,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2098,12 +1817,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updateTema/1",
+									"raw": "http://localhost:8080/api/v1/admin/director/updateTema/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2124,7 +1843,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2132,12 +1851,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/deleteTema/4",
+									"raw": "http://localhost:8080/api/v1/admin/director/deleteTema/4",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2153,10 +1872,10 @@
 					]
 				},
 				{
-					"name": "Manage UnidadResultado",
+					"name": "Manage Unidad",
 					"item": [
 						{
-							"name": "All UnidadResultado",
+							"name": "All Unidades",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2166,7 +1885,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2183,32 +1902,66 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allUnidadResultados",
+									"raw": "http://localhost:8080/api/v1/admin/director/allUnidades",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"allUnidadResultados"
+										"allUnidades"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Save UnidadResultado",
+							"name": "Unidad",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/getUnidad/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"getUnidad",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Unidad",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2217,7 +1970,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"corteEvaluacion\": \"Bueno\",\r\n  \"criterioDesempeno\": \"Practica\",\r\n  \"instrumentoEvaluacion\": \"Visual\",\r\n  \"tipoEvidencia\": \"Documentos\",\r\n  \"estatus\": true,\r\n  \"unidad\": {\r\n    \"id\": 1\r\n  },\r\n  \"resultadoAprendizaje\": {\r\n    \"id\": 2\r\n  }\r\n}",
+									"raw": "{\r\n  \"had\": \"2\",\r\n  \"hti\": \"3\",\r\n  \"nombre\": \"Unidad\",\r\n  \"asignatura\": {\r\n    \"codigo\": 1155945\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2225,32 +1978,32 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/saveUnidadResultado",
+									"raw": "http://localhost:8080/api/v1/admin/director/saveUnidad",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"saveUnidadResultado"
+										"saveUnidad"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Update UnidadResultado",
+							"name": "Updated Unidad",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2259,7 +2012,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"corteEvaluacion\": \"Muy bueno\",\r\n  \"criterioDesempeno\": \"Practica\",\r\n  \"instrumentoEvaluacion\": \"Visual\",\r\n  \"tipoEvidencia\": \"Documentos\",\r\n  \"estatus\": false\r\n}",
+									"raw": "{\r\n  \"had\": \"2\",\r\n  \"hti\": \"3\",\r\n  \"nombre\": \"Unidad Buenarda\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2267,33 +2020,75 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updateUnidadResultado/3",
+									"raw": "http://localhost:8080/api/v1/admin/director/updateUnidad/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"updateUnidadResultado",
-										"3"
+										"updateUnidad",
+										"1"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Delete UnidadResultado",
+							"name": "Assign Temas To Unidad",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"unidadId\": 1,\r\n    \"temaIds\": [1,2]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/assignTemasToUnidad",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"assignTemasToUnidad"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Unidad",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2301,18 +2096,187 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/deleteUnidadResultado/3",
+									"raw": "http://localhost:8080/api/v1/admin/director/deleteUnidad/2",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"deleteUnidadResultado",
+										"deleteUnidad",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage Competencia",
+					"item": [
+						{
+							"name": "All Competencias",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/allCompetencias",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"allCompetencias"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Competencia",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"re re re melo\",\r\n  \"descripcion\": \"aja\",\r\n  \"estatus\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/saveCompetencia",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"saveCompetencia"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Competencia",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Prueba\",\r\n  \"descripcion\": \"Prueba\",\r\n  \"estatus\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/updateCompetencia/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"updateCompetencia",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Competencia",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/deleteCompetencia/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"deleteCompetencia",
 										"3"
 									]
 								}
@@ -2335,7 +2299,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2352,12 +2316,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allResultadosAprendizaje",
+									"raw": "http://localhost:8080/api/v1/admin/director/allResultadosAprendizaje",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2377,7 +2341,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2386,7 +2350,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"Re\",\r\n  \"descripcion\": \"aja\",\r\n  \"estatus\": true\r\n}",
+									"raw": "{\r\n  \"nombre\": \"asd\",\r\n  \"descripcion\": \"budsaeno\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2394,12 +2358,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/saveResultadoAprendizaje",
+									"raw": "http://localhost:8080/api/v1/admin/director/saveResultadoAprendizaje",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2419,7 +2383,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2436,12 +2400,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updateResultadoAprendizaje/3",
+									"raw": "http://localhost:8080/api/v1/admin/director/updateResultadoAprendizaje/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2462,7 +2426,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2479,12 +2443,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/assignCompetencias",
+									"raw": "http://localhost:8080/api/v1/admin/director/assignCompetencias",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2504,7 +2468,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2512,12 +2476,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/deleteResultadoAprendizaje/4",
+									"raw": "http://localhost:8080/api/v1/admin/director/deleteResultadoAprendizaje/4",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2533,10 +2497,10 @@
 					]
 				},
 				{
-					"name": "Manage Competencia",
+					"name": "Manage UnidadResultado",
 					"item": [
 						{
-							"name": "All Competencias",
+							"name": "All UnidadResultado",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2546,7 +2510,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2563,32 +2527,32 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allCompetencias",
+									"raw": "http://localhost:8080/api/v1/admin/director/allUnidadResultados",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"allCompetencias"
+										"allUnidadResultados"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Save Competencia",
+							"name": "Save UnidadResultado",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2597,7 +2561,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"melo\",\r\n  \"descripcion\": \"aja\",\r\n  \"estatus\": true\r\n}",
+									"raw": "{\r\n  \"corteEvaluacion\": \"Bueno\",\r\n  \"criterioDesempeno\": \"Practica\",\r\n  \"instrumentoEvaluacion\": \"Visual\",\r\n  \"tipoEvidencia\": \"Documentos\",\r\n  \"estatus\": true,\r\n  \"unidad\": {\r\n    \"id\": 1\r\n  },\r\n  \"resultadoAprendizaje\": {\r\n    \"id\": 2\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2605,32 +2569,32 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/saveCompetencia",
+									"raw": "http://localhost:8080/api/v1/admin/director/saveUnidadResultado",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"saveCompetencia"
+										"saveUnidadResultado"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Update Competencia",
+							"name": "Update UnidadResultado",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2639,7 +2603,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"Prueba\",\r\n  \"descripcion\": \"Prueba\",\r\n  \"estatus\": false\r\n}",
+									"raw": "{\r\n  \"corteEvaluacion\": \"Muy bueno\",\r\n  \"criterioDesempeno\": \"Practica\",\r\n  \"instrumentoEvaluacion\": \"Visual\",\r\n  \"tipoEvidencia\": \"Documentos\",\r\n  \"estatus\": false\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2647,18 +2611,18 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/updateCompetencia/3",
+									"raw": "http://localhost:8080/api/v1/admin/director/updateUnidadResultado/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"updateCompetencia",
+										"updateUnidadResultado",
 										"3"
 									]
 								}
@@ -2666,14 +2630,14 @@
 							"response": []
 						},
 						{
-							"name": "Delete Competencia",
+							"name": "Delete UnidadResultado",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
 											"type": "string"
 										}
 									]
@@ -2681,18 +2645,18 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/deleteCompetencia/3",
+									"raw": "http://localhost:8080/api/v1/admin/director/deleteUnidadResultado/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
-										"deleteCompetencia",
+										"deleteUnidadResultado",
 										"3"
 									]
 								}
@@ -2715,7 +2679,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCguzBUnFNb0IZNd5u43q9wUh31Z9V98sxuxKFF5Vg6uyQstm-CURdZbnNNFjNow7sjjWILx6g0x8IKMe07VSWKX0zumZDVdcHKpP_-4TWq_JBs02PygmHjiTxRcWBsbdjkpwHJLr1YweIY6vNeyprm0mkL9d5z2-aCgYKAfUSARMSFQHGX2MiqD5GVTnOqqD7zznElg5fNg0171",
 											"type": "string"
 										}
 									]
@@ -2732,12 +2696,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/allHistoryMovement",
+									"raw": "http://localhost:8080/api/v1/admin/director/allHistoryMovement",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2757,7 +2721,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCguzBUnFNb0IZNd5u43q9wUh31Z9V98sxuxKFF5Vg6uyQstm-CURdZbnNNFjNow7sjjWILx6g0x8IKMe07VSWKX0zumZDVdcHKpP_-4TWq_JBs02PygmHjiTxRcWBsbdjkpwHJLr1YweIY6vNeyprm0mkL9d5z2-aCgYKAfUSARMSFQHGX2MiqD5GVTnOqqD7zznElg5fNg0171",
 											"type": "string"
 										}
 									]
@@ -2766,7 +2730,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"aceptarCambios\": true,\r\n    \"codigo\": 111599,\r\n    \"reasonMessage\": \"Super bueno los cambios propuestos, felicitaciones Docentes.\"\r\n}",
+									"raw": "{\r\n    \"aceptarCambios\": true,\r\n    \"codigo\": 100980,\r\n    \"reasonMessage\": \"Super bueno los cambios propuestos, felicitaciones Docentes.\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2774,12 +2738,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/aprobarRechazarCambios",
+									"raw": "http://localhost:8080/api/v1/admin/director/aprobarRechazarCambios",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2799,7 +2763,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiaWF0IjoxNzEzNTYyMDU0LCJleHAiOjE3MzUxNjIwNTR9.NAfVE-KuS7OU5tGg0NqJWhSwve40-TM7rNJWvmDM5RDDuwI67pWykMTe609GUN2oVQ7h1Y00GcxqMjnYak9hgQ",
+											"value": "ya29.a0AXooCguzBUnFNb0IZNd5u43q9wUh31Z9V98sxuxKFF5Vg6uyQstm-CURdZbnNNFjNow7sjjWILx6g0x8IKMe07VSWKX0zumZDVdcHKpP_-4TWq_JBs02PygmHjiTxRcWBsbdjkpwHJLr1YweIY6vNeyprm0mkL9d5z2-aCgYKAfUSARMSFQHGX2MiqD5GVTnOqqD7zznElg5fNg0171",
 											"type": "string"
 										}
 									]
@@ -2807,12 +2771,12 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/director/aplicarCambiosPropuestos?codigo=111599",
+									"raw": "http://localhost:8080/api/v1/admin/director/aplicarCambiosPropuestos?codigo=100980",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2823,7 +2787,7 @@
 									"query": [
 										{
 											"key": "codigo",
-											"value": "111599"
+											"value": "100980"
 										}
 									]
 								}
@@ -2880,7 +2844,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5b2xpQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRE9DRU5URSJdLCJpYXQiOjE3MTM1NzQ3OTEsImV4cCI6MTczNTE3NDc5MX0.oDfIUSQNlh3m40i338cd380c3p_MvnfOCQvXGyGdJ2-IKNEj5gvIyiqg7pOjWnxoqpLujNahw1GbbX--ne9BqQ",
+											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
 											"type": "string"
 										}
 									]
@@ -2889,7 +2853,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Yoli\",\r\n    \"apellido\": \"Garcia\",\r\n    \"numeroCelular\": \"+57 3134644923\",\r\n    \"correo\": \"yoli@gmail.com\",\r\n    \"contraseña\": \"Garcia\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Yoli\",\r\n    \"apellido\": \"Garcia\",\r\n    \"numeroCelular\": \"+57 3134644923\",\r\n    \"correo\": \"playko98001@gmail.com\",\r\n    \"contraseña\": \"Garcia\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2897,19 +2861,19 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/docente/update/11",
+									"raw": "http://localhost:8080/api/v1/admin/docente/update/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"docente",
 										"update",
-										"11"
+										"3"
 									]
 								}
 							},
@@ -2931,7 +2895,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYXJsYUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE0NTA0NDgzLCJleHAiOjE3MzYxMDQ0ODN9.iL4aKDFviY4mWBK0gvspWNqH0absZ3WwDObehO4cbt-2P7PjnPcxrflIsa8A0dFtuFQPEGc30l0AH1ojhP4vpA",
+											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
 											"type": "string"
 										}
 									]
@@ -2948,12 +2912,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/docente/allProgramasAcademicos",
+									"raw": "http://localhost:8080/api/v1/admin/docente/allProgramasAcademicos",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2973,7 +2937,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYXJsYUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE0NTA0NDgzLCJleHAiOjE3MzYxMDQ0ODN9.iL4aKDFviY4mWBK0gvspWNqH0absZ3WwDObehO4cbt-2P7PjnPcxrflIsa8A0dFtuFQPEGc30l0AH1ojhP4vpA",
+											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
 											"type": "string"
 										}
 									]
@@ -2981,12 +2945,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/docente/Ingenieria de Sistemas",
+									"raw": "http://localhost:8080/api/v1/admin/docente/Ingenieria de Sistemas",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3011,7 +2975,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYXJsYUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE0NTA0NDgzLCJleHAiOjE3MzYxMDQ0ODN9.iL4aKDFviY4mWBK0gvspWNqH0absZ3WwDObehO4cbt-2P7PjnPcxrflIsa8A0dFtuFQPEGc30l0AH1ojhP4vpA",
+											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
 											"type": "string"
 										}
 									]
@@ -3019,12 +2983,12 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/docente/generatePdf/1",
+									"raw": "http://localhost:8080/api/v1/admin/docente/generatePdf/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3053,7 +3017,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYXJsYUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE0NTA0NDgzLCJleHAiOjE3MzYxMDQ0ODN9.iL4aKDFviY4mWBK0gvspWNqH0absZ3WwDObehO4cbt-2P7PjnPcxrflIsa8A0dFtuFQPEGc30l0AH1ojhP4vpA",
+											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
 											"type": "string"
 										}
 									]
@@ -3062,7 +3026,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 4,\r\n  \"elementosXpagina\": 5\r\n}",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 5\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3070,12 +3034,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/docente/allHistoryMovement",
+									"raw": "http://localhost:8080/api/v1/admin/docente/allHistoryMovement",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3095,7 +3059,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwbGF5a285ODAwMUBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE1MTc4NzE3LCJleHAiOjE3MzY3Nzg3MTd9.TEf4zR4-3EcFYXb2bofvOIUoDKZA_1Fq3kBU4BI18EjtM6r6wYn18aQ-DPsUWwDX7dNWOvzLGntb2KnzEAdNEQ",
+											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
 											"type": "string"
 										}
 									]
@@ -3104,7 +3068,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 24\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 9\r\n    },\r\n    \"codigo\": 963852\r\n}",
+									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 3\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 4\r\n    },\r\n    \"codigo\": 100980\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3112,12 +3076,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/docente/agregarAsignatura",
+									"raw": "http://localhost:8080/api/v1/admin/docente/agregarAsignatura",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3137,7 +3101,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwbGF5a285ODAwMkBnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE1MTc5NzUxLCJleHAiOjE3MzY3Nzk3NTF9.d0tFjEctMKBQUwDC3kKaaoXiYOw8a0mVDmSFokRHeBdNFwVsAeG7qqnFBTXVbHyLN6FP7g_yPc7rsncfRQYEAA",
+											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
 											"type": "string"
 										}
 									]
@@ -3146,7 +3110,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 18\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 5\r\n    },\r\n    \"codigo\": 11562\r\n}",
+									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 4\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 1\r\n    },\r\n    \"codigo\": 100980\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3154,12 +3118,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/docente/removerAsignatura",
+									"raw": "http://localhost:8080/api/v1/admin/docente/removerAsignatura",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3179,7 +3143,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwbGF5a285ODAwM0BnbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0RPQ0VOVEUiXSwiaWF0IjoxNzE1MTc5ODYxLCJleHAiOjE3MzY3Nzk4NjF9.oQ2_z5efVQ6SW4JqerQyxZU1SlcwZL0n8H30spdGAJQz57c59rIHbZt_M9TWJsMgXlvFFDHe0MKKBhKhpQzj7w",
+											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
 											"type": "string"
 										}
 									]
@@ -3188,7 +3152,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 25\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 9\r\n    },\r\n    \"atributosModificados\": {\r\n        \"nombre\": \"Prueba 3\",\r\n        \"codigo\": 1155909,\r\n        \"accFormacionInv\": \"Nueva formación investigativa\",\r\n        \"bibliografia\": \"Bibliografia\",\r\n        \"creditos\": 6,\r\n        \"had\": \"Nueva had\",\r\n        \"hti\": \"Nueva hti\",\r\n        \"hadhti\": \"Nueva hadhti\",\r\n        \"justificacion\": \"Nueva justificación\",\r\n        \"metodologia\": \"Nueva metodología\",\r\n        \"objetivo\": \"Nuevo objetivo\",\r\n        \"semestre\": \"Nuevo semestre\",\r\n        \"tipoCredito\": \"Nuevo tipo de crédito\",\r\n        \"tipoCurso\": \"Nuevo tipo de curso\",\r\n        \"asignaturaSucesora\": \"Nueva asignatura sucesora\",\r\n        \"asignaturaPredecesora\": \"Nueva asignatura predecesora\"\r\n    },\r\n    \"codigo\": 111599\r\n}",
+									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 5\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 1\r\n    },\r\n    \"atributosModificados\": {\r\n        \"nombre\": \"BASES DE DATOS\",\r\n        \"codigo\": 1155605,\r\n        \"accFormacionInv\": \"Nueva formación investigativa\",\r\n        \"bibliografia\": \"Bibliografia\",\r\n        \"creditos\": 6,\r\n        \"had\": \"Nueva had\",\r\n        \"hti\": \"Nueva hti\",\r\n        \"hadhti\": \"Nueva hadhti\",\r\n        \"justificacion\": \"Nueva justificación\",\r\n        \"metodologia\": \"Nueva metodología\",\r\n        \"objetivo\": \"Nuevo objetivo\",\r\n        \"semestre\": \"Nuevo semestre\",\r\n        \"tipoCredito\": \"Nuevo tipo de crédito\",\r\n        \"tipoCurso\": \"OBLIGATORIA\",\r\n        \"asignaturaSucesora\": \"Nueva asignatura sucesora\",\r\n        \"asignaturaPredecesora\": \"Nueva asignatura predecesora\"\r\n    },\r\n    \"codigo\": 100980\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3196,12 +3160,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/docente/actualizarAsignatura",
+									"raw": "http://localhost:8080/api/v1/admin/docente/actualizarAsignatura",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3227,7 +3191,14 @@
 							"name": "Save Visitante",
 							"request": {
 								"auth": {
-									"type": "noauth"
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgsI3tKEmNl97LJr5Wyv2D8SfiXGa9Y1CL0-yPWTk6_NoGa1ZbwQJkRQqoRLgUXNQ2CJfMq0Tz8z6rHn4SKcfIeiKrBh12AmPVAXYZlBmAGHUHQ2J92gJDBCI5BVTcXjemCwm30IwArwCaU4ZMfE8sYC1d1cEFBgaCgYKAWkSARISFQHGX2MiSCvVGnKFbJxQLCNdtww1cQ0171",
+											"type": "string"
+										}
+									]
 								},
 								"method": "POST",
 								"header": [],
@@ -3241,12 +3212,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/visitante/saveVisitante",
+									"raw": "http://localhost:8080/api/v1/admin/visitante/saveVisitante",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3274,7 +3245,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnYWJyaWVsQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfVklTSVRBTlRFIl0sImlhdCI6MTcxMzY2MDU2MywiZXhwIjoxNzM1MjYwNTYzfQ.614I87P_D1sFwULGNWJJ0Kji1clUJZ4AxBSccBJCA5sYbW2sZ2Zh3TvJJg2RIav563RGpddnbtEIOs8kGdtxlA",
+											"value": "ya29.a0AXooCgsI3tKEmNl97LJr5Wyv2D8SfiXGa9Y1CL0-yPWTk6_NoGa1ZbwQJkRQqoRLgUXNQ2CJfMq0Tz8z6rHn4SKcfIeiKrBh12AmPVAXYZlBmAGHUHQ2J92gJDBCI5BVTcXjemCwm30IwArwCaU4ZMfE8sYC1d1cEFBgaCgYKAWkSARISFQHGX2MiSCvVGnKFbJxQLCNdtww1cQ0171",
 											"type": "string"
 										}
 									]
@@ -3291,12 +3262,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/visitante/allProgramasAcademicos",
+									"raw": "http://localhost:8080/api/v1/admin/visitante/allProgramasAcademicos",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3316,7 +3287,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnYWJyaWVsQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfVklTSVRBTlRFIl0sImlhdCI6MTcxMzY2MDU2MywiZXhwIjoxNzM1MjYwNTYzfQ.614I87P_D1sFwULGNWJJ0Kji1clUJZ4AxBSccBJCA5sYbW2sZ2Zh3TvJJg2RIav563RGpddnbtEIOs8kGdtxlA",
+											"value": "ya29.a0AXooCgsI3tKEmNl97LJr5Wyv2D8SfiXGa9Y1CL0-yPWTk6_NoGa1ZbwQJkRQqoRLgUXNQ2CJfMq0Tz8z6rHn4SKcfIeiKrBh12AmPVAXYZlBmAGHUHQ2J92gJDBCI5BVTcXjemCwm30IwArwCaU4ZMfE8sYC1d1cEFBgaCgYKAWkSARISFQHGX2MiSCvVGnKFbJxQLCNdtww1cQ0171",
 											"type": "string"
 										}
 									]
@@ -3324,12 +3295,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/visitante/Ingenieria de sistemas",
+									"raw": "http://localhost:8080/api/v1/admin/visitante/Ingenieria de sistemas",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3354,7 +3325,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnYWJyaWVsQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfVklTSVRBTlRFIl0sImlhdCI6MTcxMzY2MDU2MywiZXhwIjoxNzM1MjYwNTYzfQ.614I87P_D1sFwULGNWJJ0Kji1clUJZ4AxBSccBJCA5sYbW2sZ2Zh3TvJJg2RIav563RGpddnbtEIOs8kGdtxlA",
+											"value": "ya29.a0AXooCgsI3tKEmNl97LJr5Wyv2D8SfiXGa9Y1CL0-yPWTk6_NoGa1ZbwQJkRQqoRLgUXNQ2CJfMq0Tz8z6rHn4SKcfIeiKrBh12AmPVAXYZlBmAGHUHQ2J92gJDBCI5BVTcXjemCwm30IwArwCaU4ZMfE8sYC1d1cEFBgaCgYKAWkSARISFQHGX2MiSCvVGnKFbJxQLCNdtww1cQ0171",
 											"type": "string"
 										}
 									]
@@ -3362,19 +3333,19 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8091/api/v1/admin/visitante/generatePdf/1",
+									"raw": "http://localhost:8080/api/v1/admin/visitante/generatePdf/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8091",
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"visitante",
 										"generatePdf",
-										"1"
+										"3"
 									]
 								}
 							},
