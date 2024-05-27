@@ -1,6 +1,5 @@
 package com.micro.demo.service.impl;
 
-import com.micro.demo.configuration.security.userDetails.CustomUserDetails;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.AsignaturaPensum;
 import com.micro.demo.entities.Pensum;
