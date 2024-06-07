@@ -79,4 +79,4 @@ contribuir con código, sigue estos pasos:
 ## Comentario 
 Si tienes algún comentario sobre el repositorio, por favor dímelo para poder mejorar :)
 
-- 📫 Cómo contactarme **rojasvillajesus@gmail.com**
+- 📫 Cómo contactarme **heinnervega20@gmail.com**
