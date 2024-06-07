@@ -11,11 +11,9 @@ import com.micro.demo.repository.IPensumRepository;
 import com.micro.demo.repository.IProgramaAcademicoRepository;
 import com.micro.demo.service.IPensumService;
 import com.micro.demo.service.exceptions.AllAsignaturasAssignsException;
-import com.micro.demo.service.exceptions.AsignaturaAlreadyRemoved;
 import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundExceptionInPensum;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
-import com.micro.demo.service.exceptions.ModificationPeriodDisabled;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.PensumNotActiveException;
 import com.micro.demo.service.exceptions.PensumNotFoundByIdException;
@@ -35,7 +33,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
