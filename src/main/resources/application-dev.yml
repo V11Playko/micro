@@ -34,8 +34,8 @@ spring:
       resourceserver:
         opaque-token:
           introspection-uri: https://www.googleapis.com/
-          clientId: 177239891830-qjkhdrr3i2gocf399hn4atvh9k27jos8.apps.googleusercontent.com
-          clientSecret: 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
+          clientId: ${CLIENTID}
+          clientSecret: ${CLIENTSECRET}
 jwt:
   secret: ${KEYSECRET_SECURITY:eyTJhbGcdiOiJIUzUxMiIsInR5cCI6IkpaXVCJ9.eyJzdWIiOiIxMjM0NTY3sdODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.nZU_gPcMXkWpkCUpJceSxS7lSickF0tTImHhAR949Z-Nt69LgW8G6lid-mqd9B579tYM8C4FN2jdhR2VRMsjtA}
   expiration: ${EXPIRE_DAYS_SECURITY:21600000}
