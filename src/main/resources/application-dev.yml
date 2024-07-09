@@ -5,9 +5,9 @@ spring:
   application:
     name: microcurriculo
   datasource:
-    url: jdbc:postgresql://localhost:5432/microcurriculo
-    username: ${USER}
-    password: ${PASSWORD}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -15,6 +15,7 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   security:
+    allowed-origins: "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com"
     oauth2:
       client:
         registration:

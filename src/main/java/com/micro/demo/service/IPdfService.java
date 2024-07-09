@@ -1,7 +1,8 @@
 package com.micro.demo.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public interface IPdfService {
-    void generatePdf(Long pensumId) throws IOException;
+    ByteArrayOutputStream generatePdf(Long pensumId) throws IOException;
 }

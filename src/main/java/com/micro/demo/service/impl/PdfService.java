@@ -43,35 +43,20 @@ public class PdfService implements IPdfService {
      * Generar un PDF
      *
      * @param pensumId - Identificador unico del pensum sobre el que se hara el PDF.
-     * @throws PensumNotFoundByIdException - Se lanza si no se encuentra el pensum por su identificador unico.
+     * @return
+     * @throws PensumNotFoundByIdException    - Se lanza si no se encuentra el pensum por su identificador unico.
      * @throws PdfDownloadNotAllowedException - Se lanza si el programa academico al que esta asociado el pensum no permite la descarga de PDF por ahora.
-     * */
+     */
     @Override
-    public void generatePdf(Long pensumId) throws IOException {
-        // Obtener el pensum por su ID
+    public ByteArrayOutputStream generatePdf(Long pensumId) throws IOException {
         Pensum pensum = pensumRepository.findById(pensumId)
                 .orElseThrow(() -> new PensumNotFoundByIdException(pensumId));
 
-        // Obtener el programa académico asociado al pensum
         ProgramaAcademico programaAcademico = pensum.getProgramaAcademico();
 
         // Verificar si el programa académico permite descargar PDFs
         if (!programaAcademico.getPuedeDescargarPdf()) {
             throw new PdfDownloadNotAllowedException();
-        }
-
-        // Generar el nombre del archivo PDF
-        String fileName = generateFileName(pensum);
-
-        // Define la ubicación de la carpeta de descargas
-        String downloadFolder = System.getProperty("user.home") + File.separator + "Downloads";
-
-        // Verifica si el archivo ya existe y ajusta el nombre si es necesario
-        File file = new File(downloadFolder, fileName);
-        int count = 1;
-        while (file.exists()) {
-            fileName = generateFileNameWithIndex(pensum, count++);
-            file = new File(downloadFolder, fileName);
         }
 
         // Url de la imagen
@@ -264,18 +249,16 @@ public class PdfService implements IPdfService {
                             }
                             nextXData += columnWidth;
                         }
-                        yStart -= maxCellHeight; // Espacio entre filas
+                        yStart -= maxCellHeight;
                     }
                 }
             }
-            // Concatena el nombre del archivo al directorio de descargas
-            String filePath = downloadFolder + File.separator + fileName;
 
-            // Guarda el documento en la ubicación especificada
-            document.save(filePath);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            document.save(byteArrayOutputStream);
+            return byteArrayOutputStream;
         }
     }
-
     public static <T> List<List<T>> partitionList(List<T> list, int partitionSize) {
         List<List<T>> partitions = new ArrayList<>();
         for (int i = 0; i < list.size(); i += partitionSize) {
@@ -342,25 +325,5 @@ public class PdfService implements IPdfService {
             }
         }
         return lines;
-    }
-
-
-    private String generateFileName(Pensum pensum) {
-        String programaAcademicoNombre = pensum.getProgramaAcademico().getNombre();
-        String pensumNumero = String.valueOf(pensum.getId());
-        String fechaInicio = formatDate(pensum.getFechaInicio());
-        return programaAcademicoNombre + "_Pensum" + pensumNumero + "_" + fechaInicio + ".pdf";
-    }
-
-    private String generateFileNameWithIndex(Pensum pensum, int index) {
-        String programaAcademicoNombre = pensum.getProgramaAcademico().getNombre();
-        String pensumNumero = String.valueOf(pensum.getId());
-        String fechaInicio = formatDate(pensum.getFechaInicio());
-        return programaAcademicoNombre + "_Pensum" + pensumNumero + "_" + fechaInicio + "_" + index + ".pdf";
-    }
-
-    private String formatDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        return date.format(formatter);
     }
 }
