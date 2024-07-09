@@ -20,6 +20,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config:4.0.0'
 	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:4.0.0'
+	implementation 'org.springframework.cloud:spring-cloud-config-server:4.1.0'
 
 	implementation 'org.hibernate.validator:hibernate-validator:7.0.2.Final'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
