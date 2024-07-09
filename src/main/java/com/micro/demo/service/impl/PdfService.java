@@ -43,58 +43,35 @@ public class PdfService implements IPdfService {
      * Generar un PDF
      *
      * @param pensumId - Identificador unico del pensum sobre el que se hara el PDF.
-     * @throws PensumNotFoundByIdException - Se lanza si no se encuentra el pensum por su identificador unico.
+     * @return
+     * @throws PensumNotFoundByIdException    - Se lanza si no se encuentra el pensum por su identificador unico.
      * @throws PdfDownloadNotAllowedException - Se lanza si el programa academico al que esta asociado el pensum no permite la descarga de PDF por ahora.
-     * */
+     */
     @Override
-    public void generatePdf(Long pensumId) throws IOException {
-        // Obtener el pensum por su ID
+    public ByteArrayOutputStream generatePdf(Long pensumId) throws IOException {
         Pensum pensum = pensumRepository.findById(pensumId)
                 .orElseThrow(() -> new PensumNotFoundByIdException(pensumId));
 
-        // Obtener el programa académico asociado al pensum
         ProgramaAcademico programaAcademico = pensum.getProgramaAcademico();
-
-        // Verificar si el programa académico permite descargar PDFs
         if (!programaAcademico.getPuedeDescargarPdf()) {
             throw new PdfDownloadNotAllowedException();
-        }
-
-        // Generar el nombre del archivo PDF
-        String fileName = generateFileName(pensum);
-
-        // Define la ubicación de la carpeta de descargas
-        String downloadFolder = System.getProperty("user.home") + File.separator + "Downloads";
-
-        // Verifica si el archivo ya existe y ajusta el nombre si es necesario
-        File file = new File(downloadFolder, fileName);
-        int count = 1;
-        while (file.exists()) {
-            fileName = generateFileNameWithIndex(pensum, count++);
-            file = new File(downloadFolder, fileName);
         }
 
         // Url de la imagen
         String imageUrl = "https://drive.google.com/uc?export=download&id=1Uuy59Dv8rFOyK2uZ-WD9aetSrHe-4P7Q";
 
-
-        // Iniciar la creación del documento PDF
         try (PDDocument document = new PDDocument()) {
-            // Obtener la lista de asignaturas asociadas al pensum
             List<AsignaturaPensum> asignaturaPensums = asignaturaPensumRepository.findByPensumId(pensumId);
 
-            // Definir márgenes y otras configuraciones visuales
             float margin = 50;
             float marginTop = 50;
             float tableMargin = 5f;
 
-            // Abrir conexión y obtener la entrada de la URL
             URL url = new URL(imageUrl);
             URLConnection connection = url.openConnection();
             connection.connect();
             InputStream inputStream = connection.getInputStream();
 
-            // Convertir el InputStream en un array de bytes
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int bytesRead;
@@ -103,43 +80,33 @@ public class PdfService implements IPdfService {
             }
             byte[] imageData = baos.toByteArray();
 
-            // Cargar la imagen desde el array de bytes
             PDImageXObject image = PDImageXObject.createFromByteArray(document, imageData, "image");
 
-
-            // Iterar sobre las asignaturas en grupos de máximo 15 por página
             for (List<AsignaturaPensum> pageAsignaturas : partitionList(asignaturaPensums, 15)) {
-                // Crear una nueva página en el PDF
                 PDPage page = new PDPage();
                 document.addPage(page);
 
-                // Iniciar el flujo de contenido para esta página
                 try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                    // Configurar la posición inicial y dimensiones del logo
                     float yStart = page.getMediaBox().getHeight() - margin - marginTop;
                     float imageX = 50;
                     float imageY = page.getMediaBox().getHeight() - 60;
                     float imageWidth = 100;
                     float imageHeight = 50;
 
-                    // Dibujar el logo en la página
                     contentStream.drawImage(image, imageX, imageY, imageWidth, imageHeight);
 
-                    // Escribir el nombre de la universidad
                     contentStream.beginText();
                     contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
                     contentStream.newLineAtOffset(imageX + imageWidth + margin - 40, imageY + imageHeight - 22);
                     contentStream.showText("Universidad Francisco de Paula Santander");
                     contentStream.endText();
 
-                    // Escribir el subtítulo "Pensum"
                     contentStream.beginText();
                     contentStream.setFont(PDType1Font.HELVETICA, 10);
                     contentStream.newLineAtOffset(imageX + imageWidth + margin - 40, imageY + imageHeight - 33);
                     contentStream.showText("Pensum");
                     contentStream.endText();
 
-                    // Escribir la fecha de generación del PDF
                     LocalDate localDate = LocalDate.now();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                     String formattedLocalDate = localDate.format(formatter);
@@ -149,7 +116,6 @@ public class PdfService implements IPdfService {
                     contentStream.showText("Generado: " + LocalDate.now().format(DateTimeFormatter.ofPattern(formattedLocalDate)));
                     contentStream.endText();
 
-                    // Dibujar una línea horizontal debajo del logo
                     float horizontalLineY = imageY - imageHeight + 40;
                     float horizontalLineX1 = imageX - 5;
                     float horizontalLineX2 = imageX + imageWidth + margin + 365;
@@ -157,7 +123,6 @@ public class PdfService implements IPdfService {
                     contentStream.lineTo(horizontalLineX2, horizontalLineY);
                     contentStream.stroke();
 
-                    // Definir anchos de columna y calcular dimensiones de la tabla
                     float[] columnWidths = {50, 80, 30, 30, 30, 30, 60, 30, 30, 30, 80};
                     float cellHeight = 40f;
                     float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
@@ -165,7 +130,6 @@ public class PdfService implements IPdfService {
                     float yEnd = yStart - (cellHeight * 2 + tableMargin);
                     float nextX = margin;
 
-                    // Dibujar las líneas verticales de la tabla
                     for (int i = 0; i < columnWidths.length; i++) {
                         contentStream.moveTo(nextX, yStart);
                         contentStream.lineTo(nextX, yEnd - 39.5f * (pageAsignaturas.size() - 1));
@@ -173,12 +137,10 @@ public class PdfService implements IPdfService {
                         nextX += columnWidths[i];
                     }
 
-                    // Dibujar una línea horizontal encima de los títulos de columna
                     contentStream.moveTo(margin, yStart);
                     contentStream.lineTo(xEnd, yStart);
                     contentStream.stroke();
 
-                    // Dibujar las líneas horizontales de la tabla
                     for (int i = 0; i < pageAsignaturas.size() + 1; i++) {
                         float y = yStart - (cellHeight) - (i * cellHeight);
                         contentStream.moveTo(margin, y);
@@ -186,13 +148,11 @@ public class PdfService implements IPdfService {
                         contentStream.stroke();
                     }
 
-                    // Dibujar la última línea vertical proporcional al número de filas
                     float lastVerticalLineYStart = yStart - (cellHeight / 2 + tableMargin + 16) - (pageAsignaturas.size() * cellHeight);
                     contentStream.moveTo(xEnd, yStart);
                     contentStream.lineTo(xEnd, lastVerticalLineYStart);
                     contentStream.stroke();
 
-                    // Escribir los encabezados de las columnas
                     float nextXHeader = margin;
                     contentStream.setFont(PDType1Font.HELVETICA_BOLD, 8);
                     contentStream.setNonStrokingColor(Color.BLACK);
@@ -223,7 +183,6 @@ public class PdfService implements IPdfService {
                         nextXHeader += columnWidth;
                     }
 
-                    // Escribir los datos de las asignaturas en la tabla
                     for (AsignaturaPensum asignaturaPensum : pageAsignaturas) {
                         Integer codigoAsignatura = asignaturaPensum.getAsignatura().getCodigo();
                         String asignaturaNombre = asignaturaPensum.getAsignatura().getNombre();
@@ -247,7 +206,6 @@ public class PdfService implements IPdfService {
                             float cellYStart = yStart;
                             for (String line : lines) {
                                 if (cellYStart - maxCellHeight < 0) {
-                                    // Agregar una nueva página si no hay suficiente espacio en la actual
                                     document.addPage(new PDPage());
                                     yStart = page.getMediaBox().getHeight() - margin - marginTop;
                                     cellYStart = yStart;
@@ -264,18 +222,16 @@ public class PdfService implements IPdfService {
                             }
                             nextXData += columnWidth;
                         }
-                        yStart -= maxCellHeight; // Espacio entre filas
+                        yStart -= maxCellHeight;
                     }
                 }
             }
-            // Concatena el nombre del archivo al directorio de descargas
-            String filePath = downloadFolder + File.separator + fileName;
 
-            // Guarda el documento en la ubicación especificada
-            document.save(filePath);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            document.save(byteArrayOutputStream);
+            return byteArrayOutputStream;
         }
     }
-
     public static <T> List<List<T>> partitionList(List<T> list, int partitionSize) {
         List<List<T>> partitions = new ArrayList<>();
         for (int i = 0; i < list.size(); i += partitionSize) {
@@ -342,25 +298,5 @@ public class PdfService implements IPdfService {
             }
         }
         return lines;
-    }
-
-
-    private String generateFileName(Pensum pensum) {
-        String programaAcademicoNombre = pensum.getProgramaAcademico().getNombre();
-        String pensumNumero = String.valueOf(pensum.getId());
-        String fechaInicio = formatDate(pensum.getFechaInicio());
-        return programaAcademicoNombre + "_Pensum" + pensumNumero + "_" + fechaInicio + ".pdf";
-    }
-
-    private String generateFileNameWithIndex(Pensum pensum, int index) {
-        String programaAcademicoNombre = pensum.getProgramaAcademico().getNombre();
-        String pensumNumero = String.valueOf(pensum.getId());
-        String fechaInicio = formatDate(pensum.getFechaInicio());
-        return programaAcademicoNombre + "_Pensum" + pensumNumero + "_" + fechaInicio + "_" + index + ".pdf";
-    }
-
-    private String formatDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        return date.format(formatter);
     }
 }
