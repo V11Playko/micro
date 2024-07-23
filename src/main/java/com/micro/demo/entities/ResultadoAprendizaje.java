@@ -29,6 +29,4 @@ public class ResultadoAprendizaje implements Serializable {
     private String nombre;
     private String descripcion;
     private boolean estatus;
-    @OneToMany(mappedBy = "resultadoAprendizaje")
-    private List<CompetenciaResultado> competencias;
 }
