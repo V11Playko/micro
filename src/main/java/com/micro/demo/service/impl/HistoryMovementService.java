@@ -4,6 +4,7 @@ import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.Email;
 import com.micro.demo.entities.HistoryMovement;
 import com.micro.demo.entities.Pensum;
+import com.micro.demo.entities.enums.Semestre;
 import com.micro.demo.repository.IAsignaturaPensumRepository;
 import com.micro.demo.repository.IAsignaturaRepository;
 import com.micro.demo.repository.IHistoryMovementRepository;
@@ -35,6 +36,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -256,10 +258,10 @@ public class HistoryMovementService implements IHistoryMovementService {
             asignatura.setMetodologia(atributosModificados.get("metodologia"));
         }
         if (atributosModificados.containsKey("objetivo")) {
-            asignatura.setObjetivo(atributosModificados.get("objetivo"));
+            asignatura.setObjetivos(Collections.singletonList(atributosModificados.get("objetivo")));
         }
         if (atributosModificados.containsKey("semestre")) {
-            asignatura.setSemestre(atributosModificados.get("semestre"));
+            asignatura.setSemestre(Semestre.valueOf(atributosModificados.get("semestre")));
         }
         if (atributosModificados.containsKey("tipoCredito")) {
             asignatura.setTipoCredito(atributosModificados.get("tipoCredito"));
@@ -423,10 +425,10 @@ public class HistoryMovementService implements IHistoryMovementService {
                 asignaturaAfectada.setMetodologia(atributosModificados.get("metodologia"));
             }
             if (atributosModificados.containsKey("objetivo")) {
-                asignaturaAfectada.setObjetivo(atributosModificados.get("objetivo"));
+                asignaturaAfectada.setObjetivos(Collections.singletonList(atributosModificados.get("objetivo")));
             }
             if (atributosModificados.containsKey("semestre")) {
-                asignaturaAfectada.setSemestre(atributosModificados.get("semestre"));
+                asignaturaAfectada.setSemestre(Semestre.valueOf(atributosModificados.get("semestre")));
             }
             if (atributosModificados.containsKey("tipoCredito")) {
                 asignaturaAfectada.setTipoCredito(atributosModificados.get("tipoCredito"));

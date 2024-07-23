@@ -1,12 +1,19 @@
 package com.micro.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.micro.demo.entities.enums.Semestre;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -17,6 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,27 +45,32 @@ public class Asignatura implements Serializable {
     private String accFormacionInv;
     private String bibliografia;
     private Integer creditos;
+    private String hp;
+    private String ht;
     private String had;
     private String hti;
     private String hadhti;
     private String justificacion;
     private String metodologia;
-    private String objetivo;
-    private String semestre;
+
+    @ElementCollection
+    private List<String> objetivos;
+
+    @Enumerated(EnumType.STRING)
+    private Semestre semestre;
+
     private String tipoCredito;
     private String tipoCurso;
     private String asignaturaSucesora;
     private String asignaturaPredecesora;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "area_formacion_id")
     private AreaFormacion areaFormacion;
 
-    @NotNull
     @ManyToOne
-    @JoinColumn(name = "pre_requisito_id")
-    private PreRequisito preRequisito;
+    @JoinColumn(name = "competencia_id")
+    private Competencia competencia;
 
     @JsonIgnore
     @OneToMany(mappedBy = "asignatura")
@@ -66,4 +79,8 @@ public class Asignatura implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "asignatura")
     private List<AsignaturaDocente> asignaturaDocentes;
+
+    @OneToMany(mappedBy = "asignatura", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AsignaturaPreRequisito> preRequisitos = new ArrayList<>();
+
 }
