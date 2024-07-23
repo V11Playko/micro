@@ -569,9 +569,11 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Unidad already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveUnidad")
-    public ResponseEntity<Map<String, String>> saveUnidad(@Valid @RequestBody Unidad unidad) {
+    public ResponseEntity<Map<String, String>> saveUnidad(@Valid @RequestBody List<Unidad> unidades) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        unidadService.saveUnidad(unidad);
+        for (Unidad unidad : unidades) {
+            unidadService.saveUnidad(unidad);
+        }
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
