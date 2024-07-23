@@ -9,8 +9,10 @@ import com.micro.demo.controller.dto.AssignTemasRequestDto;
 import com.micro.demo.controller.dto.PageRequestDto;
 import com.micro.demo.controller.dto.RemoveAsignaturaRequestDto;
 import com.micro.demo.controller.dto.RemoveDocenteRequestDto;
+import com.micro.demo.controller.dto.UnidadResultadoDTO;
 import com.micro.demo.controller.dto.UpdatePeriodoModificacionRequestDto;
 import com.micro.demo.controller.dto.UpdatePuedeDescargarPdfRequestDto;
+import com.micro.demo.controller.dto.response.UnidadResultadoResponseDTO;
 import com.micro.demo.entities.AreaFormacion;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.Competencia;
@@ -691,9 +693,9 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Resultados de unidades already exists", content = @Content)
     })
     @GetMapping("/allUnidadResultados")
-    public ResponseEntity<List<UnidadResultado>> getAllUnidadResultados(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<UnidadResultadoResponseDTO>> getAllUnidadResultados(){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(unidadResultadoService.getAllUnidadResultados(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(unidadResultadoService.getAllUnidadResultados());
     }
 
     @Operation(summary = "Add a new resultado de unidad",
@@ -703,9 +705,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Resultado de unidad already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveUnidadResultado")
-    public ResponseEntity<Map<String, String>> saveUnidadResultado(@Valid @RequestBody UnidadResultado unidadResultado) {
+    public ResponseEntity<Map<String, String>> saveUnidadResultado(@Valid @RequestBody List<UnidadResultadoDTO> unidadResultadoDTOs) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        unidadResultadoService.saveUnidadResultado(unidadResultado);
+        unidadResultadoService.saveUnidadResultados(unidadResultadoDTOs);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
