@@ -1,7 +1,6 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
-import com.micro.demo.controller.dto.PageRequestDto;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.repository.IUsuarioRepository;
@@ -28,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayInputStream;
@@ -115,9 +115,12 @@ public class VisitanteRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(@Valid @RequestBody PageRequestDto pageRequestDto) {
+    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_VISITANTE", "ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Get programa academico por nombre")

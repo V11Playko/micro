@@ -7,7 +7,7 @@ import com.micro.demo.entities.UnidadResultado;
 import java.util.List;
 
 public interface IUnidadResultadoService {
-    List<UnidadResultadoResponseDTO> getAllUnidadResultados();
+    List<UnidadResultadoResponseDTO> getAllUnidadResultados(int pagina, int elementosXpagina);
     void saveUnidadResultados(List<UnidadResultadoDTO> unidadResultadoDTOs);
     void updateUnidadResultado(Long id, UnidadResultado unidadResultado);
     void deleteUnidadResultado(Long id);

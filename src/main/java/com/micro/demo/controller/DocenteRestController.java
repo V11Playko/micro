@@ -1,7 +1,6 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
-import com.micro.demo.controller.dto.PageRequestDto;
 import com.micro.demo.entities.HistoryMovement;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
@@ -31,6 +30,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayInputStream;
@@ -123,9 +123,12 @@ public class DocenteRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Get programa academico por nombre")
@@ -183,9 +186,12 @@ public class DocenteRestController {
             @ApiResponse(responseCode = "409", description = "Movement already exists", content = @Content)
     })
     @GetMapping("/allHistoryMovement")
-    public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
-        return ResponseEntity.ok(historyMovementService.getAllMovements(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(historyMovementService.getAllMovements(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Agregar asignatura, va al historial de movimiento",

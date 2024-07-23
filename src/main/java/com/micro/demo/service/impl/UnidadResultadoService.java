@@ -43,11 +43,21 @@ public class UnidadResultadoService implements IUnidadResultadoService {
      * @throws NoDataFoundException - Si no se encuentra datos.
      */
     @Override
-    public List<UnidadResultadoResponseDTO> getAllUnidadResultados() {
-        List<UnidadResultado> unidadResultados = unidadResultadoRepository.findAll();
+    public List<UnidadResultadoResponseDTO> getAllUnidadResultados(int pagina, int elementosXpagina) {
+        if (pagina < 1) {
+            throw new IlegalPaginaException();
+        }
+
+        Page<UnidadResultado> paginaUnidadResultados =
+                unidadResultadoRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+
+        if (paginaUnidadResultados.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+
         List<UnidadResultadoResponseDTO> responseDTOs = new ArrayList<>();
 
-        for (UnidadResultado unidadResultado : unidadResultados) {
+        for (UnidadResultado unidadResultado : paginaUnidadResultados) {
             UnidadResultadoResponseDTO dto = new UnidadResultadoResponseDTO();
             dto.setCorteEvaluacion(unidadResultado.getCorteEvaluacion());
             dto.setCriterioDesempeno(unidadResultado.getCriterioDesempeno());
@@ -66,10 +76,6 @@ public class UnidadResultadoService implements IUnidadResultadoService {
             dto.setResultados(resultados);
 
             responseDTOs.add(dto);
-        }
-
-        if (responseDTOs.isEmpty()) {
-            throw new NoDataFoundException();
         }
 
         return responseDTOs;
