@@ -1,6 +1,7 @@
 package com.micro.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,9 +34,11 @@ public class Unidad implements Serializable {
     private String hti;
     private String nombre;
 
-    @OneToMany(mappedBy = "unidad")
-    @JsonIgnore
+    @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL)
     private List<Tema> temas;
+
+    @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL)
+    private List<UnidadResultado> resultados;
 
     @ManyToOne
     @JoinColumn(name = "asignatura_codigo", referencedColumnName = "codigo")

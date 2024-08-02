@@ -14,43 +14,51 @@
 					"item": [
 						{
 							"name": "All Users",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
 											"type": "string"
 										}
 									]
 								},
 								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 4\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
 									}
-								},
+								],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/allUsers",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/allUsers?pagina=1&elementosXpagina=3",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"allUsers"
+									],
+									"query": [
+										{
+											"key": "pagina",
+											"value": "1"
+										},
+										{
+											"key": "elementosXpagina",
+											"value": "3"
+										}
 									]
 								}
 							},
@@ -64,7 +72,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCgvrWwMw08LQyQmm5SXsU4Kq5Cqw5SaVCj9L4qUIpyceRt1QEd0vYduEkQ0Ti972aXAl3i25wKqrwFaqKYLP1mLDSyBzzo_C7JbHs4T6U7qsNkAMhkF6JSi6xRlSZOkTJ0mR7_eXD15FWQ9GcNY5Sr-izFKkAe1TaCgYKAewSARMSFQHGX2Mihsow4zjILMJtRNCnRxg8rQ0171",
 											"type": "string"
 										}
 									]
@@ -72,12 +80,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/getUser?correo=heinnervega20@gmail.com",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/getUser?correo=heinnervega20@gmail.com",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -102,7 +113,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCgvrWwMw08LQyQmm5SXsU4Kq5Cqw5SaVCj9L4qUIpyceRt1QEd0vYduEkQ0Ti972aXAl3i25wKqrwFaqKYLP1mLDSyBzzo_C7JbHs4T6U7qsNkAMhkF6JSi6xRlSZOkTJ0mR7_eXD15FWQ9GcNY5Sr-izFKkAe1TaCgYKAewSARMSFQHGX2Mihsow4zjILMJtRNCnRxg8rQ0171",
 											"type": "string"
 										}
 									]
@@ -111,7 +122,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Juana\",\r\n    \"apellido\": \"Ortiz\",\r\n    \"numeroCelular\": \"+57 3134674399\",\r\n    \"correo\": \"juana@gmail.com\",\r\n    \"contraseña\": \"Ortiz\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Juana\",\r\n    \"apellido\": \"Ortiz\",\r\n    \"numeroCelular\": \"+57 3134674399\",\r\n    \"correo\": \"heinnervega20@gmail.com\",\r\n    \"contraseña\": \"Ortiz\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -119,12 +130,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/saveDirector",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/saveDirector",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -143,7 +157,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCgvrWwMw08LQyQmm5SXsU4Kq5Cqw5SaVCj9L4qUIpyceRt1QEd0vYduEkQ0Ti972aXAl3i25wKqrwFaqKYLP1mLDSyBzzo_C7JbHs4T6U7qsNkAMhkF6JSi6xRlSZOkTJ0mR7_eXD15FWQ9GcNY5Sr-izFKkAe1TaCgYKAewSARMSFQHGX2Mihsow4zjILMJtRNCnRxg8rQ0171",
 											"type": "string"
 										}
 									]
@@ -152,7 +166,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Juana\",\r\n    \"apellido\": \"Garcia\",\r\n    \"numeroCelular\": \"+57 3134675315\",\r\n    \"correo\": \"juana@gmail.com\",\r\n    \"contraseña\": \"Garcia\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Juana\",\r\n    \"apellido\": \"Garcia\",\r\n    \"numeroCelular\": \"+57 3134675315\",\r\n    \"correo\": \"heinnervega20@gmail.com\",\r\n    \"contraseña\": \"Garcia\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -160,18 +174,21 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/update/7",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/update/2",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"update",
-										"7"
+										"2"
 									]
 								}
 							},
@@ -193,12 +210,15 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/delete/7",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/delete/7",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -226,7 +246,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCgtHYMrcWrPZpM4Omv0iw7Q2aa1TzSeMxpRECCAwjbP1J237A4maj4I8a0EEdErOn5CAoCMjlMyxNPMCCghlP7KIDiyRmHssrSrrnXUPXnVHVf_AOJtqGx4F0kQrgszExs8duDIdLcX6jY9Tk4PaDaBOV7cpPuPOaCgYKARMSARMSFQHGX2MihW6dUys9F65hLcPRbQyeqg0171",
 											"type": "string"
 										}
 									]
@@ -243,17 +263,30 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/allProgramasAcademicos",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/allProgramasAcademicos?pagina=1&elementosXpagina=2",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"allProgramasAcademicos"
+									],
+									"query": [
+										{
+											"key": "pagina",
+											"value": "1"
+										},
+										{
+											"key": "elementosXpagina",
+											"value": "2"
+										}
 									]
 								}
 							},
@@ -267,7 +300,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCgvrWwMw08LQyQmm5SXsU4Kq5Cqw5SaVCj9L4qUIpyceRt1QEd0vYduEkQ0Ti972aXAl3i25wKqrwFaqKYLP1mLDSyBzzo_C7JbHs4T6U7qsNkAMhkF6JSi6xRlSZOkTJ0mR7_eXD15FWQ9GcNY5Sr-izFKkAe1TaCgYKAewSARMSFQHGX2Mihsow4zjILMJtRNCnRxg8rQ0171",
 											"type": "string"
 										}
 									]
@@ -275,12 +308,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/Ingenieria de Sistemas",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/Ingenieria de Sistemas",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -299,7 +335,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
 											"type": "string"
 										}
 									]
@@ -308,7 +344,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Psicologia\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Ingenieria de sistemas\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -316,12 +352,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/saveProgramaAcademico",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/saveProgramaAcademico",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -340,7 +379,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
 											"type": "string"
 										}
 									]
@@ -349,7 +388,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"correoDirector\": \"\",\r\n  \"nombrePrograma\": \"Ingenieria Quimica\"\r\n}",
+									"raw": "{\r\n  \"correoDirector\": \"heinnervega20@gmail.com\",\r\n  \"nombrePrograma\": \"Ingenieria de sistemas\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -357,12 +396,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/assignDirector",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/assignDirector",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -381,7 +423,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCgvrWwMw08LQyQmm5SXsU4Kq5Cqw5SaVCj9L4qUIpyceRt1QEd0vYduEkQ0Ti972aXAl3i25wKqrwFaqKYLP1mLDSyBzzo_C7JbHs4T6U7qsNkAMhkF6JSi6xRlSZOkTJ0mR7_eXD15FWQ9GcNY5Sr-izFKkAe1TaCgYKAewSARMSFQHGX2Mihsow4zjILMJtRNCnRxg8rQ0171",
 											"type": "string"
 										}
 									]
@@ -389,12 +431,15 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/deleteProgramaAcademico/4",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/deleteProgramaAcademico/4",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -419,7 +464,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCgvrWwMw08LQyQmm5SXsU4Kq5Cqw5SaVCj9L4qUIpyceRt1QEd0vYduEkQ0Ti972aXAl3i25wKqrwFaqKYLP1mLDSyBzzo_C7JbHs4T6U7qsNkAMhkF6JSi6xRlSZOkTJ0mR7_eXD15FWQ9GcNY5Sr-izFKkAe1TaCgYKAewSARMSFQHGX2Mihsow4zjILMJtRNCnRxg8rQ0171",
 											"type": "string"
 										}
 									]
@@ -427,12 +472,15 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/generatePdf/1",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/generatePdf/1",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -455,7 +503,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AXooCgvrWwMw08LQyQmm5SXsU4Kq5Cqw5SaVCj9L4qUIpyceRt1QEd0vYduEkQ0Ti972aXAl3i25wKqrwFaqKYLP1mLDSyBzzo_C7JbHs4T6U7qsNkAMhkF6JSi6xRlSZOkTJ0mR7_eXD15FWQ9GcNY5Sr-izFKkAe1TaCgYKAewSARMSFQHGX2Mihsow4zjILMJtRNCnRxg8rQ0171",
 											"type": "string"
 										}
 									]
@@ -472,12 +520,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/allPensumsNoModificadosDuranteUnAño",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/allPensumsNoModificadosDuranteUnAño",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -542,7 +593,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgs6ysU1GXk_Qpw9VXp2rF0ilrGj3spz2VgUDCpWF48JTmLDO_9SJAzrrPpkEs9F8Lm8jdWOWxi67KfjNnGwpMQTagRNeOrwnXeo7m8CmnMOQA-vnZH2wBVPfXwX7KLtSEMSbpCFgMmWsQB8ysf_cOsNYBCsRKHuaCgYKAQoSARMSFQHGX2MiTfsEv0AJ70X5aqjlmwqmiA0171",
 											"type": "string"
 										}
 									]
@@ -559,12 +610,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/allUsers",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/allUsers",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -584,7 +638,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -593,7 +647,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Coscu\",\r\n    \"apellido\": \"Villa\",\r\n    \"numeroCelular\": \"+57 3134647824\",\r\n    \"correo\": \"juanco@gmail.com\",\r\n    \"contraseña\": \"Villa\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Franco\",\r\n    \"apellido\": \"Villa\",\r\n    \"numeroCelular\": \"+57 3134647444\",\r\n    \"correo\": \"playko98001@gmail.com\",\r\n    \"contraseña\": \"Villa\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -601,12 +655,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/saveDocente",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/saveDocente",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -626,7 +683,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -669,7 +726,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -711,7 +768,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -728,12 +785,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/allProgramasAcademicos",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/allProgramasAcademicos",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -753,7 +813,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -770,12 +830,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/updatePuedeDescargarPdf",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/updatePuedeDescargarPdf",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -795,7 +858,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -812,12 +875,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/updatePeriodoModificacion",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/updatePeriodoModificacion",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -887,7 +953,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
 											"type": "string"
 										}
 									]
@@ -904,12 +970,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/saveAreaFormacion",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/saveAreaFormacion",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1013,7 +1082,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
 											"type": "string"
 										}
 									]
@@ -1030,12 +1099,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/savePreRequisito",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/savePreRequisito",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1088,44 +1160,45 @@
 					"item": [
 						{
 							"name": "All Asignaturas",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgtHYMrcWrPZpM4Omv0iw7Q2aa1TzSeMxpRECCAwjbP1J237A4maj4I8a0EEdErOn5CAoCMjlMyxNPMCCghlP7KIDiyRmHssrSrrnXUPXnVHVf_AOJtqGx4F0kQrgszExs8duDIdLcX6jY9Tk4PaDaBOV7cpPuPOaCgYKARMSARMSFQHGX2MihW6dUys9F65hLcPRbQyeqg0171",
 											"type": "string"
 										}
 									]
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/allAsignaturas",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/allAsignaturas?pagina=1&elementosXpagina=2",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
 										"allAsignaturas"
+									],
+									"query": [
+										{
+											"key": "pagina",
+											"value": "1"
+										},
+										{
+											"key": "elementosXpagina",
+											"value": "2"
+										}
 									]
 								}
 							},
@@ -1139,7 +1212,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
 											"type": "string"
 										}
 									]
@@ -1148,7 +1221,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"PROBABILIDAD Y ESTADISTICA\",\r\n    \"codigo\": 1155473,\r\n    \"accFormacionInv\": \"no\",\r\n    \"bibliografia\": \"no\",\r\n    \"creditos\": 10,\r\n    \"had\": \"10\",\r\n    \"areaFormacion\": {\r\n        \"id\": 1\r\n    },\r\n    \"preRequisito\": {\r\n        \"id\": 1\r\n    },\r\n    \"hti\": \"12\",\r\n    \"hadhti\": \"2\",\r\n    \"justificacion\": \"Justificado\",\r\n    \"metodologia\": \"Practica\",\r\n    \"objetivo\": \"Comunicar\",\r\n    \"semestre\": \"1\",\r\n    \"tipoCredito\": \"Flex\",\r\n    \"tipoCurso\": \"OBLIGATORIA\",\r\n    \"asignaturaPredecesora\": \"Programacion I\",\r\n    \"asignaturaSucesora\": \"Algoritmos de Ordenamiento I\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"COMUNICACION I\",\r\n    \"codigo\": 10154265,\r\n    \"accFormacionInv\": \"Acción de Formación Inversión\",\r\n    \"bibliografia\": \"Bibliografía de referencia\",\r\n    \"creditos\": 4,\r\n    \"hp\": \"32\",\r\n    \"ht\": \"48\",\r\n    \"had\": \"16\",\r\n    \"hti\": \"18\",\r\n    \"hadhti\": \"34\",\r\n    \"justificacion\": \"Justificación del curso\",\r\n    \"metodologia\": \"Metodología de enseñanza\",\r\n    \"objetivos\": [\r\n        \"Entender los conceptos básicos de álgebra\",\r\n        \"Aplicar técnicas avanzadas en cálculo\"\r\n    ],\r\n    \"semestre\": \"5\",\r\n    \"tipoCredito\": \"Crédito académico\",\r\n    \"tipoCurso\": \"OBLIGATORIA\",\r\n    \"asignaturaSucesora\": \"Ninguna\",\r\n    \"asignaturaPredecesora\": \"Ninguna\",\r\n\"preRequisitos\": [\r\n    {\r\n      \"id\": 1,\r\n      \"credito\": \"SI APLICA\",\r\n      \"codigoAsignatura\": 1155922\r\n    }\r\n  ],\r\n    \"competencia\": {\r\n        \"id\": 1\r\n    },\r\n    \"areaFormacion\": {\r\n        \"id\": 1,\r\n        \"nombre\": \"Fisica\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1156,12 +1229,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/saveAsignatura",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/saveAsignatura",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1224,7 +1300,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -1241,12 +1317,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/assignDocentes",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/assignDocentes",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1437,7 +1516,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgu1BSWoeO6GMsFOqm4k2ljpvVbvyWXFpjM5qqeTS4SzLHUZd91UKBo-j1wuUuMY_FeC2hy9b89C4CSkGoIN86Py-N8V2_M8uVOojm4wOKnq_sJ2ah8pI4wRGHTpHjtcAnwziwxofXusippoDI2C4_nXP_5TG6fOaCgYKAbQSARMSFQHGX2MiuHH1GvRmj2EGKKYf2aAxMw0171",
 											"type": "string"
 										}
 									]
@@ -1446,7 +1525,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"creditosTotales\": 132,\r\n  \"fechaInicio\": \"2024-01-23\",\r\n  \"fechaFinal\": \"2024-10-11\",\r\n  \"estatus\": false\r\n}",
+									"raw": "{\r\n  \"creditosTotales\": 132,\r\n  \"fechaInicio\": \"2024-01-23\",\r\n  \"fechaFinal\": \"2024-10-11\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1454,12 +1533,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/savePensum",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/savePensum",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1479,7 +1561,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -1488,7 +1570,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"creditosTotales\": 110,\r\n  \"fechaInicio\": \"2024-04-23\",\r\n  \"fechaFinal\": \"2024-06-01\",\r\n  \"estatus\": false\r\n}",
+									"raw": "{\r\n  \"creditosTotales\": 110,\r\n  \"fechaInicio\": \"2024-04-23\",\r\n  \"fechaFinal\": \"2024-09-01\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1496,19 +1578,22 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/updatePensum/3",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/updatePensum/1",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
 										"updatePensum",
-										"3"
+										"1"
 									]
 								}
 							},
@@ -1522,7 +1607,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -1531,7 +1616,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"pensumId\": 3,\r\n  \"asignaturasId\": [\r\n    6,7,8\r\n  ]\r\n}",
+									"raw": "{\r\n  \"pensumId\": 1,\r\n  \"asignaturasId\": [\r\n    1\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1539,12 +1624,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/assignAsignatura",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/assignAsignatura",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1674,7 +1762,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgskYfoXZJTF66c6LkU5g1GWaR1aoMvorGgA05bPkLvRnvjwFUy2X8foXWSOni7Bn0v6wCVzvU386-hF8ErkDOCG22rrA6dZQP2pfupJoZgl4vfJAFgl7kSljNRu-AE29RYAFO10_V_iupjj-AqDkZwaWAH1CRIbaCgYKASUSARMSFQHGX2MimlL7YXCJ9ORE-TTr-jvdrg0171",
 											"type": "string"
 										}
 									]
@@ -1682,19 +1770,22 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/generatePdf/3",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/generatePdf/1",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
 										"generatePdf",
-										"3"
+										"1"
 									]
 								}
 							},
@@ -1758,7 +1849,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
 											"type": "string"
 										}
 									]
@@ -1775,12 +1866,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/saveTema",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/saveTema",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1961,7 +2055,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgu8RuE2zxQr7FoH7PYQX35q7xX6Fcgcr7_c1nqt0uXV53xtwiqeu4FFSPuPMVlLhVYEvBVgaWLLOiwjD_IgikGhWNwjHRXzrBVnr2BQ_GFf5zkyALsQUCndJ3p_AS1t9Wr6MskgfcBUcsGTReNyK41RiCCQFQCRaCgYKAaESARMSFQHGX2Mi81uUlqT6-ci1u9VZuTLSKg0171",
 											"type": "string"
 										}
 									]
@@ -1970,7 +2064,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"had\": \"2\",\r\n  \"hti\": \"3\",\r\n  \"nombre\": \"Unidad\",\r\n  \"asignatura\": {\r\n    \"codigo\": 1155945\r\n  }\r\n}",
+									"raw": "[\r\n    {\r\n        \"nombre\": \"Unidad 3\",\r\n        \"had\": 2,\r\n        \"hti\": 4,\r\n        \"temas\": [\r\n            {\r\n                \"nombre\": \"Tema 1\",\r\n                \"descripcion\": \"Descripción del tema 1\",\r\n                \"estatus\": true\r\n            },\r\n            {\r\n                \"nombre\": \"Tema 2\",\r\n                \"descripcion\": \"Descripción del tema 2\",\r\n                \"estatus\": true\r\n            }\r\n        ],\r\n        \"resultados\": [\r\n            {\r\n                \"corteEvaluacion\": \"Corte 1\",\r\n                \"criterioDesempeno\": \"Criterio 1\",\r\n                \"instrumentoEvaluacion\": \"Instrumento 1\",\r\n                \"tipoEvidencia\": \"Evidencia 1\",\r\n                \"estatus\": true,\r\n                \"resultadoAprendizaje\": {\r\n                    \"id\": 1\r\n                }\r\n            },\r\n            {\r\n                \"corteEvaluacion\": \"Corte 2\",\r\n                \"criterioDesempeno\": \"Criterio 2\",\r\n                \"instrumentoEvaluacion\": \"Instrumento 2\",\r\n                \"tipoEvidencia\": \"Evidencia 2\",\r\n                \"estatus\": true,\r\n                \"resultadoAprendizaje\": {\r\n                    \"id\": 2\r\n                }\r\n            }\r\n        ],\r\n        \"asignatura\": {\r\n            \"codigo\": \"1155945\"\r\n        }\r\n    },\r\n    {\r\n        \"nombre\": \"Unidad 4\",\r\n        \"had\": 6,\r\n        \"hti\": 8,\r\n        \"temas\": [\r\n            {\r\n                \"nombre\": \"Tema 3\",\r\n                \"descripcion\": \"Descripción del tema 3\",\r\n                \"estatus\": true\r\n            }\r\n        ],\r\n        \"resultados\": [\r\n            {\r\n                \"corteEvaluacion\": \"Corte 3\",\r\n                \"criterioDesempeno\": \"Criterio 3\",\r\n                \"instrumentoEvaluacion\": \"Instrumento 3\",\r\n                \"tipoEvidencia\": \"Evidencia 3\",\r\n                \"estatus\": true,\r\n                \"resultadoAprendizaje\": {\r\n                    \"id\": 3\r\n                }\r\n            }\r\n        ],\r\n        \"asignatura\": {\r\n            \"codigo\": \"1155457\"\r\n        }\r\n    }\r\n]\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2046,7 +2140,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -2055,7 +2149,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"unidadId\": 1,\r\n    \"temaIds\": [1,2]\r\n}",
+									"raw": "{\r\n    \"unidadId\": 1,\r\n    \"temaIds\": [1]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2063,12 +2157,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/assignTemasToUnidad",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/assignTemasToUnidad",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2172,7 +2269,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
 											"type": "string"
 										}
 									]
@@ -2189,12 +2286,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/saveCompetencia",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/saveCompetencia",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2341,7 +2441,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgu8RuE2zxQr7FoH7PYQX35q7xX6Fcgcr7_c1nqt0uXV53xtwiqeu4FFSPuPMVlLhVYEvBVgaWLLOiwjD_IgikGhWNwjHRXzrBVnr2BQ_GFf5zkyALsQUCndJ3p_AS1t9Wr6MskgfcBUcsGTReNyK41RiCCQFQCRaCgYKAaESARMSFQHGX2Mi81uUlqT6-ci1u9VZuTLSKg0171",
 											"type": "string"
 										}
 									]
@@ -2350,7 +2450,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"asd\",\r\n  \"descripcion\": \"budsaeno\",\r\n  \"estatus\": true\r\n}",
+									"raw": "{\r\n  \"nombre\": \"Chevere\",\r\n  \"descripcion\": \"Potente\",\r\n  \"estatus\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2426,7 +2526,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -2435,7 +2535,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"resultadoAprendizajeId\": 1,\r\n  \"competenciaIds\": [\r\n    1,2\r\n  ]\r\n}",
+									"raw": "{\r\n  \"resultadoAprendizajeId\": 1,\r\n  \"competenciaIds\": [\r\n    1\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2443,12 +2543,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/assignCompetencias",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/assignCompetencias",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2501,44 +2604,45 @@
 					"item": [
 						{
 							"name": "All UnidadResultado",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCgtHYMrcWrPZpM4Omv0iw7Q2aa1TzSeMxpRECCAwjbP1J237A4maj4I8a0EEdErOn5CAoCMjlMyxNPMCCghlP7KIDiyRmHssrSrrnXUPXnVHVf_AOJtqGx4F0kQrgszExs8duDIdLcX6jY9Tk4PaDaBOV7cpPuPOaCgYKARMSARMSFQHGX2MihW6dUys9F65hLcPRbQyeqg0171",
 											"type": "string"
 										}
 									]
 								},
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/allUnidadResultados",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/allUnidadResultados?pagina=5&elementosXpagina=2",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"director",
 										"allUnidadResultados"
+									],
+									"query": [
+										{
+											"key": "pagina",
+											"value": "5"
+										},
+										{
+											"key": "elementosXpagina",
+											"value": "2"
+										}
 									]
 								}
 							},
@@ -2552,7 +2656,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
 											"type": "string"
 										}
 									]
@@ -2561,7 +2665,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"corteEvaluacion\": \"Bueno\",\r\n  \"criterioDesempeno\": \"Practica\",\r\n  \"instrumentoEvaluacion\": \"Visual\",\r\n  \"tipoEvidencia\": \"Documentos\",\r\n  \"estatus\": true,\r\n  \"unidad\": {\r\n    \"id\": 1\r\n  },\r\n  \"resultadoAprendizaje\": {\r\n    \"id\": 2\r\n  }\r\n}",
+									"raw": "[\r\n    {\r\n        \"resultados\": [\r\n            {\r\n                \"id\": 1,\r\n                \"nombre\": \"Resultado de Aprendizaje 1\",\r\n                \"descripcion\": \"Descripción del Resultado 1\",\r\n                \"estatus\": true\r\n            },\r\n            {\r\n                \"id\": 2,\r\n                \"nombre\": \"Resultado de Aprendizaje 2\",\r\n                \"descripcion\": \"Descripción del Resultado 2\",\r\n                \"estatus\": true\r\n            }\r\n        ],\r\n        \"tipoEvidencia\": \"Tipo de Evidencia 1\",\r\n        \"instrumentoEvaluacion\": \"Instrumento de Evaluación 1\",\r\n        \"corteEvaluacion\": \"Corte de Evaluación 1\",\r\n        \"estatus\": true\r\n    },\r\n    {\r\n        \"resultados\": [\r\n            {\r\n                \"id\": 3,\r\n                \"nombre\": \"Resultado de Aprendizaje 3\",\r\n                \"descripcion\": \"Descripción del Resultado 3\",\r\n                \"estatus\": true\r\n            }\r\n        ],\r\n        \"tipoEvidencia\": \"Tipo de Evidencia 2\",\r\n        \"instrumentoEvaluacion\": \"Instrumento de Evaluación 2\",\r\n        \"corteEvaluacion\": \"Corte de Evaluación 2\",\r\n        \"estatus\": true\r\n    }\r\n]\r\n\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2721,7 +2825,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCguzBUnFNb0IZNd5u43q9wUh31Z9V98sxuxKFF5Vg6uyQstm-CURdZbnNNFjNow7sjjWILx6g0x8IKMe07VSWKX0zumZDVdcHKpP_-4TWq_JBs02PygmHjiTxRcWBsbdjkpwHJLr1YweIY6vNeyprm0mkL9d5z2-aCgYKAfUSARMSFQHGX2MiqD5GVTnOqqD7zznElg5fNg0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -2738,12 +2842,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/aprobarRechazarCambios",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/aprobarRechazarCambios",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2763,7 +2870,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCguzBUnFNb0IZNd5u43q9wUh31Z9V98sxuxKFF5Vg6uyQstm-CURdZbnNNFjNow7sjjWILx6g0x8IKMe07VSWKX0zumZDVdcHKpP_-4TWq_JBs02PygmHjiTxRcWBsbdjkpwHJLr1YweIY6vNeyprm0mkL9d5z2-aCgYKAfUSARMSFQHGX2MiqD5GVTnOqqD7zznElg5fNg0171",
+											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
 											"type": "string"
 										}
 									]
@@ -2771,12 +2878,15 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/aplicarCambiosPropuestos?codigo=100980",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/aplicarCambiosPropuestos?codigo=100980",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2975,7 +3085,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
+											"value": "ya29.a0AXooCgtvD_Av-08pSFEVr2UBlrUdseC5RjCZTzniAGk1hjlZRoawM9BrgZzruCtsh6K3dWFbumDNuE68eeEBfmlqvFPEluR-gS1SFmYgoaUIFAQAbnInksrtXhpIQjTh-odGhYR8WrRsbGWm7U387PNrZJD5GtSxyjn4aCgYKAasSARISFQHGX2Mio3cZhgRTkaw9HCoDcnz0jA0171",
 											"type": "string"
 										}
 									]
@@ -2983,12 +3093,15 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/docente/generatePdf/1",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/docente/generatePdf/1",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3059,7 +3172,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
+											"value": "ya29.a0AXooCgtvD_Av-08pSFEVr2UBlrUdseC5RjCZTzniAGk1hjlZRoawM9BrgZzruCtsh6K3dWFbumDNuE68eeEBfmlqvFPEluR-gS1SFmYgoaUIFAQAbnInksrtXhpIQjTh-odGhYR8WrRsbGWm7U387PNrZJD5GtSxyjn4aCgYKAasSARISFQHGX2Mio3cZhgRTkaw9HCoDcnz0jA0171",
 											"type": "string"
 										}
 									]
@@ -3068,7 +3181,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 3\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 4\r\n    },\r\n    \"codigo\": 100980\r\n}",
+									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 2\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 1\r\n    },\r\n    \"codigo\": 100980\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3076,12 +3189,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/docente/agregarAsignatura",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/docente/agregarAsignatura",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3245,7 +3361,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgsI3tKEmNl97LJr5Wyv2D8SfiXGa9Y1CL0-yPWTk6_NoGa1ZbwQJkRQqoRLgUXNQ2CJfMq0Tz8z6rHn4SKcfIeiKrBh12AmPVAXYZlBmAGHUHQ2J92gJDBCI5BVTcXjemCwm30IwArwCaU4ZMfE8sYC1d1cEFBgaCgYKAWkSARISFQHGX2MiSCvVGnKFbJxQLCNdtww1cQ0171",
+											"value": "ya29.a0AXooCgtQJO2LCHcfjp2thMFosbEMyclcnazhq_P14-mKpT_FMGXEx2OFobhmF4r8dZ0pQvwvVFFMD68O2Dv5x_F4QOaemN_WxEDO9iKlXSJU6FswNWtB-_GI1FvMHzlMwjuFX0MKrnGcSentJMswAIOqCdErjxVAaMeZaCgYKASwSARMSFQHGX2MiSNoAMkGMTjNE8xXOEPL8lg0171",
 											"type": "string"
 										}
 									]
@@ -3354,6 +3470,29 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/public/messages",
+					"protocol": "http",
+					"host": [
+						"ALB-micro-1831133009",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"public",
+						"messages"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

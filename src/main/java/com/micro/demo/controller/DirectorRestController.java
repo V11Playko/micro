@@ -6,11 +6,12 @@ import com.micro.demo.controller.dto.AssignAsignaturasRequestDto;
 import com.micro.demo.controller.dto.AssignCompetenciaRequestDto;
 import com.micro.demo.controller.dto.AssignDocentesRequestDTO;
 import com.micro.demo.controller.dto.AssignTemasRequestDto;
-import com.micro.demo.controller.dto.PageRequestDto;
 import com.micro.demo.controller.dto.RemoveAsignaturaRequestDto;
 import com.micro.demo.controller.dto.RemoveDocenteRequestDto;
+import com.micro.demo.controller.dto.UnidadResultadoDTO;
 import com.micro.demo.controller.dto.UpdatePeriodoModificacionRequestDto;
 import com.micro.demo.controller.dto.UpdatePuedeDescargarPdfRequestDto;
+import com.micro.demo.controller.dto.response.UnidadResultadoResponseDTO;
 import com.micro.demo.entities.AreaFormacion;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.Competencia;
@@ -147,8 +148,11 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
     @GetMapping("/allUsers")
-    public ResponseEntity<List<Usuario>> getAllUsers(@Valid @RequestBody PageRequestDto pageRequestDto){
-        return ResponseEntity.ok(usuarioService.getAllUsers(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+    public ResponseEntity<List<Usuario>> getAllUsers(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
+        return ResponseEntity.ok(usuarioService.getAllUsers(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Add a new user docente",
@@ -210,9 +214,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Update periodo de modificacion",
@@ -259,9 +266,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensums")
-    public ResponseEntity<List<Pensum>> getAllPensums(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<Pensum>> getAllPensums(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(pensumService.getAllPensum(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(pensumService.getAllPensum(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Get all pensums no modificados durante un año")
@@ -270,9 +280,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensumsNoModificadosDuranteUnAño")
-    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteDosSemestres(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteDosSemestres(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Add a new pensum",
@@ -371,9 +384,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Asignatura already exists", content = @Content)
     })
     @GetMapping("/allAsignaturas")
-    public ResponseEntity<List<Asignatura>> getAllAsignaturas(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<Asignatura>> getAllAsignaturas(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(asignaturaService.getAllAsignatura(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(asignaturaService.getAllAsignatura(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Add a new Asignatura",
@@ -458,9 +474,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Areas de formacion already exists", content = @Content)
     })
     @GetMapping("/allAreasFormacion")
-    public ResponseEntity<List<AreaFormacion>> getAllAreas(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<AreaFormacion>> getAllAreas(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(areaFormacionService.getAllAreaFormacion(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(areaFormacionService.getAllAreaFormacion(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Add a new Area de formacion",
@@ -502,9 +521,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "PreRequisitos already exists", content = @Content)
     })
     @GetMapping("/allPreRequisitos")
-    public ResponseEntity<List<PreRequisito>> getAllPreRequisitos(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<PreRequisito>> getAllPreRequisitos(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(preRequisitoService.getAllPreRequisito(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(preRequisitoService.getAllPreRequisito(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Add a new PreRequisito",
@@ -546,9 +568,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Unidad already exists", content = @Content)
     })
     @GetMapping("/allUnidades")
-    public ResponseEntity<List<Unidad>> getAllUnidades(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<Unidad>> getAllUnidades(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(unidadService.getAllUnidad(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(unidadService.getAllUnidad(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Obtener unidad por id")
@@ -569,9 +594,11 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Unidad already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveUnidad")
-    public ResponseEntity<Map<String, String>> saveUnidad(@Valid @RequestBody Unidad unidad) {
+    public ResponseEntity<Map<String, String>> saveUnidad(@Valid @RequestBody List<Unidad> unidades) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        unidadService.saveUnidad(unidad);
+        for (Unidad unidad : unidades) {
+            unidadService.saveUnidad(unidad);
+        }
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
@@ -616,9 +643,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Tema already exists", content = @Content)
     })
     @GetMapping("/allTemas")
-    public ResponseEntity<List<Tema>> getAllTemas(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<Tema>> getAllTemas(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(temaService.getAllTemas(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(temaService.getAllTemas(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Add a new Tema",
@@ -689,9 +719,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Resultados de unidades already exists", content = @Content)
     })
     @GetMapping("/allUnidadResultados")
-    public ResponseEntity<List<UnidadResultado>> getAllUnidadResultados(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<UnidadResultadoResponseDTO>> getAllUnidadResultados(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    )
+    {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(unidadResultadoService.getAllUnidadResultados(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(unidadResultadoService.getAllUnidadResultados(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Add a new resultado de unidad",
@@ -701,9 +735,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Resultado de unidad already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveUnidadResultado")
-    public ResponseEntity<Map<String, String>> saveUnidadResultado(@Valid @RequestBody UnidadResultado unidadResultado) {
+    public ResponseEntity<Map<String, String>> saveUnidadResultado(@Valid @RequestBody List<UnidadResultadoDTO> unidadResultadoDTOs) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        unidadResultadoService.saveUnidadResultado(unidadResultado);
+        unidadResultadoService.saveUnidadResultados(unidadResultadoDTOs);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
@@ -748,9 +782,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Resultados de aprendizaje already exists", content = @Content)
     })
     @GetMapping("/allResultadosAprendizaje")
-    public ResponseEntity<List<ResultadoAprendizaje>> getAllResultadosAprendizaje(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<ResultadoAprendizaje>> getAllResultadosAprendizaje(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(resultadoAprendizajeService.getAllResultado(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(resultadoAprendizajeService.getAllResultado(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Add a new resultados de aprendizaje",
@@ -807,9 +844,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Competencia already exists", content = @Content)
     })
     @GetMapping("/allCompetencias")
-    public ResponseEntity<List<Competencia>> getAllCompetencias(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<Competencia>> getAllCompetencias(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(competenciaService.getAllCompetencias(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(competenciaService.getAllCompetencias(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Add a new Competencia",
@@ -911,9 +951,12 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Movement already exists", content = @Content)
     })
     @GetMapping("/allHistoryMovement")
-    public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(historyMovementService.getAllMovements(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(historyMovementService.getAllMovements(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Aprobar o Rechazar cambios propuestos por los docentes",

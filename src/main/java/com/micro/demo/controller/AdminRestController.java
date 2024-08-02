@@ -2,7 +2,6 @@ package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
 import com.micro.demo.controller.dto.AssignDirectorRequestDto;
-import com.micro.demo.controller.dto.PageRequestDto;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
@@ -102,9 +101,11 @@ public class AdminRestController {
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
     @GetMapping("/allUsers")
-    public ResponseEntity<List<Usuario>> getAllUsers(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<Usuario>> getAllUsers(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina){
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
-        return ResponseEntity.ok(usuarioService.getAllUsers(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(usuarioService.getAllUsers(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Obtener usuario por correo electrónico")
@@ -177,9 +178,12 @@ public class AdminRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
     }
 
     @Operation(summary = "Get programa academico por nombre")
@@ -279,8 +283,11 @@ public class AdminRestController {
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensumsNoModificadosDuranteUnAño")
-    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteUnAño(@Valid @RequestBody PageRequestDto pageRequestDto){
+    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteUnAño(
+            @RequestParam int pagina,
+            @RequestParam int elementosXpagina
+    ){
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
-        return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pageRequestDto.getPagina(), pageRequestDto.getElementosXpagina()));
+        return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina));
     }
 }

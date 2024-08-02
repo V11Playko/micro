@@ -1,11 +1,13 @@
 package com.micro.demo.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "unidadResultado")
@@ -36,7 +39,6 @@ public class UnidadResultado implements Serializable {
     @JoinColumn(name = "unidad_id")
     private Unidad unidad;
 
-    @ManyToOne
-    @JoinColumn(name = "resultado_aprendizaje_id")
-    private ResultadoAprendizaje resultadoAprendizaje;
+    @OneToMany(mappedBy = "unidadResultado", cascade = CascadeType.ALL)
+    private List<UnidadResultadoResultadoAprendizaje> resultados;
 }

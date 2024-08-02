@@ -4,7 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,21 +13,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
-@Table(name = "resultadoAprendizaje")
+@Table(name = "unidad_resultado_resultado_aprendizaje")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class ResultadoAprendizaje implements Serializable {
+public class UnidadResultadoResultadoAprendizaje implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
-    private String descripcion;
-    private boolean estatus;
+
+    @ManyToOne
+    @JoinColumn(name = "unidad_resultado_id")
+    private UnidadResultado unidadResultado;
+
+    @ManyToOne
+    @JoinColumn(name = "resultado_aprendizaje_id")
+    private ResultadoAprendizaje resultadoAprendizaje;
 }

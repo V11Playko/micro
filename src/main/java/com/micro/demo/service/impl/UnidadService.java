@@ -1,7 +1,9 @@
 package com.micro.demo.service.impl;
 
 import com.micro.demo.entities.Asignatura;
+import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
+import com.micro.demo.entities.UnidadResultado;
 import com.micro.demo.repository.IAsignaturaRepository;
 import com.micro.demo.repository.IUnidadRepository;
 import com.micro.demo.service.IUnidadService;
@@ -77,8 +79,21 @@ public class UnidadService implements IUnidadService {
             unidad.setAsignatura(asignatura);
         }
 
+        if (unidad.getTemas() != null) {
+            for (Tema tema : unidad.getTemas()) {
+                tema.setUnidad(unidad);
+            }
+        }
+
+        if (unidad.getResultados() != null) {
+            for (UnidadResultado resultado : unidad.getResultados()) {
+                resultado.setUnidad(unidad);
+            }
+        }
+
         unidadRepository.save(unidad);
     }
+
 
     /**
      * Actualizar una unidad

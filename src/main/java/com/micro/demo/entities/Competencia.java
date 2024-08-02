@@ -29,6 +29,7 @@ public class Competencia implements Serializable {
     private String nombre;
     private String descripcion;
     private boolean estatus;
+    private String tipoCompetencia;
 
     @OneToMany(mappedBy = "competencia")
     private List<CompetenciaResultado> resultados;
