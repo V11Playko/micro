@@ -36,7 +36,7 @@ email.password= <Contraseña pedida del mismo correo en el apartado "Contraseña
 ## Endpoints de la API
 Para obtener más información sobre los endpoints disponibles, consulta la documentación de la API.
 Puedes importar la [colección de postman.](docs/postman/Micro.postman_collection.json) o 
-acceder a la documentación de Swagger en `http://localhost:8091/swagger-ui/index.html`.
+acceder a la documentación de Swagger en `http://localhost:8080/swagger-ui/index.html`.
 
 
 ## FAQ
