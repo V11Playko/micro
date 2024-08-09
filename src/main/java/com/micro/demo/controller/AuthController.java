@@ -10,8 +10,8 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeToken
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
-import com.micro.demo.controller.dto.TokenDto;
-import com.micro.demo.controller.dto.UrlDto;
+import com.micro.demo.controller.dto.record.TokenDto;
+import com.micro.demo.controller.dto.record.UrlDto;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Value;

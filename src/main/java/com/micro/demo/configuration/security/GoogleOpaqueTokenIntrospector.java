@@ -1,6 +1,6 @@
 package com.micro.demo.configuration.security;
 
-import com.micro.demo.controller.dto.UserInfo;
+import com.micro.demo.controller.dto.record.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionAuthenticatedPrincipal;
