@@ -2,6 +2,7 @@ package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
 import com.micro.demo.controller.dto.AprobarRechazarCambiosRequestDto;
+import com.micro.demo.controller.dto.AsignaturaDto;
 import com.micro.demo.controller.dto.AssignAsignaturasRequestDto;
 import com.micro.demo.controller.dto.AssignCompetenciaRequestDto;
 import com.micro.demo.controller.dto.AssignDocentesRequestDTO;
@@ -399,9 +400,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Asignatura already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveAsignatura")
-    public ResponseEntity<Map<String, String>> saveAsignatura(@Valid @RequestBody Asignatura asignatura) {
+    public ResponseEntity<Map<String, String>> saveAsignatura(@Valid @RequestBody AsignaturaDto asignaturaDto) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        asignaturaService.saveAsignatura(asignatura);
+        asignaturaService.saveAsignatura(asignaturaDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
