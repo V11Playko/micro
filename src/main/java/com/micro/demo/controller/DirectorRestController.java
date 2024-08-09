@@ -1,18 +1,18 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
-import com.micro.demo.controller.dto.AprobarRechazarCambiosRequestDto;
+import com.micro.demo.controller.dto.request.AprobarRechazarCambiosRequestDto;
 import com.micro.demo.controller.dto.AsignaturaDto;
 import com.micro.demo.controller.dto.request.assign.AssignAsignaturasRequestDto;
 import com.micro.demo.controller.dto.request.assign.AssignCompetenciaRequestDto;
 import com.micro.demo.controller.dto.request.assign.AssignDocentesRequestDTO;
 import com.micro.demo.controller.dto.request.assign.AssignTemasRequestDto;
 import com.micro.demo.controller.dto.CompetenciaDto;
-import com.micro.demo.controller.dto.RemoveAsignaturaRequestDto;
-import com.micro.demo.controller.dto.RemoveDocenteRequestDto;
+import com.micro.demo.controller.dto.request.remove.RemoveAsignaturaRequestDto;
+import com.micro.demo.controller.dto.request.remove.RemoveDocenteRequestDto;
 import com.micro.demo.controller.dto.UnidadResultadoDTO;
-import com.micro.demo.controller.dto.UpdatePeriodoModificacionRequestDto;
-import com.micro.demo.controller.dto.UpdatePuedeDescargarPdfRequestDto;
+import com.micro.demo.controller.dto.request.update.UpdatePeriodoModificacionRequestDto;
+import com.micro.demo.controller.dto.request.update.UpdatePuedeDescargarPdfRequestDto;
 import com.micro.demo.controller.dto.response.UnidadResultadoResponseDTO;
 import com.micro.demo.entities.AreaFormacion;
 import com.micro.demo.entities.Asignatura;
