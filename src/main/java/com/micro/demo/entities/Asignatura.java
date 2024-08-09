@@ -1,7 +1,7 @@
 package com.micro.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.micro.demo.entities.enums.Semestre;
+import com.micro.demo.entities.enums.Semesters;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -57,7 +57,7 @@ public class Asignatura implements Serializable {
     private List<String> objetivos;
 
     @Enumerated(EnumType.STRING)
-    private Semestre semestre;
+    private Semesters semestre;
 
     private String tipoCredito;
     private String tipoCurso;

@@ -1,6 +1,6 @@
 package com.micro.demo.controller.dto;
 
-import com.micro.demo.entities.enums.Semestre;
+import com.micro.demo.entities.enums.Semesters;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +26,7 @@ public class AsignaturaDto {
     private String justificacion;
     private String metodologia;
     private List<String> objetivos;
-    private Semestre semestre;
+    private Semesters semestre;
     private String tipoCredito;
     private String tipoCurso;
     private String asignaturaSucesora;

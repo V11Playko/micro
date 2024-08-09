@@ -10,5 +10,7 @@ public interface AsignaturaMapper {
     @Mapping(source = "areaFormacionId", target = "areaFormacion.id")
     @Mapping(source = "competenciaId", target = "competencia.id")
     @Mapping(target = "preRequisitos", ignore = true) // Manejo manual en el servicio
+    @Mapping(target = "asignaturaPensum", ignore = true)
+    @Mapping(target = "asignaturaDocentes", ignore = true)
     Asignatura toEntity(AsignaturaDto dto);
 }
