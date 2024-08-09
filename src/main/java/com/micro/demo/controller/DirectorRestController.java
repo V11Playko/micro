@@ -7,6 +7,7 @@ import com.micro.demo.controller.dto.AssignAsignaturasRequestDto;
 import com.micro.demo.controller.dto.AssignCompetenciaRequestDto;
 import com.micro.demo.controller.dto.AssignDocentesRequestDTO;
 import com.micro.demo.controller.dto.AssignTemasRequestDto;
+import com.micro.demo.controller.dto.CompetenciaDto;
 import com.micro.demo.controller.dto.RemoveAsignaturaRequestDto;
 import com.micro.demo.controller.dto.RemoveDocenteRequestDto;
 import com.micro.demo.controller.dto.UnidadResultadoDTO;
@@ -860,9 +861,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Competencia already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveCompetencia")
-    public ResponseEntity<Map<String, String>> saveCompetencia(@Valid @RequestBody Competencia competencia) {
+    public ResponseEntity<Map<String, String>> saveCompetencia(@Valid @RequestBody CompetenciaDto competenciaDto) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        competenciaService.saveCompetencia(competencia);
+        competenciaService.saveCompetencia(competenciaDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
