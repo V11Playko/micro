@@ -1,6 +1,4 @@
-package com.micro.demo.controller.dto;
-
-import java.util.List;
+package com.micro.demo.controller.dto.request.assign;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -8,13 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AssignAsignaturasRequestDto {
+public class AssignCompetenciaRequestDto {
     @NotNull
-    private Long pensumId;
+    private Long resultadoAprendizajeId;
     @NotNull
-    private List<Long> asignaturasId;
+    private List<Long> competenciaIds;
 }
