@@ -1,4 +1,4 @@
-package com.micro.demo.controller.dto;
+package com.micro.demo.controller.dto.request.assign;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -8,11 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UpdatePuedeDescargarPdfRequestDto {
+public class AssignDirectorRequestDto {
+    @NotNull
+    private String correoDirector;
     @NotNull
     private String nombrePrograma;
-
-    @NotNull
-    private boolean puedeDescargarPdf;
 }
-

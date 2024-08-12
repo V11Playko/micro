@@ -1,6 +1,6 @@
 package com.micro.demo.controller;
 
-import com.micro.demo.controller.dto.MessageDto;
+import com.micro.demo.controller.dto.record.MessageDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;

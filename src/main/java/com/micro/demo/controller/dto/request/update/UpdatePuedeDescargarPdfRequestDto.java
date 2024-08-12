@@ -1,18 +1,18 @@
-package com.micro.demo.controller.dto;
+package com.micro.demo.controller.dto.request.update;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-public class RemoveAsignaturaRequestDto {
+public class UpdatePuedeDescargarPdfRequestDto {
     @NotNull
-    private Long pensumId;
+    private String nombrePrograma;
+
     @NotNull
-    private Long asignaturaId;
+    private boolean puedeDescargarPdf;
 }
+

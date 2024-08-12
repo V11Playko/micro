@@ -1,5 +1,6 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.AsignaturaDto;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.AsignaturaDocente;
 import com.micro.demo.entities.AsignaturaPensum;
@@ -10,6 +11,7 @@ import com.micro.demo.entities.Usuario;
 import com.micro.demo.entities.enums.AsignaturaObligatoria;
 import com.micro.demo.entities.enums.ElectivaProfesional;
 import com.micro.demo.entities.enums.ElectivaSociohumanistica;
+import com.micro.demo.mapper.AsignaturaMapper;
 import com.micro.demo.repository.IAreaFormacionRepository;
 import com.micro.demo.repository.IAsignaturaDocenteRepository;
 import com.micro.demo.repository.IAsignaturaPensumRepository;
@@ -37,6 +39,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -48,8 +51,9 @@ public class AsignaturaService implements IAsignaturaService {
     private final IAreaFormacionRepository areaFormacionRepository;
     private final IPreRequisitoRepository preRequisitoRepository;
     private final ICompetenciaRepository competenciaRepository;
+    private final AsignaturaMapper asignaturaMapper;
 
-    public AsignaturaService(IAsignaturaRepository asignaturaRepository, IAsignaturaDocenteRepository asignaturaDocenteRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IUsuarioRepository usuarioRepository, IAreaFormacionRepository areaFormacionRepository, IPreRequisitoRepository preRequisitoRepository, ICompetenciaRepository competenciaRepository) {
+    public AsignaturaService(IAsignaturaRepository asignaturaRepository, IAsignaturaDocenteRepository asignaturaDocenteRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IUsuarioRepository usuarioRepository, IAreaFormacionRepository areaFormacionRepository, IPreRequisitoRepository preRequisitoRepository, ICompetenciaRepository competenciaRepository, AsignaturaMapper asignaturaMapper) {
         this.asignaturaRepository = asignaturaRepository;
         this.asignaturaDocenteRepository = asignaturaDocenteRepository;
         this.asignaturaPensumRepository = asignaturaPensumRepository;
@@ -57,6 +61,7 @@ public class AsignaturaService implements IAsignaturaService {
         this.areaFormacionRepository = areaFormacionRepository;
         this.preRequisitoRepository = preRequisitoRepository;
         this.competenciaRepository = competenciaRepository;
+        this.asignaturaMapper = asignaturaMapper;
     }
 
     /**
@@ -87,17 +92,26 @@ public class AsignaturaService implements IAsignaturaService {
     /**
      * Guardar una asignatura
      *
-     * @param asignatura - Informacion del area de formacion
+     * @param asignaturaDto - Informacion del area de formacion
      * @throws AreaFormacionNotFound - Se lanza si no se encuentra el area de formacion.
      * @throws PreRequisitoNotFound - Se lanza si no se encuentra el pre-requisito.
      * @throws TipoCursoIncorrectoException - Se lanza si el tipo de curso es incorrecto con respecto al nombre de la asignatura.
      * */
     @Override
-    public void saveAsignatura(Asignatura asignatura) {
-        // Validaciones previas
-        areaFormacionRepository.findById(asignatura.getAreaFormacion().getId()).orElseThrow(AreaFormacionNotFound::new);
-        Competencia competencia = competenciaRepository.findById(asignatura.getCompetencia().getId()).orElseThrow(CompetenciaNotFoundException::new);
-        asignatura.setCompetencia(competencia);
+    public void saveAsignatura(AsignaturaDto asignaturaDto) {
+        Asignatura asignatura = asignaturaMapper.toEntity(asignaturaDto);
+
+        // Manejo manual de preRequisitos
+        if (asignaturaDto.getPreRequisitosIds() != null) {
+            List<AsignaturaPreRequisito> preRequisitos = asignaturaDto.getPreRequisitosIds().stream()
+                    .map(preRequisitoId -> {
+                        PreRequisito preRequisito = preRequisitoRepository.findById(preRequisitoId)
+                                .orElseThrow(PreRequisitoNotFound::new);
+                        return new AsignaturaPreRequisito(asignatura, preRequisito);
+                    })
+                    .collect(Collectors.toList());
+            asignatura.setPreRequisitos(preRequisitos);
+        }
 
         // Validación del nombre y tipo de curso
         String nombreAsignatura = asignatura.getNombre();
@@ -126,17 +140,6 @@ public class AsignaturaService implements IAsignaturaService {
         } else {
             throw new TipoCursoIncorrectoException();
         }
-
-        // Verificar y manejar preRequisitos
-        List<AsignaturaPreRequisito> asignaturaPreRequisitos = new ArrayList<>();
-        if (asignatura.getPreRequisitos() != null) {
-            for (AsignaturaPreRequisito preRequisito : asignatura.getPreRequisitos()) {
-                PreRequisito existente = preRequisitoRepository.findById(preRequisito.getId()).orElseThrow(PreRequisitoNotFound::new);
-                AsignaturaPreRequisito asignaturaPreRequisito = new AsignaturaPreRequisito(asignatura, existente);
-                asignaturaPreRequisitos.add(asignaturaPreRequisito);
-            }
-        }
-        asignatura.setPreRequisitos(asignaturaPreRequisitos);
 
         asignaturaRepository.save(asignatura);
     }

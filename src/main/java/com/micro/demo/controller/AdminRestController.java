@@ -1,7 +1,7 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
-import com.micro.demo.controller.dto.AssignDirectorRequestDto;
+import com.micro.demo.controller.dto.request.assign.AssignDirectorRequestDto;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;

@@ -11,6 +11,7 @@ import com.micro.demo.repository.IUnidadResultadoResultadoAprendizajeRepository;
 import com.micro.demo.service.IUnidadResultadoService;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
+import com.micro.demo.service.exceptions.ResultadoAprendizajeNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -97,14 +98,14 @@ public class UnidadResultadoService implements IUnidadResultadoService {
             unidadResultado.setCorteEvaluacion(dto.getCorteEvaluacion());
             unidadResultado.setEstatus(dto.isEstatus());
 
-            // Save UnidadResultado
             unidadResultadoRepository.save(unidadResultado);
 
-            // Save UnidadResultadoResultadoAprendizaje
-            for (ResultadoAprendizaje resultado : dto.getResultados()) {
+            // Guardar UnidadResultadoResultadoAprendizaje
+            for (Long resultadoId : dto.getResultados()) {
                 UnidadResultadoResultadoAprendizaje intermedia = new UnidadResultadoResultadoAprendizaje();
                 intermedia.setUnidadResultado(unidadResultado);
-                intermedia.setResultadoAprendizaje(resultadoAprendizajeRepository.findById(resultado.getId()).orElse(null));
+                intermedia.setResultadoAprendizaje(resultadoAprendizajeRepository.findById(resultadoId)
+                        .orElseThrow(ResultadoAprendizajeNotFoundException::new));
                 unidadResultadoResultadoAprendizajeRepository.save(intermedia);
             }
         }

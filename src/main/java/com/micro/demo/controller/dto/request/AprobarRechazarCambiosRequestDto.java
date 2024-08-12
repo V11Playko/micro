@@ -1,4 +1,4 @@
-package com.micro.demo.controller.dto;
+package com.micro.demo.controller.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

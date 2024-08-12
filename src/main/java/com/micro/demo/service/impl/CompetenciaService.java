@@ -1,7 +1,11 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.CompetenciaDto;
 import com.micro.demo.entities.Competencia;
+import com.micro.demo.entities.CompetenciaResultado;
+import com.micro.demo.mapper.CompetenciaMapper;
 import com.micro.demo.repository.ICompetenciaRepository;
+import com.micro.demo.repository.ICompetenciaResultadoRepository;
 import com.micro.demo.service.ICompetenciaService;
 import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
@@ -13,15 +17,20 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class CompetenciaService implements ICompetenciaService {
 
     private final ICompetenciaRepository competenciaRepository;
+    private final ICompetenciaResultadoRepository competenciaResultadoRepository;
+    private final CompetenciaMapper competenciaMapper;
 
-    public CompetenciaService(ICompetenciaRepository competenciaRepository) {
+    public CompetenciaService(ICompetenciaRepository competenciaRepository, ICompetenciaResultadoRepository competenciaResultadoRepository, CompetenciaMapper competenciaMapper) {
         this.competenciaRepository = competenciaRepository;
+        this.competenciaResultadoRepository = competenciaResultadoRepository;
+        this.competenciaMapper = competenciaMapper;
     }
 
     /**
@@ -52,10 +61,21 @@ public class CompetenciaService implements ICompetenciaService {
     /**
      * Guardar una competencia
      *
-     * @param competencia - Informacion de la competencia.
+     * @param competenciaDto - Informacion de la competencia.
      * */
     @Override
-    public void saveCompetencia(Competencia competencia) {
+    public void saveCompetencia(CompetenciaDto competenciaDto) {
+        Competencia competencia = competenciaMapper.toEntity(competenciaDto);
+
+        // Manejo manual de resultados
+        if (competenciaDto.getResultados() != null) {
+            List<CompetenciaResultado> resultados = competenciaDto.getResultados().stream()
+                    .map(id -> competenciaResultadoRepository.findById(id)
+                            .orElseThrow(NoDataFoundException::new))
+                    .collect(Collectors.toList());
+            competencia.setResultados(resultados);
+        }
+
         competenciaRepository.save(competencia);
     }
 

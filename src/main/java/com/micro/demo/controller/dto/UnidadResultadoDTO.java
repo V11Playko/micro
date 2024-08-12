@@ -16,8 +16,8 @@ import java.util.List;
 public class UnidadResultadoDTO {
     private String tipoEvidencia;
     private String instrumentoEvaluacion;
+    private String criterioDesempeno;
     private String corteEvaluacion;
     private boolean estatus;
-    private List<ResultadoAprendizaje> resultados;
-    private Asignatura asignatura;
+    private List<Long> resultados;
 }
