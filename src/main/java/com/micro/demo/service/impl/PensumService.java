@@ -1,5 +1,6 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.PensumDto;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.AsignaturaPensum;
 import com.micro.demo.entities.Pensum;
@@ -18,6 +19,8 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.PensumNotActiveException;
 import com.micro.demo.service.exceptions.PensumNotFoundByIdException;
 import com.micro.demo.service.exceptions.PensumNotFoundException;
+import com.micro.demo.service.exceptions.ProgramaAcademicoExistenteException;
+import com.micro.demo.service.exceptions.ProgramaNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -33,6 +36,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -120,20 +124,34 @@ public class PensumService implements IPensumService {
     /**
      * Guardar un pensum
      *
-     * @param pensum - Informacion del pensum.
+     * @param pensumDto - Informacion del pensum.
      * @throws UnauthorizedException - Se lanza si el correo no es el del director asociado al programa academico.
      * */
     @Override
-    public void savePensum(Pensum pensum) {
+    public void savePensum(PensumDto pensumDto) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
-        ProgramaAcademico programaAcademico = programaAcademicoRepository.findByDirectorCorreo(correoUsuarioAutenticado);
+        ProgramaAcademico programaAcademico = programaAcademicoRepository.findById(pensumDto.getProgramaAcademicoId())
+                .orElseThrow(ProgramaNotFoundException::new);
 
         if (!programaAcademico.getDirector().getCorreo().equals(correoUsuarioAutenticado)){
             throw new UnauthorizedException();
         }
 
-        pensum.setFechaInicio(LocalDate.now());
+        Pensum pensum = new Pensum();
+        pensum.setId(pensumDto.getId());
+        pensum.setCreditosTotales(pensumDto.getCreditosTotales());
+        pensum.setFechaInicio(pensumDto.getFechaInicio());
+        pensum.setFechaFinal(pensumDto.getFechaFinal());
+        pensum.setEstatus(pensumDto.isEstatus());
         pensum.setProgramaAcademico(programaAcademico);
+
+        List<AsignaturaPensum> asignaturas = pensumDto.getAsignaturaPensum().stream()
+                .map(asignaturaId -> asignaturaPensumRepository.findById(asignaturaId)
+                        .orElseThrow(AsignaturaNotFound::new))
+                .collect(Collectors.toList());
+
+        pensum.setAsignaturaPensum(asignaturas);
+
         pensumRepository.save(pensum);
     }
 

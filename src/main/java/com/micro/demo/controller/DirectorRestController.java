@@ -1,6 +1,7 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.controller.dto.PensumDto;
 import com.micro.demo.controller.dto.UnidadDto;
 import com.micro.demo.controller.dto.request.AprobarRechazarCambiosRequestDto;
 import com.micro.demo.controller.dto.AsignaturaDto;
@@ -298,9 +299,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Pensum already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/savePensum")
-    public ResponseEntity<Map<String, String>> savePensum(@Valid @RequestBody Pensum pensum) {
+    public ResponseEntity<Map<String, String>> savePensum(@Valid @RequestBody PensumDto pensumDto) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        pensumService.savePensum(pensum);
+        pensumService.savePensum(pensumDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
