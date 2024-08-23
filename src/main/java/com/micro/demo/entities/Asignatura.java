@@ -61,8 +61,6 @@ public class Asignatura implements Serializable {
 
     private String tipoCredito;
     private String tipoCurso;
-    private String asignaturaSucesora;
-    private String asignaturaPredecesora;
 
     @ManyToOne
     @JoinColumn(name = "area_formacion_id")

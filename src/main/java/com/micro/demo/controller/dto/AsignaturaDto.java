@@ -29,8 +29,6 @@ public class AsignaturaDto {
     private Semesters semestre;
     private String tipoCredito;
     private String tipoCurso;
-    private String asignaturaSucesora;
-    private String asignaturaPredecesora;
     private Long areaFormacionId;
     private Long competenciaId;
     private List<Long> preRequisitosIds;

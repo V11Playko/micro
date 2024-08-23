@@ -269,12 +269,6 @@ public class HistoryMovementService implements IHistoryMovementService {
         if (atributosModificados.containsKey("tipoCurso")) {
             asignatura.setTipoCurso(atributosModificados.get("tipoCurso"));
         }
-        if (atributosModificados.containsKey("asignaturaSucesora")) {
-            asignatura.setAsignaturaSucesora(atributosModificados.get("asignaturaSucesora"));
-        }
-        if (atributosModificados.containsKey("asignaturaPredecesora")) {
-            asignatura.setAsignaturaPredecesora(atributosModificados.get("asignaturaPredecesora"));
-        }
 
 
         historyMovement.setAsignaturaAfectada(asignaturaAfectada);
@@ -435,12 +429,6 @@ public class HistoryMovementService implements IHistoryMovementService {
             }
             if (atributosModificados.containsKey("tipoCurso")) {
                 asignaturaAfectada.setTipoCurso(atributosModificados.get("tipoCurso"));
-            }
-            if (atributosModificados.containsKey("asignaturaSucesora")) {
-                asignaturaAfectada.setAsignaturaSucesora(atributosModificados.get("asignaturaSucesora"));
-            }
-            if (atributosModificados.containsKey("asignaturaPredecesora")) {
-                asignaturaAfectada.setAsignaturaPredecesora(atributosModificados.get("asignaturaPredecesora"));
             }
 
             // Guardar los cambios en la asignatura afectada
