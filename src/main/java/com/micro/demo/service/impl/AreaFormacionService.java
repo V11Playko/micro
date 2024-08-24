@@ -12,7 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -26,14 +27,14 @@ public class AreaFormacionService implements IAreaFormacionService {
     /**
      * Obtiene las Areas de formacion mediante la paginacion
      *
-     * @param pagina - numero de pagina
+     * @param pagina           - numero de pagina
      * @param elementosXpagina - elementos que habran en cada pagina
      * @return Lista de areas de formacion
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<AreaFormacion> getAllAreaFormacion(int pagina, int elementosXpagina) {
+    public Map<String, Object> getAllAreaFormacion(int pagina, int elementosXpagina) {
         if (pagina < 1) {
             throw new IlegalPaginaException();
         }
@@ -45,8 +46,13 @@ public class AreaFormacionService implements IAreaFormacionService {
             throw new NoDataFoundException();
         }
 
-        return paginaAreas.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaAreas.getTotalElements());
+        response.put("data", paginaAreas.getContent());
+
+        return response;
     }
+
 
     /**
      * Guardar un area de formacion

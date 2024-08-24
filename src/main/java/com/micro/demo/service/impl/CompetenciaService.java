@@ -16,7 +16,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,14 +38,14 @@ public class CompetenciaService implements ICompetenciaService {
     /**
      * Obtiene las competencias mediante la paginacion
      *
-     * @param pagina numero de pagina.
+     * @param pagina           numero de pagina.
      * @param elementosXpagina elementos que habran en cada pagina.
      * @return Lista de competencias.
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1.
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<Competencia> getAllCompetencias(int pagina, int elementosXpagina) {
+    public Map<String, Object> getAllCompetencias(int pagina, int elementosXpagina) {
         if (pagina < 1) {
             throw new IlegalPaginaException();
         }
@@ -55,8 +57,14 @@ public class CompetenciaService implements ICompetenciaService {
             throw new NoDataFoundException();
         }
 
-        return paginaCompetencias.getContent();
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaCompetencias.getTotalElements());
+        response.put("data", paginaCompetencias.getContent());
+
+        return response;
     }
+
 
     /**
      * Guardar una competencia

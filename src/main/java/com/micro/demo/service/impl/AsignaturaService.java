@@ -5,7 +5,6 @@ import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.AsignaturaDocente;
 import com.micro.demo.entities.AsignaturaPensum;
 import com.micro.demo.entities.AsignaturaPreRequisito;
-import com.micro.demo.entities.Competencia;
 import com.micro.demo.entities.PreRequisito;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.entities.enums.AsignaturaObligatoria;
@@ -23,7 +22,6 @@ import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.exceptions.AllDocentesAssignsException;
 import com.micro.demo.service.exceptions.AreaFormacionNotFound;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundByIdException;
-import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
 import com.micro.demo.service.exceptions.DocenteNotAssignException;
 import com.micro.demo.service.exceptions.DocenteNotFound;
 import com.micro.demo.service.exceptions.DocenteNotFoundCorreoException;
@@ -37,8 +35,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -67,14 +66,14 @@ public class AsignaturaService implements IAsignaturaService {
     /**
      * Obtiene las asignaturas mediante la paginacion
      *
-     * @param pagina numero de pagina
+     * @param pagina           numero de pagina
      * @param elementosXpagina elementos que habran en cada pagina
      * @return Lista de asignaturas
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<Asignatura> getAllAsignatura(int pagina, int elementosXpagina) {
+    public Map<String, Object> getAllAsignatura(int pagina, int elementosXpagina) {
         if (pagina < 1) {
             throw new IlegalPaginaException();
         }
@@ -86,8 +85,14 @@ public class AsignaturaService implements IAsignaturaService {
             throw new NoDataFoundException();
         }
 
-        return paginaAsignaturas.getContent();
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaAsignaturas.getTotalElements());
+        response.put("data", paginaAsignaturas.getContent());
+
+        return response;
     }
+
 
     /**
      * Guardar una asignatura

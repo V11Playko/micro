@@ -25,7 +25,9 @@ import org.springframework.security.oauth2.server.resource.authentication.Bearer
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -41,27 +43,33 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
     /**
      * Obtiene los programas academicos mediante la paginacion
      *
-     * @param pagina numero de pagina
+     * @param pagina           numero de pagina
      * @param elementosXpagina elementos que habran en cada pagina
      * @return Lista de los programas academicos.
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<ProgramaAcademico> getAll(int pagina, int elementosXpagina) {
+    public Map<String, Object> getAll(int pagina, int elementosXpagina) {
         if (pagina < 1) {
             throw new IlegalPaginaException();
         }
 
         Page<ProgramaAcademico> paginaProgramas =
-                programaAcademicoRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+                programaAcademicoRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
 
         if (paginaProgramas.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        return paginaProgramas.getContent();
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaProgramas.getTotalElements());
+        response.put("data", paginaProgramas.getContent());
+
+        return response;
     }
+
 
     /**
      * Obtiene un programa academico por su nombre

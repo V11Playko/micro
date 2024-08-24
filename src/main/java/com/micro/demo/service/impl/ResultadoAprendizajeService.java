@@ -18,7 +18,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -36,28 +38,33 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
     /**
      * Obtiene los resultados de aprendizaje mediante la paginacion
      *
-     * @param pagina numero de pagina
+     * @param pagina           numero de pagina
      * @param elementosXpagina elementos que habran en cada pagina
      * @return Lista de los resultados de aprendizaje.
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<ResultadoAprendizaje> getAllResultado(int pagina, int elementosXpagina) {
+    public Map<String, Object> getAllResultado(int pagina, int elementosXpagina) {
         if (pagina < 1) {
             throw new IlegalPaginaException();
         }
 
         Page<ResultadoAprendizaje> paginaResultados =
-                resultadoAprendizajeRepository.findAll(PageRequest.of(pagina -1, elementosXpagina,
-                        Sort.by("id").ascending()));
+                resultadoAprendizajeRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
 
         if (paginaResultados.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        return paginaResultados.getContent();
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaResultados.getTotalElements());
+        response.put("data", paginaResultados.getContent());
+
+        return response;
     }
+
 
     /**
      * Guardar un resultado de aprendizaje

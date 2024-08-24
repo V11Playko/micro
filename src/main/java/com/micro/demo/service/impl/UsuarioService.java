@@ -21,7 +21,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -45,8 +47,7 @@ public class UsuarioService implements IUsuarioService {
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
      * @throws NoDataFoundException - Si no se encuentra datos.
      */
-    @Override
-    public List<Usuario> getAllUsers(int pagina, int elementosXpagina) {
+    public Map<String, Object> getAllUsers(int pagina, int elementosXpagina) {
         if (pagina < 1) {
             throw new IlegalPaginaException();
         }
@@ -67,7 +68,11 @@ public class UsuarioService implements IUsuarioService {
             throw new NoDataFoundException();
         }
 
-        return page.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", page.getTotalElements());
+        response.put("usuarios", page.getContent());
+
+        return response;
     }
 
     /**

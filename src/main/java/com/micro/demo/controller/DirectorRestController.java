@@ -152,10 +152,11 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
     @GetMapping("/allUsers")
-    public ResponseEntity<List<Usuario>> getAllUsers(
+    public ResponseEntity<Map<String, Object>> getAllUsers(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
     ){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(usuarioService.getAllUsers(pagina, elementosXpagina));
     }
 
@@ -218,13 +219,15 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
+    public ResponseEntity<Map<String, Object>> getAllProgramas(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
-    ){
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
+        Map<String, Object> response = programaAcademicoService.getAll(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
+
 
     @Operation(summary = "Update periodo de modificacion",
             responses = {
@@ -270,12 +273,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensums")
-    public ResponseEntity<List<Pensum>> getAllPensums(
+    public ResponseEntity<Map<String, Object>> getAllPensums(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(pensumService.getAllPensum(pagina, elementosXpagina));
+        Map<String, Object> response = pensumService.getAllPensum(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Get all pensums no modificados durante un año")
@@ -284,12 +288,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensumsNoModificadosDuranteUnAño")
-    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteDosSemestres(
+    public ResponseEntity<Map<String, Object>> getPensumsNoModificadosDuranteUnAño(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
-    ){
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina));
+        Map<String, Object> response = pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Add a new pensum",
@@ -388,12 +393,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Asignatura already exists", content = @Content)
     })
     @GetMapping("/allAsignaturas")
-    public ResponseEntity<List<Asignatura>> getAllAsignaturas(
+    public ResponseEntity<Map<String, Object>> getAllAsignaturas(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(asignaturaService.getAllAsignatura(pagina, elementosXpagina));
+        Map<String, Object> response = asignaturaService.getAllAsignatura(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Add a new Asignatura",
@@ -478,12 +484,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Areas de formacion already exists", content = @Content)
     })
     @GetMapping("/allAreasFormacion")
-    public ResponseEntity<List<AreaFormacion>> getAllAreas(
+    public ResponseEntity<Map<String, Object>> getAllAreas(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(areaFormacionService.getAllAreaFormacion(pagina, elementosXpagina));
+        Map<String, Object> response = areaFormacionService.getAllAreaFormacion(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Add a new Area de formacion",
@@ -525,12 +532,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "PreRequisitos already exists", content = @Content)
     })
     @GetMapping("/allPreRequisitos")
-    public ResponseEntity<List<PreRequisito>> getAllPreRequisitos(
+    public ResponseEntity<Map<String, Object>> getAllPreRequisitos(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
-    ){
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(preRequisitoService.getAllPreRequisito(pagina, elementosXpagina));
+        Map<String, Object> response = preRequisitoService.getAllPreRequisito(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Add a new PreRequisito",
@@ -572,10 +580,10 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Unidad already exists", content = @Content)
     })
     @GetMapping("/allUnidades")
-    public ResponseEntity<List<Unidad>> getAllUnidades(
+    public ResponseEntity<Map<String, Object>> getAllUnidades(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
-    ){
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(unidadService.getAllUnidad(pagina, elementosXpagina));
     }
@@ -647,12 +655,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Tema already exists", content = @Content)
     })
     @GetMapping("/allTemas")
-    public ResponseEntity<List<Tema>> getAllTemas(
+    public ResponseEntity<Map<String, Object>> getAllTemas(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
-    ){
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(temaService.getAllTemas(pagina, elementosXpagina));
+        Map<String, Object> response = temaService.getAllTemas(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Add a new Tema",
@@ -723,13 +732,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Resultados de unidades already exists", content = @Content)
     })
     @GetMapping("/allUnidadResultados")
-    public ResponseEntity<List<UnidadResultadoResponseDTO>> getAllUnidadResultados(
+    public ResponseEntity<Map<String, Object>> getAllUnidadResultados(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
-    )
-    {
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(unidadResultadoService.getAllUnidadResultados(pagina, elementosXpagina));
+        Map<String, Object> response = unidadResultadoService.getAllUnidadResultados(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Add a new resultado de unidad",
@@ -786,13 +795,15 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Resultados de aprendizaje already exists", content = @Content)
     })
     @GetMapping("/allResultadosAprendizaje")
-    public ResponseEntity<List<ResultadoAprendizaje>> getAllResultadosAprendizaje(
+    public ResponseEntity<Map<String, Object>> getAllResultadosAprendizaje(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
-    ){
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(resultadoAprendizajeService.getAllResultado(pagina, elementosXpagina));
+        Map<String, Object> response = resultadoAprendizajeService.getAllResultado(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
+
 
     @Operation(summary = "Add a new resultados de aprendizaje",
             responses = {
@@ -848,12 +859,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Competencia already exists", content = @Content)
     })
     @GetMapping("/allCompetencias")
-    public ResponseEntity<List<Competencia>> getAllCompetencias(
+    public ResponseEntity<Map<String, Object>> getAllCompetencias(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(competenciaService.getAllCompetencias(pagina, elementosXpagina));
+        Map<String, Object> response = competenciaService.getAllCompetencias(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Add a new Competencia",
@@ -955,12 +967,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Movement already exists", content = @Content)
     })
     @GetMapping("/allHistoryMovement")
-    public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(
+    public ResponseEntity<Map<String, Object>> getAllHistoryMovement(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(historyMovementService.getAllMovements(pagina, elementosXpagina));
+        Map<String, Object> response = historyMovementService.getAllMovements(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Aprobar o Rechazar cambios propuestos por los docentes",

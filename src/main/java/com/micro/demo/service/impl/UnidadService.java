@@ -21,7 +21,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -52,7 +54,7 @@ public class UnidadService implements IUnidadService {
      * @throws NoDataFoundException - Si no se encuentra datos.
      */
     @Override
-    public List<Unidad> getAllUnidad(int pagina, int elementosXpagina) {
+    public Map<String, Object> getAllUnidad(int pagina, int elementosXpagina) {
         if (pagina < 1) {
             throw new IlegalPaginaException();
         }
@@ -64,8 +66,14 @@ public class UnidadService implements IUnidadService {
             throw new NoDataFoundException();
         }
 
-        return paginaUnidades.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaUnidades.getTotalElements());
+        response.put("unidades", paginaUnidades.getContent());
+
+        return response;
     }
+
+
     /**
      * Obtiene una unidad por su identificador unico
      *

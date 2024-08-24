@@ -115,12 +115,13 @@ public class VisitanteRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
+    public ResponseEntity<Map<String, Object>> getAllProgramas(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_VISITANTE", "ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
+        Map<String, Object> response = programaAcademicoService.getAll(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Get programa academico por nombre")

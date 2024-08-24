@@ -123,12 +123,13 @@ public class DocenteRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
+    public ResponseEntity<Map<String, Object>> getAllProgramas(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
-    ){
+    ) {
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
+        Map<String, Object> response = programaAcademicoService.getAll(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Get programa academico por nombre")
@@ -186,13 +187,15 @@ public class DocenteRestController {
             @ApiResponse(responseCode = "409", description = "Movement already exists", content = @Content)
     })
     @GetMapping("/allHistoryMovement")
-    public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(
+    public ResponseEntity<Map<String, Object>> getAllHistoryMovement(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
-        return ResponseEntity.ok(historyMovementService.getAllMovements(pagina, elementosXpagina));
+        Map<String, Object> response = historyMovementService.getAllMovements(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
+
 
     @Operation(summary = "Agregar asignatura, va al historial de movimiento",
             responses = {

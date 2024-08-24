@@ -19,7 +19,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,10 +43,10 @@ public class UnidadResultadoService implements IUnidadResultadoService {
      *
      * @return Lista de unidades de resultados.
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<UnidadResultadoResponseDTO> getAllUnidadResultados(int pagina, int elementosXpagina) {
+    public Map<String, Object> getAllUnidadResultados(int pagina, int elementosXpagina) {
         if (pagina < 1) {
             throw new IlegalPaginaException();
         }
@@ -79,7 +81,12 @@ public class UnidadResultadoService implements IUnidadResultadoService {
             responseDTOs.add(dto);
         }
 
-        return responseDTOs;
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaUnidadResultados.getTotalElements());
+        response.put("data", responseDTOs);
+
+        return response;
     }
 
 

@@ -2,10 +2,10 @@ package com.micro.demo.service;
 
 import com.micro.demo.entities.HistoryMovement;
 
-import java.util.List;
+import java.util.Map;
 
 public interface IHistoryMovementService {
-    List<HistoryMovement> getAllMovements(int pagina, int elementosXpagina);
+    Map<String, Object> getAllMovements(int pagina, int elementosXpagina);
     void agregarAsignatura(HistoryMovement historyMovement);
     void removerAsignatura(HistoryMovement historyMovement);
     void actualizarAsignatura(HistoryMovement historyMovement);

@@ -101,7 +101,7 @@ public class AdminRestController {
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
     @GetMapping("/allUsers")
-    public ResponseEntity<List<Usuario>> getAllUsers(
+    public ResponseEntity<Map<String, Object>> getAllUsers(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina){
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
@@ -178,13 +178,15 @@ public class AdminRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
+    public ResponseEntity<Map<String, Object>> getAllProgramas(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
-    ){
+    ) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
+        Map<String, Object> response = programaAcademicoService.getAll(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
+
 
     @Operation(summary = "Get programa academico por nombre")
     @ApiResponses(value = {
@@ -283,11 +285,13 @@ public class AdminRestController {
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensumsNoModificadosDuranteUnAño")
-    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteUnAño(
+    public ResponseEntity<Map<String, Object>> getPensumsNoModificadosDuranteUnAño(
             @RequestParam int pagina,
             @RequestParam int elementosXpagina
-    ){
+    ) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
-        return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina));
+        Map<String, Object> response = pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
+
 }

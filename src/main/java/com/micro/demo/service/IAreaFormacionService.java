@@ -2,11 +2,11 @@ package com.micro.demo.service;
 
 import com.micro.demo.entities.AreaFormacion;
 
-import java.util.List;
+import java.util.Map;
 
 public interface IAreaFormacionService {
 
-    List<AreaFormacion> getAllAreaFormacion(int pagina, int elementosXpagina);
+    Map<String, Object> getAllAreaFormacion(int pagina, int elementosXpagina);
     void saveAreaFormacion(AreaFormacion areaFormacion);
     void deleteAreaFormacion(Long id);
 }

@@ -37,6 +37,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,14 +70,14 @@ public class HistoryMovementService implements IHistoryMovementService {
     /**
      * Obtiene las historias de movimiento mediante la paginacion
      *
-     * @param pagina numero de pagina.
+     * @param pagina           numero de pagina.
      * @param elementosXpagina elementos que habran en cada pagina.
      * @return Lista de las historias de movimiento.
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1.
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<HistoryMovement> getAllMovements(int pagina, int elementosXpagina) {
+    public Map<String, Object> getAllMovements(int pagina, int elementosXpagina) {
         if (pagina < 1) {
             throw new IlegalPaginaException();
         }
@@ -88,8 +89,14 @@ public class HistoryMovementService implements IHistoryMovementService {
             throw new NoDataFoundException();
         }
 
-        return paginaMovements.getContent();
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaMovements.getTotalElements());
+        response.put("data", paginaMovements.getContent());
+
+        return response;
     }
+
 
     /**
      * Agregar una asignatura al historial de movimiento.
