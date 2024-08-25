@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 public interface IProgramaAcademicoService {
-    Map<String, Object> getAll(int pagina, int elementosXpagina);
+    Map<String, Object> getAll(Integer pagina, Integer elementosXpagina);
     ProgramaAcademico getProgramaByNombre(String nombre);
     void saveProgramaAcademico(ProgramaAcademico programaAcademico);
     void assignDirector(String correoDirector, String nombrePrograma);

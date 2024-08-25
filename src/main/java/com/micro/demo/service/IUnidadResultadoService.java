@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IUnidadResultadoService {
-    Map<String, Object> getAllUnidadResultados(int pagina, int elementosXpagina);
+    Map<String, Object> getAllUnidadResultados(Integer pagina, Integer elementosXpagina);
     void saveUnidadResultados(List<UnidadResultadoDTO> unidadResultadoDTOs);
     void updateUnidadResultado(Long id, UnidadResultado unidadResultado);
     void deleteUnidadResultado(Long id);

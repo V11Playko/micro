@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface IAreaFormacionService {
 
-    Map<String, Object> getAllAreaFormacion(int pagina, int elementosXpagina);
+    Map<String, Object> getAllAreaFormacion(Integer pagina, Integer elementosXpagina);
     void saveAreaFormacion(AreaFormacion areaFormacion);
     void deleteAreaFormacion(Long id);
 }

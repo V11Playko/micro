@@ -124,8 +124,8 @@ public class DocenteRestController {
     })
     @GetMapping("/allProgramasAcademicos")
     public ResponseEntity<Map<String, Object>> getAllProgramas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
         Map<String, Object> response = programaAcademicoService.getAll(pagina, elementosXpagina);
@@ -188,8 +188,8 @@ public class DocenteRestController {
     })
     @GetMapping("/allHistoryMovement")
     public ResponseEntity<Map<String, Object>> getAllHistoryMovement(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
         Map<String, Object> response = historyMovementService.getAllMovements(pagina, elementosXpagina);

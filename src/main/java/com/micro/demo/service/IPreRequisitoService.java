@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface IPreRequisitoService {
 
-    Map<String, Object> getAllPreRequisito(int pagina, int elementosXpagina);
+    Map<String, Object> getAllPreRequisito(Integer pagina, Integer elementosXpagina);
     void savePreRequisito(PreRequisito preRequisito);
     void deletePrerequisito(Long id);
 }

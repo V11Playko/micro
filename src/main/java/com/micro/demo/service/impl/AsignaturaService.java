@@ -31,6 +31,7 @@ import com.micro.demo.service.exceptions.PreRequisitoNotFound;
 import com.micro.demo.service.exceptions.TipoCursoIncorrectoException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -73,19 +74,26 @@ public class AsignaturaService implements IAsignaturaService {
      * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public Map<String, Object> getAllAsignatura(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllAsignatura(Integer pagina, Integer elementosXpagina) {
+        Page<Asignatura> paginaAsignaturas;
 
-        Page<Asignatura> paginaAsignaturas =
-                asignaturaRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            List<Asignatura> asignaturas = asignaturaRepository.findAll(Sort.by("id").ascending());
+            paginaAsignaturas = new PageImpl<>(asignaturas);
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaAsignaturas = asignaturaRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        }
 
         if (paginaAsignaturas.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página o lista completa
         Map<String, Object> response = new HashMap<>();
         response.put("totalData", paginaAsignaturas.getTotalElements());
         response.put("data", paginaAsignaturas.getContent());

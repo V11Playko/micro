@@ -12,6 +12,7 @@ import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -45,19 +46,26 @@ public class CompetenciaService implements ICompetenciaService {
      * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public Map<String, Object> getAllCompetencias(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllCompetencias(Integer pagina, Integer elementosXpagina) {
+        Page<Competencia> paginaCompetencias;
 
-        Page<Competencia> paginaCompetencias =
-                competenciaRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            List<Competencia> competencias = competenciaRepository.findAll(Sort.by("id").ascending());
+            paginaCompetencias = new PageImpl<>(competencias);
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaCompetencias = competenciaRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        }
 
         if (paginaCompetencias.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página o lista completa
         Map<String, Object> response = new HashMap<>();
         response.put("totalData", paginaCompetencias.getTotalElements());
         response.put("data", paginaCompetencias.getContent());

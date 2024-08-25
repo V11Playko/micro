@@ -14,6 +14,7 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.ResultadoAprendizajeNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -46,13 +47,21 @@ public class UnidadResultadoService implements IUnidadResultadoService {
      * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public Map<String, Object> getAllUnidadResultados(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllUnidadResultados(Integer pagina, Integer elementosXpagina) {
+        Page<UnidadResultado> paginaUnidadResultados;
 
-        Page<UnidadResultado> paginaUnidadResultados =
-                unidadResultadoRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaUnidadResultados = new PageImpl<>(unidadResultadoRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaUnidadResultados = unidadResultadoRepository.findAll(
+                    PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending())
+            );
+        }
 
         if (paginaUnidadResultados.isEmpty()) {
             throw new NoDataFoundException();

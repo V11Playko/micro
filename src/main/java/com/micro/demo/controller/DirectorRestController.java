@@ -153,8 +153,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allUsers")
     public ResponseEntity<Map<String, Object>> getAllUsers(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(usuarioService.getAllUsers(pagina, elementosXpagina));
@@ -220,8 +220,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allProgramasAcademicos")
     public ResponseEntity<Map<String, Object>> getAllProgramas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = programaAcademicoService.getAll(pagina, elementosXpagina);
@@ -274,8 +274,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allPensums")
     public ResponseEntity<Map<String, Object>> getAllPensums(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = pensumService.getAllPensum(pagina, elementosXpagina);
@@ -289,8 +289,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allPensumsNoModificadosDuranteUnAño")
     public ResponseEntity<Map<String, Object>> getPensumsNoModificadosDuranteUnAño(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina);
@@ -394,8 +394,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allAsignaturas")
     public ResponseEntity<Map<String, Object>> getAllAsignaturas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = asignaturaService.getAllAsignatura(pagina, elementosXpagina);
@@ -485,8 +485,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allAreasFormacion")
     public ResponseEntity<Map<String, Object>> getAllAreas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = areaFormacionService.getAllAreaFormacion(pagina, elementosXpagina);
@@ -533,8 +533,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allPreRequisitos")
     public ResponseEntity<Map<String, Object>> getAllPreRequisitos(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = preRequisitoService.getAllPreRequisito(pagina, elementosXpagina);
@@ -581,8 +581,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allUnidades")
     public ResponseEntity<Map<String, Object>> getAllUnidades(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(unidadService.getAllUnidad(pagina, elementosXpagina));
@@ -656,8 +656,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allTemas")
     public ResponseEntity<Map<String, Object>> getAllTemas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = temaService.getAllTemas(pagina, elementosXpagina);
@@ -733,8 +733,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allUnidadResultados")
     public ResponseEntity<Map<String, Object>> getAllUnidadResultados(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = unidadResultadoService.getAllUnidadResultados(pagina, elementosXpagina);
@@ -796,8 +796,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allResultadosAprendizaje")
     public ResponseEntity<Map<String, Object>> getAllResultadosAprendizaje(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = resultadoAprendizajeService.getAllResultado(pagina, elementosXpagina);
@@ -860,8 +860,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allCompetencias")
     public ResponseEntity<Map<String, Object>> getAllCompetencias(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = competenciaService.getAllCompetencias(pagina, elementosXpagina);
@@ -968,8 +968,8 @@ public class DirectorRestController {
     })
     @GetMapping("/allHistoryMovement")
     public ResponseEntity<Map<String, Object>> getAllHistoryMovement(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = historyMovementService.getAllMovements(pagina, elementosXpagina);

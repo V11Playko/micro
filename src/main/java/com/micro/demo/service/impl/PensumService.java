@@ -23,6 +23,7 @@ import com.micro.demo.service.exceptions.ProgramaNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -66,13 +67,21 @@ public class PensumService implements IPensumService {
      * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public Map<String, Object> getAllPensum(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllPensum(Integer pagina, Integer elementosXpagina) {
+        Page<Pensum> paginaPensums;
 
-        Page<Pensum> paginaPensums =
-                pensumRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaPensums = new PageImpl<>(pensumRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaPensums = pensumRepository.findAll(
+                    PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending())
+            );
+        }
 
         if (paginaPensums.isEmpty()) {
             throw new NoDataFoundException();
@@ -84,6 +93,7 @@ public class PensumService implements IPensumService {
 
         return response;
     }
+
 
     /**
      * Obtiene los pensums que no han sido modificados durante un año mediante la paginacion
@@ -97,12 +107,19 @@ public class PensumService implements IPensumService {
      * @return Lista de pensums no modificados durante un año
      */
     @Override
-    public Map<String, Object> getPensumsNoModificadosDuranteUnAño(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getPensumsNoModificadosDuranteUnAño(Integer pagina, Integer elementosXpagina) {
+        Page<Pensum> paginaPensums;
 
-        Page<Pensum> paginaPensums = pensumRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaPensums = new PageImpl<>(pensumRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaPensums = pensumRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina));
+        }
 
         if (paginaPensums.isEmpty()) {
             throw new NoDataFoundException();
@@ -124,7 +141,7 @@ public class PensumService implements IPensumService {
                 .filter(pensum -> !pensumsModificados.contains(pensum.getId()))
                 .toList();
 
-        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página o lista completa
         Map<String, Object> response = new HashMap<>();
         response.put("totalData", pensumsNoModificados.size());
         response.put("data", pensumsNoModificados);

@@ -26,6 +26,7 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.PensumNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -77,25 +78,32 @@ public class HistoryMovementService implements IHistoryMovementService {
      * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public Map<String, Object> getAllMovements(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllMovements(Integer pagina, Integer elementosXpagina) {
+        Page<HistoryMovement> paginaMovements;
 
-        Page<HistoryMovement> paginaMovements =
-                historyMovementRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaMovements = new PageImpl<>(historyMovementRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaMovements = historyMovementRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        }
 
         if (paginaMovements.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página o lista completa
         Map<String, Object> response = new HashMap<>();
         response.put("totalData", paginaMovements.getTotalElements());
         response.put("data", paginaMovements.getContent());
 
         return response;
     }
+
 
 
     /**

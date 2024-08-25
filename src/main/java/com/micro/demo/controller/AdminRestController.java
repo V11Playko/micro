@@ -102,8 +102,8 @@ public class AdminRestController {
     })
     @GetMapping("/allUsers")
     public ResponseEntity<Map<String, Object>> getAllUsers(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina){
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
         return ResponseEntity.ok(usuarioService.getAllUsers(pagina, elementosXpagina));
     }
@@ -179,8 +179,8 @@ public class AdminRestController {
     })
     @GetMapping("/allProgramasAcademicos")
     public ResponseEntity<Map<String, Object>> getAllProgramas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
         Map<String, Object> response = programaAcademicoService.getAll(pagina, elementosXpagina);
@@ -286,8 +286,8 @@ public class AdminRestController {
     })
     @GetMapping("/allPensumsNoModificadosDuranteUnAño")
     public ResponseEntity<Map<String, Object>> getPensumsNoModificadosDuranteUnAño(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
         Map<String, Object> response = pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina);

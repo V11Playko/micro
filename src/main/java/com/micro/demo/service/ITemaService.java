@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ITemaService {
-    Map<String, Object> getAllTemas(int pagina, int elementosXpagina);
+    Map<String, Object> getAllTemas(Integer pagina, Integer elementosXpagina);
     void saveTema(Tema tema);
     void updateTema(Long id, Tema tema);
     void assignTemasToUnidad(Long unidadId, List<Long> temaIds);

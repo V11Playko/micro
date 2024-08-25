@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IUsuarioService {
-    Map<String, Object> getAllUsers(int pagina, int elementosXpagina);
+    Map<String, Object> getAllUsers(Integer pagina, Integer elementosXpagina);
     Usuario getUserByCorreo(String correo);
     void saveUser(Usuario usuario, String roleName);
     void updateUser(Long id, Usuario usuario);

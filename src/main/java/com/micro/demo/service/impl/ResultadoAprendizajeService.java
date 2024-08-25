@@ -14,6 +14,7 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.ResultadoAprendizajeNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -45,13 +46,21 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
      * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public Map<String, Object> getAllResultado(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllResultado(Integer pagina, Integer elementosXpagina) {
+        Page<ResultadoAprendizaje> paginaResultados;
 
-        Page<ResultadoAprendizaje> paginaResultados =
-                resultadoAprendizajeRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaResultados = new PageImpl<>(resultadoAprendizajeRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaResultados = resultadoAprendizajeRepository.findAll(
+                    PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending())
+            );
+        }
 
         if (paginaResultados.isEmpty()) {
             throw new NoDataFoundException();

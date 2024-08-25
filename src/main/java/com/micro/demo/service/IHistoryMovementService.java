@@ -5,7 +5,7 @@ import com.micro.demo.entities.HistoryMovement;
 import java.util.Map;
 
 public interface IHistoryMovementService {
-    Map<String, Object> getAllMovements(int pagina, int elementosXpagina);
+    Map<String, Object> getAllMovements(Integer pagina, Integer elementosXpagina);
     void agregarAsignatura(HistoryMovement historyMovement);
     void removerAsignatura(HistoryMovement historyMovement);
     void actualizarAsignatura(HistoryMovement historyMovement);

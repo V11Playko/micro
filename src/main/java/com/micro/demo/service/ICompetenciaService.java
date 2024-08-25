@@ -6,7 +6,7 @@ import com.micro.demo.entities.Competencia;
 import java.util.Map;
 
 public interface ICompetenciaService {
-    Map<String, Object> getAllCompetencias(int pagina, int elementosXpagina);
+    Map<String, Object> getAllCompetencias(Integer pagina, Integer elementosXpagina);
     void saveCompetencia(CompetenciaDto competenciaDto);
     void updateCompetencia(Long id, Competencia competencia);
     void deleteCompetencia(Long id);

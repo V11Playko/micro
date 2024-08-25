@@ -8,6 +8,7 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.PreRequisitoNotFound;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -34,13 +35,21 @@ public class PreRequisitoService implements IPreRequisitoService {
      * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public Map<String, Object> getAllPreRequisito(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllPreRequisito(Integer pagina, Integer elementosXpagina) {
+        Page<PreRequisito> paginaRequisitos;
 
-        Page<PreRequisito> paginaRequisitos =
-                preRequisitoRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaRequisitos = new PageImpl<>(preRequisitoRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaRequisitos = preRequisitoRepository.findAll(
+                    PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending())
+            );
+        }
 
         if (paginaRequisitos.isEmpty()) {
             throw new NoDataFoundException();

@@ -16,6 +16,7 @@ import com.micro.demo.service.exceptions.ProgramaNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -50,13 +51,21 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
      * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public Map<String, Object> getAll(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAll(Integer pagina, Integer elementosXpagina) {
+        Page<ProgramaAcademico> paginaProgramas;
 
-        Page<ProgramaAcademico> paginaProgramas =
-                programaAcademicoRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaProgramas = new PageImpl<>(programaAcademicoRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaProgramas = programaAcademicoRepository.findAll(
+                    PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending())
+            );
+        }
 
         if (paginaProgramas.isEmpty()) {
             throw new NoDataFoundException();
@@ -69,6 +78,7 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
 
         return response;
     }
+
 
 
     /**

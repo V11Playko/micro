@@ -8,11 +8,13 @@ import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -34,13 +36,20 @@ public class AreaFormacionService implements IAreaFormacionService {
      * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public Map<String, Object> getAllAreaFormacion(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllAreaFormacion(Integer pagina, Integer elementosXpagina) {
+        Page<AreaFormacion> paginaAreas;
 
-        Page<AreaFormacion> paginaAreas =
-                areaFormacionRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            List<AreaFormacion> areas = areaFormacionRepository.findAll(Sort.by("id").ascending());
+            paginaAreas = new PageImpl<>(areas);
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaAreas = areaFormacionRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        }
 
         if (paginaAreas.isEmpty()) {
             throw new NoDataFoundException();

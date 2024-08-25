@@ -13,6 +13,7 @@ import com.micro.demo.service.exceptions.UnauthorizedException;
 import com.micro.demo.service.exceptions.UserAlreadyExistsException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -47,21 +48,28 @@ public class UsuarioService implements IUsuarioService {
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
      * @throws NoDataFoundException - Si no se encuentra datos.
      */
-    public Map<String, Object> getAllUsers(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
-
-        String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
-        Usuario usuarioAutenticado = getUserByCorreo(correoUsuarioAutenticado);
-
-        Pageable pageable = PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending());
+    @Override
+    public Map<String, Object> getAllUsers(Integer pagina, Integer elementosXpagina) {
         Page<Usuario> page;
 
-        if (usuarioAutenticado != null && usuarioAutenticado.getRole().getNombre().equals("ROLE_DIRECTOR")) {
-            page = usuarioRepository.findByRoleNombre("ROLE_DOCENTE", pageable);
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            page = new PageImpl<>(usuarioRepository.findAll(Sort.by("id").ascending()));
         } else {
-            page = usuarioRepository.findAll(pageable);
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            Pageable pageable = PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending());
+
+            String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
+            Usuario usuarioAutenticado = getUserByCorreo(correoUsuarioAutenticado);
+
+            if (usuarioAutenticado != null && usuarioAutenticado.getRole().getNombre().equals("ROLE_DIRECTOR")) {
+                page = usuarioRepository.findByRoleNombre("ROLE_DOCENTE", pageable);
+            } else {
+                page = usuarioRepository.findAll(pageable);
+            }
         }
 
         if (page.isEmpty()) {
