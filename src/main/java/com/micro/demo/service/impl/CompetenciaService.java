@@ -3,9 +3,10 @@ package com.micro.demo.service.impl;
 import com.micro.demo.controller.dto.CompetenciaDto;
 import com.micro.demo.entities.Competencia;
 import com.micro.demo.entities.CompetenciaResultado;
+import com.micro.demo.entities.ResultadoAprendizaje;
 import com.micro.demo.mapper.CompetenciaMapper;
 import com.micro.demo.repository.ICompetenciaRepository;
-import com.micro.demo.repository.ICompetenciaResultadoRepository;
+import com.micro.demo.repository.IResultadoAprendizajeRepository;
 import com.micro.demo.service.ICompetenciaService;
 import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
@@ -27,12 +28,12 @@ import java.util.stream.Collectors;
 public class CompetenciaService implements ICompetenciaService {
 
     private final ICompetenciaRepository competenciaRepository;
-    private final ICompetenciaResultadoRepository competenciaResultadoRepository;
+    private final IResultadoAprendizajeRepository resultadoRepository;
     private final CompetenciaMapper competenciaMapper;
 
-    public CompetenciaService(ICompetenciaRepository competenciaRepository, ICompetenciaResultadoRepository competenciaResultadoRepository, CompetenciaMapper competenciaMapper) {
+    public CompetenciaService(ICompetenciaRepository competenciaRepository, IResultadoAprendizajeRepository resultadoRepository, CompetenciaMapper competenciaMapper) {
         this.competenciaRepository = competenciaRepository;
-        this.competenciaResultadoRepository = competenciaResultadoRepository;
+        this.resultadoRepository = resultadoRepository;
         this.competenciaMapper = competenciaMapper;
     }
 
@@ -83,13 +84,19 @@ public class CompetenciaService implements ICompetenciaService {
     public void saveCompetencia(CompetenciaDto competenciaDto) {
         Competencia competencia = competenciaMapper.toEntity(competenciaDto);
 
-        // Manejo manual de resultados
         if (competenciaDto.getResultados() != null) {
-            List<CompetenciaResultado> resultados = competenciaDto.getResultados().stream()
-                    .map(id -> competenciaResultadoRepository.findById(id)
-                            .orElseThrow(NoDataFoundException::new))
+            List<CompetenciaResultado> competenciaResultados = competenciaDto.getResultados().stream()
+                    .map(id -> {
+                        ResultadoAprendizaje resultadoAprendizaje = resultadoRepository.findById(id)
+                                .orElseThrow(NoDataFoundException::new);
+                        CompetenciaResultado competenciaResultado = new CompetenciaResultado();
+                        competenciaResultado.setResultadoAprendizaje(resultadoAprendizaje);
+                        competenciaResultado.setCompetencia(competencia);
+                        return competenciaResultado;
+                    })
                     .collect(Collectors.toList());
-            competencia.setResultados(resultados);
+
+            competencia.setResultados(competenciaResultados);
         }
 
         competenciaRepository.save(competencia);
