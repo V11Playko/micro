@@ -160,6 +160,18 @@ public class DirectorRestController {
         return ResponseEntity.ok(usuarioService.getAllUsers(pagina, elementosXpagina));
     }
 
+    @Operation(summary = "Obtener usuario por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<Usuario> getUser(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        Usuario usuario = usuarioService.getUser(id);
+        return ResponseEntity.ok(usuario);
+    }
+
     @Operation(summary = "Add a new user docente",
             responses = {
                     @ApiResponse(responseCode = "201", description = "User created",
@@ -228,6 +240,18 @@ public class DirectorRestController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Obtener programa academico por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Programa academico encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Programa academico no encontrado")
+    })
+    @GetMapping("/getPrograma/{id}")
+    public ResponseEntity<ProgramaAcademico> getPrograma(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        ProgramaAcademico programaAcademico = programaAcademicoService.getPrograma(id);
+        return ResponseEntity.ok(programaAcademico);
+    }
+
 
     @Operation(summary = "Update periodo de modificacion",
             responses = {
@@ -280,6 +304,18 @@ public class DirectorRestController {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = pensumService.getAllPensum(pagina, elementosXpagina);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener pensum por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pensum encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Pensum no encontrado")
+    })
+    @GetMapping("/getPensum/{id}")
+    public ResponseEntity<Pensum> getPensum(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        Pensum pensum = pensumService.getPensum(id);
+        return ResponseEntity.ok(pensum);
     }
 
     @Operation(summary = "Get all pensums no modificados durante un año")
@@ -402,6 +438,18 @@ public class DirectorRestController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Obtener asignatura por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Asignatura encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Asignatura no encontrado")
+    })
+    @GetMapping("/getAsignatura/{id}")
+    public ResponseEntity<Asignatura> getAsignatura(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        Asignatura asignatura = asignaturaService.getAsignatura(id);
+        return ResponseEntity.ok(asignatura);
+    }
+
     @Operation(summary = "Add a new Asignatura",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Asignatura created",
@@ -493,6 +541,18 @@ public class DirectorRestController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Obtener area de formacion por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Area de formacion encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Area de formacion no encontrado")
+    })
+    @GetMapping("/getAreaFormacion/{id}")
+    public ResponseEntity<AreaFormacion> getAreaFormacion(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        AreaFormacion areaFormacion = areaFormacionService.getAreaFormacion(id);
+        return ResponseEntity.ok(areaFormacion);
+    }
+
     @Operation(summary = "Add a new Area de formacion",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Area de formacion created",
@@ -539,6 +599,18 @@ public class DirectorRestController {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = preRequisitoService.getAllPreRequisito(pagina, elementosXpagina);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener prerequisito por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prerequisito encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Prerequisito no encontrado")
+    })
+    @GetMapping("/getPrerequisito/{id}")
+    public ResponseEntity<PreRequisito> getPrerequisito(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        PreRequisito preRequisito = preRequisitoService.getPreRequisito(id);
+        return ResponseEntity.ok(preRequisito);
     }
 
     @Operation(summary = "Add a new PreRequisito",
@@ -607,7 +679,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveUnidad")
     public ResponseEntity<Map<String, String>> saveUnidad(@Valid @RequestBody List<UnidadDto> unidadesDto) {
-        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         for (UnidadDto unidadDto : unidadesDto) {
             unidadService.saveUnidad(unidadDto);
         }
@@ -662,6 +734,18 @@ public class DirectorRestController {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = temaService.getAllTemas(pagina, elementosXpagina);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener tema por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Tema encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Tema no encontrado")
+    })
+    @GetMapping("/getTema/{id}")
+    public ResponseEntity<Tema> getTema(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        Tema tema = temaService.getTema(id);
+        return ResponseEntity.ok(tema);
     }
 
     @Operation(summary = "Add a new Tema",
@@ -741,6 +825,18 @@ public class DirectorRestController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Obtener unidad resultado por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Unidad resultado encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Unidad resultado no encontrado")
+    })
+    @GetMapping("/getUnidadResultado/{id}")
+    public ResponseEntity<UnidadResultadoResponseDTO> getUnidadResultado(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        UnidadResultadoResponseDTO unidadResultado = unidadResultadoService.getUnidadResultado(id);
+        return ResponseEntity.ok(unidadResultado);
+    }
+
     @Operation(summary = "Add a new resultado de unidad",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Resultado de unidad created",
@@ -802,6 +898,18 @@ public class DirectorRestController {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = resultadoAprendizajeService.getAllResultado(pagina, elementosXpagina);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener resultado de aprendizaje por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Resultado de aprendizaje encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Resultado de aprendizaje no encontrado")
+    })
+    @GetMapping("/getResultado/{id}")
+    public ResponseEntity<ResultadoAprendizaje> getResultado(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        ResultadoAprendizaje resultadoAprendizaje = resultadoAprendizajeService.getResultado(id);
+        return ResponseEntity.ok(resultadoAprendizaje);
     }
 
 
@@ -866,6 +974,18 @@ public class DirectorRestController {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = competenciaService.getAllCompetencias(pagina, elementosXpagina);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener competencia por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Competencia encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Competencia no encontrado")
+    })
+    @GetMapping("/getCompetencia/{id}")
+    public ResponseEntity<Competencia> getCompetencia(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        Competencia competencia = competenciaService.getCompetencia(id);
+        return ResponseEntity.ok(competencia);
     }
 
     @Operation(summary = "Add a new Competencia",
@@ -974,6 +1094,18 @@ public class DirectorRestController {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         Map<String, Object> response = historyMovementService.getAllMovements(pagina, elementosXpagina);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener historial de movimiento por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Historial de movimiento encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Historial de movimiento no encontrado")
+    })
+    @GetMapping("/getHistoryMovement/{id}")
+    public ResponseEntity<HistoryMovement> getHistoryMovement(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        HistoryMovement historyMovement = historyMovementService.getHistoryMovement(id);
+        return ResponseEntity.ok(historyMovement);
     }
 
     @Operation(summary = "Aprobar o Rechazar cambios propuestos por los docentes",

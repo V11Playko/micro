@@ -104,6 +104,10 @@ public class HistoryMovementService implements IHistoryMovementService {
         return response;
     }
 
+    @Override
+    public HistoryMovement getHistoryMovement(Long id) {
+        return historyMovementRepository.findById(id).orElseThrow(NoDataFoundException::new);
+    }
 
 
     /**

@@ -196,6 +196,18 @@ public class DocenteRestController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Obtener historial de movimiento por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Historial de movimiento encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Historial de movimiento no encontrado")
+    })
+    @GetMapping("/getHistoryMovement/{id}")
+    public ResponseEntity<HistoryMovement> getHistoryMovement(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
+        HistoryMovement historyMovement = historyMovementService.getHistoryMovement(id);
+        return ResponseEntity.ok(historyMovement);
+    }
+
 
     @Operation(summary = "Agregar asignatura, va al historial de movimiento",
             responses = {

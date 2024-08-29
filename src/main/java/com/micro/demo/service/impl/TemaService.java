@@ -69,6 +69,11 @@ public class TemaService implements ITemaService {
         return response;
     }
 
+    @Override
+    public Tema getTema(Long id) {
+        return temaRepository.findById(id).orElseThrow(NoDataFoundException::new);
+    }
+
     /**
      * Guardar un tema
      *

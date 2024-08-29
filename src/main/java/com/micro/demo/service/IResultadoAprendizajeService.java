@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface IResultadoAprendizajeService {
     Map<String, Object> getAllResultado(Integer pagina, Integer elementosXpagina);
+    ResultadoAprendizaje getResultado(Long id);
     void saveResultado(ResultadoAprendizaje resultadoAprendizaje);
     void updateResultado(Long id,ResultadoAprendizaje resultadoAprendizaje);
     void assignCompetencia(Long resultadoAprendizajeId, List<Long> competenciaIds);

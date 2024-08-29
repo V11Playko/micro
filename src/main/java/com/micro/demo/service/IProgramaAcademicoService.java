@@ -9,6 +9,7 @@ import java.util.Map;
 public interface IProgramaAcademicoService {
     Map<String, Object> getAll(Integer pagina, Integer elementosXpagina);
     ProgramaAcademico getProgramaByNombre(String nombre);
+    ProgramaAcademico getPrograma(Long id);
     void saveProgramaAcademico(ProgramaAcademico programaAcademico);
     void assignDirector(String correoDirector, String nombrePrograma);
     void updatePeriodoModificacion(String nombrePrograma, LocalDate fechaInicioModificacion, Integer duracionModificacion);

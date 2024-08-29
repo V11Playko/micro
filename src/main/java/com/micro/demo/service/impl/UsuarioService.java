@@ -11,6 +11,7 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import com.micro.demo.service.exceptions.UserAlreadyExistsException;
+import com.micro.demo.service.exceptions.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -94,6 +95,11 @@ public class UsuarioService implements IUsuarioService {
         Usuario usuario = usuarioRepository.findByCorreo(correo);
         if (usuario == null) throw new NoDataFoundException();
         return usuario;
+    }
+
+    @Override
+    public Usuario getUser(Long id) {
+        return usuarioRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
     /**

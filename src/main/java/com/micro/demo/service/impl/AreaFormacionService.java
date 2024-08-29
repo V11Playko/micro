@@ -62,6 +62,11 @@ public class AreaFormacionService implements IAreaFormacionService {
         return response;
     }
 
+    @Override
+    public AreaFormacion getAreaFormacion(Long id) {
+        return areaFormacionRepository.findById(id).orElseThrow(AreaFormacionNotFound::new);
+    }
+
 
     /**
      * Guardar un area de formacion

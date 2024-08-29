@@ -95,6 +95,11 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
         return programa;
     }
 
+    @Override
+    public ProgramaAcademico getPrograma(Long id) {
+        return programaAcademicoRepository.findById(id).orElseThrow(ProgramaNotFoundException::new);
+    }
+
     /**
      * Guardar un programa academico
      *

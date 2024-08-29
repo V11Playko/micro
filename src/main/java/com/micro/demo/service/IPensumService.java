@@ -9,6 +9,7 @@ import java.util.Map;
 public interface IPensumService {
     Map<String, Object> getAllPensum(Integer pagina, Integer elementosXpagina);
     Map<String, Object> getPensumsNoModificadosDuranteUnAño(Integer pagina, Integer elementosXpagina);
+    Pensum getPensum(Long id);
     void savePensum(PensumDto pensumDto);
     void updatePensum(Long id, Pensum pensum);
     void assignAsignaturas(Long pensumId, List<Long> asignaturasId);

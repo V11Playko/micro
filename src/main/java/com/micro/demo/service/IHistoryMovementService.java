@@ -6,6 +6,7 @@ import java.util.Map;
 
 public interface IHistoryMovementService {
     Map<String, Object> getAllMovements(Integer pagina, Integer elementosXpagina);
+    HistoryMovement getHistoryMovement(Long id);
     void agregarAsignatura(HistoryMovement historyMovement);
     void removerAsignatura(HistoryMovement historyMovement);
     void actualizarAsignatura(HistoryMovement historyMovement);

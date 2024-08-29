@@ -21,6 +21,7 @@ import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.exceptions.AllDocentesAssignsException;
 import com.micro.demo.service.exceptions.AreaFormacionNotFound;
+import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundByIdException;
 import com.micro.demo.service.exceptions.DocenteNotAssignException;
 import com.micro.demo.service.exceptions.DocenteNotFound;
@@ -99,6 +100,11 @@ public class AsignaturaService implements IAsignaturaService {
         response.put("data", paginaAsignaturas.getContent());
 
         return response;
+    }
+
+    @Override
+    public Asignatura getAsignatura(Long id) {
+        return asignaturaRepository.findById(id).orElseThrow(AsignaturaNotFound::new);
     }
 
 

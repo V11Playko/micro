@@ -74,6 +74,11 @@ public class CompetenciaService implements ICompetenciaService {
         return response;
     }
 
+    @Override
+    public Competencia getCompetencia(Long id) {
+        return competenciaRepository.findById(id).orElseThrow(CompetenciaNotFoundException::new);
+    }
+
 
     /**
      * Guardar una competencia

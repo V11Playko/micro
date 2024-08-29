@@ -149,6 +149,11 @@ public class PensumService implements IPensumService {
         return response;
     }
 
+    @Override
+    public Pensum getPensum(Long id) {
+        return pensumRepository.findById(id).orElseThrow(PensumNotFoundException::new);
+    }
+
 
     /**
      * Guardar un pensum

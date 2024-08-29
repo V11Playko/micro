@@ -63,6 +63,11 @@ public class PreRequisitoService implements IPreRequisitoService {
         return response;
     }
 
+    @Override
+    public PreRequisito getPreRequisito(Long id) {
+        return preRequisitoRepository.findById(id).orElseThrow(PreRequisitoNotFound::new);
+    }
+
     /**
      * Guardar un pre-requisito.
      *

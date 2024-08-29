@@ -74,6 +74,11 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
         return response;
     }
 
+    @Override
+    public ResultadoAprendizaje getResultado(Long id) {
+        return resultadoAprendizajeRepository.findById(id).orElseThrow(ResultadoAprendizajeNotFoundException::new);
+    }
+
 
     /**
      * Guardar un resultado de aprendizaje

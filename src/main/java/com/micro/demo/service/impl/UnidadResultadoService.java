@@ -98,6 +98,31 @@ public class UnidadResultadoService implements IUnidadResultadoService {
         return response;
     }
 
+    @Override
+    public UnidadResultadoResponseDTO getUnidadResultado(Long id) {
+        UnidadResultado unidadResultado = unidadResultadoRepository.findById(id)
+                .orElseThrow(NoDataFoundException::new);
+
+        UnidadResultadoResponseDTO dto = new UnidadResultadoResponseDTO();
+        dto.setTipoEvidencia(unidadResultado.getTipoEvidencia());
+        dto.setInstrumentoEvaluacion(unidadResultado.getInstrumentoEvaluacion());
+        dto.setCriterioDesempeno(unidadResultado.getCriterioDesempeno());
+        dto.setCorteEvaluacion(unidadResultado.getCorteEvaluacion());
+        dto.setEstatus(unidadResultado.isEstatus());
+
+        // Obtener los resultados de aprendizaje relacionados
+        List<UnidadResultadoResultadoAprendizaje> intermedias =
+                unidadResultadoResultadoAprendizajeRepository.findByUnidadResultado(unidadResultado);
+
+        List<ResultadoAprendizaje> resultados = intermedias.stream()
+                .map(UnidadResultadoResultadoAprendizaje::getResultadoAprendizaje)
+                .collect(Collectors.toList());
+        dto.setResultados(resultados);
+
+        return dto;
+    }
+
+
 
 
     /**
