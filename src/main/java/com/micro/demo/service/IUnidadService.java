@@ -3,10 +3,10 @@ package com.micro.demo.service;
 import com.micro.demo.controller.dto.UnidadDto;
 import com.micro.demo.entities.Unidad;
 
-import java.util.List;
+import java.util.Map;
 
 public interface IUnidadService {
-    List<Unidad> getAllUnidad(int pagina, int elementosXpagina);
+    Map<String, Object> getAllUnidad(Integer pagina, Integer elementosXpagina);
     Unidad getUnidad(Long id);
     void saveUnidad(UnidadDto unidadDto);
     void updateUnidad(Long id, Unidad unidad);

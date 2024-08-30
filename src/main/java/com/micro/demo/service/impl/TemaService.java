@@ -11,11 +11,14 @@ import com.micro.demo.service.exceptions.TemaNoAssignException;
 import com.micro.demo.service.exceptions.UnidadNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -31,27 +34,44 @@ public class TemaService implements ITemaService {
     /**
      * Obtiene los temas mediante la paginacion
      *
-     * @param pagina numero de pagina
+     * @param pagina           numero de pagina
      * @param elementosXpagina elementos que habran en cada pagina
      * @return Lista de temas.
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<Tema> getAllTemas(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllTemas(Integer pagina, Integer elementosXpagina) {
+        Page<Tema> paginaTemas;
 
-        Page<Tema> paginaTemas =
-                temaRepository.findAll(PageRequest.of(pagina -1, elementosXpagina,
-                        Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaTemas = new PageImpl<>(temaRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaTemas = temaRepository.findAll(
+                    PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending())
+            );
+        }
 
         if (paginaTemas.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        return paginaTemas.getContent();
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaTemas.getTotalElements());
+        response.put("data", paginaTemas.getContent());
+
+        return response;
+    }
+
+    @Override
+    public Tema getTema(Long id) {
+        return temaRepository.findById(id).orElseThrow(NoDataFoundException::new);
     }
 
     /**

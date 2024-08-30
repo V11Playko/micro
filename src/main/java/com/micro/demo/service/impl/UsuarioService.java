@@ -11,8 +11,10 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import com.micro.demo.service.exceptions.UserAlreadyExistsException;
+import com.micro.demo.service.exceptions.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,7 +23,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -46,28 +50,38 @@ public class UsuarioService implements IUsuarioService {
      * @throws NoDataFoundException - Si no se encuentra datos.
      */
     @Override
-    public List<Usuario> getAllUsers(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
-
-        String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
-        Usuario usuarioAutenticado = getUserByCorreo(correoUsuarioAutenticado);
-
-        Pageable pageable = PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending());
+    public Map<String, Object> getAllUsers(Integer pagina, Integer elementosXpagina) {
         Page<Usuario> page;
 
-        if (usuarioAutenticado != null && usuarioAutenticado.getRole().getNombre().equals("ROLE_DIRECTOR")) {
-            page = usuarioRepository.findByRoleNombre("ROLE_DOCENTE", pageable);
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            page = new PageImpl<>(usuarioRepository.findAll(Sort.by("id").ascending()));
         } else {
-            page = usuarioRepository.findAll(pageable);
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            Pageable pageable = PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending());
+
+            String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
+            Usuario usuarioAutenticado = getUserByCorreo(correoUsuarioAutenticado);
+
+            if (usuarioAutenticado != null && usuarioAutenticado.getRole().getNombre().equals("ROLE_DIRECTOR")) {
+                page = usuarioRepository.findByRoleNombre("ROLE_DOCENTE", pageable);
+            } else {
+                page = usuarioRepository.findAll(pageable);
+            }
         }
 
         if (page.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        return page.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", page.getTotalElements());
+        response.put("usuarios", page.getContent());
+
+        return response;
     }
 
     /**
@@ -81,6 +95,11 @@ public class UsuarioService implements IUsuarioService {
         Usuario usuario = usuarioRepository.findByCorreo(correo);
         if (usuario == null) throw new NoDataFoundException();
         return usuario;
+    }
+
+    @Override
+    public Usuario getUser(Long id) {
+        return usuarioRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
     /**

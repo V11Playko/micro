@@ -3,12 +3,13 @@ package com.micro.demo.service;
 import com.micro.demo.entities.ProgramaAcademico;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Map;
 
 
 public interface IProgramaAcademicoService {
-    List<ProgramaAcademico> getAll(int pagina, int elementosXpagina);
+    Map<String, Object> getAll(Integer pagina, Integer elementosXpagina);
     ProgramaAcademico getProgramaByNombre(String nombre);
+    ProgramaAcademico getPrograma(Long id);
     void saveProgramaAcademico(ProgramaAcademico programaAcademico);
     void assignDirector(String correoDirector, String nombrePrograma);
     void updatePeriodoModificacion(String nombrePrograma, LocalDate fechaInicioModificacion, Integer duracionModificacion);

@@ -1,5 +1,6 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.PensumDto;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.AsignaturaPensum;
 import com.micro.demo.entities.Pensum;
@@ -18,9 +19,11 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.PensumNotActiveException;
 import com.micro.demo.service.exceptions.PensumNotFoundByIdException;
 import com.micro.demo.service.exceptions.PensumNotFoundException;
+import com.micro.demo.service.exceptions.ProgramaNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -32,7 +35,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -54,45 +60,66 @@ public class PensumService implements IPensumService {
     /**
      * Obtiene los pensums mediante la paginacion
      *
-     * @param pagina numero de pagina.
+     * @param pagina           numero de pagina.
      * @param elementosXpagina elementos que habran en cada pagina.
      * @return Lista de pensums.
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1.
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<Pensum> getAllPensum(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllPensum(Integer pagina, Integer elementosXpagina) {
+        Page<Pensum> paginaPensums;
 
-        Page<Pensum> paginaPensums =
-                pensumRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaPensums = new PageImpl<>(pensumRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaPensums = pensumRepository.findAll(
+                    PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending())
+            );
+        }
 
         if (paginaPensums.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        return paginaPensums.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaPensums.getTotalElements());
+        response.put("data", paginaPensums.getContent());
+
+        return response;
     }
+
 
     /**
      * Obtiene los pensums que no han sido modificados durante un año mediante la paginacion
      *
-     * @param pagina numero de pagina.
+     * @param pagina           numero de pagina.
      * @param elementosXpagina elementos que habran en cada pagina.
      * @return Lista de competencias.
+     * @return Lista de pensums no modificados durante un año
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1.
      * @throws NoDataFoundException - Si no se encuentra datos.
      * @return Lista de pensums no modificados durante un año
      */
     @Override
-    public List<Pensum> getPensumsNoModificadosDuranteUnAño(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getPensumsNoModificadosDuranteUnAño(Integer pagina, Integer elementosXpagina) {
+        Page<Pensum> paginaPensums;
 
-        Page<Pensum> paginaPensums = pensumRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaPensums = new PageImpl<>(pensumRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaPensums = pensumRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina));
+        }
 
         if (paginaPensums.isEmpty()) {
             throw new NoDataFoundException();
@@ -108,32 +135,57 @@ public class PensumService implements IPensumService {
                 .map(historyMovement -> historyMovement.getPensum().getId())
                 .toList();
 
-        // Filtrar los pensums que no han sido modificados por el cuerpo docente durante más de dos semestres
+        // Filtrar los pensums que no han sido modificados por el cuerpo docente durante más de un año
         List<Pensum> pensumsNoModificados = paginaPensums.getContent()
                 .stream()
                 .filter(pensum -> !pensumsModificados.contains(pensum.getId()))
                 .toList();
 
-        return pensumsNoModificados;
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página o lista completa
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", pensumsNoModificados.size());
+        response.put("data", pensumsNoModificados);
+
+        return response;
     }
+
+    @Override
+    public Pensum getPensum(Long id) {
+        return pensumRepository.findById(id).orElseThrow(PensumNotFoundException::new);
+    }
+
 
     /**
      * Guardar un pensum
      *
-     * @param pensum - Informacion del pensum.
+     * @param pensumDto - Informacion del pensum.
      * @throws UnauthorizedException - Se lanza si el correo no es el del director asociado al programa academico.
      * */
     @Override
-    public void savePensum(Pensum pensum) {
+    public void savePensum(PensumDto pensumDto) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
-        ProgramaAcademico programaAcademico = programaAcademicoRepository.findByDirectorCorreo(correoUsuarioAutenticado);
+        ProgramaAcademico programaAcademico = programaAcademicoRepository.findById(pensumDto.getProgramaAcademicoId())
+                .orElseThrow(ProgramaNotFoundException::new);
 
         if (!programaAcademico.getDirector().getCorreo().equals(correoUsuarioAutenticado)){
             throw new UnauthorizedException();
         }
 
-        pensum.setFechaInicio(LocalDate.now());
+        Pensum pensum = new Pensum();
+        pensum.setId(pensumDto.getId());
+        pensum.setCreditosTotales(pensumDto.getCreditosTotales());
+        pensum.setFechaInicio(pensumDto.getFechaInicio());
+        pensum.setFechaFinal(pensumDto.getFechaFinal());
+        pensum.setEstatus(pensumDto.isEstatus());
         pensum.setProgramaAcademico(programaAcademico);
+
+        List<AsignaturaPensum> asignaturas = pensumDto.getAsignaturaPensum().stream()
+                .map(asignaturaId -> asignaturaPensumRepository.findById(asignaturaId)
+                        .orElseThrow(AsignaturaNotFound::new))
+                .collect(Collectors.toList());
+
+        pensum.setAsignaturaPensum(asignaturas);
+
         pensumRepository.save(pensum);
     }
 

@@ -14,12 +14,15 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.ResultadoAprendizajeNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,16 +44,24 @@ public class UnidadResultadoService implements IUnidadResultadoService {
      *
      * @return Lista de unidades de resultados.
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<UnidadResultadoResponseDTO> getAllUnidadResultados(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllUnidadResultados(Integer pagina, Integer elementosXpagina) {
+        Page<UnidadResultado> paginaUnidadResultados;
 
-        Page<UnidadResultado> paginaUnidadResultados =
-                unidadResultadoRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaUnidadResultados = new PageImpl<>(unidadResultadoRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaUnidadResultados = unidadResultadoRepository.findAll(
+                    PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending())
+            );
+        }
 
         if (paginaUnidadResultados.isEmpty()) {
             throw new NoDataFoundException();
@@ -79,8 +90,38 @@ public class UnidadResultadoService implements IUnidadResultadoService {
             responseDTOs.add(dto);
         }
 
-        return responseDTOs;
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaUnidadResultados.getTotalElements());
+        response.put("data", responseDTOs);
+
+        return response;
     }
+
+    @Override
+    public UnidadResultadoResponseDTO getUnidadResultado(Long id) {
+        UnidadResultado unidadResultado = unidadResultadoRepository.findById(id)
+                .orElseThrow(NoDataFoundException::new);
+
+        UnidadResultadoResponseDTO dto = new UnidadResultadoResponseDTO();
+        dto.setTipoEvidencia(unidadResultado.getTipoEvidencia());
+        dto.setInstrumentoEvaluacion(unidadResultado.getInstrumentoEvaluacion());
+        dto.setCriterioDesempeno(unidadResultado.getCriterioDesempeno());
+        dto.setCorteEvaluacion(unidadResultado.getCorteEvaluacion());
+        dto.setEstatus(unidadResultado.isEstatus());
+
+        // Obtener los resultados de aprendizaje relacionados
+        List<UnidadResultadoResultadoAprendizaje> intermedias =
+                unidadResultadoResultadoAprendizajeRepository.findByUnidadResultado(unidadResultado);
+
+        List<ResultadoAprendizaje> resultados = intermedias.stream()
+                .map(UnidadResultadoResultadoAprendizaje::getResultadoAprendizaje)
+                .collect(Collectors.toList());
+        dto.setResultados(resultados);
+
+        return dto;
+    }
+
 
 
 

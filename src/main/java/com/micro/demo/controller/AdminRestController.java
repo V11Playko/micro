@@ -101,9 +101,9 @@ public class AdminRestController {
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
     @GetMapping("/allUsers")
-    public ResponseEntity<List<Usuario>> getAllUsers(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina){
+    public ResponseEntity<Map<String, Object>> getAllUsers(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
         return ResponseEntity.ok(usuarioService.getAllUsers(pagina, elementosXpagina));
     }
@@ -113,10 +113,22 @@ public class AdminRestController {
             @ApiResponse(responseCode = "200", description = "Usuario encontrado", content = @Content(mediaType = "application/json")),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
-    @GetMapping("/getUser")
+    @GetMapping("/getUserByEmail")
     public ResponseEntity<Usuario> getUserByEmail(@RequestParam("correo") String correo) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
         return new ResponseEntity<>(usuarioService.getUserByCorreo(correo), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Obtener usuario por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<Usuario> getUser(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_ADMIN"));
+        Usuario usuario = usuarioService.getUser(id);
+        return ResponseEntity.ok(usuario);
     }
 
 
@@ -178,13 +190,27 @@ public class AdminRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
-    ){
+    public ResponseEntity<Map<String, Object>> getAllProgramas(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
+        Map<String, Object> response = programaAcademicoService.getAll(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "Obtener programa academico por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Programa academico encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Programa academico no encontrado")
+    })
+    @GetMapping("/getPrograma/{id}")
+    public ResponseEntity<ProgramaAcademico> getPrograma(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_ADMIN"));
+        ProgramaAcademico programaAcademico = programaAcademicoService.getPrograma(id);
+        return ResponseEntity.ok(programaAcademico);
+    }
+
 
     @Operation(summary = "Get programa academico por nombre")
     @ApiResponses(value = {
@@ -283,11 +309,25 @@ public class AdminRestController {
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensumsNoModificadosDuranteUnAño")
-    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteUnAño(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
-    ){
+    public ResponseEntity<Map<String, Object>> getPensumsNoModificadosDuranteUnAño(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
-        return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina));
+        Map<String, Object> response = pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "Obtener pensum por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pensum encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Pensum no encontrado")
+    })
+    @GetMapping("/getPensum/{id}")
+    public ResponseEntity<Pensum> getPensum(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_ADMIN"));
+        Pensum pensum = pensumService.getPensum(id);
+        return ResponseEntity.ok(pensum);
+    }
+
 }

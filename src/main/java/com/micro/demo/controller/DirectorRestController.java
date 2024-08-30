@@ -1,6 +1,7 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.controller.dto.PensumDto;
 import com.micro.demo.controller.dto.UnidadDto;
 import com.micro.demo.controller.dto.request.AprobarRechazarCambiosRequestDto;
 import com.micro.demo.controller.dto.AsignaturaDto;
@@ -151,11 +152,24 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
     @GetMapping("/allUsers")
-    public ResponseEntity<List<Usuario>> getAllUsers(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+    public ResponseEntity<Map<String, Object>> getAllUsers(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(usuarioService.getAllUsers(pagina, elementosXpagina));
+    }
+
+    @Operation(summary = "Obtener usuario por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<Usuario> getUser(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        Usuario usuario = usuarioService.getUser(id);
+        return ResponseEntity.ok(usuario);
     }
 
     @Operation(summary = "Add a new user docente",
@@ -217,13 +231,27 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
-    ){
+    public ResponseEntity<Map<String, Object>> getAllProgramas(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
+        Map<String, Object> response = programaAcademicoService.getAll(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "Obtener programa academico por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Programa academico encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Programa academico no encontrado")
+    })
+    @GetMapping("/getPrograma/{id}")
+    public ResponseEntity<ProgramaAcademico> getPrograma(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        ProgramaAcademico programaAcademico = programaAcademicoService.getPrograma(id);
+        return ResponseEntity.ok(programaAcademico);
+    }
+
 
     @Operation(summary = "Update periodo de modificacion",
             responses = {
@@ -269,12 +297,25 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensums")
-    public ResponseEntity<List<Pensum>> getAllPensums(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+    public ResponseEntity<Map<String, Object>> getAllPensums(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(pensumService.getAllPensum(pagina, elementosXpagina));
+        Map<String, Object> response = pensumService.getAllPensum(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener pensum por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pensum encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Pensum no encontrado")
+    })
+    @GetMapping("/getPensum/{id}")
+    public ResponseEntity<Pensum> getPensum(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        Pensum pensum = pensumService.getPensum(id);
+        return ResponseEntity.ok(pensum);
     }
 
     @Operation(summary = "Get all pensums no modificados durante un año")
@@ -283,12 +324,13 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Pensum already exists", content = @Content)
     })
     @GetMapping("/allPensumsNoModificadosDuranteUnAño")
-    public ResponseEntity<List<Pensum>> getPensumsNoModificadosDuranteDosSemestres(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
-    ){
+    public ResponseEntity<Map<String, Object>> getPensumsNoModificadosDuranteUnAño(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina));
+        Map<String, Object> response = pensumService.getPensumsNoModificadosDuranteUnAño(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Add a new pensum",
@@ -298,9 +340,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Pensum already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/savePensum")
-    public ResponseEntity<Map<String, String>> savePensum(@Valid @RequestBody Pensum pensum) {
+    public ResponseEntity<Map<String, String>> savePensum(@Valid @RequestBody PensumDto pensumDto) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        pensumService.savePensum(pensum);
+        pensumService.savePensum(pensumDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
@@ -387,12 +429,25 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Asignatura already exists", content = @Content)
     })
     @GetMapping("/allAsignaturas")
-    public ResponseEntity<List<Asignatura>> getAllAsignaturas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+    public ResponseEntity<Map<String, Object>> getAllAsignaturas(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(asignaturaService.getAllAsignatura(pagina, elementosXpagina));
+        Map<String, Object> response = asignaturaService.getAllAsignatura(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener asignatura por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Asignatura encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Asignatura no encontrado")
+    })
+    @GetMapping("/getAsignatura/{id}")
+    public ResponseEntity<Asignatura> getAsignatura(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        Asignatura asignatura = asignaturaService.getAsignatura(id);
+        return ResponseEntity.ok(asignatura);
     }
 
     @Operation(summary = "Add a new Asignatura",
@@ -477,12 +532,25 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Areas de formacion already exists", content = @Content)
     })
     @GetMapping("/allAreasFormacion")
-    public ResponseEntity<List<AreaFormacion>> getAllAreas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+    public ResponseEntity<Map<String, Object>> getAllAreas(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(areaFormacionService.getAllAreaFormacion(pagina, elementosXpagina));
+        Map<String, Object> response = areaFormacionService.getAllAreaFormacion(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener area de formacion por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Area de formacion encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Area de formacion no encontrado")
+    })
+    @GetMapping("/getAreaFormacion/{id}")
+    public ResponseEntity<AreaFormacion> getAreaFormacion(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        AreaFormacion areaFormacion = areaFormacionService.getAreaFormacion(id);
+        return ResponseEntity.ok(areaFormacion);
     }
 
     @Operation(summary = "Add a new Area de formacion",
@@ -524,12 +592,25 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "PreRequisitos already exists", content = @Content)
     })
     @GetMapping("/allPreRequisitos")
-    public ResponseEntity<List<PreRequisito>> getAllPreRequisitos(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
-    ){
+    public ResponseEntity<Map<String, Object>> getAllPreRequisitos(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(preRequisitoService.getAllPreRequisito(pagina, elementosXpagina));
+        Map<String, Object> response = preRequisitoService.getAllPreRequisito(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener prerequisito por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Prerequisito encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Prerequisito no encontrado")
+    })
+    @GetMapping("/getPrerequisito/{id}")
+    public ResponseEntity<PreRequisito> getPrerequisito(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        PreRequisito preRequisito = preRequisitoService.getPreRequisito(id);
+        return ResponseEntity.ok(preRequisito);
     }
 
     @Operation(summary = "Add a new PreRequisito",
@@ -571,10 +652,10 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Unidad already exists", content = @Content)
     })
     @GetMapping("/allUnidades")
-    public ResponseEntity<List<Unidad>> getAllUnidades(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
-    ){
+    public ResponseEntity<Map<String, Object>> getAllUnidades(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         return ResponseEntity.ok(unidadService.getAllUnidad(pagina, elementosXpagina));
     }
@@ -598,7 +679,7 @@ public class DirectorRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveUnidad")
     public ResponseEntity<Map<String, String>> saveUnidad(@Valid @RequestBody List<UnidadDto> unidadesDto) {
-        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         for (UnidadDto unidadDto : unidadesDto) {
             unidadService.saveUnidad(unidadDto);
         }
@@ -646,12 +727,25 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Tema already exists", content = @Content)
     })
     @GetMapping("/allTemas")
-    public ResponseEntity<List<Tema>> getAllTemas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
-    ){
+    public ResponseEntity<Map<String, Object>> getAllTemas(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(temaService.getAllTemas(pagina, elementosXpagina));
+        Map<String, Object> response = temaService.getAllTemas(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener tema por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Tema encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Tema no encontrado")
+    })
+    @GetMapping("/getTema/{id}")
+    public ResponseEntity<Tema> getTema(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        Tema tema = temaService.getTema(id);
+        return ResponseEntity.ok(tema);
     }
 
     @Operation(summary = "Add a new Tema",
@@ -722,13 +816,25 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Resultados de unidades already exists", content = @Content)
     })
     @GetMapping("/allUnidadResultados")
-    public ResponseEntity<List<UnidadResultadoResponseDTO>> getAllUnidadResultados(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
-    )
-    {
+    public ResponseEntity<Map<String, Object>> getAllUnidadResultados(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(unidadResultadoService.getAllUnidadResultados(pagina, elementosXpagina));
+        Map<String, Object> response = unidadResultadoService.getAllUnidadResultados(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener unidad resultado por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Unidad resultado encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Unidad resultado no encontrado")
+    })
+    @GetMapping("/getUnidadResultado/{id}")
+    public ResponseEntity<UnidadResultadoResponseDTO> getUnidadResultado(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        UnidadResultadoResponseDTO unidadResultado = unidadResultadoService.getUnidadResultado(id);
+        return ResponseEntity.ok(unidadResultado);
     }
 
     @Operation(summary = "Add a new resultado de unidad",
@@ -785,13 +891,27 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Resultados de aprendizaje already exists", content = @Content)
     })
     @GetMapping("/allResultadosAprendizaje")
-    public ResponseEntity<List<ResultadoAprendizaje>> getAllResultadosAprendizaje(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
-    ){
+    public ResponseEntity<Map<String, Object>> getAllResultadosAprendizaje(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(resultadoAprendizajeService.getAllResultado(pagina, elementosXpagina));
+        Map<String, Object> response = resultadoAprendizajeService.getAllResultado(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "Obtener resultado de aprendizaje por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Resultado de aprendizaje encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Resultado de aprendizaje no encontrado")
+    })
+    @GetMapping("/getResultado/{id}")
+    public ResponseEntity<ResultadoAprendizaje> getResultado(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        ResultadoAprendizaje resultadoAprendizaje = resultadoAprendizajeService.getResultado(id);
+        return ResponseEntity.ok(resultadoAprendizaje);
+    }
+
 
     @Operation(summary = "Add a new resultados de aprendizaje",
             responses = {
@@ -847,12 +967,25 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Competencia already exists", content = @Content)
     })
     @GetMapping("/allCompetencias")
-    public ResponseEntity<List<Competencia>> getAllCompetencias(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+    public ResponseEntity<Map<String, Object>> getAllCompetencias(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(competenciaService.getAllCompetencias(pagina, elementosXpagina));
+        Map<String, Object> response = competenciaService.getAllCompetencias(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener competencia por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Competencia encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Competencia no encontrado")
+    })
+    @GetMapping("/getCompetencia/{id}")
+    public ResponseEntity<Competencia> getCompetencia(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        Competencia competencia = competenciaService.getCompetencia(id);
+        return ResponseEntity.ok(competencia);
     }
 
     @Operation(summary = "Add a new Competencia",
@@ -954,12 +1087,25 @@ public class DirectorRestController {
             @ApiResponse(responseCode = "409", description = "Movement already exists", content = @Content)
     })
     @GetMapping("/allHistoryMovement")
-    public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+    public ResponseEntity<Map<String, Object>> getAllHistoryMovement(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        return ResponseEntity.ok(historyMovementService.getAllMovements(pagina, elementosXpagina));
+        Map<String, Object> response = historyMovementService.getAllMovements(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Obtener historial de movimiento por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Historial de movimiento encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Historial de movimiento no encontrado")
+    })
+    @GetMapping("/getHistoryMovement/{id}")
+    public ResponseEntity<HistoryMovement> getHistoryMovement(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
+        HistoryMovement historyMovement = historyMovementService.getHistoryMovement(id);
+        return ResponseEntity.ok(historyMovement);
     }
 
     @Operation(summary = "Aprobar o Rechazar cambios propuestos por los docentes",

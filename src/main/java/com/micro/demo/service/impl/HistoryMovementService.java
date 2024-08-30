@@ -26,6 +26,7 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.PensumNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -37,6 +38,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,27 +71,44 @@ public class HistoryMovementService implements IHistoryMovementService {
     /**
      * Obtiene las historias de movimiento mediante la paginacion
      *
-     * @param pagina numero de pagina.
+     * @param pagina           numero de pagina.
      * @param elementosXpagina elementos que habran en cada pagina.
      * @return Lista de las historias de movimiento.
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1.
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<HistoryMovement> getAllMovements(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllMovements(Integer pagina, Integer elementosXpagina) {
+        Page<HistoryMovement> paginaMovements;
 
-        Page<HistoryMovement> paginaMovements =
-                historyMovementRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaMovements = new PageImpl<>(historyMovementRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaMovements = historyMovementRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        }
 
         if (paginaMovements.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        return paginaMovements.getContent();
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página o lista completa
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaMovements.getTotalElements());
+        response.put("data", paginaMovements.getContent());
+
+        return response;
     }
+
+    @Override
+    public HistoryMovement getHistoryMovement(Long id) {
+        return historyMovementRepository.findById(id).orElseThrow(NoDataFoundException::new);
+    }
+
 
     /**
      * Agregar una asignatura al historial de movimiento.
@@ -269,12 +288,6 @@ public class HistoryMovementService implements IHistoryMovementService {
         if (atributosModificados.containsKey("tipoCurso")) {
             asignatura.setTipoCurso(atributosModificados.get("tipoCurso"));
         }
-        if (atributosModificados.containsKey("asignaturaSucesora")) {
-            asignatura.setAsignaturaSucesora(atributosModificados.get("asignaturaSucesora"));
-        }
-        if (atributosModificados.containsKey("asignaturaPredecesora")) {
-            asignatura.setAsignaturaPredecesora(atributosModificados.get("asignaturaPredecesora"));
-        }
 
 
         historyMovement.setAsignaturaAfectada(asignaturaAfectada);
@@ -435,12 +448,6 @@ public class HistoryMovementService implements IHistoryMovementService {
             }
             if (atributosModificados.containsKey("tipoCurso")) {
                 asignaturaAfectada.setTipoCurso(atributosModificados.get("tipoCurso"));
-            }
-            if (atributosModificados.containsKey("asignaturaSucesora")) {
-                asignaturaAfectada.setAsignaturaSucesora(atributosModificados.get("asignaturaSucesora"));
-            }
-            if (atributosModificados.containsKey("asignaturaPredecesora")) {
-                asignaturaAfectada.setAsignaturaPredecesora(atributosModificados.get("asignaturaPredecesora"));
             }
 
             // Guardar los cambios en la asignatura afectada

@@ -12,12 +12,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -61,8 +58,6 @@ public class Asignatura implements Serializable {
 
     private String tipoCredito;
     private String tipoCurso;
-    private String asignaturaSucesora;
-    private String asignaturaPredecesora;
 
     @ManyToOne
     @JoinColumn(name = "area_formacion_id")

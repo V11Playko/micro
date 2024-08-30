@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -123,12 +122,13 @@ public class DocenteRestController {
             @ApiResponse(responseCode = "409", description = "Programa already exists", content = @Content)
     })
     @GetMapping("/allProgramasAcademicos")
-    public ResponseEntity<List<ProgramaAcademico>> getAllProgramas(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
-    ){
+    public ResponseEntity<Map<String, Object>> getAllProgramas(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
+    ) {
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
-        return ResponseEntity.ok(programaAcademicoService.getAll(pagina, elementosXpagina));
+        Map<String, Object> response = programaAcademicoService.getAll(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Get programa academico por nombre")
@@ -186,13 +186,27 @@ public class DocenteRestController {
             @ApiResponse(responseCode = "409", description = "Movement already exists", content = @Content)
     })
     @GetMapping("/allHistoryMovement")
-    public ResponseEntity<List<HistoryMovement>> getAllHistoryMovement(
-            @RequestParam int pagina,
-            @RequestParam int elementosXpagina
+    public ResponseEntity<Map<String, Object>> getAllHistoryMovement(
+            @RequestParam(required = false) Integer pagina,
+            @RequestParam(required = false) Integer elementosXpagina
     ){
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
-        return ResponseEntity.ok(historyMovementService.getAllMovements(pagina, elementosXpagina));
+        Map<String, Object> response = historyMovementService.getAllMovements(pagina, elementosXpagina);
+        return ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "Obtener historial de movimiento por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Historial de movimiento encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Historial de movimiento no encontrado")
+    })
+    @GetMapping("/getHistoryMovement/{id}")
+    public ResponseEntity<HistoryMovement> getHistoryMovement(@PathVariable Long id) {
+        checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
+        HistoryMovement historyMovement = historyMovementService.getHistoryMovement(id);
+        return ResponseEntity.ok(historyMovement);
+    }
+
 
     @Operation(summary = "Agregar asignatura, va al historial de movimiento",
             responses = {

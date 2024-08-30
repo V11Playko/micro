@@ -4,7 +4,6 @@ import com.micro.demo.controller.dto.AsignaturaDto;
 import com.micro.demo.entities.Asignatura;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface AsignaturaMapper {
     @Mapping(source = "areaFormacionId", target = "areaFormacion.id")

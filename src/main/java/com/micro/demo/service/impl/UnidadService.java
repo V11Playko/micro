@@ -17,11 +17,14 @@ import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.TemasNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -52,20 +55,34 @@ public class UnidadService implements IUnidadService {
      * @throws NoDataFoundException - Si no se encuentra datos.
      */
     @Override
-    public List<Unidad> getAllUnidad(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllUnidad(Integer pagina, Integer elementosXpagina) {
+        Page<Unidad> paginaUnidades;
 
-        Page<Unidad> paginaUnidades =
-                unidadRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaUnidades = new PageImpl<>(unidadRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaUnidades = unidadRepository.findAll(
+                    PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending())
+            );
+        }
 
         if (paginaUnidades.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        return paginaUnidades.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaUnidades.getTotalElements());
+        response.put("unidades", paginaUnidades.getContent());
+
+        return response;
     }
+
+
     /**
      * Obtiene una unidad por su identificador unico
      *

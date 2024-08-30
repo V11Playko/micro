@@ -16,6 +16,7 @@ import com.micro.demo.service.exceptions.ProgramaNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -25,7 +26,9 @@ import org.springframework.security.oauth2.server.resource.authentication.Bearer
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -41,27 +44,42 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
     /**
      * Obtiene los programas academicos mediante la paginacion
      *
-     * @param pagina numero de pagina
+     * @param pagina           numero de pagina
      * @param elementosXpagina elementos que habran en cada pagina
      * @return Lista de los programas academicos.
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<ProgramaAcademico> getAll(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAll(Integer pagina, Integer elementosXpagina) {
+        Page<ProgramaAcademico> paginaProgramas;
 
-        Page<ProgramaAcademico> paginaProgramas =
-                programaAcademicoRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            paginaProgramas = new PageImpl<>(programaAcademicoRepository.findAll(Sort.by("id").ascending()));
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaProgramas = programaAcademicoRepository.findAll(
+                    PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending())
+            );
+        }
 
         if (paginaProgramas.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        return paginaProgramas.getContent();
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaProgramas.getTotalElements());
+        response.put("data", paginaProgramas.getContent());
+
+        return response;
     }
+
+
 
     /**
      * Obtiene un programa academico por su nombre
@@ -75,6 +93,11 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
         ProgramaAcademico programa = programaAcademicoRepository.findByNombre(nombre);
         if (programa == null) throw new ProgramaNotFoundException();
         return programa;
+    }
+
+    @Override
+    public ProgramaAcademico getPrograma(Long id) {
+        return programaAcademicoRepository.findById(id).orElseThrow(ProgramaNotFoundException::new);
     }
 
     /**

@@ -4,9 +4,11 @@ import com.micro.demo.controller.dto.AsignaturaDto;
 import com.micro.demo.entities.Asignatura;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IAsignaturaService {
-    List<Asignatura> getAllAsignatura(int pagina, int elementosXpagina);
+    Map<String, Object> getAllAsignatura(Integer pagina, Integer elementosXpagina);
+    Asignatura getAsignatura(Long id);
     void saveAsignatura(AsignaturaDto asignaturaDto);
     void updateAsignatura(Long id, Asignatura asignatura);
     void assignDocentes(Long asignaturaId, List<String> correoDocentes);

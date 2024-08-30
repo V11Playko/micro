@@ -8,11 +8,14 @@ import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -26,27 +29,44 @@ public class AreaFormacionService implements IAreaFormacionService {
     /**
      * Obtiene las Areas de formacion mediante la paginacion
      *
-     * @param pagina - numero de pagina
+     * @param pagina           - numero de pagina
      * @param elementosXpagina - elementos que habran en cada pagina
      * @return Lista de areas de formacion
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<AreaFormacion> getAllAreaFormacion(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllAreaFormacion(Integer pagina, Integer elementosXpagina) {
+        Page<AreaFormacion> paginaAreas;
 
-        Page<AreaFormacion> paginaAreas =
-                areaFormacionRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            List<AreaFormacion> areas = areaFormacionRepository.findAll(Sort.by("id").ascending());
+            paginaAreas = new PageImpl<>(areas);
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaAreas = areaFormacionRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        }
 
         if (paginaAreas.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        return paginaAreas.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaAreas.getTotalElements());
+        response.put("data", paginaAreas.getContent());
+
+        return response;
     }
+
+    @Override
+    public AreaFormacion getAreaFormacion(Long id) {
+        return areaFormacionRepository.findById(id).orElseThrow(AreaFormacionNotFound::new);
+    }
+
 
     /**
      * Guardar un area de formacion

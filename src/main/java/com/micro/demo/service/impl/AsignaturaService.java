@@ -5,7 +5,6 @@ import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.AsignaturaDocente;
 import com.micro.demo.entities.AsignaturaPensum;
 import com.micro.demo.entities.AsignaturaPreRequisito;
-import com.micro.demo.entities.Competencia;
 import com.micro.demo.entities.PreRequisito;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.entities.enums.AsignaturaObligatoria;
@@ -22,8 +21,8 @@ import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IAsignaturaService;
 import com.micro.demo.service.exceptions.AllDocentesAssignsException;
 import com.micro.demo.service.exceptions.AreaFormacionNotFound;
+import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundByIdException;
-import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
 import com.micro.demo.service.exceptions.DocenteNotAssignException;
 import com.micro.demo.service.exceptions.DocenteNotFound;
 import com.micro.demo.service.exceptions.DocenteNotFoundCorreoException;
@@ -33,12 +32,14 @@ import com.micro.demo.service.exceptions.PreRequisitoNotFound;
 import com.micro.demo.service.exceptions.TipoCursoIncorrectoException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,46 +49,60 @@ public class AsignaturaService implements IAsignaturaService {
     private final IAsignaturaDocenteRepository asignaturaDocenteRepository;
     private final IAsignaturaPensumRepository asignaturaPensumRepository;
     private final IUsuarioRepository usuarioRepository;
-    private final IAreaFormacionRepository areaFormacionRepository;
     private final IPreRequisitoRepository preRequisitoRepository;
-    private final ICompetenciaRepository competenciaRepository;
     private final AsignaturaMapper asignaturaMapper;
 
-    public AsignaturaService(IAsignaturaRepository asignaturaRepository, IAsignaturaDocenteRepository asignaturaDocenteRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IUsuarioRepository usuarioRepository, IAreaFormacionRepository areaFormacionRepository, IPreRequisitoRepository preRequisitoRepository, ICompetenciaRepository competenciaRepository, AsignaturaMapper asignaturaMapper) {
+    public AsignaturaService(IAsignaturaRepository asignaturaRepository, IAsignaturaDocenteRepository asignaturaDocenteRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IUsuarioRepository usuarioRepository, IPreRequisitoRepository preRequisitoRepository, AsignaturaMapper asignaturaMapper) {
         this.asignaturaRepository = asignaturaRepository;
         this.asignaturaDocenteRepository = asignaturaDocenteRepository;
         this.asignaturaPensumRepository = asignaturaPensumRepository;
         this.usuarioRepository = usuarioRepository;
-        this.areaFormacionRepository = areaFormacionRepository;
         this.preRequisitoRepository = preRequisitoRepository;
-        this.competenciaRepository = competenciaRepository;
         this.asignaturaMapper = asignaturaMapper;
     }
 
     /**
      * Obtiene las asignaturas mediante la paginacion
      *
-     * @param pagina numero de pagina
+     * @param pagina           numero de pagina
      * @param elementosXpagina elementos que habran en cada pagina
      * @return Lista de asignaturas
      * @throws IlegalPaginaException - Si el numero de pagina es menor a 1
-     * @throws NoDataFoundException - Si no se encuentra datos.
+     * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public List<Asignatura> getAllAsignatura(int pagina, int elementosXpagina) {
-        if (pagina < 1) {
-            throw new IlegalPaginaException();
-        }
+    public Map<String, Object> getAllAsignatura(Integer pagina, Integer elementosXpagina) {
+        Page<Asignatura> paginaAsignaturas;
 
-        Page<Asignatura> paginaAsignaturas =
-                asignaturaRepository.findAll(PageRequest.of(pagina -1, elementosXpagina, Sort.by("id").ascending()));
+        if (pagina == null || elementosXpagina == null) {
+            // Recuperar todos los registros si la paginación es nula
+            List<Asignatura> asignaturas = asignaturaRepository.findAll(Sort.by("id").ascending());
+            paginaAsignaturas = new PageImpl<>(asignaturas);
+        } else {
+            if (pagina < 1) {
+                throw new IlegalPaginaException();
+            }
+
+            paginaAsignaturas = asignaturaRepository.findAll(PageRequest.of(pagina - 1, elementosXpagina, Sort.by("id").ascending()));
+        }
 
         if (paginaAsignaturas.isEmpty()) {
             throw new NoDataFoundException();
         }
 
-        return paginaAsignaturas.getContent();
+        // Crear el mapa de respuesta que incluye totalData y los datos de la página o lista completa
+        Map<String, Object> response = new HashMap<>();
+        response.put("totalData", paginaAsignaturas.getTotalElements());
+        response.put("data", paginaAsignaturas.getContent());
+
+        return response;
     }
+
+    @Override
+    public Asignatura getAsignatura(Long id) {
+        return asignaturaRepository.findById(id).orElseThrow(AsignaturaNotFound::new);
+    }
+
 
     /**
      * Guardar una asignatura
@@ -170,8 +185,6 @@ public class AsignaturaService implements IAsignaturaService {
         existingAsignatura.setSemestre(asignatura.getSemestre());
         existingAsignatura.setTipoCredito(asignatura.getTipoCredito());
         existingAsignatura.setTipoCurso(asignatura.getTipoCurso());
-        existingAsignatura.setAsignaturaPredecesora(asignatura.getAsignaturaPredecesora());
-        existingAsignatura.setAsignaturaSucesora(asignatura.getAsignaturaSucesora());
 
         asignaturaRepository.save(existingAsignatura);
     }

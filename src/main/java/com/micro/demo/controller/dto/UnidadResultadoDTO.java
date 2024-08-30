@@ -1,7 +1,5 @@
 package com.micro.demo.controller.dto;
 
-import com.micro.demo.entities.Asignatura;
-import com.micro.demo.entities.ResultadoAprendizaje;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
