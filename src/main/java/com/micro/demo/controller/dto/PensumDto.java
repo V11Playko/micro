@@ -1,6 +1,5 @@
 package com.micro.demo.controller.dto;
 
-import com.micro.demo.entities.AsignaturaPensum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

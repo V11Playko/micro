@@ -49,19 +49,15 @@ public class AsignaturaService implements IAsignaturaService {
     private final IAsignaturaDocenteRepository asignaturaDocenteRepository;
     private final IAsignaturaPensumRepository asignaturaPensumRepository;
     private final IUsuarioRepository usuarioRepository;
-    private final IAreaFormacionRepository areaFormacionRepository;
     private final IPreRequisitoRepository preRequisitoRepository;
-    private final ICompetenciaRepository competenciaRepository;
     private final AsignaturaMapper asignaturaMapper;
 
-    public AsignaturaService(IAsignaturaRepository asignaturaRepository, IAsignaturaDocenteRepository asignaturaDocenteRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IUsuarioRepository usuarioRepository, IAreaFormacionRepository areaFormacionRepository, IPreRequisitoRepository preRequisitoRepository, ICompetenciaRepository competenciaRepository, AsignaturaMapper asignaturaMapper) {
+    public AsignaturaService(IAsignaturaRepository asignaturaRepository, IAsignaturaDocenteRepository asignaturaDocenteRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IUsuarioRepository usuarioRepository, IPreRequisitoRepository preRequisitoRepository, AsignaturaMapper asignaturaMapper) {
         this.asignaturaRepository = asignaturaRepository;
         this.asignaturaDocenteRepository = asignaturaDocenteRepository;
         this.asignaturaPensumRepository = asignaturaPensumRepository;
         this.usuarioRepository = usuarioRepository;
-        this.areaFormacionRepository = areaFormacionRepository;
         this.preRequisitoRepository = preRequisitoRepository;
-        this.competenciaRepository = competenciaRepository;
         this.asignaturaMapper = asignaturaMapper;
     }
 

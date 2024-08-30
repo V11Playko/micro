@@ -2,7 +2,6 @@ package com.micro.demo.service;
 
 import com.micro.demo.entities.Usuario;
 
-import java.util.List;
 import java.util.Map;
 
 public interface IUsuarioService {
