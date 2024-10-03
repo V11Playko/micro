@@ -3,11 +3,12 @@ package com.micro.demo.service.impl;
 import com.micro.demo.controller.dto.UnidadResultadoDTO;
 import com.micro.demo.controller.dto.response.UnidadResultadoResponseDTO;
 import com.micro.demo.entities.ResultadoAprendizaje;
+import com.micro.demo.entities.Unidad;
 import com.micro.demo.entities.UnidadResultado;
-import com.micro.demo.entities.UnidadResultadoResultadoAprendizaje;
+import com.micro.demo.entities.UnidadResultadoAprendizaje;
 import com.micro.demo.repository.IResultadoAprendizajeRepository;
 import com.micro.demo.repository.IUnidadResultadoRepository;
-import com.micro.demo.repository.IUnidadResultadoResultadoAprendizajeRepository;
+import com.micro.demo.repository.IUnidadResultadoAprendizajeRepository;
 import com.micro.demo.service.IUnidadResultadoService;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
@@ -31,12 +32,12 @@ public class UnidadResultadoService implements IUnidadResultadoService {
 
     private final IUnidadResultadoRepository unidadResultadoRepository;
     private final IResultadoAprendizajeRepository resultadoAprendizajeRepository;
-    private final IUnidadResultadoResultadoAprendizajeRepository unidadResultadoResultadoAprendizajeRepository;
+    private final IUnidadResultadoAprendizajeRepository unidadResultadoAprendizajeRepository;
 
-    public UnidadResultadoService(IUnidadResultadoRepository unidadResultadoRepository, IResultadoAprendizajeRepository resultadoAprendizajeRepository, IUnidadResultadoResultadoAprendizajeRepository unidadResultadoResultadoAprendizajeRepository) {
+    public UnidadResultadoService(IUnidadResultadoRepository unidadResultadoRepository, IResultadoAprendizajeRepository resultadoAprendizajeRepository, IUnidadResultadoAprendizajeRepository unidadResultadoAprendizajeRepository) {
         this.unidadResultadoRepository = unidadResultadoRepository;
         this.resultadoAprendizajeRepository = resultadoAprendizajeRepository;
-        this.unidadResultadoResultadoAprendizajeRepository = unidadResultadoResultadoAprendizajeRepository;
+        this.unidadResultadoAprendizajeRepository = unidadResultadoAprendizajeRepository;
     }
 
     /**
@@ -77,12 +78,15 @@ public class UnidadResultadoService implements IUnidadResultadoService {
             dto.setTipoEvidencia(unidadResultado.getTipoEvidencia());
             dto.setEstatus(unidadResultado.isEstatus());
 
-            // Buscar los resultados de aprendizaje relacionados
-            List<UnidadResultadoResultadoAprendizaje> intermedias =
-                    unidadResultadoResultadoAprendizajeRepository.findByUnidadResultado(unidadResultado);
+            // Obtener la Unidad relacionada
+            Unidad unidad = unidadResultado.getUnidad();
+
+            // Buscar los resultados de aprendizaje relacionados con la Unidad
+            List<UnidadResultadoAprendizaje> intermedias =
+                    unidadResultadoAprendizajeRepository.findByUnidad(unidad);
 
             List<ResultadoAprendizaje> resultados = intermedias.stream()
-                    .map(UnidadResultadoResultadoAprendizaje::getResultadoAprendizaje)
+                    .map(UnidadResultadoAprendizaje::getResultadoAprendizaje)
                     .collect(Collectors.toList());
 
             dto.setResultados(resultados);
@@ -110,13 +114,15 @@ public class UnidadResultadoService implements IUnidadResultadoService {
         dto.setCorteEvaluacion(unidadResultado.getCorteEvaluacion());
         dto.setEstatus(unidadResultado.isEstatus());
 
-        // Obtener los resultados de aprendizaje relacionados
-        List<UnidadResultadoResultadoAprendizaje> intermedias =
-                unidadResultadoResultadoAprendizajeRepository.findByUnidadResultado(unidadResultado);
+        Unidad unidad = unidadResultado.getUnidad();
+
+        List<UnidadResultadoAprendizaje> intermedias =
+                unidadResultadoAprendizajeRepository.findByUnidad(unidad);
 
         List<ResultadoAprendizaje> resultados = intermedias.stream()
-                .map(UnidadResultadoResultadoAprendizaje::getResultadoAprendizaje)
+                .map(UnidadResultadoAprendizaje::getResultadoAprendizaje)
                 .collect(Collectors.toList());
+
         dto.setResultados(resultados);
 
         return dto;
@@ -133,21 +139,23 @@ public class UnidadResultadoService implements IUnidadResultadoService {
     @Override
     public void saveUnidadResultados(List<UnidadResultadoDTO> unidadResultadoDTOs) {
         for (UnidadResultadoDTO dto : unidadResultadoDTOs) {
+            // Crear una nueva instancia de UnidadResultado
             UnidadResultado unidadResultado = new UnidadResultado();
             unidadResultado.setTipoEvidencia(dto.getTipoEvidencia());
             unidadResultado.setInstrumentoEvaluacion(dto.getInstrumentoEvaluacion());
             unidadResultado.setCorteEvaluacion(dto.getCorteEvaluacion());
             unidadResultado.setEstatus(dto.isEstatus());
 
+            // Guardar la entidad UnidadResultado
             unidadResultadoRepository.save(unidadResultado);
 
-            // Guardar UnidadResultadoResultadoAprendizaje
+            // Guardar las relaciones en UnidadResultadoAprendizaje (tabla intermedia)
             for (Long resultadoId : dto.getResultados()) {
-                UnidadResultadoResultadoAprendizaje intermedia = new UnidadResultadoResultadoAprendizaje();
-                intermedia.setUnidadResultado(unidadResultado);
+                UnidadResultadoAprendizaje intermedia = new UnidadResultadoAprendizaje();
+                intermedia.setUnidad(unidadResultado.getUnidad()); // Asignar la unidad a la intermedia
                 intermedia.setResultadoAprendizaje(resultadoAprendizajeRepository.findById(resultadoId)
                         .orElseThrow(ResultadoAprendizajeNotFoundException::new));
-                unidadResultadoResultadoAprendizajeRepository.save(intermedia);
+                unidadResultadoAprendizajeRepository.save(intermedia);
             }
         }
     }

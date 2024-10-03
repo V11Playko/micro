@@ -38,7 +38,4 @@ public class UnidadResultado implements Serializable {
     @ManyToOne
     @JoinColumn(name = "unidad_id")
     private Unidad unidad;
-
-    @OneToMany(mappedBy = "unidadResultado", cascade = CascadeType.ALL)
-    private List<UnidadResultadoResultadoAprendizaje> resultados;
 }
