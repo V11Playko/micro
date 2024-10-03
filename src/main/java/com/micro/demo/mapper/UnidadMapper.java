@@ -12,7 +12,7 @@ public interface UnidadMapper {
     UnidadMapper INSTANCE = Mappers.getMapper(UnidadMapper.class);
 
     @Mapping(source = "temas", target = "temas", ignore = true) // Manejo manual
-    @Mapping(source = "resultados", target = "resultados", ignore = true) // Manejo manual
+    @Mapping(source = "resultados", target = "resultadoAprendizaje", ignore = true) // Manejo manual
     @Mapping(source = "asignatura", target = "asignatura.id") // Asignatura ID
     Unidad toEntity(UnidadDto dto);
 }
