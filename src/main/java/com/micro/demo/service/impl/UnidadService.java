@@ -2,15 +2,14 @@ package com.micro.demo.service.impl;
 
 import com.micro.demo.controller.dto.UnidadDto;
 import com.micro.demo.entities.Asignatura;
+import com.micro.demo.entities.EvaluacionResultadoAprendizaje;
 import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
-import com.micro.demo.entities.UnidadResultadoAprendizaje;
 import com.micro.demo.mapper.UnidadMapper;
 import com.micro.demo.repository.IAsignaturaRepository;
 import com.micro.demo.repository.IResultadoAprendizajeRepository;
 import com.micro.demo.repository.ITemaRepository;
 import com.micro.demo.repository.IUnidadRepository;
-import com.micro.demo.repository.IUnidadResultadoRepository;
 import com.micro.demo.service.IUnidadService;
 import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
@@ -122,9 +121,9 @@ public class UnidadService implements IUnidadService {
 
         // Manejo de resultados con ResultadoAprendizaje
         if (unidadDto.getResultados() != null) {
-            List<UnidadResultadoAprendizaje> resultadoAprendizaje = unidadDto.getResultados().stream()
+            List<EvaluacionResultadoAprendizaje> resultadoAprendizaje = unidadDto.getResultados().stream()
                     .map(id -> {
-                        UnidadResultadoAprendizaje intermedia = new UnidadResultadoAprendizaje();
+                        EvaluacionResultadoAprendizaje intermedia = new EvaluacionResultadoAprendizaje();
                         intermedia.setUnidad(unidad);
                         intermedia.setResultadoAprendizaje(resultadoAprendizajeRepository.findById(id)
                                 .orElseThrow(NoDataFoundException::new));

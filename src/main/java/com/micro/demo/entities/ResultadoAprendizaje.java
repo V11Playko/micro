@@ -31,5 +31,5 @@ public class ResultadoAprendizaje implements Serializable {
     private boolean estatus;
 
     @OneToMany(mappedBy = "resultadoAprendizaje")
-    private List<UnidadResultadoAprendizaje> unidades;
+    private List<EvaluacionResultadoAprendizaje> unidades;
 }

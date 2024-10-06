@@ -37,7 +37,7 @@ public class Unidad implements Serializable {
     private List<Tema> temas;
 
     @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL)
-    private List<UnidadResultadoAprendizaje> resultadoAprendizaje;
+    private List<EvaluacionResultadoAprendizaje> resultadoAprendizaje;
 
     @ManyToOne
     @JoinColumn(name = "asignatura_codigo", referencedColumnName = "codigo")

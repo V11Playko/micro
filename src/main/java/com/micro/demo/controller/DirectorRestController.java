@@ -12,7 +12,7 @@ import com.micro.demo.controller.dto.request.assign.AssignTemasRequestDto;
 import com.micro.demo.controller.dto.CompetenciaDto;
 import com.micro.demo.controller.dto.request.remove.RemoveAsignaturaRequestDto;
 import com.micro.demo.controller.dto.request.remove.RemoveDocenteRequestDto;
-import com.micro.demo.controller.dto.UnidadResultadoDTO;
+import com.micro.demo.controller.dto.EvaluacionResultadoDTO;
 import com.micro.demo.controller.dto.request.update.UpdatePeriodoModificacionRequestDto;
 import com.micro.demo.controller.dto.request.update.UpdatePuedeDescargarPdfRequestDto;
 import com.micro.demo.controller.dto.response.UnidadResultadoResponseDTO;
@@ -26,7 +26,7 @@ import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.ResultadoAprendizaje;
 import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
-import com.micro.demo.entities.UnidadResultado;
+import com.micro.demo.entities.EvaluacionResultado;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IAreaFormacionService;
@@ -39,7 +39,7 @@ import com.micro.demo.service.IPreRequisitoService;
 import com.micro.demo.service.IProgramaAcademicoService;
 import com.micro.demo.service.IResultadoAprendizajeService;
 import com.micro.demo.service.ITemaService;
-import com.micro.demo.service.IUnidadResultadoService;
+import com.micro.demo.service.IEvaluacionResultadoService;
 import com.micro.demo.service.IUnidadService;
 import com.micro.demo.service.IUsuarioService;
 import com.micro.demo.service.exceptions.UnauthorizedException;
@@ -87,14 +87,14 @@ public class DirectorRestController {
     private final IAreaFormacionService areaFormacionService;
     private final IPreRequisitoService preRequisitoService;
     private final ITemaService temaService;
-    private final IUnidadResultadoService unidadResultadoService;
+    private final IEvaluacionResultadoService evaluacionResultadoService;
     private final IResultadoAprendizajeService resultadoAprendizajeService;
     private final ICompetenciaService competenciaService;
     private final IPdfService pdfService;
     private final IHistoryMovementService historyMovementService;
     private final IUsuarioRepository usuarioRepository;
 
-    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IUnidadResultadoService unidadResultadoService, IResultadoAprendizajeService resultadoAprendizajeService, ICompetenciaService competenciaService, IPdfService pdfService, IHistoryMovementService historyMovementService, IUsuarioRepository usuarioRepository) {
+    public DirectorRestController(IUsuarioService usuarioService, IUnidadService unidadService, IProgramaAcademicoService programaAcademicoService, IPensumService pensumService, IAsignaturaService asignaturaService, IAreaFormacionService areaFormacionService, IPreRequisitoService preRequisitoService, ITemaService temaService, IEvaluacionResultadoService evaluacionResultadoService, IResultadoAprendizajeService resultadoAprendizajeService, ICompetenciaService competenciaService, IPdfService pdfService, IHistoryMovementService historyMovementService, IUsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
         this.unidadService = unidadService;
         this.programaAcademicoService = programaAcademicoService;
@@ -103,7 +103,7 @@ public class DirectorRestController {
         this.areaFormacionService = areaFormacionService;
         this.preRequisitoService = preRequisitoService;
         this.temaService = temaService;
-        this.unidadResultadoService = unidadResultadoService;
+        this.evaluacionResultadoService = evaluacionResultadoService;
         this.resultadoAprendizajeService = resultadoAprendizajeService;
         this.competenciaService = competenciaService;
         this.pdfService = pdfService;
@@ -807,74 +807,74 @@ public class DirectorRestController {
 
     /**
      *
-     * UNIDAD RESULTADO
+     * EVALUACION RESULTADO
      *
      * **/
-    @Operation(summary = "Get all resultados de unidades")
+    @Operation(summary = "Get all Evaluaciones de Resultados")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Resultados de unidades list returned", content = @Content),
-            @ApiResponse(responseCode = "409", description = "Resultados de unidades already exists", content = @Content)
+            @ApiResponse(responseCode = "200", description = "evaluaciones de resultados list returned", content = @Content),
+            @ApiResponse(responseCode = "409", description = "evaluaciones de resultados already exists", content = @Content)
     })
-    @GetMapping("/allUnidadResultados")
+    @GetMapping("/allEvaluacionResultados")
     public ResponseEntity<Map<String, Object>> getAllUnidadResultados(
             @RequestParam(required = false) Integer pagina,
             @RequestParam(required = false) Integer elementosXpagina
     ) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        Map<String, Object> response = unidadResultadoService.getAllUnidadResultados(pagina, elementosXpagina);
+        Map<String, Object> response = evaluacionResultadoService.getAllEvaluacionResultados(pagina, elementosXpagina);
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "Obtener unidad resultado por id")
+    @Operation(summary = "Obtener Evaluacion Resultado por id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Unidad resultado encontrado", content = @Content(mediaType = "application/json")),
-            @ApiResponse(responseCode = "404", description = "Unidad resultado no encontrado")
+            @ApiResponse(responseCode = "200", description = "evaluacion de resultado encontrado", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "evaluacion de resultado no encontrado")
     })
-    @GetMapping("/getUnidadResultado/{id}")
+    @GetMapping("/getEvaluacionResultado/{id}")
     public ResponseEntity<UnidadResultadoResponseDTO> getUnidadResultado(@PathVariable Long id) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        UnidadResultadoResponseDTO unidadResultado = unidadResultadoService.getUnidadResultado(id);
+        UnidadResultadoResponseDTO unidadResultado = evaluacionResultadoService.getEvaluacionResultado(id);
         return ResponseEntity.ok(unidadResultado);
     }
 
-    @Operation(summary = "Add a new resultado de unidad",
+    @Operation(summary = "Add a new evaluacion de resultado",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Resultado de unidad created",
+                    @ApiResponse(responseCode = "201", description = "evaluacion de resultado created",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "409", description = "Resultado de unidad already exists",
+                    @ApiResponse(responseCode = "409", description = "evaluacion de resultado already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @PostMapping("/saveUnidadResultado")
-    public ResponseEntity<Map<String, String>> saveUnidadResultado(@Valid @RequestBody List<UnidadResultadoDTO> unidadResultadoDTOs) {
+    @PostMapping("/saveEvaluacionResultado")
+    public ResponseEntity<Map<String, String>> saveEvaluacionResultado(@Valid @RequestBody List<EvaluacionResultadoDTO> evaluacionResultadoDTOS) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        unidadResultadoService.saveUnidadResultados(unidadResultadoDTOs);
+        evaluacionResultadoService.saveEvaluacionResultados(evaluacionResultadoDTOS);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
 
-    @Operation(summary = "Updated Unidad Resultado",
+    @Operation(summary = "Updated evaluacion de resultado",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Unidad Resultado update",
+                    @ApiResponse(responseCode = "200", description = "evaluacion de resultado update",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "409", description = "Unidad Resultado already exists",
+                    @ApiResponse(responseCode = "409", description = "evaluacion de resultado already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @PutMapping("/updateUnidadResultado/{id}")
-    public ResponseEntity<Map<String, String>> updateUnidadResultado(@PathVariable Long id, @RequestBody UnidadResultado unidadResultado) {
+    @PutMapping("/updateEvaluacionResultado/{id}")
+    public ResponseEntity<Map<String, String>> updateEvaluacionResultado(@PathVariable Long id, @RequestBody EvaluacionResultado evaluacionResultado) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        unidadResultadoService.updateUnidadResultado(id,unidadResultado);
+        evaluacionResultadoService.updateEvaluacionResultado(id, evaluacionResultado);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
     }
 
-    @Operation(summary = "Deleted Unidad Resultado",
+    @Operation(summary = "Deleted evaluacion de resultado",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Unidad Resultado deleted",
+                    @ApiResponse(responseCode = "200", description = "evaluacion de resultado deleted",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "404", description = "Unidad Resultado not found",
+                    @ApiResponse(responseCode = "404", description = "evaluacion de resultado not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @DeleteMapping("/deleteUnidadResultado/{id}")
-    public ResponseEntity<Map<String, String>> deleteUnidadResultado(@PathVariable Long id) {
+    @DeleteMapping("/deleteEvaluacionResultado/{id}")
+    public ResponseEntity<Map<String, String>> deleteEvaluacionResultado(@PathVariable Long id) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        unidadResultadoService.deleteUnidadResultado(id);
+        evaluacionResultadoService.deleteEvaluacionResultado(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DELETED_MESSAGE));
     }
