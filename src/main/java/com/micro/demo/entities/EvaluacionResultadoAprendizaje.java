@@ -15,12 +15,12 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "unidad_resultado_aprendizaje")
+@Table(name = "evaluacion_resultado_aprendizaje")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UnidadResultadoAprendizaje implements Serializable {
+public class EvaluacionResultadoAprendizaje implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

@@ -17,5 +17,5 @@ public class EvaluacionResultadoDTO {
     private String criterioDesempeno;
     private String corteEvaluacion;
     private boolean estatus;
-    private List<Long> resultados;
+    private List<Long> unidades;
 }

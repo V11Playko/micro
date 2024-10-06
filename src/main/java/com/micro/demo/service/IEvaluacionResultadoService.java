@@ -1,16 +1,16 @@
 package com.micro.demo.service;
 
-import com.micro.demo.controller.dto.UnidadResultadoDTO;
+import com.micro.demo.controller.dto.EvaluacionResultadoDTO;
 import com.micro.demo.controller.dto.response.UnidadResultadoResponseDTO;
-import com.micro.demo.entities.UnidadResultado;
+import com.micro.demo.entities.EvaluacionResultado;
 
 import java.util.List;
 import java.util.Map;
 
-public interface IUnidadResultadoService {
-    Map<String, Object> getAllUnidadResultados(Integer pagina, Integer elementosXpagina);
-    UnidadResultadoResponseDTO getUnidadResultado(Long id);
-    void saveUnidadResultados(List<UnidadResultadoDTO> unidadResultadoDTOs);
-    void updateUnidadResultado(Long id, UnidadResultado unidadResultado);
-    void deleteUnidadResultado(Long id);
+public interface IEvaluacionResultadoService {
+    Map<String, Object> getAllEvaluacionResultados(Integer pagina, Integer elementosXpagina);
+    UnidadResultadoResponseDTO getEvaluacionResultado(Long id);
+    void saveEvaluacionResultados(List<EvaluacionResultadoDTO> evaluacionResultadoDTOS);
+    void updateEvaluacionResultado(Long id, EvaluacionResultado evaluacionResultado);
+    void deleteEvaluacionResultado(Long id);
 }

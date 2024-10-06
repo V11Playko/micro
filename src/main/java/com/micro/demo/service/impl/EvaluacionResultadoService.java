@@ -1,18 +1,20 @@
 package com.micro.demo.service.impl;
 
-import com.micro.demo.controller.dto.UnidadResultadoDTO;
+import com.micro.demo.controller.dto.EvaluacionResultadoDTO;
 import com.micro.demo.controller.dto.response.UnidadResultadoResponseDTO;
+import com.micro.demo.entities.EvaluacionResultadoAprendizaje;
 import com.micro.demo.entities.ResultadoAprendizaje;
 import com.micro.demo.entities.Unidad;
-import com.micro.demo.entities.UnidadResultado;
-import com.micro.demo.entities.UnidadResultadoAprendizaje;
+import com.micro.demo.entities.EvaluacionResultado;
 import com.micro.demo.repository.IResultadoAprendizajeRepository;
-import com.micro.demo.repository.IUnidadResultadoRepository;
+import com.micro.demo.repository.IEvaluacionResultadoRepository;
+import com.micro.demo.repository.IUnidadRepository;
 import com.micro.demo.repository.IUnidadResultadoAprendizajeRepository;
-import com.micro.demo.service.IUnidadResultadoService;
+import com.micro.demo.service.IEvaluacionResultadoService;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.ResultadoAprendizajeNotFoundException;
+import com.micro.demo.service.exceptions.UnidadNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -28,16 +30,16 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UnidadResultadoService implements IUnidadResultadoService {
+public class EvaluacionResultadoService implements IEvaluacionResultadoService {
 
-    private final IUnidadResultadoRepository unidadResultadoRepository;
-    private final IResultadoAprendizajeRepository resultadoAprendizajeRepository;
+    private final IEvaluacionResultadoRepository unidadResultadoRepository;
     private final IUnidadResultadoAprendizajeRepository unidadResultadoAprendizajeRepository;
+    private final IUnidadRepository unidadRepository;
 
-    public UnidadResultadoService(IUnidadResultadoRepository unidadResultadoRepository, IResultadoAprendizajeRepository resultadoAprendizajeRepository, IUnidadResultadoAprendizajeRepository unidadResultadoAprendizajeRepository) {
+    public EvaluacionResultadoService(IEvaluacionResultadoRepository unidadResultadoRepository, IUnidadResultadoAprendizajeRepository unidadResultadoAprendizajeRepository, IUnidadRepository unidadRepository) {
         this.unidadResultadoRepository = unidadResultadoRepository;
-        this.resultadoAprendizajeRepository = resultadoAprendizajeRepository;
         this.unidadResultadoAprendizajeRepository = unidadResultadoAprendizajeRepository;
+        this.unidadRepository = unidadRepository;
     }
 
     /**
@@ -48,8 +50,8 @@ public class UnidadResultadoService implements IUnidadResultadoService {
      * @throws NoDataFoundException  - Si no se encuentra datos.
      */
     @Override
-    public Map<String, Object> getAllUnidadResultados(Integer pagina, Integer elementosXpagina) {
-        Page<UnidadResultado> paginaUnidadResultados;
+    public Map<String, Object> getAllEvaluacionResultados(Integer pagina, Integer elementosXpagina) {
+        Page<EvaluacionResultado> paginaUnidadResultados;
 
         if (pagina == null || elementosXpagina == null) {
             // Recuperar todos los registros si la paginación es nula
@@ -70,23 +72,21 @@ public class UnidadResultadoService implements IUnidadResultadoService {
 
         List<UnidadResultadoResponseDTO> responseDTOs = new ArrayList<>();
 
-        for (UnidadResultado unidadResultado : paginaUnidadResultados) {
+        for (EvaluacionResultado evaluacionResultado : paginaUnidadResultados) {
             UnidadResultadoResponseDTO dto = new UnidadResultadoResponseDTO();
-            dto.setCorteEvaluacion(unidadResultado.getCorteEvaluacion());
-            dto.setCriterioDesempeno(unidadResultado.getCriterioDesempeno());
-            dto.setInstrumentoEvaluacion(unidadResultado.getInstrumentoEvaluacion());
-            dto.setTipoEvidencia(unidadResultado.getTipoEvidencia());
-            dto.setEstatus(unidadResultado.isEstatus());
+            dto.setCorteEvaluacion(evaluacionResultado.getCorteEvaluacion());
+            dto.setCriterioDesempeno(evaluacionResultado.getCriterioDesempeno());
+            dto.setInstrumentoEvaluacion(evaluacionResultado.getInstrumentoEvaluacion());
+            dto.setTipoEvidencia(evaluacionResultado.getTipoEvidencia());
+            dto.setEstatus(evaluacionResultado.isEstatus());
 
-            // Obtener la Unidad relacionada
-            Unidad unidad = unidadResultado.getUnidad();
+            Unidad unidad = evaluacionResultado.getUnidad();
 
-            // Buscar los resultados de aprendizaje relacionados con la Unidad
-            List<UnidadResultadoAprendizaje> intermedias =
+            List<EvaluacionResultadoAprendizaje> intermedias =
                     unidadResultadoAprendizajeRepository.findByUnidad(unidad);
 
             List<ResultadoAprendizaje> resultados = intermedias.stream()
-                    .map(UnidadResultadoAprendizaje::getResultadoAprendizaje)
+                    .map(EvaluacionResultadoAprendizaje::getResultadoAprendizaje)
                     .collect(Collectors.toList());
 
             dto.setResultados(resultados);
@@ -103,24 +103,24 @@ public class UnidadResultadoService implements IUnidadResultadoService {
     }
 
     @Override
-    public UnidadResultadoResponseDTO getUnidadResultado(Long id) {
-        UnidadResultado unidadResultado = unidadResultadoRepository.findById(id)
+    public UnidadResultadoResponseDTO getEvaluacionResultado(Long id) {
+        EvaluacionResultado evaluacionResultado = unidadResultadoRepository.findById(id)
                 .orElseThrow(NoDataFoundException::new);
 
         UnidadResultadoResponseDTO dto = new UnidadResultadoResponseDTO();
-        dto.setTipoEvidencia(unidadResultado.getTipoEvidencia());
-        dto.setInstrumentoEvaluacion(unidadResultado.getInstrumentoEvaluacion());
-        dto.setCriterioDesempeno(unidadResultado.getCriterioDesempeno());
-        dto.setCorteEvaluacion(unidadResultado.getCorteEvaluacion());
-        dto.setEstatus(unidadResultado.isEstatus());
+        dto.setTipoEvidencia(evaluacionResultado.getTipoEvidencia());
+        dto.setInstrumentoEvaluacion(evaluacionResultado.getInstrumentoEvaluacion());
+        dto.setCriterioDesempeno(evaluacionResultado.getCriterioDesempeno());
+        dto.setCorteEvaluacion(evaluacionResultado.getCorteEvaluacion());
+        dto.setEstatus(evaluacionResultado.isEstatus());
 
-        Unidad unidad = unidadResultado.getUnidad();
+        Unidad unidad = evaluacionResultado.getUnidad();
 
-        List<UnidadResultadoAprendizaje> intermedias =
+        List<EvaluacionResultadoAprendizaje> intermedias =
                 unidadResultadoAprendizajeRepository.findByUnidad(unidad);
 
         List<ResultadoAprendizaje> resultados = intermedias.stream()
-                .map(UnidadResultadoAprendizaje::getResultadoAprendizaje)
+                .map(EvaluacionResultadoAprendizaje::getResultadoAprendizaje)
                 .collect(Collectors.toList());
 
         dto.setResultados(resultados);
@@ -134,28 +134,28 @@ public class UnidadResultadoService implements IUnidadResultadoService {
     /**
      * Guardar unidad de resultado
      *
-     * @param unidadResultadoDTOs - Informacion de una unidad resultado
+     * @param evaluacionResultadoDTOS - Informacion de una unidad resultado
      * */
     @Override
-    public void saveUnidadResultados(List<UnidadResultadoDTO> unidadResultadoDTOs) {
-        for (UnidadResultadoDTO dto : unidadResultadoDTOs) {
-            // Crear una nueva instancia de UnidadResultado
-            UnidadResultado unidadResultado = new UnidadResultado();
-            unidadResultado.setTipoEvidencia(dto.getTipoEvidencia());
-            unidadResultado.setInstrumentoEvaluacion(dto.getInstrumentoEvaluacion());
-            unidadResultado.setCorteEvaluacion(dto.getCorteEvaluacion());
-            unidadResultado.setEstatus(dto.isEstatus());
+    public void saveEvaluacionResultados(List<EvaluacionResultadoDTO> evaluacionResultadoDTOS) {
+        for (EvaluacionResultadoDTO dto : evaluacionResultadoDTOS) {
+            List<Long> unidadIds = dto.getUnidades();
 
-            // Guardar la entidad UnidadResultado
-            unidadResultadoRepository.save(unidadResultado);
+            // Para cada ID de unidad, crear un EvaluacionResultado
+            for (Long unidadId : unidadIds) {
+                EvaluacionResultado evaluacionResultado = new EvaluacionResultado();
+                evaluacionResultado.setTipoEvidencia(dto.getTipoEvidencia());
+                evaluacionResultado.setInstrumentoEvaluacion(dto.getInstrumentoEvaluacion());
+                evaluacionResultado.setCorteEvaluacion(dto.getCorteEvaluacion());
+                evaluacionResultado.setCriterioDesempeno(dto.getCriterioDesempeno());
+                evaluacionResultado.setEstatus(dto.isEstatus());
 
-            // Guardar las relaciones en UnidadResultadoAprendizaje (tabla intermedia)
-            for (Long resultadoId : dto.getResultados()) {
-                UnidadResultadoAprendizaje intermedia = new UnidadResultadoAprendizaje();
-                intermedia.setUnidad(unidadResultado.getUnidad()); // Asignar la unidad a la intermedia
-                intermedia.setResultadoAprendizaje(resultadoAprendizajeRepository.findById(resultadoId)
-                        .orElseThrow(ResultadoAprendizajeNotFoundException::new));
-                unidadResultadoAprendizajeRepository.save(intermedia);
+                Unidad unidad = unidadRepository.findById(unidadId)
+                        .orElseThrow(UnidadNotFoundException::new);
+
+                evaluacionResultado.setUnidad(unidad);
+
+                unidadResultadoRepository.save(evaluacionResultado);
             }
         }
     }
@@ -164,19 +164,19 @@ public class UnidadResultadoService implements IUnidadResultadoService {
      * Actualizar una unidad de resultado
      *
      * @param id - Identificador unico de una unidad resultado a actualizar.
-     * @param unidadResultado - Informacion de una unidad de resultado.
+     * @param evaluacionResultado - Informacion de una unidad de resultado.
      * @throws NoDataFoundException - Se lanza si no se encuentran datos.
      * */
     @Override
-    public void updateUnidadResultado(Long id, UnidadResultado unidadResultado) {
-        UnidadResultado existingUnidad = unidadResultadoRepository.findById(id)
+    public void updateEvaluacionResultado(Long id, EvaluacionResultado evaluacionResultado) {
+        EvaluacionResultado existingUnidad = unidadResultadoRepository.findById(id)
                 .orElseThrow(NoDataFoundException::new);
 
-        existingUnidad.setCorteEvaluacion(unidadResultado.getCorteEvaluacion());
-        existingUnidad.setEstatus(unidadResultado.isEstatus());
-        existingUnidad.setCriterioDesempeno(unidadResultado.getCriterioDesempeno());
-        existingUnidad.setInstrumentoEvaluacion(unidadResultado.getInstrumentoEvaluacion());
-        existingUnidad.setTipoEvidencia(unidadResultado.getTipoEvidencia());
+        existingUnidad.setCorteEvaluacion(evaluacionResultado.getCorteEvaluacion());
+        existingUnidad.setEstatus(evaluacionResultado.isEstatus());
+        existingUnidad.setCriterioDesempeno(evaluacionResultado.getCriterioDesempeno());
+        existingUnidad.setInstrumentoEvaluacion(evaluacionResultado.getInstrumentoEvaluacion());
+        existingUnidad.setTipoEvidencia(evaluacionResultado.getTipoEvidencia());
 
         unidadResultadoRepository.save(existingUnidad);
     }
@@ -188,7 +188,7 @@ public class UnidadResultadoService implements IUnidadResultadoService {
      * @throws NoDataFoundException - Se lanza si no se encuentran datos.
      */
     @Override
-    public void deleteUnidadResultado(Long id) {
+    public void deleteEvaluacionResultado(Long id) {
         unidadResultadoRepository.findById(id)
                 .orElseThrow(NoDataFoundException::new);
 
