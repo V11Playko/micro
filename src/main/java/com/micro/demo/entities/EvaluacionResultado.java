@@ -15,23 +15,24 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "unidad_resultado_resultado_aprendizaje")
+@Table(name = "evaluacionResultado")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UnidadResultadoResultadoAprendizaje implements Serializable {
+public class EvaluacionResultado implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String corteEvaluacion;
+    private String criterioDesempeno;
+    private String instrumentoEvaluacion;
+    private String tipoEvidencia;
+    private boolean estatus;
 
     @ManyToOne
-    @JoinColumn(name = "unidad_resultado_id")
-    private UnidadResultado unidadResultado;
-
-    @ManyToOne
-    @JoinColumn(name = "resultado_aprendizaje_id")
-    private ResultadoAprendizaje resultadoAprendizaje;
+    @JoinColumn(name = "unidad_id")
+    private Unidad unidad;
 }

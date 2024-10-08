@@ -11,11 +11,11 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UnidadResultadoDTO {
+public class EvaluacionResultadoDTO {
     private String tipoEvidencia;
     private String instrumentoEvaluacion;
     private String criterioDesempeno;
     private String corteEvaluacion;
     private boolean estatus;
-    private List<Long> resultados;
+    private List<Long> unidades;
 }
