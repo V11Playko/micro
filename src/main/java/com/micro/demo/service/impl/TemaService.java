@@ -1,7 +1,9 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.TemaDto;
 import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
+import com.micro.demo.mapper.TemaMapper;
 import com.micro.demo.repository.ITemaRepository;
 import com.micro.demo.repository.IUnidadRepository;
 import com.micro.demo.service.ITemaService;
@@ -25,10 +27,12 @@ import java.util.Map;
 public class TemaService implements ITemaService {
     private final ITemaRepository temaRepository;
     private final IUnidadRepository unidadRepository;
+    private final TemaMapper temaMapper;
 
-    public TemaService(ITemaRepository temaRepository, IUnidadRepository unidadRepository) {
+    public TemaService(ITemaRepository temaRepository, IUnidadRepository unidadRepository, TemaMapper temaMapper) {
         this.temaRepository = temaRepository;
         this.unidadRepository = unidadRepository;
+        this.temaMapper = temaMapper;
     }
 
     /**
@@ -77,10 +81,18 @@ public class TemaService implements ITemaService {
     /**
      * Guardar un tema
      *
-     * @param tema - Informacion del tema.
+     * @param temaDto - Informacion del tema.
      * */
     @Override
-    public void saveTema(Tema tema) {
+    public void saveTema(TemaDto temaDto) {
+        Tema tema = temaMapper.toEntity(temaDto);
+
+        if (temaDto.getUnidadId() != null) {
+            Unidad unidad = unidadRepository.findById(temaDto.getUnidadId())
+                    .orElseThrow(UnidadNotFoundException::new);
+            tema.setUnidad(unidad);
+        }
+
         temaRepository.save(tema);
     }
 
@@ -88,17 +100,23 @@ public class TemaService implements ITemaService {
      * Actualizar un tema
      *
      * @param id - Identificador unico del tema a actualizar
-     * @param tema - Informacion del tema.
+     * @param temaDto - Informacion del tema.
      * @throws NoDataFoundException - Se lanza si no se encuentran datos.
      * */
     @Override
-    public void updateTema(Long id, Tema tema) {
+    public void updateTema(Long id, TemaDto temaDto) {
         Tema existingTema = temaRepository.findById(id)
                 .orElseThrow(NoDataFoundException::new);
 
-        existingTema.setNombre(tema.getNombre());
-        existingTema.setDescripcion(tema.getDescripcion());
-        existingTema.setEstatus(tema.isEstatus());
+        existingTema.setNombre(temaDto.getNombre());
+        existingTema.setDescripcion(temaDto.getDescripcion());
+        existingTema.setEstatus(temaDto.isEstatus());
+
+        if (temaDto.getUnidadId() != null) {
+            Unidad unidad = unidadRepository.findById(temaDto.getUnidadId())
+                    .orElseThrow(UnidadNotFoundException::new);
+            existingTema.setUnidad(unidad);
+        }
 
         temaRepository.save(existingTema);
     }
