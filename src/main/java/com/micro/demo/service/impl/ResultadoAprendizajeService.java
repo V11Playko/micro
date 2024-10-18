@@ -1,10 +1,14 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.ResultadoAprendizajeDto;
 import com.micro.demo.entities.Competencia;
 import com.micro.demo.entities.CompetenciaResultado;
+import com.micro.demo.entities.EvaluacionResultadoAprendizaje;
 import com.micro.demo.entities.ResultadoAprendizaje;
+import com.micro.demo.mapper.ResultadoAprendizajeMapper;
 import com.micro.demo.repository.ICompetenciaRepository;
 import com.micro.demo.repository.ICompetenciaResultadoRepository;
+import com.micro.demo.repository.IEvaluacionResultadoAprendizajeRepository;
 import com.micro.demo.repository.IResultadoAprendizajeRepository;
 import com.micro.demo.service.IResultadoAprendizajeService;
 import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
@@ -22,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -29,11 +34,15 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
     private final IResultadoAprendizajeRepository resultadoAprendizajeRepository;
     private final ICompetenciaRepository competenciaRepository;
     private final ICompetenciaResultadoRepository competenciaResultadoRepository;
+    private final ResultadoAprendizajeMapper resultadoAprendizajeMapper;
+    private final IEvaluacionResultadoAprendizajeRepository evaluacionResultadoAprendizajeRepository;
 
-    public ResultadoAprendizajeService(IResultadoAprendizajeRepository resultadoAprendizajeRepository, ICompetenciaRepository competenciaRepository, ICompetenciaResultadoRepository competenciaResultadoRepository) {
+    public ResultadoAprendizajeService(IResultadoAprendizajeRepository resultadoAprendizajeRepository, ICompetenciaRepository competenciaRepository, ICompetenciaResultadoRepository competenciaResultadoRepository, ResultadoAprendizajeMapper resultadoAprendizajeMapper, IEvaluacionResultadoAprendizajeRepository evaluacionResultadoAprendizajeRepository) {
         this.resultadoAprendizajeRepository = resultadoAprendizajeRepository;
         this.competenciaRepository = competenciaRepository;
         this.competenciaResultadoRepository = competenciaResultadoRepository;
+        this.resultadoAprendizajeMapper = resultadoAprendizajeMapper;
+        this.evaluacionResultadoAprendizajeRepository = evaluacionResultadoAprendizajeRepository;
     }
 
     /**
@@ -83,10 +92,12 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
     /**
      * Guardar un resultado de aprendizaje
      *
-     * @param resultadoAprendizaje - Informacion del resultado de aprendizaje
+     * @param resultadoAprendizajeDto - Informacion del resultado de aprendizaje
      * */
     @Override
-    public void saveResultado(ResultadoAprendizaje resultadoAprendizaje) {
+    public void saveResultado(ResultadoAprendizajeDto resultadoAprendizajeDto) {
+        ResultadoAprendizaje resultadoAprendizaje = resultadoAprendizajeMapper.toEntity(resultadoAprendizajeDto);
+
         resultadoAprendizajeRepository.save(resultadoAprendizaje);
     }
 
@@ -94,17 +105,17 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
      * Actualizar un resultado de aprendizaje
      *
      * @param id - Identificador unico del resultado de aprendizaje a actualizar.
-     * @param resultadoAprendizaje - Informacion del resultado de aprendizaje.
+     * @param resultadoAprendizajeDto - Informacion del resultado de aprendizaje.
      * @throws ResultadoAprendizajeNotFoundException - Se lanza si el resultado de aprendizaje no se encuentra.
      * */
     @Override
-    public void updateResultado(Long id,ResultadoAprendizaje resultadoAprendizaje) {
-        ResultadoAprendizaje existingResultado = resultadoAprendizajeRepository
-                .findById(id).orElseThrow(ResultadoAprendizajeNotFoundException::new);
+    public void updateResultado(Long id, ResultadoAprendizajeDto resultadoAprendizajeDto) {
+        ResultadoAprendizaje existingResultado = resultadoAprendizajeRepository.findById(id)
+                .orElseThrow(ResultadoAprendizajeNotFoundException::new);
 
-        existingResultado.setNombre(resultadoAprendizaje.getNombre());
-        existingResultado.setDescripcion(resultadoAprendizaje.getDescripcion());
-        existingResultado.setEstatus(resultadoAprendizaje.isEstatus());
+        existingResultado.setNombre(resultadoAprendizajeDto.getNombre());
+        existingResultado.setDescripcion(resultadoAprendizajeDto.getDescripcion());
+        existingResultado.setEstatus(resultadoAprendizajeDto.isEstatus());
 
         resultadoAprendizajeRepository.save(existingResultado);
     }
