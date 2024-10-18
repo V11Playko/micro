@@ -104,14 +104,16 @@ public class UnidadService implements IUnidadService {
     public void saveUnidad(UnidadDto unidadDto) {
         Unidad unidad = unidadMapper.toEntity(unidadDto);
 
-        // Asignar la asignatura si existe
         if (unidadDto.getAsignatura() != null) {
             Asignatura asignatura = asignaturaRepository.findByCodigo(Math.toIntExact(unidadDto.getAsignatura()));
+            if (asignatura == null) {
+                throw new AsignaturaNotFound();
+            }
             unidad.setAsignatura(asignatura);
         }
 
         // Manejo de temas
-        if (unidadDto.getTemas() != null) {
+        if (unidadDto.getTemas() != null && !unidadDto.getTemas().isEmpty()) {
             List<Tema> temas = unidadDto.getTemas().stream()
                     .map(id -> temaRepository.findById(id)
                             .orElseThrow(TemasNotFoundException::new))
@@ -120,7 +122,7 @@ public class UnidadService implements IUnidadService {
         }
 
         // Manejo de resultados con ResultadoAprendizaje
-        if (unidadDto.getResultados() != null) {
+        if (unidadDto.getResultados() != null && !unidadDto.getResultados().isEmpty()) {
             List<EvaluacionResultadoAprendizaje> resultadoAprendizaje = unidadDto.getResultados().stream()
                     .map(id -> {
                         EvaluacionResultadoAprendizaje intermedia = new EvaluacionResultadoAprendizaje();
@@ -128,8 +130,9 @@ public class UnidadService implements IUnidadService {
                         intermedia.setResultadoAprendizaje(resultadoAprendizajeRepository.findById(id)
                                 .orElseThrow(NoDataFoundException::new));
                         return intermedia;
-                    }).collect(Collectors.toList());
-            unidad.setResultadoAprendizaje(resultadoAprendizaje);  // Guardar los resultados en la Unidad
+                    })
+                    .collect(Collectors.toList());
+            unidad.setResultadoAprendizaje(resultadoAprendizaje);
         }
 
         unidadRepository.save(unidad);
@@ -137,23 +140,24 @@ public class UnidadService implements IUnidadService {
 
 
 
+
     /**
      * Actualizar una unidad
      *
      * @param id - Identificador unico de la unidad
-     * @param unidad - Informacion de la unidad
+     * @param unidadDto - Informacion de la unidad
      * @throws NoDataFoundException - Se lanza si no se encuentran datos.
      **/
     @Override
-    public void updateUnidad(Long id, Unidad unidad) {
+    public void updateUnidad(Long id, UnidadDto unidadDto) {
         Optional<Unidad> optionalUnidad = unidadRepository.findById(id);
 
         if (optionalUnidad.isPresent()) {
             Unidad unidadExistente = optionalUnidad.get();
 
-            unidadExistente.setHad(unidad.getHad());
-            unidadExistente.setHti(unidad.getHti());
-            unidadExistente.setNombre(unidad.getNombre());
+            unidadExistente.setHad(unidadDto.getHad());
+            unidadExistente.setHti(unidadDto.getHti());
+            unidadExistente.setNombre(unidadDto.getNombre());
 
             unidadRepository.save(unidadExistente);
         } else throw new NoDataFoundException();
