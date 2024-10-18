@@ -11,6 +11,7 @@ import com.micro.demo.service.exceptions.AsignaturaNotFoundByIdException;
 import com.micro.demo.service.exceptions.AsignaturaNotFoundExceptionInPensum;
 import com.micro.demo.service.exceptions.AtributosNotFound;
 import com.micro.demo.service.exceptions.CambiosAceptadosNotFoundException;
+import com.micro.demo.service.exceptions.CodigoNoModificableException;
 import com.micro.demo.service.exceptions.CodigoNotFound;
 import com.micro.demo.service.exceptions.CompetenciaNotFoundException;
 import com.micro.demo.service.exceptions.DirectorAlreadyAssignedException;
@@ -26,6 +27,7 @@ import com.micro.demo.service.exceptions.ModificationPeriodDisabled;
 import com.micro.demo.service.exceptions.ModificationPeriodWorking;
 import com.micro.demo.service.exceptions.NoDataFoundException;
 import com.micro.demo.service.exceptions.NotFoundUserUnauthorized;
+import com.micro.demo.service.exceptions.OnlyAdminException;
 import com.micro.demo.service.exceptions.PdfDownloadNotAllowedException;
 import com.micro.demo.service.exceptions.PensumNotActiveException;
 import com.micro.demo.service.exceptions.PensumNotFoundByIdException;
@@ -68,6 +70,7 @@ import static com.micro.demo.configuration.Constants.ASIGNATURA_ALREADY_REMOVED;
 import static com.micro.demo.configuration.Constants.ASIGNATURA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.ATRIBUTOS_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.CODIGO_NOT_FOUND;
+import static com.micro.demo.configuration.Constants.CODIGO_NO_MODIFICABLE_MESSAGE;
 import static com.micro.demo.configuration.Constants.COMPETENCIA_NOT_FOUND_MESSAGE;
 import static com.micro.demo.configuration.Constants.DIRECTOR_ALREADY_ASSIGN_MESSAGE;
 import static com.micro.demo.configuration.Constants.DIRECTOR_NOT_FOUND_MESSAGE;
@@ -80,6 +83,7 @@ import static com.micro.demo.configuration.Constants.MESSAGE_NOT_SEND;
 import static com.micro.demo.configuration.Constants.MODIFICATION_PERIOD_DISABLED;
 import static com.micro.demo.configuration.Constants.MODIFICATION_PERIOD_WORKING;
 import static com.micro.demo.configuration.Constants.NO_DATA_FOUND_MESSAGE;
+import static com.micro.demo.configuration.Constants.ONLY_ADMIN_MESSAGE;
 import static com.micro.demo.configuration.Constants.PAGINA_ILEGAL_MESSAGE;
 import static com.micro.demo.configuration.Constants.PDF_DOWNLOAD_NOT_ALLOWED_MESSAGE;
 import static com.micro.demo.configuration.Constants.PENSUM_NOT_FOUND_MESSAGE;
@@ -444,5 +448,19 @@ public class ControllerAdvisor {
             CodigoNotFound codigoNotFound) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, CODIGO_NOT_FOUND));
+    }
+
+    @ExceptionHandler(OnlyAdminException.class)
+    public ResponseEntity<Map<String, String>> onlyAdminException(
+            OnlyAdminException onlyAdminException) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, ONLY_ADMIN_MESSAGE));
+    }
+
+    @ExceptionHandler(CodigoNoModificableException.class)
+    public ResponseEntity<Map<String, String>> codigoNoModificable(
+            CodigoNoModificableException codigoNoModificable) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_MESSAGE_KEY, CODIGO_NO_MODIFICABLE_MESSAGE));
     }
 }
