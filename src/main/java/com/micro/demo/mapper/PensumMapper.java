@@ -1,14 +1,9 @@
 package com.micro.demo.mapper;
 
 import com.micro.demo.controller.dto.PensumDto;
-import com.micro.demo.entities.AsignaturaPensum;
 import com.micro.demo.entities.Pensum;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface PensumMapper {

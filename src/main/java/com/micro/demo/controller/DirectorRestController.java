@@ -31,7 +31,6 @@ import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.ResultadoAprendizaje;
 import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
-import com.micro.demo.entities.EvaluacionResultado;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IAreaFormacionService;

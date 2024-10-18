@@ -2,7 +2,6 @@ package com.micro.demo.service;
 
 import com.micro.demo.controller.dto.EvaluacionResultadoDto;
 import com.micro.demo.controller.dto.response.UnidadResultadoResponseDTO;
-import com.micro.demo.entities.EvaluacionResultado;
 
 import java.util.List;
 import java.util.Map;

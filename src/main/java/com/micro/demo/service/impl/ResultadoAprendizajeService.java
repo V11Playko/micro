@@ -3,7 +3,6 @@ package com.micro.demo.service.impl;
 import com.micro.demo.controller.dto.ResultadoAprendizajeDto;
 import com.micro.demo.entities.Competencia;
 import com.micro.demo.entities.CompetenciaResultado;
-import com.micro.demo.entities.EvaluacionResultadoAprendizaje;
 import com.micro.demo.entities.ResultadoAprendizaje;
 import com.micro.demo.mapper.ResultadoAprendizajeMapper;
 import com.micro.demo.repository.ICompetenciaRepository;
@@ -26,7 +25,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
