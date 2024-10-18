@@ -11,7 +11,7 @@ public interface IPensumService {
     Map<String, Object> getPensumsNoModificadosDuranteUnAño(Integer pagina, Integer elementosXpagina);
     Pensum getPensum(Long id);
     void savePensum(PensumDto pensumDto);
-    void updatePensum(Long id, Pensum pensum);
+    void updatePensum(Long id, PensumDto pensumDto);
     void assignAsignaturas(Long pensumId, List<Long> asignaturasId);
     void removeAsignaturaFromPensum(Long pensumId, Long asignaturaId);
     void deletePensum(Long id);
