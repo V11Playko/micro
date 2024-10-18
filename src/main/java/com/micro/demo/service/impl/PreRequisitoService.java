@@ -1,6 +1,8 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.PreRequisitoDto;
 import com.micro.demo.entities.PreRequisito;
+import com.micro.demo.mapper.PreRequisitoMapper;
 import com.micro.demo.repository.IPreRequisitoRepository;
 import com.micro.demo.service.IPreRequisitoService;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
@@ -20,9 +22,11 @@ import java.util.Map;
 @Transactional
 public class PreRequisitoService implements IPreRequisitoService {
     private final IPreRequisitoRepository preRequisitoRepository;
+    private final PreRequisitoMapper preRequisitoMapper;
 
-    public PreRequisitoService(IPreRequisitoRepository preRequisitoRepository) {
+    public PreRequisitoService(IPreRequisitoRepository preRequisitoRepository, PreRequisitoMapper preRequisitoMapper) {
         this.preRequisitoRepository = preRequisitoRepository;
+        this.preRequisitoMapper = preRequisitoMapper;
     }
 
     /**
@@ -71,10 +75,11 @@ public class PreRequisitoService implements IPreRequisitoService {
     /**
      * Guardar un pre-requisito.
      *
-     * @param preRequisito - Informacion de el pre-requisito.
+     * @param preRequisitoDto - Informacion de el pre-requisito.
      * */
     @Override
-    public void savePreRequisito(PreRequisito preRequisito) {
+    public void savePreRequisito(PreRequisitoDto preRequisitoDto) {
+        PreRequisito preRequisito = preRequisitoMapper.toEntity(preRequisitoDto);
         preRequisitoRepository.save(preRequisito);
     }
 
