@@ -1,7 +1,9 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.ProgramaAcademicoDto;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
+import com.micro.demo.mapper.ProgramaAcademicoMapper;
 import com.micro.demo.repository.IProgramaAcademicoRepository;
 import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IProgramaAcademicoService;
@@ -35,10 +37,12 @@ import java.util.Map;
 public class ProgramaAcademicoService implements IProgramaAcademicoService {
     private final IUsuarioRepository usuarioRepository;
     private final IProgramaAcademicoRepository programaAcademicoRepository;
+    private final ProgramaAcademicoMapper programaAcademicoMapper;
 
-    public ProgramaAcademicoService(IUsuarioRepository usuarioRepository, IProgramaAcademicoRepository programaAcademicoRepository) {
+    public ProgramaAcademicoService(IUsuarioRepository usuarioRepository, IProgramaAcademicoRepository programaAcademicoRepository, ProgramaAcademicoMapper programaAcademicoMapper) {
         this.usuarioRepository = usuarioRepository;
         this.programaAcademicoRepository = programaAcademicoRepository;
+        this.programaAcademicoMapper = programaAcademicoMapper;
     }
 
     /**
@@ -103,15 +107,17 @@ public class ProgramaAcademicoService implements IProgramaAcademicoService {
     /**
      * Guardar un programa academico
      *
-     * @param programaAcademico - Informacion del programa academico
+     * @param programaAcademicoDto - Informacion del programa academico
      * @throws ProgramaAcademicoExistenteException - Se lanza si ya existe un programa academico con el mismo nombre.
      * */
     @Override
-    public void saveProgramaAcademico(ProgramaAcademico programaAcademico) {
-        ProgramaAcademico existingPrograma = programaAcademicoRepository.findByNombre(programaAcademico.getNombre());
+    public void saveProgramaAcademico(ProgramaAcademicoDto programaAcademicoDto) {
+        ProgramaAcademico existingPrograma = programaAcademicoRepository.findByNombre(programaAcademicoDto.getNombre());
         if (existingPrograma != null) {
             throw new ProgramaAcademicoExistenteException();
         }
+
+        ProgramaAcademico programaAcademico = programaAcademicoMapper.toEntity(programaAcademicoDto);
 
         programaAcademico.setDirector(null);
         programaAcademico.setPuedeDescargarPdf(false);
