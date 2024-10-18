@@ -1,6 +1,8 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.AreaFormacionDto;
 import com.micro.demo.entities.AreaFormacion;
+import com.micro.demo.mapper.AreaFormacionMapper;
 import com.micro.demo.repository.IAreaFormacionRepository;
 import com.micro.demo.service.IAreaFormacionService;
 import com.micro.demo.service.exceptions.AreaFormacionNotFound;
@@ -21,9 +23,11 @@ import java.util.Map;
 @Transactional
 public class AreaFormacionService implements IAreaFormacionService {
     private final IAreaFormacionRepository areaFormacionRepository;
+    private final AreaFormacionMapper areaFormacionMapper;
 
-    public AreaFormacionService(IAreaFormacionRepository areaFormacionRepository) {
+    public AreaFormacionService(IAreaFormacionRepository areaFormacionRepository, AreaFormacionMapper areaFormacionMapper) {
         this.areaFormacionRepository = areaFormacionRepository;
+        this.areaFormacionMapper = areaFormacionMapper;
     }
 
     /**
@@ -71,10 +75,12 @@ public class AreaFormacionService implements IAreaFormacionService {
     /**
      * Guardar un area de formacion
      *
-     * @param areaFormacion - Informacion del area de formacion
+     * @param areaFormacionDto - Informacion del area de formacion
      * */
     @Override
-    public void saveAreaFormacion(AreaFormacion areaFormacion) {
+    public void saveAreaFormacion(AreaFormacionDto areaFormacionDto) {
+        AreaFormacion areaFormacion = areaFormacionMapper.toEntity(areaFormacionDto);
+
         areaFormacionRepository.save(areaFormacion);
     }
 
