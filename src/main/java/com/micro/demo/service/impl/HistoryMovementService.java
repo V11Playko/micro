@@ -1,10 +1,12 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.HistoryMovementDto;
 import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.Email;
 import com.micro.demo.entities.HistoryMovement;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.enums.Semesters;
+import com.micro.demo.mapper.HistoryMovementMapper;
 import com.micro.demo.repository.IAsignaturaPensumRepository;
 import com.micro.demo.repository.IAsignaturaRepository;
 import com.micro.demo.repository.IHistoryMovementRepository;
@@ -18,6 +20,7 @@ import com.micro.demo.service.exceptions.AsignaturaAlreadyRemoved;
 import com.micro.demo.service.exceptions.AsignaturaNotFound;
 import com.micro.demo.service.exceptions.AtributosNotFound;
 import com.micro.demo.service.exceptions.CambiosAceptadosNotFoundException;
+import com.micro.demo.service.exceptions.CodigoNoModificableException;
 import com.micro.demo.service.exceptions.CodigoNotFound;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.ModificationPeriodDisabled;
@@ -36,6 +39,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -57,14 +61,16 @@ public class HistoryMovementService implements IHistoryMovementService {
     private final IPensumRepository pensumRepository;
     private final IPensumService pensumService;
     private final IEmailService emailService;
+    private final HistoryMovementMapper historyMovementMapper;
 
-    public HistoryMovementService(IHistoryMovementRepository historyMovementRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IAsignaturaRepository asignaturaRepository, IPensumRepository pensumRepository, IPensumService pensumService, IEmailService emailService) {
+    public HistoryMovementService(IHistoryMovementRepository historyMovementRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IAsignaturaRepository asignaturaRepository, IPensumRepository pensumRepository, IPensumService pensumService, IEmailService emailService, HistoryMovementMapper historyMovementMapper) {
         this.historyMovementRepository = historyMovementRepository;
         this.asignaturaPensumRepository = asignaturaPensumRepository;
         this.asignaturaRepository = asignaturaRepository;
         this.pensumRepository = pensumRepository;
         this.pensumService = pensumService;
         this.emailService = emailService;
+        this.historyMovementMapper = historyMovementMapper;
     }
 
 
@@ -113,7 +119,7 @@ public class HistoryMovementService implements IHistoryMovementService {
     /**
      * Agregar una asignatura al historial de movimiento.
      *
-     * @param historyMovement - Informacion del historial de movimiento.
+     * @param historyMovementDto - Informacion del historial de movimiento.
      * @throws AsignaturaNotFound - Se lanza si la asignatura indicada no se encuentra.
      * @throws PensumNotFoundException - Se lanza si el pensum indicado no se encuentra.
      * @throws ModificationPeriodDisabled - Se lanza si el periodo de modificacion esta deshabilitado.
@@ -122,11 +128,15 @@ public class HistoryMovementService implements IHistoryMovementService {
      *
      * */
     @Override
-    public void agregarAsignatura(HistoryMovement historyMovement) {
+    public void agregarAsignatura(HistoryMovementDto historyMovementDto) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
-        Asignatura asignatura = asignaturaRepository.findById(historyMovement.getAsignaturaAfectada().getId()).orElseThrow(AsignaturaNotFound::new);
-        Pensum pensum = pensumRepository.findById(historyMovement.getPensum().getId()).orElseThrow(PensumNotFoundException::new);
 
+        HistoryMovement historyMovement = historyMovementMapper.toEntity(historyMovementDto);
+
+        Asignatura asignatura = asignaturaRepository.findById(historyMovementDto.getAsignaturaAfectadaId())
+                .orElseThrow(AsignaturaNotFound::new);
+        Pensum pensum = pensumRepository.findById(historyMovementDto.getPensumId())
+                .orElseThrow(PensumNotFoundException::new);
 
         if (pensum.getProgramaAcademico().getFechaInicioModificacion() == null ||
                 pensum.getProgramaAcademico().getDuracionModificacion() == null) {
@@ -142,6 +152,8 @@ public class HistoryMovementService implements IHistoryMovementService {
         }
 
         historyMovement.setCorreoDocente(correoUsuarioAutenticado);
+        historyMovement.setAsignaturaAfectada(asignatura);
+        historyMovement.setPensum(pensum);
         historyMovement.setAsignaturaAgregada(true);
         historyMovement.setAsignaturaRemovida(false);
         historyMovement.setAsignaturaActualizada(false);
@@ -149,19 +161,7 @@ public class HistoryMovementService implements IHistoryMovementService {
         historyMovement.setProgramaAcademico(pensum.getProgramaAcademico());
         historyMovement.setFechaMovimiento(LocalDateTime.now());
 
-        Email email = new Email();
-        email.setDestinatario(historyMovement.getCorreoDocente());
-        email.setAsunto(SUBJECT_EDITED_ASIGNATURA);
-        String mensaje = String.format(MESSAGE_ADDED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
-        email.setMensaje(mensaje);
-        emailService.sendMail(email);
-
-        Email email2 = new Email();
-        email2.setDestinatario(pensum.getProgramaAcademico().getDirector().getCorreo());
-        email2.setAsunto(SUBJECT_EDITED_ASIGNATURA);
-        String mensaje2 = String.format(MESSAGE_ADDED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
-        email2.setMensaje(mensaje2);
-        emailService.sendMail(email2);
+        enviarCorreosAsignaturaAgregada(historyMovement, asignatura);
 
         historyMovementRepository.save(historyMovement);
     }
@@ -169,31 +169,31 @@ public class HistoryMovementService implements IHistoryMovementService {
     /**
      * Remover una asignatura al historial de movimiento.
      *
-     * @param historyMovement - Informacion del historial de movimiento.
+     * @param historyMovementDto - Informacion del historial de movimiento.
      * @throws AsignaturaNotFound - Se lanza si la asignatura indicada no se encuentra.
      * @throws PensumNotFoundException - Se lanza si el pensum indicado no se encuentra.
      * @throws ModificationPeriodDisabled - Se lanza si el periodo de modificacion esta deshabilitado.
      * @throws AsignaturaAlreadyRemoved - Se lanza si la asignatura ya esta lista para ser removida en el historial.
      * */
     @Override
-    public void removerAsignatura(HistoryMovement historyMovement) {
-        String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
-        Asignatura asignatura = asignaturaRepository.findById(historyMovement.getAsignaturaAfectada().getId()).orElseThrow(AsignaturaNotFound::new);
-        Pensum pensum = pensumRepository.findById(historyMovement.getPensum().getId()).orElseThrow(PensumNotFoundException::new);
+    public void removerAsignatura(HistoryMovementDto historyMovementDto) {
+        HistoryMovement historyMovement = historyMovementMapper.toEntity(historyMovementDto);
 
+        Asignatura asignatura = asignaturaRepository.findById(historyMovementDto.getAsignaturaAfectadaId())
+                .orElseThrow(AsignaturaNotFound::new);
+        Pensum pensum = pensumRepository.findById(historyMovementDto.getPensumId())
+                .orElseThrow(PensumNotFoundException::new);
 
         if (pensum.getProgramaAcademico().getFechaInicioModificacion() == null ||
                 pensum.getProgramaAcademico().getDuracionModificacion() == null) {
             throw new ModificationPeriodDisabled();
         }
 
-        // Verificar si la asignatura ya está removida en el historial
         if (historyMovementRepository.existsByAsignaturaAfectadaAndAsignaturaRemovidaTrueAndCambiosAceptadosNull(asignatura)) {
             throw new AsignaturaAlreadyRemoved();
         }
 
-        // Setear los valores correspondientes al remover la asignatura
-        historyMovement.setCorreoDocente(correoUsuarioAutenticado);
+        historyMovement.setCorreoDocente(getCorreoUsuarioAutenticado());
         historyMovement.setAsignaturaAgregada(false);
         historyMovement.setAsignaturaRemovida(true);
         historyMovement.setAsignaturaActualizada(false);
@@ -201,97 +201,47 @@ public class HistoryMovementService implements IHistoryMovementService {
         historyMovement.setProgramaAcademico(pensum.getProgramaAcademico());
         historyMovement.setFechaMovimiento(LocalDateTime.now());
 
-        Email email = new Email();
-        email.setDestinatario(historyMovement.getCorreoDocente());
-        email.setAsunto(SUBJECT_EDITED_ASIGNATURA);
-        String mensaje = String.format(MESSAGE_REMOVED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
-        email.setMensaje(mensaje);
-        emailService.sendMail(email);
+        enviarCorreosAsignaturaRemovida(historyMovement, asignatura);
 
-        Email email2 = new Email();
-        email2.setDestinatario(pensum.getProgramaAcademico().getDirector().getCorreo());
-        email2.setAsunto(SUBJECT_EDITED_ASIGNATURA);
-        String mensaje2 = String.format(MESSAGE_REMOVED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
-        email2.setMensaje(mensaje2);
-        emailService.sendMail(email2);
-
+        // Guardar el movimiento en la base de datos
         historyMovementRepository.save(historyMovement);
     }
+
 
     /**
      * Agregar una asignatura al historial de movimiento.
      *
-     * @param historyMovement - Informacion del historial de movimiento.
+     * @param historyMovementDto - Informacion del historial de movimiento.
      * @throws AsignaturaNotFound - Se lanza si la asignatura indicada no se encuentra.
      * @throws PensumNotFoundException - Se lanza si el pensum indicado no se encuentra.
      * @throws ModificationPeriodDisabled - Se lanza si el periodo de modificacion esta deshabilitado.
      * @throws AtributosNotFound - Se lanza si los atributos a modificar son nulos.
      * */
     @Override
-    public void actualizarAsignatura(HistoryMovement historyMovement) {
-        Map<String, String> atributosModificados = historyMovement.getAtributosModificados();
-        String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
-        Asignatura asignaturaAfectada = asignaturaRepository.findById(historyMovement.getAsignaturaAfectada().getId()).orElseThrow(AsignaturaNotFound::new);
-        Pensum pensum = pensumRepository.findById(historyMovement.getPensum().getId()).orElseThrow(PensumNotFoundException::new);
+    public void actualizarAsignatura(HistoryMovementDto historyMovementDto) {
+        HistoryMovement historyMovement = historyMovementMapper.toEntity(historyMovementDto);
 
+        Asignatura asignaturaAfectada = asignaturaRepository.findById(historyMovementDto.getAsignaturaAfectadaId())
+                .orElseThrow(AsignaturaNotFound::new);
+        Pensum pensum = pensumRepository.findById(historyMovementDto.getPensumId())
+                .orElseThrow(PensumNotFoundException::new);
 
         if (pensum.getProgramaAcademico().getFechaInicioModificacion() == null ||
                 pensum.getProgramaAcademico().getDuracionModificacion() == null) {
             throw new ModificationPeriodDisabled();
         }
 
-        if (atributosModificados == null) {
+        Map<String, String> atributosModificados = historyMovementDto.getAtributosModificados();
+        if (atributosModificados == null || atributosModificados.isEmpty()) {
             throw new AtributosNotFound();
         }
 
-        Asignatura asignatura = new Asignatura();
-        // Actualizar los atributos de la asignatura con los valores proporcionados en los atributos modificados
-        if (atributosModificados.containsKey("nombre")) {
-            asignatura.setNombre(atributosModificados.get("nombre"));
-        }
-        if (atributosModificados.containsKey("codigo")) {
-            asignatura.setCodigo(Integer.parseInt(atributosModificados.get("codigo")));
-        }
-        if (atributosModificados.containsKey("accFormacionInv")) {
-            asignatura.setAccFormacionInv(atributosModificados.get("accFormacionInv"));
-        }
-        if (atributosModificados.containsKey("bibliografia")) {
-            asignatura.setBibliografia(atributosModificados.get("bibliografia"));
-        }
-        if (atributosModificados.containsKey("creditos")) {
-            asignatura.setCreditos(Integer.parseInt(atributosModificados.get("creditos")));
-        }
-        if (atributosModificados.containsKey("had")) {
-            asignatura.setHad(atributosModificados.get("had"));
-        }
-        if (atributosModificados.containsKey("hti")) {
-            asignatura.setHti(atributosModificados.get("hti"));
-        }
-        if (atributosModificados.containsKey("hadhti")) {
-            asignatura.setHadhti(atributosModificados.get("hadhti"));
-        }
-        if (atributosModificados.containsKey("justificacion")) {
-            asignatura.setJustificacion(atributosModificados.get("justificacion"));
-        }
-        if (atributosModificados.containsKey("metodologia")) {
-            asignatura.setMetodologia(atributosModificados.get("metodologia"));
-        }
-        if (atributosModificados.containsKey("objetivo")) {
-            asignatura.setObjetivos(Collections.singletonList(atributosModificados.get("objetivo")));
-        }
-        if (atributosModificados.containsKey("semestre")) {
-            asignatura.setSemestre(Semesters.valueOf(atributosModificados.get("semestre")));
-        }
-        if (atributosModificados.containsKey("tipoCredito")) {
-            asignatura.setTipoCredito(atributosModificados.get("tipoCredito"));
-        }
-        if (atributosModificados.containsKey("tipoCurso")) {
-            asignatura.setTipoCurso(atributosModificados.get("tipoCurso"));
-        }
-
+        // Crear una nueva instancia de Asignatura y actualizar los atributos modificados
+        Asignatura asignaturaActualizada = new Asignatura();
+        actualizarAtributosAsignatura(asignaturaActualizada, atributosModificados);
 
         historyMovement.setAsignaturaAfectada(asignaturaAfectada);
-        historyMovement.setCorreoDocente(correoUsuarioAutenticado);
+        historyMovement.setCorreoDocente(getCorreoUsuarioAutenticado());
         historyMovement.setAsignaturaAgregada(false);
         historyMovement.setAsignaturaRemovida(false);
         historyMovement.setAsignaturaActualizada(true);
@@ -299,23 +249,11 @@ public class HistoryMovementService implements IHistoryMovementService {
         historyMovement.setProgramaAcademico(pensum.getProgramaAcademico());
         historyMovement.setFechaMovimiento(LocalDateTime.now());
 
-
-        Email email = new Email();
-        email.setDestinatario(historyMovement.getCorreoDocente());
-        email.setAsunto(SUBJECT_EDITED_ASIGNATURA);
-        String mensaje = String.format(MESSAGE_EDITED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
-        email.setMensaje(mensaje);
-        emailService.sendMail(email);
-
-        Email email2 = new Email();
-        email2.setDestinatario(pensum.getProgramaAcademico().getDirector().getCorreo());
-        email2.setAsunto(SUBJECT_EDITED_ASIGNATURA);
-        String mensaje2 = String.format(MESSAGE_EDITED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
-        email2.setMensaje(mensaje2);
-        emailService.sendMail(email2);
+        enviarCorreosAsignaturaActualizada(historyMovement, asignaturaActualizada);
 
         historyMovementRepository.save(historyMovement);
     }
+
 
     /**
      * Aprobar o rechazar cambios propuestos despues del periodo de modificacion.
@@ -364,6 +302,7 @@ public class HistoryMovementService implements IHistoryMovementService {
      * @throws AsignaturaNotFound - Se lanza si la asignatura indicada no se encuentra.
      * */
     @Override
+    @Transactional
     public void aplicarCambiosPropuestos(Integer codigo) {
         List<HistoryMovement> cambiosPropuestos = historyMovementRepository.findByCambiosAceptadosTrueAndCodigo(codigo);
 
@@ -371,6 +310,7 @@ public class HistoryMovementService implements IHistoryMovementService {
             throw new CambiosAceptadosNotFoundException();
         }
 
+        // Agrupar cambios por tipo de operación
         List<HistoryMovement> cambiosAgregarAsignaturas = cambiosPropuestos.stream()
                 .filter(HistoryMovement::isAsignaturaAgregada)
                 .toList();
@@ -390,67 +330,31 @@ public class HistoryMovementService implements IHistoryMovementService {
             pensumService.assignAsignaturas(pensum.getId(), Arrays.asList(asignatura.getId()));
         }
 
+        Map<Pensum, List<Long>> asignaturasPorPensum = new HashMap<>();
         for (HistoryMovement cambio : cambiosRemoverAsignaturas) {
             Pensum pensum = pensumRepository.findById(cambio.getPensum().getId()).orElseThrow(PensumNotFoundException::new);
             Asignatura asignatura = asignaturaRepository.findById(cambio.getAsignaturaAfectada().getId()).orElseThrow(AsignaturaNotFound::new);
 
+            // Agrupar las asignaturas a remover por pensum
+            asignaturasPorPensum.computeIfAbsent(pensum, k -> new ArrayList<>()).add(asignatura.getId());
+        }
+
+        for (Map.Entry<Pensum, List<Long>> entry : asignaturasPorPensum.entrySet()) {
+            Pensum pensum = entry.getKey();
             pensumService.duplicatePensum(pensum.getId());
 
             Pensum nuevoPensum = pensumRepository.findTopByOrderByIdDesc();
-
-            pensumService.removeAsignaturaFromPensum(nuevoPensum.getId(), asignatura.getId());
-
+            for (Long asignaturaId : entry.getValue()) {
+                pensumService.removeAsignaturaFromPensum(nuevoPensum.getId(), asignaturaId);
+            }
         }
 
         for (HistoryMovement cambio : cambiosActualizarAsignaturas) {
-            Asignatura asignaturaAfectada = asignaturaRepository.findById(cambio.getAsignaturaAfectada().getId()).orElseThrow(AsignaturaNotFound::new);
-            Map<String, String> atributosModificados = cambio.getAtributosModificados();
+            Asignatura asignaturaAfectada = asignaturaRepository.findById(cambio.getAsignaturaAfectada().getId())
+                    .orElseThrow(AsignaturaNotFound::new);
 
-            // Actualizar los atributos de la asignatura afectada según los cambios propuestos
-            if (atributosModificados.containsKey("nombre")) {
-                asignaturaAfectada.setNombre(atributosModificados.get("nombre"));
-            }
-            if (atributosModificados.containsKey("codigo")) {
-                asignaturaAfectada.setCodigo(Integer.parseInt(atributosModificados.get("codigo")));
-            }
-            if (atributosModificados.containsKey("accFormacionInv")) {
-                asignaturaAfectada.setAccFormacionInv(atributosModificados.get("accFormacionInv"));
-            }
-            if (atributosModificados.containsKey("bibliografia")) {
-                asignaturaAfectada.setBibliografia(atributosModificados.get("bibliografia"));
-            }
-            if (atributosModificados.containsKey("creditos")) {
-                asignaturaAfectada.setCreditos(Integer.parseInt(atributosModificados.get("creditos")));
-            }
-            if (atributosModificados.containsKey("had")) {
-                asignaturaAfectada.setHad(atributosModificados.get("had"));
-            }
-            if (atributosModificados.containsKey("hti")) {
-                asignaturaAfectada.setHti(atributosModificados.get("hti"));
-            }
-            if (atributosModificados.containsKey("hadhti")) {
-                asignaturaAfectada.setHadhti(atributosModificados.get("hadhti"));
-            }
-            if (atributosModificados.containsKey("justificacion")) {
-                asignaturaAfectada.setJustificacion(atributosModificados.get("justificacion"));
-            }
-            if (atributosModificados.containsKey("metodologia")) {
-                asignaturaAfectada.setMetodologia(atributosModificados.get("metodologia"));
-            }
-            if (atributosModificados.containsKey("objetivo")) {
-                asignaturaAfectada.setObjetivos(Collections.singletonList(atributosModificados.get("objetivo")));
-            }
-            if (atributosModificados.containsKey("semestre")) {
-                asignaturaAfectada.setSemestre(Semesters.valueOf(atributosModificados.get("semestre")));
-            }
-            if (atributosModificados.containsKey("tipoCredito")) {
-                asignaturaAfectada.setTipoCredito(atributosModificados.get("tipoCredito"));
-            }
-            if (atributosModificados.containsKey("tipoCurso")) {
-                asignaturaAfectada.setTipoCurso(atributosModificados.get("tipoCurso"));
-            }
+            actualizarAtributosAsignatura(asignaturaAfectada, cambio.getAtributosModificados());
 
-            // Guardar los cambios en la asignatura afectada
             asignaturaRepository.save(asignaturaAfectada);
         }
     }
@@ -468,4 +372,107 @@ public class HistoryMovementService implements IHistoryMovementService {
         }
         return null;
     }
+
+    private void enviarCorreosAsignaturaAgregada(HistoryMovement historyMovement, Asignatura asignatura) {
+        // Enviar correo al docente
+        Email email = new Email();
+        email.setDestinatario(historyMovement.getCorreoDocente());
+        email.setAsunto(SUBJECT_EDITED_ASIGNATURA);
+        String mensaje = String.format(MESSAGE_ADDED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
+        email.setMensaje(mensaje);
+        emailService.sendMail(email);
+
+        // Enviar correo al director del programa académico
+        Email email2 = new Email();
+        email2.setDestinatario(historyMovement.getProgramaAcademico().getDirector().getCorreo());
+        email2.setAsunto(SUBJECT_EDITED_ASIGNATURA);
+        String mensaje2 = String.format(MESSAGE_ADDED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
+        email2.setMensaje(mensaje2);
+        emailService.sendMail(email2);
+    }
+
+    private void enviarCorreosAsignaturaActualizada(HistoryMovement historyMovement, Asignatura asignatura) {
+        // Enviar correo al docente
+        Email email = new Email();
+        email.setDestinatario(historyMovement.getCorreoDocente());
+        email.setAsunto(SUBJECT_EDITED_ASIGNATURA);
+        String mensaje = String.format(MESSAGE_EDITED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
+        email.setMensaje(mensaje);
+        emailService.sendMail(email);
+
+        // Enviar correo al director del programa académico
+        Email email2 = new Email();
+        email2.setDestinatario(historyMovement.getProgramaAcademico().getDirector().getCorreo());
+        email2.setAsunto(SUBJECT_EDITED_ASIGNATURA);
+        String mensaje2 = String.format(MESSAGE_EDITED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
+        email2.setMensaje(mensaje2);
+        emailService.sendMail(email2);
+    }
+
+    private void enviarCorreosAsignaturaRemovida(HistoryMovement historyMovement, Asignatura asignatura) {
+        // Enviar correo al docente
+        Email email = new Email();
+        email.setDestinatario(historyMovement.getCorreoDocente());
+        email.setAsunto(SUBJECT_EDITED_ASIGNATURA);
+        String mensaje = String.format(MESSAGE_REMOVED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
+        email.setMensaje(mensaje);
+        emailService.sendMail(email);
+
+        // Enviar correo al director del programa académico
+        Email email2 = new Email();
+        email2.setDestinatario(historyMovement.getProgramaAcademico().getDirector().getCorreo());
+        email2.setAsunto(SUBJECT_EDITED_ASIGNATURA);
+        String mensaje2 = String.format(MESSAGE_REMOVED_ASIGNATURA, historyMovement.getCorreoDocente(), asignatura.getNombre());
+        email2.setMensaje(mensaje2);
+        emailService.sendMail(email2);
+    }
+
+    private void actualizarAtributosAsignatura(Asignatura asignatura, Map<String, String> atributosModificados) {
+        if (atributosModificados.containsKey("nombre")) {
+            asignatura.setNombre(atributosModificados.get("nombre"));
+        }
+        // El código ha sido eliminado de la actualización
+        // if (atributosModificados.containsKey("codigo")) {
+        //     asignatura.setCodigo(Integer.parseInt(atributosModificados.get("codigo")));
+        // }
+        if (atributosModificados.containsKey("accFormacionInv")) {
+            asignatura.setAccFormacionInv(atributosModificados.get("accFormacionInv"));
+        }
+        if (atributosModificados.containsKey("bibliografia")) {
+            asignatura.setBibliografia(atributosModificados.get("bibliografia"));
+        }
+        if (atributosModificados.containsKey("creditos")) {
+            asignatura.setCreditos(Integer.parseInt(atributosModificados.get("creditos")));
+        }
+        if (atributosModificados.containsKey("had")) {
+            asignatura.setHad(atributosModificados.get("had"));
+        }
+        if (atributosModificados.containsKey("hti")) {
+            asignatura.setHti(atributosModificados.get("hti"));
+        }
+        if (atributosModificados.containsKey("hadhti")) {
+            asignatura.setHadhti(atributosModificados.get("hadhti"));
+        }
+        if (atributosModificados.containsKey("justificacion")) {
+            asignatura.setJustificacion(atributosModificados.get("justificacion"));
+        }
+        if (atributosModificados.containsKey("metodologia")) {
+            asignatura.setMetodologia(atributosModificados.get("metodologia"));
+        }
+        if (atributosModificados.containsKey("objetivo")) {
+            List<String> objetivos = new ArrayList<>();
+            objetivos.add(atributosModificados.get("objetivo"));
+            asignatura.setObjetivos(objetivos);
+        }
+        if (atributosModificados.containsKey("semestre")) {
+            asignatura.setSemestre(Semesters.valueOf(atributosModificados.get("semestre")));
+        }
+        if (atributosModificados.containsKey("tipoCredito")) {
+            asignatura.setTipoCredito(atributosModificados.get("tipoCredito"));
+        }
+        if (atributosModificados.containsKey("tipoCurso")) {
+            asignatura.setTipoCurso(atributosModificados.get("tipoCurso"));
+        }
+    }
+
 }
