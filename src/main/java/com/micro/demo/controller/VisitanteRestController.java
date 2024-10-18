@@ -1,6 +1,7 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.controller.dto.UsuarioDto;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.repository.IUsuarioRepository;
@@ -96,9 +97,10 @@ public class VisitanteRestController {
                     @ApiResponse(responseCode = "403", description = "Role not allowed for user creation",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveVisitante")
-    public ResponseEntity<Map<String, String>> saveVisitante(@Valid @RequestBody Usuario user) {
+    public ResponseEntity<Map<String, String>> saveVisitante(@Valid @RequestBody UsuarioDto usuarioDTO) {
         checkUserRole(Arrays.asList("ROLE_VISITANTE", "ROLE_ADMIN"));
-        usuarioService.saveUser(user, "ROLE_VISITANTE");
+        usuarioDTO.setRoleId(4L);
+        usuarioService.saveUser(usuarioDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
     }
