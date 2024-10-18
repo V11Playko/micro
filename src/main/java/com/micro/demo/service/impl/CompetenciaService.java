@@ -111,17 +111,17 @@ public class CompetenciaService implements ICompetenciaService {
      * Actualizar una competencia
      *
      * @param id - Identificador unico de la competencia a actualizar.
-     * @param competencia - Informacion de la competencia.
+     * @param competenciaDto - Informacion de la competencia.
      * @throws CompetenciaNotFoundException - Se lanza si no se encuentra la competencia con el ID especificado.
      * */
     @Override
-    public void updateCompetencia(Long id, Competencia competencia) {
+    public void updateCompetencia(Long id, CompetenciaDto competenciaDto) {
         Competencia competenciaExistente = competenciaRepository.findById(id)
                 .orElseThrow(CompetenciaNotFoundException::new);
 
-        competenciaExistente.setNombre(competencia.getNombre());
-        competenciaExistente.setDescripcion(competencia.getDescripcion());
-        competenciaExistente.setEstatus(competencia.isEstatus());
+        competenciaExistente.setNombre(competenciaDto.getNombre());
+        competenciaExistente.setDescripcion(competenciaDto.getDescripcion());
+        competenciaExistente.setEstatus(competenciaDto.isEstatus());
 
         competenciaRepository.save(competenciaExistente);
     }
