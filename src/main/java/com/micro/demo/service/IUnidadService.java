@@ -9,6 +9,6 @@ public interface IUnidadService {
     Map<String, Object> getAllUnidad(Integer pagina, Integer elementosXpagina);
     Unidad getUnidad(Long id);
     void saveUnidad(UnidadDto unidadDto);
-    void updateUnidad(Long id, Unidad unidad);
+    void updateUnidad(Long id, UnidadDto unidadDto);
     void deleteUnidad(Long id);
 }

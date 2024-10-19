@@ -1,6 +1,8 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.controller.dto.ProgramaAcademicoDto;
+import com.micro.demo.controller.dto.UsuarioDto;
 import com.micro.demo.controller.dto.request.assign.AssignDirectorRequestDto;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.ProgramaAcademico;
@@ -141,9 +143,10 @@ public class AdminRestController {
                     @ApiResponse(responseCode = "403", description = "Role not allowed for user creation",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveDirector")
-    public ResponseEntity<Map<String, String>> saveDirector(@Valid @RequestBody Usuario user) {
+    public ResponseEntity<Map<String, String>> saveDirector(@Valid @RequestBody UsuarioDto userDTO) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
-        usuarioService.saveUser(user, "ROLE_DIRECTOR");
+        userDTO.setRoleId(2L);
+        usuarioService.saveUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
     }
@@ -157,9 +160,10 @@ public class AdminRestController {
                     @ApiResponse(responseCode = "403", description = "Role not allowed for user creation",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/update/{id}")
-    public ResponseEntity<Map<String, String>> updateUser(@PathVariable Long id, @RequestBody Usuario usuarioActualizado) {
+    public ResponseEntity<Map<String, String>> updateUser(@PathVariable Long id, @RequestBody UsuarioDto userDTO) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
-        usuarioService.updateUser(id,usuarioActualizado);
+        userDTO.setRoleId(1L);
+        usuarioService.updateUser(id,userDTO);
             return ResponseEntity.status(HttpStatus.OK)
                     .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_UPDATED_MESSAGE));
     }
@@ -231,9 +235,9 @@ public class AdminRestController {
                     @ApiResponse(responseCode = "409", description = "Programa already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveProgramaAcademico")
-    public ResponseEntity<Map<String, String>> saveProgramaAcademico(@Valid @RequestBody ProgramaAcademico programaAcademico) {
+    public ResponseEntity<Map<String, String>> saveProgramaAcademico(@Valid @RequestBody ProgramaAcademicoDto programaAcademicoDto) {
         checkUserRole(Arrays.asList("ROLE_ADMIN"));
-        programaAcademicoService.saveProgramaAcademico(programaAcademico);
+        programaAcademicoService.saveProgramaAcademico(programaAcademicoDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }

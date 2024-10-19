@@ -11,11 +11,9 @@ import com.micro.demo.entities.enums.AsignaturaObligatoria;
 import com.micro.demo.entities.enums.ElectivaProfesional;
 import com.micro.demo.entities.enums.ElectivaSociohumanistica;
 import com.micro.demo.mapper.AsignaturaMapper;
-import com.micro.demo.repository.IAreaFormacionRepository;
 import com.micro.demo.repository.IAsignaturaDocenteRepository;
 import com.micro.demo.repository.IAsignaturaPensumRepository;
 import com.micro.demo.repository.IAsignaturaRepository;
-import com.micro.demo.repository.ICompetenciaRepository;
 import com.micro.demo.repository.IPreRequisitoRepository;
 import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IAsignaturaService;
@@ -163,28 +161,28 @@ public class AsignaturaService implements IAsignaturaService {
      * Actualiza la información de una asignatura.
      *
      * @param id - Identificador unico de la asignatura a actualizar.
-     * @param asignatura - Información actualizada de la asignatura.
+     * @param asignaturaDto - Información actualizada de la asignatura.
      * @throws AsignaturaNotFoundByIdException - Se lanza si no se encuentra la asignatura con el ID especificado.
      */
     @Override
-    public void updateAsignatura(Long id, Asignatura asignatura) {
+    public void updateAsignatura(Long id, AsignaturaDto asignaturaDto) {
         Asignatura existingAsignatura = asignaturaRepository.findById(id)
                 .orElseThrow(() -> new AsignaturaNotFoundByIdException(id));
 
-        existingAsignatura.setNombre(asignatura.getNombre());
-        existingAsignatura.setCodigo(asignatura.getCodigo());
-        existingAsignatura.setAccFormacionInv(asignatura.getAccFormacionInv());
-        existingAsignatura.setBibliografia(asignatura.getBibliografia());
-        existingAsignatura.setCreditos(asignatura.getCreditos());
-        existingAsignatura.setHad(asignatura.getHad());
-        existingAsignatura.setHti(asignatura.getHti());
-        existingAsignatura.setHadhti(asignatura.getHadhti());
-        existingAsignatura.setJustificacion(asignatura.getJustificacion());
-        existingAsignatura.setMetodologia(asignatura.getMetodologia());
-        existingAsignatura.setObjetivos(asignatura.getObjetivos());
-        existingAsignatura.setSemestre(asignatura.getSemestre());
-        existingAsignatura.setTipoCredito(asignatura.getTipoCredito());
-        existingAsignatura.setTipoCurso(asignatura.getTipoCurso());
+        existingAsignatura.setNombre(asignaturaDto.getNombre());
+        existingAsignatura.setCodigo(asignaturaDto.getCodigo());
+        existingAsignatura.setAccFormacionInv(asignaturaDto.getAccFormacionInv());
+        existingAsignatura.setBibliografia(asignaturaDto.getBibliografia());
+        existingAsignatura.setCreditos(asignaturaDto.getCreditos());
+        existingAsignatura.setHad(asignaturaDto.getHad());
+        existingAsignatura.setHti(asignaturaDto.getHti());
+        existingAsignatura.setHadhti(asignaturaDto.getHadhti());
+        existingAsignatura.setJustificacion(asignaturaDto.getJustificacion());
+        existingAsignatura.setMetodologia(asignaturaDto.getMetodologia());
+        existingAsignatura.setObjetivos(asignaturaDto.getObjetivos());
+        existingAsignatura.setSemestre(asignaturaDto.getSemestre());
+        existingAsignatura.setTipoCredito(asignaturaDto.getTipoCredito());
+        existingAsignatura.setTipoCurso(asignaturaDto.getTipoCurso());
 
         asignaturaRepository.save(existingAsignatura);
     }

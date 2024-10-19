@@ -1,13 +1,16 @@
 package com.micro.demo.service.impl;
 
+import com.micro.demo.controller.dto.UsuarioDto;
 import com.micro.demo.entities.Role;
 import com.micro.demo.entities.Usuario;
+import com.micro.demo.mapper.UsuarioMapper;
 import com.micro.demo.repository.IRoleRepository;
 import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IAuthPasswordEncoderPort;
 import com.micro.demo.service.IUsuarioService;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
+import com.micro.demo.service.exceptions.OnlyAdminException;
 import com.micro.demo.service.exceptions.RoleNotFoundException;
 import com.micro.demo.service.exceptions.UnauthorizedException;
 import com.micro.demo.service.exceptions.UserAlreadyExistsException;
@@ -24,7 +27,6 @@ import org.springframework.security.oauth2.server.resource.authentication.Bearer
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -33,11 +35,13 @@ public class UsuarioService implements IUsuarioService {
     private final IUsuarioRepository usuarioRepository;
     private final IRoleRepository roleRepository;
     private final IAuthPasswordEncoderPort passwordEncoderPort;
+    private final UsuarioMapper usuarioMapper;
 
-    public UsuarioService(IUsuarioRepository usuarioRepository, IRoleRepository roleRepository, IAuthPasswordEncoderPort passwordEncoderPort) {
+    public UsuarioService(IUsuarioRepository usuarioRepository, IRoleRepository roleRepository, IAuthPasswordEncoderPort passwordEncoderPort, UsuarioMapper usuarioMapper) {
         this.usuarioRepository = usuarioRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoderPort = passwordEncoderPort;
+        this.usuarioMapper = usuarioMapper;
     }
 
     /**
@@ -105,22 +109,24 @@ public class UsuarioService implements IUsuarioService {
     /**
      * Guardar un usuario
      *
-     * @param usuario - Informacion del usuario.
-     * @param roleName - Nombre del role que se le asignara al usuario
+     * @param usuarioDTO - Informacion del usuario.
      * @throws UserAlreadyExistsException - Se lanza si ya existe un usuario con ese correo.
      * @throws RoleNotFoundException - Se lanza si no se encuentra el Role que pusiste en el parametro roleName
      * */
     @Override
-    public void saveUser(Usuario usuario, String roleName) {
-        String correo = usuario.getCorreo();
-        if (usuarioRepository.existsByCorreo(correo)) {
+    public void saveUser(UsuarioDto usuarioDTO) {
+        Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+
+        if (usuarioRepository.existsByCorreo(usuario.getCorreo())) {
             throw new UserAlreadyExistsException();
         }
-        Role role = roleRepository.findByNombre(roleName);
-        if (role == null) {
-            throw new RoleNotFoundException();
+
+        if (usuarioDTO.getRoleId() != null) {
+            Role role = roleRepository.findById(usuarioDTO.getRoleId())
+                    .orElseThrow(RoleNotFoundException::new);
+            usuario.setRole(role);
         }
-        usuario.setRole(role);
+
         usuario.setContraseña(passwordEncoderPort.encodePassword(usuario.getContraseña()));
         usuarioRepository.save(usuario);
     }
@@ -129,11 +135,11 @@ public class UsuarioService implements IUsuarioService {
      * Actualizar un usuario
      *
      * @param id - Identificador unico del usuario a actualizar.
-     * @param usuarioActualizado - Informacion del usuario.
+     * @param usuarioDTO - Informacion del usuario.
      * @throws NoDataFoundException - Se lanza si no se encuentran datos.
      **/
     @Override
-    public void updateUser(Long id, Usuario usuarioActualizado) {
+    public void updateUser(Long id, UsuarioDto usuarioDTO) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
         Usuario usuarioExistente = usuarioRepository.findById(id).orElseThrow(NoDataFoundException::new);
         Usuario usuarioAutenticado = getUserByCorreo(correoUsuarioAutenticado);
@@ -146,12 +152,33 @@ public class UsuarioService implements IUsuarioService {
                 usuarioExistente.getRole().getNombre().equals("ROLE_DOCENTE"));
 
         if (isAdminOrOwnUser || isDirectorUpdatingDocente) {
-            usuarioExistente.setNombre(usuarioActualizado.getNombre());
-            usuarioExistente.setApellido(usuarioActualizado.getApellido());
-            usuarioExistente.setNumeroCelular(usuarioActualizado.getNumeroCelular());
-            usuarioExistente.setCorreo(usuarioActualizado.getCorreo());
-            usuarioExistente.setContraseña(passwordEncoderPort.encodePassword(usuarioActualizado.getContraseña()));
+            usuarioExistente.setNombre(usuarioDTO.getNombre());
+            usuarioExistente.setApellido(usuarioDTO.getApellido());
+            usuarioExistente.setNumeroCelular(usuarioDTO.getNumeroCelular());
 
+            // Validación para evitar que el usuario cambie su propio correo
+            if (!usuarioExistente.getCorreo().equals(usuarioDTO.getCorreo())) {
+                if (usuarioRepository.existsByCorreo(usuarioDTO.getCorreo())) {
+                    throw new UserAlreadyExistsException();
+                }
+                usuarioExistente.setCorreo(usuarioDTO.getCorreo());
+            }
+
+            if (!usuarioAutenticado.getRole().getNombre().equals("ROLE_ADMIN") && usuarioDTO.getRoleId() != null) {
+                throw new OnlyAdminException();
+            }
+
+            if (usuarioDTO.getRoleId() != null) {
+                Role role = roleRepository.findById(usuarioDTO.getRoleId())
+                        .orElseThrow(RoleNotFoundException::new);
+                usuarioExistente.setRole(role);
+            }
+
+            if (usuarioDTO.getContraseña() != null && !usuarioDTO.getContraseña().isEmpty()) {
+                usuarioExistente.setContraseña(passwordEncoderPort.encodePassword(usuarioDTO.getContraseña()));
+            }
+
+            // Guardar los cambios
             usuarioRepository.save(usuarioExistente);
         } else {
             throw new UnauthorizedException();

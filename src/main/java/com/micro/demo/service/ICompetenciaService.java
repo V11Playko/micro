@@ -9,6 +9,6 @@ public interface ICompetenciaService {
     Map<String, Object> getAllCompetencias(Integer pagina, Integer elementosXpagina);
     Competencia getCompetencia(Long id);
     void saveCompetencia(CompetenciaDto competenciaDto);
-    void updateCompetencia(Long id, Competencia competencia);
+    void updateCompetencia(Long id, CompetenciaDto competenciaDto);
     void deleteCompetencia(Long id);
 }

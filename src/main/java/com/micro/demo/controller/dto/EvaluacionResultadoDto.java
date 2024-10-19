@@ -11,7 +11,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EvaluacionResultadoDTO {
+public class EvaluacionResultadoDto {
+    private Long id;
     private String tipoEvidencia;
     private String instrumentoEvaluacion;
     private String criterioDesempeno;

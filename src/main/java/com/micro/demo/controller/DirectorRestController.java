@@ -1,8 +1,13 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.controller.dto.AreaFormacionDto;
 import com.micro.demo.controller.dto.PensumDto;
+import com.micro.demo.controller.dto.PreRequisitoDto;
+import com.micro.demo.controller.dto.ResultadoAprendizajeDto;
+import com.micro.demo.controller.dto.TemaDto;
 import com.micro.demo.controller.dto.UnidadDto;
+import com.micro.demo.controller.dto.UsuarioDto;
 import com.micro.demo.controller.dto.request.AprobarRechazarCambiosRequestDto;
 import com.micro.demo.controller.dto.AsignaturaDto;
 import com.micro.demo.controller.dto.request.assign.AssignAsignaturasRequestDto;
@@ -12,7 +17,7 @@ import com.micro.demo.controller.dto.request.assign.AssignTemasRequestDto;
 import com.micro.demo.controller.dto.CompetenciaDto;
 import com.micro.demo.controller.dto.request.remove.RemoveAsignaturaRequestDto;
 import com.micro.demo.controller.dto.request.remove.RemoveDocenteRequestDto;
-import com.micro.demo.controller.dto.EvaluacionResultadoDTO;
+import com.micro.demo.controller.dto.EvaluacionResultadoDto;
 import com.micro.demo.controller.dto.request.update.UpdatePeriodoModificacionRequestDto;
 import com.micro.demo.controller.dto.request.update.UpdatePuedeDescargarPdfRequestDto;
 import com.micro.demo.controller.dto.response.UnidadResultadoResponseDTO;
@@ -26,7 +31,6 @@ import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.ResultadoAprendizaje;
 import com.micro.demo.entities.Tema;
 import com.micro.demo.entities.Unidad;
-import com.micro.demo.entities.EvaluacionResultado;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.repository.IUsuarioRepository;
 import com.micro.demo.service.IAreaFormacionService;
@@ -181,9 +185,10 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "403", description = "Role not allowed for user creation",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveDocente")
-    public ResponseEntity<Map<String, String>> saveDocente(@Valid @RequestBody Usuario user) {
+    public ResponseEntity<Map<String, String>> saveDocente(@Valid @RequestBody UsuarioDto usuarioDTO) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        usuarioService.saveUser(user, "ROLE_DOCENTE");
+        usuarioDTO.setRoleId(3L);
+        usuarioService.saveUser(usuarioDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
     }
@@ -197,9 +202,10 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "403", description = "Role not allowed for user creation",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateUser/{id}")
-    public ResponseEntity<Map<String, String>> updateUser(@PathVariable Long id, @RequestBody Usuario usuarioActualizado) {
+    public ResponseEntity<Map<String, String>> updateUser(@PathVariable Long id, @RequestBody UsuarioDto usuarioDTO) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        usuarioService.updateUser(id,usuarioActualizado);
+        usuarioDTO.setRoleId(2L);
+        usuarioService.updateUser(id,usuarioDTO);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_UPDATED_MESSAGE));
     }
@@ -354,9 +360,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Pensum already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updatePensum/{id}")
-    public ResponseEntity<Map<String, String>> updatePensum(@PathVariable Long id, @RequestBody Pensum pensum) {
+    public ResponseEntity<Map<String, String>> updatePensum(@PathVariable Long id, @RequestBody PensumDto pensumDto) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        pensumService.updatePensum(id,pensum);
+        pensumService.updatePensum(id,pensumDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
     }
@@ -471,7 +477,7 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Asignatura already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateAsignatura/{id}")
-    public ResponseEntity<Map<String, String>> updateAsignatura(@PathVariable Long id, @RequestBody Asignatura asignatura) {
+    public ResponseEntity<Map<String, String>> updateAsignatura(@PathVariable Long id, @RequestBody AsignaturaDto asignatura) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         asignaturaService.updateAsignatura(id,asignatura);
         return ResponseEntity.status(HttpStatus.OK)
@@ -560,7 +566,7 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Area de formacion already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveAreaFormacion")
-    public ResponseEntity<Map<String, String>> saveAreaFormacion(@Valid @RequestBody AreaFormacion areaFormacion) {
+    public ResponseEntity<Map<String, String>> saveAreaFormacion(@Valid @RequestBody AreaFormacionDto areaFormacion) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         areaFormacionService.saveAreaFormacion(areaFormacion);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -620,9 +626,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "PreRequisito already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/savePreRequisito")
-    public ResponseEntity<Map<String, String>> savePreRequisito(@Valid @RequestBody PreRequisito preRequisito) {
+    public ResponseEntity<Map<String, String>> savePreRequisito(@Valid @RequestBody PreRequisitoDto preRequisitoDto) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        preRequisitoService.savePreRequisito(preRequisito);
+        preRequisitoService.savePreRequisito(preRequisitoDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
@@ -694,9 +700,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Unidad already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateUnidad/{id}")
-    public ResponseEntity<Map<String, String>> updateUnidad(@PathVariable Long id, @RequestBody Unidad unidad) {
+    public ResponseEntity<Map<String, String>> updateUnidad(@PathVariable Long id, @RequestBody UnidadDto unidadDto) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        unidadService.updateUnidad(id,unidad);
+        unidadService.updateUnidad(id,unidadDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
     }
@@ -755,9 +761,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Tema already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveTema")
-    public ResponseEntity<Map<String, String>> saveTema(@Valid @RequestBody Tema tema) {
+    public ResponseEntity<Map<String, String>> saveTema(@Valid @RequestBody TemaDto temaDto) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        temaService.saveTema(tema);
+        temaService.saveTema(temaDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
@@ -769,9 +775,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Tema already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateTema/{id}")
-    public ResponseEntity<Map<String, String>> updateTema(@PathVariable Long id, @RequestBody Tema tema) {
+    public ResponseEntity<Map<String, String>> updateTema(@PathVariable Long id, @Valid @RequestBody TemaDto temaDto) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        temaService.updateTema(id,tema);
+        temaService.updateTema(id, temaDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.UPDATED_MESSAGE));
     }
@@ -844,9 +850,9 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "evaluacion de resultado already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveEvaluacionResultado")
-    public ResponseEntity<Map<String, String>> saveEvaluacionResultado(@Valid @RequestBody List<EvaluacionResultadoDTO> evaluacionResultadoDTOS) {
+    public ResponseEntity<Map<String, String>> saveEvaluacionResultado(@Valid @RequestBody List<EvaluacionResultadoDto> evaluacionResultadoDtos) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
-        evaluacionResultadoService.saveEvaluacionResultados(evaluacionResultadoDTOS);
+        evaluacionResultadoService.saveEvaluacionResultados(evaluacionResultadoDtos);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
     }
@@ -858,7 +864,7 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "evaluacion de resultado already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateEvaluacionResultado/{id}")
-    public ResponseEntity<Map<String, String>> updateEvaluacionResultado(@PathVariable Long id, @RequestBody EvaluacionResultado evaluacionResultado) {
+    public ResponseEntity<Map<String, String>> updateEvaluacionResultado(@PathVariable Long id, @RequestBody EvaluacionResultadoDto evaluacionResultado) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         evaluacionResultadoService.updateEvaluacionResultado(id, evaluacionResultado);
         return ResponseEntity.status(HttpStatus.OK)
@@ -920,7 +926,7 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Resultado de aprendizaje already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveResultadoAprendizaje")
-    public ResponseEntity<Map<String, String>> saveResultadosAprendizaje(@Valid @RequestBody ResultadoAprendizaje resultadoAprendizaje) {
+    public ResponseEntity<Map<String, String>> saveResultadosAprendizaje(@Valid @RequestBody ResultadoAprendizajeDto resultadoAprendizaje) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         resultadoAprendizajeService.saveResultado(resultadoAprendizaje);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -934,7 +940,7 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Resultado aprendizaje already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateResultadoAprendizaje/{id}")
-    public ResponseEntity<Map<String, String>> updateResultadoAprendizaje(@PathVariable Long id, @RequestBody ResultadoAprendizaje resultadoAprendizaje) {
+    public ResponseEntity<Map<String, String>> updateResultadoAprendizaje(@PathVariable Long id, @RequestBody ResultadoAprendizajeDto resultadoAprendizaje) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         resultadoAprendizajeService.updateResultado(id,resultadoAprendizaje);
         return ResponseEntity.status(HttpStatus.OK)
@@ -1009,7 +1015,7 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Competencia already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/updateCompetencia/{id}")
-    public ResponseEntity<Map<String, String>> updateCompetencia(@PathVariable Long id, @RequestBody Competencia competencia) {
+    public ResponseEntity<Map<String, String>> updateCompetencia(@PathVariable Long id, @RequestBody CompetenciaDto competencia) {
         checkUserRole(Arrays.asList("ROLE_DIRECTOR", "ROLE_ADMIN"));
         competenciaService.updateCompetencia(id,competencia);
         return ResponseEntity.status(HttpStatus.OK)

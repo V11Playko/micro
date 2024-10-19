@@ -1,6 +1,8 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.controller.dto.HistoryMovementDto;
+import com.micro.demo.controller.dto.UsuarioDto;
 import com.micro.demo.entities.HistoryMovement;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
@@ -102,9 +104,10 @@ public class DocenteRestController {
                     @ApiResponse(responseCode = "403", description = "Role not allowed for user creation",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PutMapping("/update/{id}")
-    public ResponseEntity<Map<String, String>> updateUser(@PathVariable Long id, @RequestBody Usuario usuarioActualizado) {
+    public ResponseEntity<Map<String, String>> updateUser(@PathVariable Long id, @RequestBody UsuarioDto usuarioDTO) {
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
-        usuarioService.updateUser(id,usuarioActualizado);
+        usuarioDTO.setRoleId(3L);
+        usuarioService.updateUser(id,usuarioDTO);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_UPDATED_MESSAGE));
     }
@@ -215,7 +218,7 @@ public class DocenteRestController {
                     @ApiResponse(responseCode = "404", description = "Asignatura not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/agregarAsignatura")
-    public ResponseEntity<Map<String, String>> agregarAsignatura(@RequestBody HistoryMovement historyMovement) {
+    public ResponseEntity<Map<String, String>> agregarAsignatura(@RequestBody HistoryMovementDto historyMovement) {
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
         historyMovementService.agregarAsignatura(historyMovement);
         return ResponseEntity.status(HttpStatus.OK)
@@ -229,7 +232,7 @@ public class DocenteRestController {
                     @ApiResponse(responseCode = "404", description = "Asignatura not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/removerAsignatura")
-    public ResponseEntity<Map<String, String>> removerAsignatura(@RequestBody HistoryMovement historyMovement) {
+    public ResponseEntity<Map<String, String>> removerAsignatura(@RequestBody HistoryMovementDto historyMovement) {
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
         historyMovementService.removerAsignatura(historyMovement);
         return ResponseEntity.status(HttpStatus.OK)
@@ -243,7 +246,7 @@ public class DocenteRestController {
                     @ApiResponse(responseCode = "404", description = "Asignatura not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/actualizarAsignatura")
-    public ResponseEntity<Map<String, String>> actualizarAsignatura(@RequestBody HistoryMovement historyMovement) {
+    public ResponseEntity<Map<String, String>> actualizarAsignatura(@RequestBody HistoryMovementDto historyMovement) {
         checkUserRole(Arrays.asList("ROLE_DOCENTE", "ROLE_ADMIN"));
         historyMovementService.actualizarAsignatura(historyMovement);
         return ResponseEntity.status(HttpStatus.OK)

@@ -1,19 +1,17 @@
 package com.micro.demo.service.impl;
 
-import com.micro.demo.controller.dto.EvaluacionResultadoDTO;
+import com.micro.demo.controller.dto.EvaluacionResultadoDto;
 import com.micro.demo.controller.dto.response.UnidadResultadoResponseDTO;
 import com.micro.demo.entities.EvaluacionResultadoAprendizaje;
 import com.micro.demo.entities.ResultadoAprendizaje;
 import com.micro.demo.entities.Unidad;
 import com.micro.demo.entities.EvaluacionResultado;
-import com.micro.demo.repository.IResultadoAprendizajeRepository;
 import com.micro.demo.repository.IEvaluacionResultadoRepository;
 import com.micro.demo.repository.IUnidadRepository;
 import com.micro.demo.repository.IUnidadResultadoAprendizajeRepository;
 import com.micro.demo.service.IEvaluacionResultadoService;
 import com.micro.demo.service.exceptions.IlegalPaginaException;
 import com.micro.demo.service.exceptions.NoDataFoundException;
-import com.micro.demo.service.exceptions.ResultadoAprendizajeNotFoundException;
 import com.micro.demo.service.exceptions.UnidadNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -134,11 +132,11 @@ public class EvaluacionResultadoService implements IEvaluacionResultadoService {
     /**
      * Guardar unidad de resultado
      *
-     * @param evaluacionResultadoDTOS - Informacion de una unidad resultado
+     * @param evaluacionResultadoDtos - Informacion de una unidad resultado
      * */
     @Override
-    public void saveEvaluacionResultados(List<EvaluacionResultadoDTO> evaluacionResultadoDTOS) {
-        for (EvaluacionResultadoDTO dto : evaluacionResultadoDTOS) {
+    public void saveEvaluacionResultados(List<EvaluacionResultadoDto> evaluacionResultadoDtos) {
+        for (EvaluacionResultadoDto dto : evaluacionResultadoDtos) {
             List<Long> unidadIds = dto.getUnidades();
 
             // Para cada ID de unidad, crear un EvaluacionResultado
@@ -164,21 +162,28 @@ public class EvaluacionResultadoService implements IEvaluacionResultadoService {
      * Actualizar una unidad de resultado
      *
      * @param id - Identificador unico de una unidad resultado a actualizar.
-     * @param evaluacionResultado - Informacion de una unidad de resultado.
+     * @param evaluacionResultadoDto - Informacion de una unidad de resultado.
      * @throws NoDataFoundException - Se lanza si no se encuentran datos.
      * */
     @Override
-    public void updateEvaluacionResultado(Long id, EvaluacionResultado evaluacionResultado) {
-        EvaluacionResultado existingUnidad = unidadResultadoRepository.findById(id)
+    public void updateEvaluacionResultado(Long id, EvaluacionResultadoDto evaluacionResultadoDto) {
+        EvaluacionResultado existingEvaluacion = unidadResultadoRepository.findById(id)
                 .orElseThrow(NoDataFoundException::new);
 
-        existingUnidad.setCorteEvaluacion(evaluacionResultado.getCorteEvaluacion());
-        existingUnidad.setEstatus(evaluacionResultado.isEstatus());
-        existingUnidad.setCriterioDesempeno(evaluacionResultado.getCriterioDesempeno());
-        existingUnidad.setInstrumentoEvaluacion(evaluacionResultado.getInstrumentoEvaluacion());
-        existingUnidad.setTipoEvidencia(evaluacionResultado.getTipoEvidencia());
+        existingEvaluacion.setTipoEvidencia(evaluacionResultadoDto.getTipoEvidencia());
+        existingEvaluacion.setInstrumentoEvaluacion(evaluacionResultadoDto.getInstrumentoEvaluacion());
+        existingEvaluacion.setCriterioDesempeno(evaluacionResultadoDto.getCriterioDesempeno());
+        existingEvaluacion.setCorteEvaluacion(evaluacionResultadoDto.getCorteEvaluacion());
+        existingEvaluacion.setEstatus(evaluacionResultadoDto.isEstatus());
 
-        unidadResultadoRepository.save(existingUnidad);
+        List<Long> unidadIds = evaluacionResultadoDto.getUnidades();
+        if (unidadIds != null && !unidadIds.isEmpty()) {
+            Unidad unidad = unidadRepository.findById(unidadIds.get(0))
+                    .orElseThrow(UnidadNotFoundException::new);
+            existingEvaluacion.setUnidad(unidad);
+        }
+
+        unidadResultadoRepository.save(existingEvaluacion);
     }
 
     /**

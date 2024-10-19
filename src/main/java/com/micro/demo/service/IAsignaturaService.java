@@ -10,7 +10,7 @@ public interface IAsignaturaService {
     Map<String, Object> getAllAsignatura(Integer pagina, Integer elementosXpagina);
     Asignatura getAsignatura(Long id);
     void saveAsignatura(AsignaturaDto asignaturaDto);
-    void updateAsignatura(Long id, Asignatura asignatura);
+    void updateAsignatura(Long id, AsignaturaDto asignaturaDto);
     void assignDocentes(Long asignaturaId, List<String> correoDocentes);
     void removeDocente(Long asignaturaId, String correoDocente);
     void deleteAsignatura(Long id);

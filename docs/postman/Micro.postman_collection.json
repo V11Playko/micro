@@ -143,7 +143,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvrWwMw08LQyQmm5SXsU4Kq5Cqw5SaVCj9L4qUIpyceRt1QEd0vYduEkQ0Ti972aXAl3i25wKqrwFaqKYLP1mLDSyBzzo_C7JbHs4T6U7qsNkAMhkF6JSi6xRlSZOkTJ0mR7_eXD15FWQ9GcNY5Sr-izFKkAe1TaCgYKAewSARMSFQHGX2Mihsow4zjILMJtRNCnRxg8rQ0171",
+											"value": "ya29.a0AcM612yNs1J7EhKq86rukdvRr8zl7KmMk59YUajLlfrVulRgnfcr9BtGTBAJEYKmPyzHHMs3iU3sHnwdFqwc9JEtx1drLK6qBk02KyCHrl9wMzL3YlDFqFGPTbxkd64t46eKdENeaydX1rgjEWshNqnL04mF3mn5_LlskXLJaCgYKASwSARMSFQHGX2MiekwB47EyzCybS4as2akiGg0175",
 											"type": "string"
 										}
 									]
@@ -160,15 +160,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/saveDirector",
+									"raw": "http://localhost:8080/api/v1/admin/saveDirector",
 									"protocol": "http",
 									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -232,7 +229,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtl7skxOKdcHBV3waRm7C5E-Mmxs98FNw9M5E4R8rGYF1NIG16ZZo1hE3H8GDYwqO0Xr7PUaX3iA1cHhUkKj3GZdj2Ync3CTiefQ-IyNTOBJ5SfKfmrz8_tfdFkH-9ar8NLrvlxcndMqH0atn8EjOhKPIT0rMlFaCgYKAXcSARMSFQHGX2MiWmAC3ojnOvjtaya8yR_3Sw0171",
+											"value": "ya29.a0AcM612yNs1J7EhKq86rukdvRr8zl7KmMk59YUajLlfrVulRgnfcr9BtGTBAJEYKmPyzHHMs3iU3sHnwdFqwc9JEtx1drLK6qBk02KyCHrl9wMzL3YlDFqFGPTbxkd64t46eKdENeaydX1rgjEWshNqnL04mF3mn5_LlskXLJaCgYKASwSARMSFQHGX2MiekwB47EyzCybS4as2akiGg0175",
 											"type": "string"
 										}
 									]
@@ -240,21 +237,18 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/delete/7",
+									"raw": "http://localhost:8080/api/v1/admin/delete/3",
 									"protocol": "http",
 									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
 										"admin",
 										"delete",
-										"7"
+										"3"
 									]
 								}
 							},
@@ -273,7 +267,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612xgfqsoz2t2OHecnVY6Tv6pFNMP4FYf2jbQ2e3UZfrj2H-xcwRSzmFLvug1pAiCbIN4ya1Jmk1hfCFsvkhqwieCSY7SKwjcL1gwoix6Tk8_PLuNDokv1LFL2R_zy1DB1rZWUNEel-vOE0DDeWLJ1DR-njUzhGcTvXKFaCgYKAWoSARMSFQHGX2MiOQUg-pERIIQ-Pc6dndvErg0175",
+											"value": "ya29.a0AcM612yNs1J7EhKq86rukdvRr8zl7KmMk59YUajLlfrVulRgnfcr9BtGTBAJEYKmPyzHHMs3iU3sHnwdFqwc9JEtx1drLK6qBk02KyCHrl9wMzL3YlDFqFGPTbxkd64t46eKdENeaydX1rgjEWshNqnL04mF3mn5_LlskXLJaCgYKASwSARMSFQHGX2MiekwB47EyzCybS4as2akiGg0175",
 											"type": "string"
 										}
 									]
@@ -383,7 +377,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
+											"value": "ya29.a0AcM612zQFqW1l7d5J559COdxjC844sfnUx3jN4iEc5Fl5LzQzvwZmyVKXMlCY2-4NGXEfkdFJJbE9iOtK0fB0OOB3qoPmY_5L2_iPiKb-EpQ89lZHmoaBZJsjZHBpM34Ia-OSsxCoVuE6yPnQtrNXvMqkxWAnYZ5nGLmpUsYaCgYKAQESARMSFQHGX2MiJ4CII0kY5Uc_gYjcMO-UbA0175",
 											"type": "string"
 										}
 									]
@@ -400,15 +394,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/saveProgramaAcademico",
+									"raw": "http://localhost:8080/api/v1/admin/saveProgramaAcademico",
 									"protocol": "http",
 									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -427,7 +418,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCguLG2BDQgU7CCVOTyh_gqUUbBmCeOjQAkvKs1wPlgLHntV8HhdlHmIrQL1-nVY-Aw4sck4KKxfhPxEfMtpF8WbG0c13-zxYE_Hril9GV9AupqcYiTdBLmigRa4RkfvT3-rZXKzrx7uGEiGdDqGd3MOPCoR5cPgmaCgYKAVASARMSFQHGX2MiR06I-8urr3IasLjm41OXyA0171",
+											"value": "ya29.a0AcM612yNs1J7EhKq86rukdvRr8zl7KmMk59YUajLlfrVulRgnfcr9BtGTBAJEYKmPyzHHMs3iU3sHnwdFqwc9JEtx1drLK6qBk02KyCHrl9wMzL3YlDFqFGPTbxkd64t46eKdENeaydX1rgjEWshNqnL04mF3mn5_LlskXLJaCgYKASwSARMSFQHGX2MiekwB47EyzCybS4as2akiGg0175",
 											"type": "string"
 										}
 									]
@@ -444,15 +435,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/assignDirector",
+									"raw": "http://localhost:8080/api/v1/admin/assignDirector",
 									"protocol": "http",
 									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -743,7 +731,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
+											"value": "ya29.a0AcM612yNs1J7EhKq86rukdvRr8zl7KmMk59YUajLlfrVulRgnfcr9BtGTBAJEYKmPyzHHMs3iU3sHnwdFqwc9JEtx1drLK6qBk02KyCHrl9wMzL3YlDFqFGPTbxkd64t46eKdENeaydX1rgjEWshNqnL04mF3mn5_LlskXLJaCgYKASwSARMSFQHGX2MiekwB47EyzCybS4as2akiGg0175",
 											"type": "string"
 										}
 									]
@@ -760,15 +748,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/saveDocente",
+									"raw": "http://localhost:8080/api/v1/admin/director/saveDocente",
 									"protocol": "http",
 									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -992,7 +977,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
+											"value": "ya29.a0AcM612yZ-OaJpllla_S0nJWq7T63ZfW51s30x4lJEm9l7t5kpNd0o0vfLoG-bKcZXTHK8LRQZlPbI-hV2xnNEVTsenzP--hfOC4FD17L75ehStL1uPns56ALhYcb6xwj4Tta6bbr9TJIBc9BygSNSinxBF-PBuWErydZS1ZkaCgYKAXgSARMSFQHGX2MiZr2Dtm7o2B-pvknR05FgTw0175",
 											"type": "string"
 										}
 									]
@@ -1001,7 +986,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombrePrograma\": \"Ingenieria de Sistemas\",\r\n  \"fechaInicioModificacion\": \"2024-04-18\",\r\n  \"duracionModificacion\": 1\r\n}",
+									"raw": "{\r\n  \"nombrePrograma\": \"Ingenieria de sistemas\",\r\n  \"fechaInicioModificacion\": \"2024-04-18\",\r\n  \"duracionModificacion\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1009,15 +994,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/updatePeriodoModificacion",
+									"raw": "http://localhost:8080/api/v1/admin/director/updatePeriodoModificacion",
 									"protocol": "http",
 									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1119,7 +1101,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yJ-ZROtvp_vDKDDztI1_6kwZD-Ju_ehK2QdMXeZRAGSCBwn2URUtryibLsK79_Jmknpww6GG41LekQN2qvS01zUzGTe-8UFzZQ-G2msFAGZI2wSsIOmGPx8Nobv6A9b2sYI6lWr0Ay4IvGYuPQ4uIO_uX92Rs9b5TDaCgYKAVUSARMSFQHGX2MiT4x9ZtvaLsY2HM3xK5qKEQ0175",
+											"value": "ya29.a0AcM612yZ-OaJpllla_S0nJWq7T63ZfW51s30x4lJEm9l7t5kpNd0o0vfLoG-bKcZXTHK8LRQZlPbI-hV2xnNEVTsenzP--hfOC4FD17L75ehStL1uPns56ALhYcb6xwj4Tta6bbr9TJIBc9BygSNSinxBF-PBuWErydZS1ZkaCgYKAXgSARMSFQHGX2MiZr2Dtm7o2B-pvknR05FgTw0175",
 											"type": "string"
 										}
 									]
@@ -1128,7 +1110,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"Fisica\"\r\n}",
+									"raw": "{\r\n  \"nombre\": \"Ecuaciones\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1277,7 +1259,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yJ-ZROtvp_vDKDDztI1_6kwZD-Ju_ehK2QdMXeZRAGSCBwn2URUtryibLsK79_Jmknpww6GG41LekQN2qvS01zUzGTe-8UFzZQ-G2msFAGZI2wSsIOmGPx8Nobv6A9b2sYI6lWr0Ay4IvGYuPQ4uIO_uX92Rs9b5TDaCgYKAVUSARMSFQHGX2MiT4x9ZtvaLsY2HM3xK5qKEQ0175",
+											"value": "ya29.a0AcM612yZ-OaJpllla_S0nJWq7T63ZfW51s30x4lJEm9l7t5kpNd0o0vfLoG-bKcZXTHK8LRQZlPbI-hV2xnNEVTsenzP--hfOC4FD17L75ehStL1uPns56ALhYcb6xwj4Tta6bbr9TJIBc9BygSNSinxBF-PBuWErydZS1ZkaCgYKAXgSARMSFQHGX2MiZr2Dtm7o2B-pvknR05FgTw0175",
 											"type": "string"
 										}
 									]
@@ -1286,7 +1268,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n        \"credito\": \"SI APLICA\",\r\n        \"codigoAsignatura\": 1155922\r\n}",
+									"raw": "{\r\n        \"credito\": \"SI APLICA\",\r\n        \"codigoAsignatura\": 1155900\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1435,7 +1417,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yJ-ZROtvp_vDKDDztI1_6kwZD-Ju_ehK2QdMXeZRAGSCBwn2URUtryibLsK79_Jmknpww6GG41LekQN2qvS01zUzGTe-8UFzZQ-G2msFAGZI2wSsIOmGPx8Nobv6A9b2sYI6lWr0Ay4IvGYuPQ4uIO_uX92Rs9b5TDaCgYKAVUSARMSFQHGX2MiT4x9ZtvaLsY2HM3xK5qKEQ0175",
+											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
 											"type": "string"
 										}
 									]
@@ -1444,7 +1426,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"COMUNICACION I\",\r\n    \"codigo\": 1155945,\r\n    \"accFormacionInv\": \"Acción de Formación Inversión\",\r\n    \"bibliografia\": \"Bibliografía de referencia\",\r\n    \"creditos\": 4,\r\n    \"hp\": \"32\",\r\n    \"ht\": \"48\",\r\n    \"had\": \"16\",\r\n    \"hti\": \"18\",\r\n    \"hadhti\": \"34\",\r\n    \"justificacion\": \"Justificación del curso\",\r\n    \"metodologia\": \"Metodología de enseñanza\",\r\n    \"objetivos\": [\r\n        \"Entender los conceptos básicos de álgebra\",\r\n        \"Aplicar técnicas avanzadas en cálculo\"\r\n    ],\r\n    \"semestre\": \"5\",\r\n    \"tipoCredito\": \"Crédito académico\",\r\n    \"tipoCurso\": \"OBLIGATORIA\",\r\n    \"asignaturaSucesora\": \"Ninguna\",\r\n    \"asignaturaPredecesora\": \"Ninguna\",\r\n\"preRequisitosIds\": [\r\n    1\r\n  ],\r\n    \"competenciaId\": 1,\r\n    \"areaFormacionId\": 1\r\n    \r\n}\r\n",
+									"raw": "{\r\n    \"nombre\": \"ELECTRONICA\",\r\n    \"codigo\": 1155503,\r\n    \"accFormacionInv\": \"Acción de Formación Inversión\",\r\n    \"bibliografia\": \"Bibliografía de referencia\",\r\n    \"creditos\": 2,\r\n    \"hp\": \"2\",\r\n    \"ht\": \"8\",\r\n    \"had\": \"6\",\r\n    \"hti\": \"8\",\r\n    \"hadhti\": \"34\",\r\n    \"justificacion\": \"Justificación del curso\",\r\n    \"metodologia\": \"Metodología de enseñanza\",\r\n    \"objetivos\": [\r\n        \"Entender los conceptos básicos de álgebra\",\r\n        \"Aplicar técnicas avanzadas en cálculo\"\r\n    ],\r\n    \"semestre\": \"5\",\r\n    \"tipoCredito\": \"Crédito académico\",\r\n    \"tipoCurso\": \"OBLIGATORIA\",\r\n    \"asignaturaSucesora\": \"Ninguna\",\r\n    \"asignaturaPredecesora\": \"Ninguna\",\r\n\"preRequisitosIds\": [\r\n    1\r\n  ],\r\n    \"competenciaId\": 1,\r\n    \"areaFormacionId\": 1\r\n    \r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1790,7 +1772,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612wEtLZSCM9vV-mc-Lq1TpQNyp0hXszedcyoX3AFMNZZV4YRFa1Y52Ei5ujMX9fh2-BF5p0MN4skPWZNfB3VdL_SqqZyW28iSl9gnKBj4bfS5bf1ZXPAGmngTqwhfaXviYqp6Y78HjBxOTeng8aV209K3SmzSXNMb3MDaCgYKATwSARMSFQHGX2Mil7E-WZBaCMcq-aqMBbbVbA0175",
+											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
 											"type": "string"
 										}
 									]
@@ -1799,7 +1781,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"creditosTotales\": 132,\r\n  \"fechaInicio\": \"2024-01-23\",\r\n  \"fechaFinal\": \"2024-10-11\",\r\n  \"estatus\": true,\r\n  \"programaAcademicoId\": 1,\r\n  \"asignaturaPensum\": [\r\n    1,2\r\n  ]\r\n}",
+									"raw": "{\r\n  \"creditosTotales\": 132,\r\n  \"fechaInicio\": \"2024-01-23\",\r\n  \"fechaFinal\": \"2024-12-11\",\r\n  \"estatus\": true,\r\n  \"programaAcademicoId\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1878,7 +1860,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
+											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
 											"type": "string"
 										}
 									]
@@ -1887,7 +1869,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"pensumId\": 1,\r\n  \"asignaturasId\": [\r\n    1\r\n  ]\r\n}",
+									"raw": "{\r\n  \"pensumId\": 1,\r\n  \"asignaturasId\": [\r\n    1,2\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1895,15 +1877,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/assignAsignatura",
+									"raw": "http://localhost:8080/api/v1/admin/director/assignAsignatura",
 									"protocol": "http",
 									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -2130,7 +2109,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yJ-ZROtvp_vDKDDztI1_6kwZD-Ju_ehK2QdMXeZRAGSCBwn2URUtryibLsK79_Jmknpww6GG41LekQN2qvS01zUzGTe-8UFzZQ-G2msFAGZI2wSsIOmGPx8Nobv6A9b2sYI6lWr0Ay4IvGYuPQ4uIO_uX92Rs9b5TDaCgYKAVUSARMSFQHGX2MiT4x9ZtvaLsY2HM3xK5qKEQ0175",
+											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
 											"type": "string"
 										}
 									]
@@ -2139,7 +2118,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"tema 2\",\r\n  \"descripcion\": \"Tema 2\",\r\n  \"estatus\": true\r\n}",
+									"raw": "{\r\n  \"nombre\": \"tema 4\",\r\n  \"descripcion\": \"Tema 5\",\r\n  \"estatus\": true,\r\n   \"unidadId\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2278,6 +2257,261 @@
 					]
 				},
 				{
+					"name": "Manage ResultadoAprendizaje",
+					"item": [
+						{
+							"name": "All ResultadoAprendizaje",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AcM612xgfqsoz2t2OHecnVY6Tv6pFNMP4FYf2jbQ2e3UZfrj2H-xcwRSzmFLvug1pAiCbIN4ya1Jmk1hfCFsvkhqwieCSY7SKwjcL1gwoix6Tk8_PLuNDokv1LFL2R_zy1DB1rZWUNEel-vOE0DDeWLJ1DR-njUzhGcTvXKFaCgYKAWoSARMSFQHGX2MiOQUg-pERIIQ-Pc6dndvErg0175",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/allResultadosAprendizaje?pagina=1&elementosXpagina=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"allResultadosAprendizaje"
+									],
+									"query": [
+										{
+											"key": "pagina",
+											"value": "1"
+										},
+										{
+											"key": "elementosXpagina",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save ResultadoAprendizaje",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"SIIIIIIIIIIII\",\r\n  \"descripcion\": \"REEEEEEEEEEEEEEEEEEE\",\r\n  \"estatus\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/saveResultadoAprendizaje",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"saveResultadoAprendizaje"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update ResultadoAprendizaje",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Prueba\",\r\n  \"descripcion\": \"Prueba\",\r\n  \"estatus\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/updateResultadoAprendizaje/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"updateResultadoAprendizaje",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Assign Competencias",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"resultadoAprendizajeId\": 1,\r\n  \"competenciaIds\": [\r\n    1\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/assignCompetencias",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"assignCompetencias"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete ResultadoAprendizaje",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/deleteResultadoAprendizaje/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"deleteResultadoAprendizaje",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AcM612xZQwLqHzCZqknX-vUh0jM9oDSbl_Y9z2iR3FF67Te-t6If13KTUvc3D-CE9dA65uwcvVYnZx3iRDT4erqHBstHxHb7G_W8HBgMA5mDsyzpE4o_z0Sm1bs4_lLEUGbWCKMc3SnavBU-t1h24aVvXMMGrpdTUkYpfH5FaCgYKAfASARMSFQHGX2Mi9Bmpp8gX0-VNRHXEqKon8A0175",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/getResultado/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"getResultado",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Manage Unidad",
 					"item": [
 						{
@@ -2377,7 +2611,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yJ-ZROtvp_vDKDDztI1_6kwZD-Ju_ehK2QdMXeZRAGSCBwn2URUtryibLsK79_Jmknpww6GG41LekQN2qvS01zUzGTe-8UFzZQ-G2msFAGZI2wSsIOmGPx8Nobv6A9b2sYI6lWr0Ay4IvGYuPQ4uIO_uX92Rs9b5TDaCgYKAVUSARMSFQHGX2MiT4x9ZtvaLsY2HM3xK5qKEQ0175",
+											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
 											"type": "string"
 										}
 									]
@@ -2386,7 +2620,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "[\r\n  {\r\n    \"had\": \"4\",\r\n    \"hti\": \"25\",\r\n    \"nombre\": \"Unidad 3\",\r\n    \"temas\": [\r\n      1\r\n    ],\r\n    \"resultados\": [\r\n      2\r\n    ],\r\n    \"asignatura\": 1155945\r\n  }\r\n]\r\n",
+									"raw": "[\r\n  {\r\n    \"had\": \"43\",\r\n    \"hti\": \"252\",\r\n    \"nombre\": \"Unidad 2\",\r\n    \"temas\": [\r\n      2\r\n    ],\r\n    \"resultados\": [\r\n      2\r\n    ],\r\n    \"asignatura\": 1155945\r\n  }\r\n]\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2597,14 +2831,7 @@
 							"name": "By Id",
 							"request": {
 								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AcM612xZQwLqHzCZqknX-vUh0jM9oDSbl_Y9z2iR3FF67Te-t6If13KTUvc3D-CE9dA65uwcvVYnZx3iRDT4erqHBstHxHb7G_W8HBgMA5mDsyzpE4o_z0Sm1bs4_lLEUGbWCKMc3SnavBU-t1h24aVvXMMGrpdTUkYpfH5FaCgYKAfASARMSFQHGX2Mi9Bmpp8gX0-VNRHXEqKon8A0175",
-											"type": "string"
-										}
-									]
+									"type": "noauth"
 								},
 								"method": "GET",
 								"header": [],
@@ -2635,7 +2862,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yJ-ZROtvp_vDKDDztI1_6kwZD-Ju_ehK2QdMXeZRAGSCBwn2URUtryibLsK79_Jmknpww6GG41LekQN2qvS01zUzGTe-8UFzZQ-G2msFAGZI2wSsIOmGPx8Nobv6A9b2sYI6lWr0Ay4IvGYuPQ4uIO_uX92Rs9b5TDaCgYKAVUSARMSFQHGX2MiT4x9ZtvaLsY2HM3xK5qKEQ0175",
+											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
 											"type": "string"
 										}
 									]
@@ -2749,264 +2976,6 @@
 					]
 				},
 				{
-					"name": "Manage ResultadoAprendizaje",
-					"item": [
-						{
-							"name": "All ResultadoAprendizaje",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AcM612xgfqsoz2t2OHecnVY6Tv6pFNMP4FYf2jbQ2e3UZfrj2H-xcwRSzmFLvug1pAiCbIN4ya1Jmk1hfCFsvkhqwieCSY7SKwjcL1gwoix6Tk8_PLuNDokv1LFL2R_zy1DB1rZWUNEel-vOE0DDeWLJ1DR-njUzhGcTvXKFaCgYKAWoSARMSFQHGX2MiOQUg-pERIIQ-Pc6dndvErg0175",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/allResultadosAprendizaje?pagina=1&elementosXpagina=2",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"allResultadosAprendizaje"
-									],
-									"query": [
-										{
-											"key": "pagina",
-											"value": "1"
-										},
-										{
-											"key": "elementosXpagina",
-											"value": "2"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Save ResultadoAprendizaje",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AcM612yJ-ZROtvp_vDKDDztI1_6kwZD-Ju_ehK2QdMXeZRAGSCBwn2URUtryibLsK79_Jmknpww6GG41LekQN2qvS01zUzGTe-8UFzZQ-G2msFAGZI2wSsIOmGPx8Nobv6A9b2sYI6lWr0Ay4IvGYuPQ4uIO_uX92Rs9b5TDaCgYKAVUSARMSFQHGX2MiT4x9ZtvaLsY2HM3xK5qKEQ0175",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"Bien\",\r\n  \"descripcion\": \"Bueno\",\r\n  \"estatus\": true\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/saveResultadoAprendizaje",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"saveResultadoAprendizaje"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update ResultadoAprendizaje",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"Prueba\",\r\n  \"descripcion\": \"Prueba\",\r\n  \"estatus\": false\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/updateResultadoAprendizaje/3",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"updateResultadoAprendizaje",
-										"3"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Assign Competencias",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"resultadoAprendizajeId\": 1,\r\n  \"competenciaIds\": [\r\n    1\r\n  ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/assignCompetencias",
-									"protocol": "http",
-									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
-									],
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"assignCompetencias"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete ResultadoAprendizaje",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/deleteResultadoAprendizaje/4",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"deleteResultadoAprendizaje",
-										"4"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "By Id",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AcM612xZQwLqHzCZqknX-vUh0jM9oDSbl_Y9z2iR3FF67Te-t6If13KTUvc3D-CE9dA65uwcvVYnZx3iRDT4erqHBstHxHb7G_W8HBgMA5mDsyzpE4o_z0Sm1bs4_lLEUGbWCKMc3SnavBU-t1h24aVvXMMGrpdTUkYpfH5FaCgYKAfASARMSFQHGX2Mi9Bmpp8gX0-VNRHXEqKon8A0175",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/getResultado/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"getResultado",
-										"1"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "Manage EvaluacionResultado",
 					"item": [
 						{
@@ -3094,7 +3063,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yJ-ZROtvp_vDKDDztI1_6kwZD-Ju_ehK2QdMXeZRAGSCBwn2URUtryibLsK79_Jmknpww6GG41LekQN2qvS01zUzGTe-8UFzZQ-G2msFAGZI2wSsIOmGPx8Nobv6A9b2sYI6lWr0Ay4IvGYuPQ4uIO_uX92Rs9b5TDaCgYKAVUSARMSFQHGX2MiT4x9ZtvaLsY2HM3xK5qKEQ0175",
+											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
 											"type": "string"
 										}
 									]
@@ -3103,7 +3072,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "[\r\n  {\r\n    \"tipoEvidencia\": \"prueba\",\r\n    \"instrumentoEvaluacion\": \"string\",\r\n    \"criterioDesempeno\": \"prueba\",\r\n    \"corteEvaluacion\": \"string\",\r\n    \"estatus\": true\r\n  }\r\n]\r\n",
+									"raw": "[\r\n  {\r\n    \"tipoEvidencia\": \"Aja\",\r\n    \"instrumentoEvaluacion\": \"si\",\r\n    \"criterioDesempeno\": \"lerde\",\r\n    \"corteEvaluacion\": \"string\",\r\n    \"estatus\": true,\r\n    \"unidades\": [\r\n      1,2\r\n    ]\r\n  }\r\n]\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3221,7 +3190,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612xgfqsoz2t2OHecnVY6Tv6pFNMP4FYf2jbQ2e3UZfrj2H-xcwRSzmFLvug1pAiCbIN4ya1Jmk1hfCFsvkhqwieCSY7SKwjcL1gwoix6Tk8_PLuNDokv1LFL2R_zy1DB1rZWUNEel-vOE0DDeWLJ1DR-njUzhGcTvXKFaCgYKAWoSARMSFQHGX2MiOQUg-pERIIQ-Pc6dndvErg0175",
+											"value": "ya29.a0AcM612yz9jX64VWkrqmWFqhUIGtdzMfZfld8xBQbs0mI9pe63lO4FwvULIaaIifA_yU8iBv4rmUHhISrs9d6UHqyKANgH91Q0SlExJ8HuZxR-zGnv7LE4jvnNPsbv7hN9Igd1WcrFbKxe91iqe-yAyTctUUYSNL9imVbvLK-aCgYKAQ8SARMSFQHGX2MigXTFHyBWtBPnos-uuSx3uQ0175",
 											"type": "string"
 										}
 									]
@@ -3238,12 +3207,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/allHistoryMovement?pagina=1&elementosXpagina=2",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/allHistoryMovement?pagina=1&elementosXpagina=2",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3273,7 +3245,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
+											"value": "ya29.a0AcM612yDctgda_GD8hG4oTbUZ_5fZhhGEVoyqUJhj0yPTubxC_Z4LLm_PX6lUR0270ZivNyUFcufYAi0yyxnbAd-UU0KMmjYNgJA2bXs9Fb5ZlPROpndTprm7sw74AzBtCu1JWWSBLi-IwWhTFCmmfielO-FJ-gYgM7BB_RiaCgYKAQ8SARMSFQHGX2Mi6xYess_R4q_LoZb4F5Rc3A0175",
 											"type": "string"
 										}
 									]
@@ -3282,7 +3254,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"aceptarCambios\": true,\r\n    \"codigo\": 100980,\r\n    \"reasonMessage\": \"Super bueno los cambios propuestos, felicitaciones Docentes.\"\r\n}",
+									"raw": "{\r\n    \"aceptarCambios\": true,\r\n    \"codigo\": 980111,\r\n    \"reasonMessage\": \"Aceptable profesores.\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3290,15 +3262,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/aprobarRechazarCambios",
+									"raw": "http://localhost:8080/api/v1/admin/director/aprobarRechazarCambios",
 									"protocol": "http",
 									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3318,7 +3287,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgt_kC_u0Ntl0N_UOx0SD_n37fc1O1TQbgsQ-DFbV8RGegea7V5o85b6dRvZmm2O5ZlDYodWaPZabyXGcQiDFQUhjdL7ejWC5uUXfq1-2FT2G03pLdV8QL7ViLTBKMxmkxR32Ru4TGwmASPIF7WYT-Aykl0jjWHeaCgYKAQcSARMSFQHGX2Mixh5gINNo_nuRs1VWHHT5iA0171",
+											"value": "ya29.a0AcM612yDctgda_GD8hG4oTbUZ_5fZhhGEVoyqUJhj0yPTubxC_Z4LLm_PX6lUR0270ZivNyUFcufYAi0yyxnbAd-UU0KMmjYNgJA2bXs9Fb5ZlPROpndTprm7sw74AzBtCu1JWWSBLi-IwWhTFCmmfielO-FJ-gYgM7BB_RiaCgYKAQ8SARMSFQHGX2Mi6xYess_R4q_LoZb4F5Rc3A0175",
 											"type": "string"
 										}
 									]
@@ -3326,15 +3295,12 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/aplicarCambiosPropuestos?codigo=100980",
+									"raw": "http://localhost:8080/api/v1/admin/director/aplicarCambiosPropuestos?codigo=980111",
 									"protocol": "http",
 									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3345,7 +3311,7 @@
 									"query": [
 										{
 											"key": "codigo",
-											"value": "100980"
+											"value": "980111"
 										}
 									]
 								}
@@ -3688,7 +3654,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtvD_Av-08pSFEVr2UBlrUdseC5RjCZTzniAGk1hjlZRoawM9BrgZzruCtsh6K3dWFbumDNuE68eeEBfmlqvFPEluR-gS1SFmYgoaUIFAQAbnInksrtXhpIQjTh-odGhYR8WrRsbGWm7U387PNrZJD5GtSxyjn4aCgYKAasSARISFQHGX2Mio3cZhgRTkaw9HCoDcnz0jA0171",
+											"value": "ya29.a0AcM612y9Zjbp5ANTLCSakJmzAavT0Ej8_6MdrdSqhh3Byhy0OMT2X0Y4E_0N7b6OlCQGrULkZxOuR-T7-Nuo-Y_rs4VRwYVJsbC0eIwzsV_anGsmNqnSl7Cb1p_VHzu6j-u4rXfYEGjvuZO7VCSRWXh0NQDHAtp3JbGIjIQ6aCgYKAbUSARISFQHGX2MiVzZUnDBmUSOAYkNhdnsUYA0175",
 											"type": "string"
 										}
 									]
@@ -3697,7 +3663,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 2\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 1\r\n    },\r\n    \"codigo\": 100980\r\n}",
+									"raw": "{\r\n    \"asignaturaAfectadaId\": 3,\r\n    \"pensumId\": 16,\r\n    \"codigo\": 980111\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3705,15 +3671,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/docente/agregarAsignatura",
+									"raw": "http://localhost:8080/api/v1/admin/docente/agregarAsignatura",
 									"protocol": "http",
 									"host": [
-										"ALB-micro-1831133009",
-										"us-east-1",
-										"elb",
-										"amazonaws",
-										"com"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -3733,7 +3696,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
+											"value": "ya29.a0AcM612y9Zjbp5ANTLCSakJmzAavT0Ej8_6MdrdSqhh3Byhy0OMT2X0Y4E_0N7b6OlCQGrULkZxOuR-T7-Nuo-Y_rs4VRwYVJsbC0eIwzsV_anGsmNqnSl7Cb1p_VHzu6j-u4rXfYEGjvuZO7VCSRWXh0NQDHAtp3JbGIjIQ6aCgYKAbUSARISFQHGX2MiVzZUnDBmUSOAYkNhdnsUYA0175",
 											"type": "string"
 										}
 									]
@@ -3742,7 +3705,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 4\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 1\r\n    },\r\n    \"codigo\": 100980\r\n}",
+									"raw": "{\r\n    \"asignaturaAfectadaId\": 1,\r\n    \"pensumId\": 16,\r\n    \"codigo\": 980111\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3775,7 +3738,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
+											"value": "ya29.a0AcM612y9Zjbp5ANTLCSakJmzAavT0Ej8_6MdrdSqhh3Byhy0OMT2X0Y4E_0N7b6OlCQGrULkZxOuR-T7-Nuo-Y_rs4VRwYVJsbC0eIwzsV_anGsmNqnSl7Cb1p_VHzu6j-u4rXfYEGjvuZO7VCSRWXh0NQDHAtp3JbGIjIQ6aCgYKAbUSARISFQHGX2MiVzZUnDBmUSOAYkNhdnsUYA0175",
 											"type": "string"
 										}
 									]
@@ -3784,7 +3747,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"asignaturaAfectada\": {\r\n    \"id\": 5\r\n    },\r\n    \"pensum\": {\r\n    \"id\": 1\r\n    },\r\n    \"atributosModificados\": {\r\n        \"nombre\": \"BASES DE DATOS\",\r\n        \"codigo\": 1155605,\r\n        \"accFormacionInv\": \"Nueva formación investigativa\",\r\n        \"bibliografia\": \"Bibliografia\",\r\n        \"creditos\": 6,\r\n        \"had\": \"Nueva had\",\r\n        \"hti\": \"Nueva hti\",\r\n        \"hadhti\": \"Nueva hadhti\",\r\n        \"justificacion\": \"Nueva justificación\",\r\n        \"metodologia\": \"Nueva metodología\",\r\n        \"objetivo\": \"Nuevo objetivo\",\r\n        \"semestre\": \"Nuevo semestre\",\r\n        \"tipoCredito\": \"Nuevo tipo de crédito\",\r\n        \"tipoCurso\": \"OBLIGATORIA\",\r\n        \"asignaturaSucesora\": \"Nueva asignatura sucesora\",\r\n        \"asignaturaPredecesora\": \"Nueva asignatura predecesora\"\r\n    },\r\n    \"codigo\": 100980\r\n}",
+									"raw": "{\r\n  \"asignaturaAfectadaId\": 1,\r\n  \"pensumId\": 1,\r\n  \"atributosModificados\": {\r\n        \"nombre\": \"BASES DE DATOS\",\r\n        \"accFormacionInv\": \"Nueva formación investigativa\",\r\n        \"bibliografia\": \"Je\",\r\n        \"creditos\": 6,\r\n        \"had\": \"42\",\r\n        \"hti\": \"41\",\r\n        \"hadhti\": \"83\",\r\n        \"justificacion\": \"Buena\",\r\n        \"metodologia\": \"NAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\r\n        \"objetivo\": \"Nuevo objetivo\",\r\n        \"semestre\": \"SEMESTRE_1\",\r\n        \"tipoCredito\": \"saasd\",\r\n        \"tipoCurso\": \"OBLIGATORIA\",\r\n        \"asignaturaSucesora\": \"Nueva asignatura sucesora\",\r\n        \"asignaturaPredecesora\": \"Nueva asignatura predecesora\"\r\n    },\r\n    \"codigo\": 980111\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3823,14 +3786,7 @@
 							"name": "Save Visitante",
 							"request": {
 								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AXooCgsI3tKEmNl97LJr5Wyv2D8SfiXGa9Y1CL0-yPWTk6_NoGa1ZbwQJkRQqoRLgUXNQ2CJfMq0Tz8z6rHn4SKcfIeiKrBh12AmPVAXYZlBmAGHUHQ2J92gJDBCI5BVTcXjemCwm30IwArwCaU4ZMfE8sYC1d1cEFBgaCgYKAWkSARISFQHGX2MiSCvVGnKFbJxQLCNdtww1cQ0171",
-											"type": "string"
-										}
-									]
+									"type": "noauth"
 								},
 								"method": "POST",
 								"header": [],
@@ -3988,7 +3944,7 @@
 			]
 		},
 		{
-			"name": "New Request",
+			"name": "Public content",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -4005,6 +3961,90 @@
 					"path": [
 						"public",
 						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Public programas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/public/allProgramasAcademicos?pagina=1&elementosXpagina=2",
+					"protocol": "http",
+					"host": [
+						"ALB-micro-1831133009",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"public",
+						"allProgramasAcademicos"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "elementosXpagina",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Public pensums",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/public/allPensums?pagina=1&elementosXpagina=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"allPensums"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "elementosXpagina",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Public PDF",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/public/generatePdf/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"public",
+						"generatePdf",
+						"1"
 					]
 				}
 			},

@@ -5,6 +5,7 @@ import com.micro.demo.entities.Asignatura;
 import com.micro.demo.entities.AsignaturaPensum;
 import com.micro.demo.entities.Pensum;
 import com.micro.demo.entities.ProgramaAcademico;
+import com.micro.demo.mapper.PensumMapper;
 import com.micro.demo.repository.IAsignaturaPensumRepository;
 import com.micro.demo.repository.IAsignaturaRepository;
 import com.micro.demo.repository.IHistoryMovementRepository;
@@ -38,7 +39,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -48,13 +48,15 @@ public class PensumService implements IPensumService {
     private final IAsignaturaRepository asignaturaRepository;
     private final IAsignaturaPensumRepository asignaturaPensumRepository;
     private final IHistoryMovementRepository historyMovementRepository;
+    private final PensumMapper pensumMapper;
 
-    public PensumService(IPensumRepository pensumRepository, IProgramaAcademicoRepository programaAcademicoRepository, IAsignaturaRepository asignaturaRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IHistoryMovementRepository historyMovementRepository) {
+    public PensumService(IPensumRepository pensumRepository, IProgramaAcademicoRepository programaAcademicoRepository, IAsignaturaRepository asignaturaRepository, IAsignaturaPensumRepository asignaturaPensumRepository, IHistoryMovementRepository historyMovementRepository, PensumMapper pensumMapper) {
         this.pensumRepository = pensumRepository;
         this.programaAcademicoRepository = programaAcademicoRepository;
         this.asignaturaRepository = asignaturaRepository;
         this.asignaturaPensumRepository = asignaturaPensumRepository;
         this.historyMovementRepository = historyMovementRepository;
+        this.pensumMapper = pensumMapper;
     }
 
     /**
@@ -164,6 +166,7 @@ public class PensumService implements IPensumService {
     @Override
     public void savePensum(PensumDto pensumDto) {
         String correoUsuarioAutenticado = getCorreoUsuarioAutenticado();
+
         ProgramaAcademico programaAcademico = programaAcademicoRepository.findById(pensumDto.getProgramaAcademicoId())
                 .orElseThrow(ProgramaNotFoundException::new);
 
@@ -171,20 +174,8 @@ public class PensumService implements IPensumService {
             throw new UnauthorizedException();
         }
 
-        Pensum pensum = new Pensum();
-        pensum.setId(pensumDto.getId());
-        pensum.setCreditosTotales(pensumDto.getCreditosTotales());
-        pensum.setFechaInicio(pensumDto.getFechaInicio());
-        pensum.setFechaFinal(pensumDto.getFechaFinal());
-        pensum.setEstatus(pensumDto.isEstatus());
+        Pensum pensum = pensumMapper.toEntity(pensumDto);
         pensum.setProgramaAcademico(programaAcademico);
-
-        List<AsignaturaPensum> asignaturas = pensumDto.getAsignaturaPensum().stream()
-                .map(asignaturaId -> asignaturaPensumRepository.findById(asignaturaId)
-                        .orElseThrow(AsignaturaNotFound::new))
-                .collect(Collectors.toList());
-
-        pensum.setAsignaturaPensum(asignaturas);
 
         pensumRepository.save(pensum);
     }
@@ -193,18 +184,18 @@ public class PensumService implements IPensumService {
      * Actualizar un pensum
      *
      * @param id - Identificador unico del pensum a actualizar.
-     * @param pensum - Informacion del pensum.
+     * @param pensumDto - Informacion del pensum.
      * @throws PensumNotFoundException - Se lanza si el pensum indicado no se encuentra.
      * */
     @Override
-    public void updatePensum(Long id, Pensum pensum) {
+    public void updatePensum(Long id, PensumDto pensumDto) {
         Pensum existingPensum = pensumRepository.findById(id)
                 .orElseThrow(PensumNotFoundException::new);
 
-        existingPensum.setCreditosTotales(pensum.getCreditosTotales());
+        existingPensum.setCreditosTotales(pensumDto.getCreditosTotales());
         existingPensum.setFechaInicio(LocalDate.now());
-        existingPensum.setFechaFinal(pensum.getFechaFinal());
-        existingPensum.setEstatus(pensum.isEstatus());
+        existingPensum.setFechaFinal(pensumDto.getFechaFinal());
+        existingPensum.setEstatus(pensumDto.isEstatus());
 
         pensumRepository.save(existingPensum);
     }
