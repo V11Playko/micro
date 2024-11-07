@@ -41,7 +41,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/public/getUserByEmail").permitAll()
+                        .requestMatchers("/public/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/v1/admin/director/**").hasRole("DIRECTOR")
                         .requestMatchers("/api/v1/admin/docente/**").hasRole("DOCENTE")
