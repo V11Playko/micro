@@ -91,11 +91,19 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        User usuario = userClient.getUser(email);
+        User usuario;
+        List<String> roles;
+        try {
+            usuario = userClient.getUser(email);
+            roles = List.of(usuario.getRole().getNombre());
+        } catch (Exception e) {
+            usuario = new User();
+            usuario.setCorreo(email);
+            roles = List.of("ROLE_VISITANTE");
+        }
 
         Date issuedAt = new Date();
         Date expirationTime = new Date(issuedAt.getTime() + jwtExpirationMinutes * 60 * 1000L);
-        List<String> roles = List.of(usuario.getRole().getNombre());
 
         String jwtToken = Jwts.builder()
                 .setSubject(usuario.getCorreo())
