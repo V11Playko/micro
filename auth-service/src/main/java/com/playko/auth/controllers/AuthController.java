@@ -14,6 +14,7 @@ import com.playko.auth.client.UserClient;
 import com.playko.auth.client.dto.User;
 import com.playko.auth.dtos.TokenDto;
 import com.playko.auth.dtos.UrlDto;
+import com.playko.auth.exceptions.UserNotFoundException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -97,9 +98,7 @@ public class AuthController {
             usuario = userClient.getUser(email);
             roles = List.of(usuario.getRole().getNombre());
         } catch (Exception e) {
-            usuario = new User();
-            usuario.setCorreo(email);
-            roles = List.of("ROLE_VISITANTE");
+            throw new UserNotFoundException("User with email " + email + " does not exist");
         }
 
         Date issuedAt = new Date();

@@ -75,6 +75,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -413,11 +414,14 @@ public class DirectorRestController {
                     @ApiResponse(responseCode = "409", description = "Asignatura already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/saveAsignatura")
-    public ResponseEntity<Map<String, String>> saveAsignatura(@Valid @RequestBody AsignaturaDto asignaturaDto) {
-        asignaturaService.saveAsignatura(asignaturaDto);
+    public ResponseEntity<Map<String, Object>> saveAsignatura(@Valid @RequestBody AsignaturaDto asignaturaDto) {
+        Long idAsignatura = asignaturaService.saveAsignatura(asignaturaDto); // Cambiar para devolver el ID
+        Map<String, Object> response = new HashMap<>();
+        response.put("IdAsignatura", idAsignatura); // Incluye el ID en la respuesta
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CREATED_MESSAGE));
+                .body(response);
     }
+
 
     @Operation(summary = "Updated asignatura",
             responses = {
