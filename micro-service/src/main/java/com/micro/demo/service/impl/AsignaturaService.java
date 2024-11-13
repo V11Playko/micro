@@ -106,21 +106,23 @@ public class AsignaturaService implements IAsignaturaService {
      * Guardar una asignatura
      *
      * @param asignaturaDto - Informacion del area de formacion
-     * @throws AreaFormacionNotFound - Se lanza si no se encuentra el area de formacion.
-     * @throws PreRequisitoNotFound - Se lanza si no se encuentra el pre-requisito.
+     * @return
+     * @throws AreaFormacionNotFound        - Se lanza si no se encuentra el area de formacion.
+     * @throws PreRequisitoNotFound         - Se lanza si no se encuentra el pre-requisito.
      * @throws TipoCursoIncorrectoException - Se lanza si el tipo de curso es incorrecto con respecto al nombre de la asignatura.
-     * */
+     */
     @Override
-    public void saveAsignatura(AsignaturaDto asignaturaDto) {
+    public Long saveAsignatura(AsignaturaDto asignaturaDto) {
         Asignatura asignatura = asignaturaMapper.toEntity(asignaturaDto);
 
         // Manejo manual de preRequisitos
         if (asignaturaDto.getPreRequisitosIds() != null) {
+            Asignatura finalAsignatura = asignatura;
             List<AsignaturaPreRequisito> preRequisitos = asignaturaDto.getPreRequisitosIds().stream()
                     .map(preRequisitoId -> {
                         PreRequisito preRequisito = preRequisitoRepository.findById(preRequisitoId)
                                 .orElseThrow(PreRequisitoNotFound::new);
-                        return new AsignaturaPreRequisito(asignatura, preRequisito);
+                        return new AsignaturaPreRequisito(finalAsignatura, preRequisito);
                     })
                     .collect(Collectors.toList());
             asignatura.setPreRequisitos(preRequisitos);
@@ -154,7 +156,8 @@ public class AsignaturaService implements IAsignaturaService {
             throw new TipoCursoIncorrectoException();
         }
 
-        asignaturaRepository.save(asignatura);
+        asignatura = asignaturaRepository.save(asignatura);
+        return asignatura.getId();
     }
 
     /**

@@ -9,7 +9,7 @@ import java.util.Map;
 public interface IAsignaturaService {
     Map<String, Object> getAllAsignatura(Integer pagina, Integer elementosXpagina);
     Asignatura getAsignatura(Long id);
-    void saveAsignatura(AsignaturaDto asignaturaDto);
+    Long saveAsignatura(AsignaturaDto asignaturaDto);
     void updateAsignatura(Long id, AsignaturaDto asignaturaDto);
     void assignDocentes(Long asignaturaId, List<String> correoDocentes);
     void removeDocente(Long asignaturaId, String correoDocente);

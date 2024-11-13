@@ -5,9 +5,9 @@ spring:
   application:
     name: microcurriculo
   datasource:
-    url: jdbc:postgresql://localhost:5432/microcurriculo
-    username: ${USER}
-    password: ${PASSWORD}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
