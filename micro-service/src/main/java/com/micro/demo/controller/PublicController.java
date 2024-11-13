@@ -2,6 +2,7 @@ package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
 import com.micro.demo.controller.dto.UsuarioDto;
+import com.micro.demo.controller.dto.record.MessageDto;
 import com.micro.demo.entities.ProgramaAcademico;
 import com.micro.demo.entities.Usuario;
 import com.micro.demo.service.IPdfService;
@@ -49,27 +50,11 @@ public class PublicController {
         this.pensumService = pensumService;
     }
 
-
-    /**
-     *
-     * USUARIOS
-     *
-     * **/
-    @Operation(summary = "Add a new user",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "User created",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "409", description = "User already exists",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error"))),
-                    @ApiResponse(responseCode = "403", description = "Role not allowed for user creation",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @PostMapping("/saveVisitante")
-    public ResponseEntity<Map<String, String>> saveVisitante(@Valid @RequestBody UsuarioDto usuarioDTO) {
-        usuarioDTO.setRoleId(4L);
-        usuarioService.saveUser(usuarioDTO);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
+    @GetMapping("/messages")
+    public ResponseEntity<MessageDto> publicMessages() {
+        return ResponseEntity.ok(new MessageDto("public content"));
     }
+
 
     @Operation(summary = "Obtener usuario por correo electrónico")
     @ApiResponses(value = {

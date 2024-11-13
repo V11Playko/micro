@@ -10,6 +10,6 @@ public class PublicController {
 
     @GetMapping("/public/messages")
     public ResponseEntity<MessageDto> publicMessages() {
-        return ResponseEntity.ok(new MessageDto("public content"));
+        return ResponseEntity.ok(new MessageDto("Public content of auth service"));
     }
 }
