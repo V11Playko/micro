@@ -14,10 +14,10 @@ COPY gradle gradle
 COPY src src
 
 # Copiar el archivo jar generado en el contenedor
-COPY build/libs/micro-service-0.0.1-SNAPSHOT.jar /app/microcurriculo.jar
+COPY build/libs/auth-service-0.0.1-SNAPSHOT.jar /app/auth-service.jar
 
-# Exponer el puerto en el que correrá la aplicación
-EXPOSE 8091
+# Exponer el puerto en el que correrá el auth-service
+EXPOSE 8080
 
 # Ejecutar la aplicación
-CMD ["java", "-jar", "/app/microcurriculo.jar"]
+CMD ["java", "-jar", "/app/auth-service.jar"]
