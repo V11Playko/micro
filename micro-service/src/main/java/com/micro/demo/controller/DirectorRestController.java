@@ -1,6 +1,7 @@
 package com.micro.demo.controller;
 
 import com.micro.demo.configuration.Constants;
+import com.micro.demo.configuration.security.userDetails.CustomUserDetails;
 import com.micro.demo.controller.dto.AreaFormacionDto;
 import com.micro.demo.controller.dto.PensumDto;
 import com.micro.demo.controller.dto.PreRequisitoDto;
@@ -58,6 +59,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -81,6 +83,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/admin/director")
+@PreAuthorize("hasAnyRole('ADMIN', 'DIRECTOR')")
 public class DirectorRestController {
 
     private final IUsuarioService usuarioService;
@@ -113,6 +116,35 @@ public class DirectorRestController {
         this.pdfService = pdfService;
         this.historyMovementService = historyMovementService;
         this.usuarioRepository = usuarioRepository;
+    }
+
+    public String getCorreoUsuarioAutenticado() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails) {
+            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+            return userDetails.getUsername();
+        }
+        throw new RuntimeException("Error obteniendo el correo del token.");
+    }
+
+    private boolean isUserInAnyRole(String email, List<String> roles) {
+        Usuario usuario = usuarioRepository.findByCorreo(email);
+        if (usuario == null) {
+            return false;
+        }
+        for (String role : roles) {
+            if (usuario.getRole().getNombre().contains(role)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void checkUserRole(List<String> requiredRoles) {
+        String email = getCorreoUsuarioAutenticado();
+        if (email == null || !isUserInAnyRole(email, requiredRoles)) {
+            throw new UnauthorizedException();
+        }
     }
 
     /**
@@ -417,7 +449,7 @@ public class DirectorRestController {
     public ResponseEntity<Map<String, Object>> saveAsignatura(@Valid @RequestBody AsignaturaDto asignaturaDto) {
         Long idAsignatura = asignaturaService.saveAsignatura(asignaturaDto); // Cambiar para devolver el ID
         Map<String, Object> response = new HashMap<>();
-        response.put("IdAsignatura", idAsignatura); // Incluye el ID en la respuesta
+        response.put("IdAsignatura", idAsignatura);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(response);
     }
