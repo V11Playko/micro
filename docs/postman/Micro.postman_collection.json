@@ -20,7 +20,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yluGqqhbxcPahCsz9mIEkTAjDzyrnZM9l_lC98fuiz1i2NQC5AF8VQUgmCYg0AAUfh0qoqIE9JureeNzh6Pd1j3RR3oc0E-oLeKZ-9-ga_psnRpQmjIh10Abr07U_hYZUj2PnriTeFXQtrd3Ckc3Mf5NpMynENVMtbaCgYKAYwSARMSFQHGX2MiDGaVBNePefyBBzfgMsNrDw0175",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlZHUudWZwczEwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiZ29vZ2xlX2FjY2Vzc190b2tlbiI6InlhMjkuYTBBY002MTJ4NVRkSTg2Nl9EMUw2TXdMUWh5T0VHel9mbTZZenpyMWtwT2hfTEx2aXZYUmIyUmFoOVdMQzBBWUNtM1FWblZKZDQ1RTc1WE51Zl8yamUtc2tlTnJ6bFJpeWg3STl6UVVQaTZPNDhIRGtpY09wNExxdDlGQkU1VUNHeTJmOWhwek81S1NfNWdDLXdyanY3Q3FCSmdoMlBfMHhYMm80V1BrbVZhQ2dZS0FkQVNBUk1TRlFIR1gyTWk4ZWNISDhqNjI5dXRDcmpMekx0ZHl3MDE3NSIsImlhdCI6MTcyOTY5MzMxMSwiZXhwIjozMDI1NjkzMzExfQ.8wwmA8eZn7eWEIYF5ICK0OUQBNLyadXNKp5mBxbF7JOtOC2wKeVY_rPSByIJTwQuh9zkPw_rB1RwlxP-27Fz7w",
 											"type": "string"
 										}
 									]
@@ -35,12 +35,15 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/allUsers?pagina=1&elementosXpagina=",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/allUsers?pagina=1&elementosXpagina=3",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -54,7 +57,7 @@
 										},
 										{
 											"key": "elementosXpagina",
-											"value": ""
+											"value": "3"
 										}
 									]
 								}
@@ -69,7 +72,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgvrWwMw08LQyQmm5SXsU4Kq5Cqw5SaVCj9L4qUIpyceRt1QEd0vYduEkQ0Ti972aXAl3i25wKqrwFaqKYLP1mLDSyBzzo_C7JbHs4T6U7qsNkAMhkF6JSi6xRlSZOkTJ0mR7_eXD15FWQ9GcNY5Sr-izFKkAe1TaCgYKAewSARMSFQHGX2Mihsow4zjILMJtRNCnRxg8rQ0171",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlZHUudWZwczEwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiZ29vZ2xlX2FjY2Vzc190b2tlbiI6InlhMjkuYTBBY002MTJ4NVRkSTg2Nl9EMUw2TXdMUWh5T0VHel9mbTZZenpyMWtwT2hfTEx2aXZYUmIyUmFoOVdMQzBBWUNtM1FWblZKZDQ1RTc1WE51Zl8yamUtc2tlTnJ6bFJpeWg3STl6UVVQaTZPNDhIRGtpY09wNExxdDlGQkU1VUNHeTJmOWhwek81S1NfNWdDLXdyanY3Q3FCSmdoMlBfMHhYMm80V1BrbVZhQ2dZS0FkQVNBUk1TRlFIR1gyTWk4ZWNISDhqNjI5dXRDcmpMekx0ZHl3MDE3NSIsImlhdCI6MTcyOTY5MzMxMSwiZXhwIjozMDI1NjkzMzExfQ.8wwmA8eZn7eWEIYF5ICK0OUQBNLyadXNKp5mBxbF7JOtOC2wKeVY_rPSByIJTwQuh9zkPw_rB1RwlxP-27Fz7w",
 											"type": "string"
 										}
 									]
@@ -110,7 +113,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612xZQwLqHzCZqknX-vUh0jM9oDSbl_Y9z2iR3FF67Te-t6If13KTUvc3D-CE9dA65uwcvVYnZx3iRDT4erqHBstHxHb7G_W8HBgMA5mDsyzpE4o_z0Sm1bs4_lLEUGbWCKMc3SnavBU-t1h24aVvXMMGrpdTUkYpfH5FaCgYKAfASARMSFQHGX2Mi9Bmpp8gX0-VNRHXEqKon8A0175",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlZHUudWZwczEwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiZ29vZ2xlX2FjY2Vzc190b2tlbiI6InlhMjkuYTBBY002MTJ4NVRkSTg2Nl9EMUw2TXdMUWh5T0VHel9mbTZZenpyMWtwT2hfTEx2aXZYUmIyUmFoOVdMQzBBWUNtM1FWblZKZDQ1RTc1WE51Zl8yamUtc2tlTnJ6bFJpeWg3STl6UVVQaTZPNDhIRGtpY09wNExxdDlGQkU1VUNHeTJmOWhwek81S1NfNWdDLXdyanY3Q3FCSmdoMlBfMHhYMm80V1BrbVZhQ2dZS0FkQVNBUk1TRlFIR1gyTWk4ZWNISDhqNjI5dXRDcmpMekx0ZHl3MDE3NSIsImlhdCI6MTcyOTY5MzMxMSwiZXhwIjozMDI1NjkzMzExfQ.8wwmA8eZn7eWEIYF5ICK0OUQBNLyadXNKp5mBxbF7JOtOC2wKeVY_rPSByIJTwQuh9zkPw_rB1RwlxP-27Fz7w",
 											"type": "string"
 										}
 									]
@@ -118,12 +121,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/getUser/1",
+									"raw": "http://localhost:8091/api/v1/admin/getUser/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8091",
 									"path": [
 										"api",
 										"v1",
@@ -143,7 +146,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yNs1J7EhKq86rukdvRr8zl7KmMk59YUajLlfrVulRgnfcr9BtGTBAJEYKmPyzHHMs3iU3sHnwdFqwc9JEtx1drLK6qBk02KyCHrl9wMzL3YlDFqFGPTbxkd64t46eKdENeaydX1rgjEWshNqnL04mF3mn5_LlskXLJaCgYKASwSARMSFQHGX2MiekwB47EyzCybS4as2akiGg0175",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlZHUudWZwczEwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiZ29vZ2xlX2FjY2Vzc190b2tlbiI6InlhMjkuYTBBZURDbFpCVnVwY2RRRGU2dElRT0xhbnJ0QzZVMG5yaGhGbk5hSWsxakJaWTJQRVcxWm1sMllKY0U4QV95cTNJeVl4TG5JTW5xYWJkUEpBUnRsWnk0Nm5QZTJMMWRQbl9jUVlHZHFZSzJtblN2amlxTUxkR1dmQlNsRGphTVBGV25rd2FtV2dqMEhndHVTcnlrWUxmdlhOQmZPVFFRQWFQMEJaR2NxdWRhQ2dZS0FUOFNBUk1TRlFIR1gyTWlLdGVXQmhtS2VjeDhRWUNSLTZKVnZnMDE3NSIsImlhdCI6MTczMTU0NDE5NSwiZXhwIjozMDI3NTQ0MTk1fQ.JHE8d2uJGW726cDYAw2IenGyei_RY2REDW2CiaiVp3y0lo_5W0nYGYaotVngddDF_YSmZiR81w-Ftlf7h33FEw",
 											"type": "string"
 										}
 									]
@@ -152,7 +155,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Juana\",\r\n    \"apellido\": \"Ortiz\",\r\n    \"numeroCelular\": \"+57 3134674399\",\r\n    \"correo\": \"heinnervega20@gmail.com\",\r\n    \"contraseña\": \"Ortiz\"\r\n}",
+									"raw": "{\r\n    \"nombre\": \"Yeison\",\r\n    \"apellido\": \"Ortiz\",\r\n    \"numeroCelular\": \"+57 3134674332\",\r\n    \"correo\": \"heinnervega20@gmail.com\",\r\n    \"contraseña\": \"Ortiz\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -160,12 +163,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/saveDirector",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/saveDirector",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1101,7 +1107,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yZ-OaJpllla_S0nJWq7T63ZfW51s30x4lJEm9l7t5kpNd0o0vfLoG-bKcZXTHK8LRQZlPbI-hV2xnNEVTsenzP--hfOC4FD17L75ehStL1uPns56ALhYcb6xwj4Tta6bbr9TJIBc9BygSNSinxBF-PBuWErydZS1ZkaCgYKAXgSARMSFQHGX2MiZr2Dtm7o2B-pvknR05FgTw0175",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiZ29vZ2xlX2FjY2Vzc190b2tlbiI6InlhMjkuYTBBZURDbFpBdENQZ2tfa25EeW9QRG1YSkdzcnBSSFhWczlnaXRzM2huZnVlcVAwakdkSXJzaWp3ZzBiamtVdGdBbGRsaEhjck1hLWdTQzhTNVpuUmE1ZDluQk5DVS1qRVJRWjhXSlM2Nm5ZbnZ4b2ZjQUZTZzBza2hCTV9leURLM1pXV1lXVm9Jc25SczZNS0hqWnZhbDZkV3JYZjlEYndiY0VvX3hEODNhQ2dZS0FhMFNBUk1TRlFIR1gyTWlROFQ0TWhOSUh5eWdYMXlmNnVUZUx3MDE3NSIsImlhdCI6MTczMTU0NDkwMywiZXhwIjozMDI3NTQ0OTAzfQ.5IvNIImJY64LKq3A8oAu3nmkzqmzVRaEzQcnNPt_WpiRIAZOrxOYXIuHf_Me68xWMSxX2sPqSQQKysiY1j_vLw",
 											"type": "string"
 										}
 									]
@@ -1118,12 +1124,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/saveAreaFormacion",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/saveAreaFormacion",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1259,7 +1268,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yZ-OaJpllla_S0nJWq7T63ZfW51s30x4lJEm9l7t5kpNd0o0vfLoG-bKcZXTHK8LRQZlPbI-hV2xnNEVTsenzP--hfOC4FD17L75ehStL1uPns56ALhYcb6xwj4Tta6bbr9TJIBc9BygSNSinxBF-PBuWErydZS1ZkaCgYKAXgSARMSFQHGX2MiZr2Dtm7o2B-pvknR05FgTw0175",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiZ29vZ2xlX2FjY2Vzc190b2tlbiI6InlhMjkuYTBBZURDbFpBdENQZ2tfa25EeW9QRG1YSkdzcnBSSFhWczlnaXRzM2huZnVlcVAwakdkSXJzaWp3ZzBiamtVdGdBbGRsaEhjck1hLWdTQzhTNVpuUmE1ZDluQk5DVS1qRVJRWjhXSlM2Nm5ZbnZ4b2ZjQUZTZzBza2hCTV9leURLM1pXV1lXVm9Jc25SczZNS0hqWnZhbDZkV3JYZjlEYndiY0VvX3hEODNhQ2dZS0FhMFNBUk1TRlFIR1gyTWlROFQ0TWhOSUh5eWdYMXlmNnVUZUx3MDE3NSIsImlhdCI6MTczMTU0NDkwMywiZXhwIjozMDI3NTQ0OTAzfQ.5IvNIImJY64LKq3A8oAu3nmkzqmzVRaEzQcnNPt_WpiRIAZOrxOYXIuHf_Me68xWMSxX2sPqSQQKysiY1j_vLw",
 											"type": "string"
 										}
 									]
@@ -1276,12 +1285,15 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/savePreRequisito",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/savePreRequisito",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"v1",
@@ -1336,44 +1348,122 @@
 							"name": "All Asignaturas",
 							"request": {
 								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AcM612xgfqsoz2t2OHecnVY6Tv6pFNMP4FYf2jbQ2e3UZfrj2H-xcwRSzmFLvug1pAiCbIN4ya1Jmk1hfCFsvkhqwieCSY7SKwjcL1gwoix6Tk8_PLuNDokv1LFL2R_zy1DB1rZWUNEel-vOE0DDeWLJ1DR-njUzhGcTvXKFaCgYKAWoSARMSFQHGX2MiOQUg-pERIIQ-Pc6dndvErg0175",
-											"type": "string"
-										}
-									]
+									"type": "noauth"
 								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/allAsignaturas?pagina=1&elementosXpagina=2",
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/public/getUserByEmail?correo=edu.ufps10@gmail.com",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
 									],
-									"port": "8080",
 									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"allAsignaturas"
+										"public",
+										"getUserByEmail"
 									],
 									"query": [
 										{
-											"key": "pagina",
-											"value": "1"
-										},
-										{
-											"key": "elementosXpagina",
-											"value": "2"
+											"key": "correo",
+											"value": "edu.ufps10@gmail.com"
 										}
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "All Asignaturas",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8091/public/getUserByEmail?edu.ufps10@gmail.com",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8091",
+											"path": [
+												"public",
+												"getUserByEmail"
+											],
+											"query": [
+												{
+													"key": "edu.ufps10@gmail.com",
+													"value": null
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Method"
+										},
+										{
+											"key": "Vary",
+											"value": "Access-Control-Request-Headers"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, no-store, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "Expires",
+											"value": "0"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "121"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Nov 2024 02:00:38 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"path\": \"/error\",\n    \"error\": \"Unauthorized\",\n    \"message\": \"Full authentication is required to access this resource\",\n    \"status\": 401\n}"
+								}
+							]
 						},
 						{
 							"name": "By Id",
@@ -1417,7 +1507,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlZHUudWZwczEwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiZ29vZ2xlX2FjY2Vzc190b2tlbiI6InlhMjkuYTBBY002MTJ4NVRkSTg2Nl9EMUw2TXdMUWh5T0VHel9mbTZZenpyMWtwT2hfTEx2aXZYUmIyUmFoOVdMQzBBWUNtM1FWblZKZDQ1RTc1WE51Zl8yamUtc2tlTnJ6bFJpeWg3STl6UVVQaTZPNDhIRGtpY09wNExxdDlGQkU1VUNHeTJmOWhwek81S1NfNWdDLXdyanY3Q3FCSmdoMlBfMHhYMm80V1BrbVZhQ2dZS0FkQVNBUk1TRlFIR1gyTWk4ZWNISDhqNjI5dXRDcmpMekx0ZHl3MDE3NSIsImlhdCI6MTcyOTY5MzMxMSwiZXhwIjozMDI1NjkzMzExfQ.8wwmA8eZn7eWEIYF5ICK0OUQBNLyadXNKp5mBxbF7JOtOC2wKeVY_rPSByIJTwQuh9zkPw_rB1RwlxP-27Fz7w",
 											"type": "string"
 										}
 									]
@@ -1426,7 +1516,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"ELECTRONICA\",\r\n    \"codigo\": 1155503,\r\n    \"accFormacionInv\": \"Acción de Formación Inversión\",\r\n    \"bibliografia\": \"Bibliografía de referencia\",\r\n    \"creditos\": 2,\r\n    \"hp\": \"2\",\r\n    \"ht\": \"8\",\r\n    \"had\": \"6\",\r\n    \"hti\": \"8\",\r\n    \"hadhti\": \"34\",\r\n    \"justificacion\": \"Justificación del curso\",\r\n    \"metodologia\": \"Metodología de enseñanza\",\r\n    \"objetivos\": [\r\n        \"Entender los conceptos básicos de álgebra\",\r\n        \"Aplicar técnicas avanzadas en cálculo\"\r\n    ],\r\n    \"semestre\": \"5\",\r\n    \"tipoCredito\": \"Crédito académico\",\r\n    \"tipoCurso\": \"OBLIGATORIA\",\r\n    \"asignaturaSucesora\": \"Ninguna\",\r\n    \"asignaturaPredecesora\": \"Ninguna\",\r\n\"preRequisitosIds\": [\r\n    1\r\n  ],\r\n    \"competenciaId\": 1,\r\n    \"areaFormacionId\": 1\r\n    \r\n}\r\n",
+									"raw": "{\r\n    \"nombre\": \"MATEMATICAS DISCRETAS\",\r\n    \"codigo\": 116247,\r\n    \"accFormacionInv\": \"Acción de Formación Inversión\",\r\n    \"bibliografia\": \"Bibliografía de referencia\",\r\n    \"creditos\": 2,\r\n    \"hp\": \"2\",\r\n    \"ht\": \"8\",\r\n    \"had\": \"6\",\r\n    \"hti\": \"8\",\r\n    \"hadhti\": \"34\",\r\n    \"justificacion\": \"Justificación del curso\",\r\n    \"metodologia\": \"Metodología de enseñanza\",\r\n    \"objetivos\": [\r\n        \"Entender los conceptos básicos de álgebra\",\r\n        \"Aplicar técnicas avanzadas en cálculo\"\r\n    ],\r\n    \"semestre\": \"5\",\r\n    \"tipoCredito\": \"Crédito académico\",\r\n    \"tipoCurso\": \"OBLIGATORIA\",\r\n    \"asignaturaSucesora\": \"Ninguna\",\r\n    \"asignaturaPredecesora\": \"Ninguna\",\r\n\"preRequisitosIds\": [\r\n    1\r\n  ],\r\n    \"competenciaId\": 1,\r\n    \"areaFormacionId\": 1\r\n    \r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1434,12 +1524,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/saveAsignatura",
+									"raw": "http://localhost:8091/api/v1/admin/director/saveAsignatura",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8091",
 									"path": [
 										"api",
 										"v1",
@@ -2512,6 +2602,215 @@
 					]
 				},
 				{
+					"name": "Manage Competencia",
+					"item": [
+						{
+							"name": "All Competencias",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AcM612yluGqqhbxcPahCsz9mIEkTAjDzyrnZM9l_lC98fuiz1i2NQC5AF8VQUgmCYg0AAUfh0qoqIE9JureeNzh6Pd1j3RR3oc0E-oLeKZ-9-ga_psnRpQmjIh10Abr07U_hYZUj2PnriTeFXQtrd3Ckc3Mf5NpMynENVMtbaCgYKAYwSARMSFQHGX2MiDGaVBNePefyBBzfgMsNrDw0175",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/allCompetencias?pagina=1&elementosXpagina=",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"allCompetencias"
+									],
+									"query": [
+										{
+											"key": "pagina",
+											"value": "1"
+										},
+										{
+											"key": "elementosXpagina",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "By Id",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/getCompetencia/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"getCompetencia",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Competencia",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoZWlubmVydmVnYTIwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRElSRUNUT1IiXSwiZ29vZ2xlX2FjY2Vzc190b2tlbiI6InlhMjkuYTBBZURDbFpBdENQZ2tfa25EeW9QRG1YSkdzcnBSSFhWczlnaXRzM2huZnVlcVAwakdkSXJzaWp3ZzBiamtVdGdBbGRsaEhjck1hLWdTQzhTNVpuUmE1ZDluQk5DVS1qRVJRWjhXSlM2Nm5ZbnZ4b2ZjQUZTZzBza2hCTV9leURLM1pXV1lXVm9Jc25SczZNS0hqWnZhbDZkV3JYZjlEYndiY0VvX3hEODNhQ2dZS0FhMFNBUk1TRlFIR1gyTWlROFQ0TWhOSUh5eWdYMXlmNnVUZUx3MDE3NSIsImlhdCI6MTczMTU0NDkwMywiZXhwIjozMDI3NTQ0OTAzfQ.5IvNIImJY64LKq3A8oAu3nmkzqmzVRaEzQcnNPt_WpiRIAZOrxOYXIuHf_Me68xWMSxX2sPqSQQKysiY1j_vLw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"re re re melo\",\r\n  \"descripcion\": \"aja\",\r\n  \"estatus\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/api/v1/admin/director/saveCompetencia",
+									"protocol": "http",
+									"host": [
+										"ALB-micro-1831133009",
+										"us-east-1",
+										"elb",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"saveCompetencia"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Competencia",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Prueba\",\r\n  \"descripcion\": \"Prueba\",\r\n  \"estatus\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/updateCompetencia/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"updateCompetencia",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Competencia",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/admin/director/deleteCompetencia/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"director",
+										"deleteCompetencia",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Manage Unidad",
 					"item": [
 						{
@@ -2762,212 +3061,6 @@
 										"director",
 										"deleteUnidad",
 										"2"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Manage Competencia",
-					"item": [
-						{
-							"name": "All Competencias",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AcM612yluGqqhbxcPahCsz9mIEkTAjDzyrnZM9l_lC98fuiz1i2NQC5AF8VQUgmCYg0AAUfh0qoqIE9JureeNzh6Pd1j3RR3oc0E-oLeKZ-9-ga_psnRpQmjIh10Abr07U_hYZUj2PnriTeFXQtrd3Ckc3Mf5NpMynENVMtbaCgYKAYwSARMSFQHGX2MiDGaVBNePefyBBzfgMsNrDw0175",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 2\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/allCompetencias?pagina=1&elementosXpagina=",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"allCompetencias"
-									],
-									"query": [
-										{
-											"key": "pagina",
-											"value": "1"
-										},
-										{
-											"key": "elementosXpagina",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "By Id",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/getCompetencia/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"getCompetencia",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Save Competencia",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AcM612yGORekaAaon-39ed-SjLCgC3cRN36RQ_XafESeMyK7hJ2I3C1j8lALG-IuFaEVr6m__J8QtKjPlZeOaC0hWIqcwiEHvQAx-PWXXdopBlF_gyZKDa4OlSCmmuaMDpd5hfBowpCY2TPLrdLC8tCalsebxynUbmD1KWUSaCgYKAZgSARMSFQHGX2MiH0rt6zjspDYdYMy32AdMwA0175",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"re re re melo\",\r\n  \"descripcion\": \"aja\",\r\n  \"estatus\": true\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/saveCompetencia",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"saveCompetencia"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update Competencia",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"nombre\": \"Prueba\",\r\n  \"descripcion\": \"Prueba\",\r\n  \"estatus\": false\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/updateCompetencia/3",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"updateCompetencia",
-										"3"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Competencia",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AXooCgvpWDURMtR_osIwKVDn6I_M8SDbGUpfzhIV7-s7kVqsDk-7m7gmQO_8MpVsOyW1D0neWmhc5AbNPrHbeRJ0QOgOfU-DcDq3JD8wKex_VwmkuONh4CKHs-S5pH19inKJlo-RZsO0l08jCCUgvKksLgo3juiol9R0aCgYKATgSARMSFQHGX2MiG2ZoKFfseSE5G47Ye3nyOA0171",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/director/deleteCompetencia/3",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"director",
-										"deleteCompetencia",
-										"3"
 									]
 								}
 							},
@@ -3453,7 +3546,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "ya29.a0AXooCgtuJIRqhr8snbCiFe7dglJ9gHG3HVbjuLkj1RmI-vMnNly_RqDgxNhC4gqlOgqJ6VsPkN1PLKnjrdqKVqJbXq-AGI8Uht9YVoM6p8XwItnvKuZEpGBSDQR0TMcqFMmFg6rHWVZwfgh_6zdBc0e5g-Z9W6jzgEx9aCgYKAQcSARISFQHGX2MiRgnhYIn0woJTRdfvQLG9fw0171",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlZHUudWZwczEwQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiZ29vZ2xlX2FjY2Vzc190b2tlbiI6InlhMjkuYTBBY002MTJ4NVRkSTg2Nl9EMUw2TXdMUWh5T0VHel9mbTZZenpyMWtwT2hfTEx2aXZYUmIyUmFoOVdMQzBBWUNtM1FWblZKZDQ1RTc1WE51Zl8yamUtc2tlTnJ6bFJpeWg3STl6UVVQaTZPNDhIRGtpY09wNExxdDlGQkU1VUNHeTJmOWhwek81S1NfNWdDLXdyanY3Q3FCSmdoMlBfMHhYMm80V1BrbVZhQ2dZS0FkQVNBUk1TRlFIR1gyTWk4ZWNISDhqNjI5dXRDcmpMekx0ZHl3MDE3NSIsImlhdCI6MTcyOTY5MzMxMSwiZXhwIjozMDI1NjkzMzExfQ.8wwmA8eZn7eWEIYF5ICK0OUQBNLyadXNKp5mBxbF7JOtOC2wKeVY_rPSByIJTwQuh9zkPw_rB1RwlxP-27Fz7w",
 											"type": "string"
 										}
 									]
@@ -3470,12 +3563,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/docente/allProgramasAcademicos",
+									"raw": "http://localhost:8091/api/v1/admin/docente/allProgramasAcademicos",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8091",
 									"path": [
 										"api",
 										"v1",
@@ -3777,173 +3870,6 @@
 			]
 		},
 		{
-			"name": "Visitante",
-			"item": [
-				{
-					"name": "Manage Me",
-					"item": [
-						{
-							"name": "Save Visitante",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"nombre\": \"Gabriel\",\r\n    \"apellido\": \"Mejia\",\r\n    \"numeroCelular\": \"+57 3134647124\",\r\n    \"correo\": \"gabriel@gmail.com\",\r\n    \"contraseña\": \"Mejia\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/visitante/saveVisitante",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"visitante",
-										"saveVisitante"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Manage ProgramaAcademico",
-					"item": [
-						{
-							"name": "All Programas",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AXooCgtQJO2LCHcfjp2thMFosbEMyclcnazhq_P14-mKpT_FMGXEx2OFobhmF4r8dZ0pQvwvVFFMD68O2Dv5x_F4QOaemN_WxEDO9iKlXSJU6FswNWtB-_GI1FvMHzlMwjuFX0MKrnGcSentJMswAIOqCdErjxVAaMeZaCgYKASwSARMSFQHGX2MiSNoAMkGMTjNE8xXOEPL8lg0171",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"pagina\": 1,\r\n  \"elementosXpagina\": 3\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/visitante/allProgramasAcademicos",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"visitante",
-										"allProgramasAcademicos"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "By Nombre",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AXooCgsI3tKEmNl97LJr5Wyv2D8SfiXGa9Y1CL0-yPWTk6_NoGa1ZbwQJkRQqoRLgUXNQ2CJfMq0Tz8z6rHn4SKcfIeiKrBh12AmPVAXYZlBmAGHUHQ2J92gJDBCI5BVTcXjemCwm30IwArwCaU4ZMfE8sYC1d1cEFBgaCgYKAWkSARISFQHGX2MiSCvVGnKFbJxQLCNdtww1cQ0171",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/visitante/Ingenieria de sistemas",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"visitante",
-										"Ingenieria de sistemas"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Manage Pensum",
-					"item": [
-						{
-							"name": "Generate PDF",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "ya29.a0AXooCgsI3tKEmNl97LJr5Wyv2D8SfiXGa9Y1CL0-yPWTk6_NoGa1ZbwQJkRQqoRLgUXNQ2CJfMq0Tz8z6rHn4SKcfIeiKrBh12AmPVAXYZlBmAGHUHQ2J92gJDBCI5BVTcXjemCwm30IwArwCaU4ZMfE8sYC1d1cEFBgaCgYKAWkSARISFQHGX2MiSCvVGnKFbJxQLCNdtww1cQ0171",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/v1/admin/visitante/generatePdf/3",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"admin",
-										"visitante",
-										"generatePdf",
-										"3"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
 			"name": "Public content",
 			"request": {
 				"method": "GET",
@@ -4005,12 +3931,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/public/allPensums?pagina=1&elementosXpagina=2",
+					"raw": "http://ALB-micro-1831133009.us-east-1.elb.amazonaws.com/public/allPensums?pagina=1&elementosXpagina=2",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"ALB-micro-1831133009",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"public",
 						"allPensums"
