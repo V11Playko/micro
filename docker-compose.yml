@@ -1,5 +1,9 @@
 version: "3.8"
 
+networks:
+  app-network:
+    driver: bridge
+
 services:
   auth-service:
     image: auth-service:1.0.0
@@ -11,6 +15,8 @@ services:
       - CLIENTSECRET=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
       - KEYSECRET_SECURITY=eyTJhbGcdiOiJIUzUxMiIsInR5cCI6IkpaXVCJ9.eyJzdWIiOiIxMjM0NTY3sdODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.nZU_gPcMXkWpkCUpJceSxS7lSickF0tTImHhAR949Z-Nt69LgW8G6lid-mqd9B579tYM8C4FN2jdhR2VRMsjtA
       - EXPIRE_DAYS_SECURITY=21600000
+    networks:
+      - app-network
 
   microcurriculo:
     image: microcurriculo:1.0.0
@@ -30,6 +36,8 @@ services:
       - microcurriculo-db
     volumes:
       - microcurriculo-data:/var/lib/postgresql/data
+    networks:
+      - app-network
 
   microcurriculo-db:
     container_name: microcurriculo-db
@@ -42,6 +50,8 @@ services:
       POSTGRES_PASSWORD: komodor11
     volumes:
       - microcurriculo-data:/var/lib/postgresql/data
+    networks:
+      - app-network
 
 volumes:
   microcurriculo-data:
