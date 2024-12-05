@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
 
     @Value("${spring.security.oauth2.resourceserver.opaque-token.clientId}")
@@ -54,7 +56,7 @@ public class AuthController {
     }
 
 
-    @GetMapping("/auth/url")
+    @GetMapping("/url")
     public ResponseEntity<UrlDto> auth() {
         String url = new GoogleAuthorizationCodeRequestUrl(clientId,
                 "http://localhost:4200",
@@ -66,7 +68,7 @@ public class AuthController {
         return ResponseEntity.ok(new UrlDto(url));
     }
 
-    @GetMapping("/auth/callback")
+    @GetMapping("/callback")
     public ResponseEntity<TokenDto> callback(@RequestParam("code") String code) throws URISyntaxException {
         GoogleTokenResponse tokenResponse;
         try {
@@ -79,6 +81,7 @@ public class AuthController {
                     "http://localhost:4200"
             ).execute();
         } catch (IOException e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
