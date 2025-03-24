@@ -33,14 +33,12 @@ public class ResultadoAprendizajeService implements IResultadoAprendizajeService
     private final ICompetenciaRepository competenciaRepository;
     private final ICompetenciaResultadoRepository competenciaResultadoRepository;
     private final ResultadoAprendizajeMapper resultadoAprendizajeMapper;
-    private final IEvaluacionResultadoAprendizajeRepository evaluacionResultadoAprendizajeRepository;
 
-    public ResultadoAprendizajeService(IResultadoAprendizajeRepository resultadoAprendizajeRepository, ICompetenciaRepository competenciaRepository, ICompetenciaResultadoRepository competenciaResultadoRepository, ResultadoAprendizajeMapper resultadoAprendizajeMapper, IEvaluacionResultadoAprendizajeRepository evaluacionResultadoAprendizajeRepository) {
+    public ResultadoAprendizajeService(IResultadoAprendizajeRepository resultadoAprendizajeRepository, ICompetenciaRepository competenciaRepository, ICompetenciaResultadoRepository competenciaResultadoRepository, ResultadoAprendizajeMapper resultadoAprendizajeMapper) {
         this.resultadoAprendizajeRepository = resultadoAprendizajeRepository;
         this.competenciaRepository = competenciaRepository;
         this.competenciaResultadoRepository = competenciaResultadoRepository;
         this.resultadoAprendizajeMapper = resultadoAprendizajeMapper;
-        this.evaluacionResultadoAprendizajeRepository = evaluacionResultadoAprendizajeRepository;
     }
 
     /**

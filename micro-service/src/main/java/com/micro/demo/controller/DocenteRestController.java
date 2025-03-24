@@ -51,15 +51,13 @@ public class DocenteRestController {
     private final IProgramaAcademicoService programaAcademicoService;
     private final IPdfService pdfService;
     private final IHistoryMovementService historyMovementService;
-    private final IUsuarioRepository usuarioRepository;
 
 
-    public DocenteRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService, IPdfService pdfService, IHistoryMovementService historyMovementService, IUsuarioRepository usuarioRepository) {
+    public DocenteRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService, IPdfService pdfService, IHistoryMovementService historyMovementService) {
         this.usuarioService = usuarioService;
         this.programaAcademicoService = programaAcademicoService;
         this.pdfService = pdfService;
         this.historyMovementService = historyMovementService;
-        this.usuarioRepository = usuarioRepository;
     }
 
     /**

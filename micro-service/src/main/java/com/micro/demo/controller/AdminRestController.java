@@ -54,14 +54,12 @@ public class AdminRestController {
     private final IProgramaAcademicoService programaAcademicoService;
     private final IPdfService pdfService;
     private final IPensumService pensumService;
-    private final IUsuarioRepository usuarioRepository;
 
-    public AdminRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService, IPdfService pdfService, IPensumService pensumService, IUsuarioRepository usuarioRepository) {
+    public AdminRestController(IUsuarioService usuarioService, IProgramaAcademicoService programaAcademicoService, IPdfService pdfService, IPensumService pensumService) {
         this.usuarioService = usuarioService;
         this.programaAcademicoService = programaAcademicoService;
         this.pdfService = pdfService;
         this.pensumService = pensumService;
-        this.usuarioRepository = usuarioRepository;
     }
 
     /**
